@@ -1,8 +1,9 @@
+using FishNet.Object;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputs : MonoBehaviour
+public class PlayerInputs : NetworkBehaviour
 {
     private Vector2 _moveInput;
 
@@ -23,10 +24,5 @@ public class PlayerInputs : MonoBehaviour
     public void OnAttack(InputValue value)
     {
         OnAttackInput?.Invoke();
-    }
-
-    private void Update()
-    {
-
     }
 }

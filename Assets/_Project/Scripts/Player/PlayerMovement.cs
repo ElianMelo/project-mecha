@@ -1,6 +1,7 @@
+using FishNet.Object;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] private float movementSpeed;
     [SerializeField] private float jumpForce;
@@ -14,8 +15,10 @@ public class PlayerMovement : MonoBehaviour
 
     private const string RunningAnim = "Running";
 
-    void Start()
+    public override void OnStartClient()
     {
+        if (!IsOwner) return;
+        base.OnStartClient();
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         inputs = GetComponent<PlayerInputs>();
@@ -24,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!IsOwner) return;
         HandleMovement();
     }
 

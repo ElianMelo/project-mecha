@@ -1,10 +1,10 @@
+using FishNet.Component.Animating;
 using FishNet.Object;
-using UnityEngine;
 
 public class PlayerAttack : NetworkBehaviour
 {
     private PlayerInputs inputs;
-    private Animator animator;
+    private NetworkAnimator animator;
 
     private const string AttackAnim = "Attack";
 
@@ -13,7 +13,7 @@ public class PlayerAttack : NetworkBehaviour
         if (!IsOwner) return;
         base.OnStartClient();
         inputs = GetComponent<PlayerInputs>();
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponentInChildren<NetworkAnimator>();
         inputs.OnAttackInput += HandleAttack;
     }
 

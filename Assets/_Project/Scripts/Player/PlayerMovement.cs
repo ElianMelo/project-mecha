@@ -47,7 +47,7 @@ public class PlayerMovement : NetworkBehaviour
     public void HandleDirection()
     {
         var direction = moveInputFiltered.x > 0 ? 1f : -1f;
-        visuals.transform.rotation = Quaternion.Euler(0f, 90f * direction, 0f);
+        transform.rotation = Quaternion.Euler(0f, 90f * direction, 0f);
     }
 
     public void HandleJump()

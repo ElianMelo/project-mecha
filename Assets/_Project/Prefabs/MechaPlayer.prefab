@@ -1,5 +1,88 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &598001145808897339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5066715013792906358}
+  - component: {fileID: 3699042162724189939}
+  - component: {fileID: 7241787598008311686}
+  m_Layer: 0
+  m_Name: CapsuleSword
+  m_TagString: Sword
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5066715013792906358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598001145808897339}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.034453794, y: -0.010431823, z: 0.79324085, w: 0.60784304}
+  m_LocalPosition: {x: -1.38, y: -0.37, z: 0.04}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1150460158141792288}
+  m_LocalEulerAnglesHint: {x: 3.35, y: 2.41, z: 105.146}
+--- !u!136 &3699042162724189939
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598001145808897339}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 11.835958
+  m_Direction: 1
+  m_Center: {x: 0.000011414582, y: -2.114369, z: 0.000012983032}
+--- !u!54 &7241787598008311686
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598001145808897339}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1554257071974495511
 GameObject:
   m_ObjectHideFlags: 0
@@ -16,6 +99,8 @@ GameObject:
   - component: {fileID: 1628554577923205467}
   - component: {fileID: 9003777642885895122}
   - component: {fileID: 6879919603248285336}
+  - component: {fileID: 4537651670445241914}
+  - component: {fileID: 2972072107767035201}
   m_Layer: 0
   m_Name: MechaPlayer
   m_TagString: Untagged
@@ -32,7 +117,7 @@ Transform:
   m_GameObject: {fileID: 1554257071974495511}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15118, y: -0.102, z: 0.02026}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -64,7 +149,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!136 &1155694695204934803
 CapsuleCollider:
@@ -131,9 +216,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c01fec7b9dd8524a88ccef3ebadb453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 6879919603248285336}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 6879919603248285336}
   movementSpeed: 5
   jumpForce: 5
   visuals: {fileID: 5944004185166973327}
@@ -149,9 +234,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc774187d74af140b89e436ac60086a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInput
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 6879919603248285336}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 6879919603248285336}
 --- !u!114 &9003777642885895122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,9 +249,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b4690f9d537ad488b087ef27f428e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
-  _componentIndexCache: 255
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 6879919603248285336}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 6879919603248285336}
 --- !u!114 &6879919603248285336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,7 +298,9 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
-  - {fileID: 0}
+  - {fileID: 832529724963404401}
+  - {fileID: 1628554577923205467}
+  - {fileID: 9003777642885895122}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -224,7 +311,75 @@ MonoBehaviour:
   _initializeOrder: 0
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 0
-  _initializedTimestamp: -8584151956766020398
+  _initializedTimestamp: -8584151123785405518
+--- !u!114 &4537651670445241914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554257071974495511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Animating.NetworkAnimator
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 6879919603248285336}
+  _networkObjectCache: {fileID: 0}
+  IgnoredParameters: []
+  _animator: {fileID: 9191244236643405155}
+  _synchronizeWhenDisabled: 0
+  _smoothFloats: 1
+  _interpolation: 2
+  _clientAuthoritative: 1
+  _sendToOwner: 0
+--- !u!114 &2972072107767035201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554257071974495511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 6879919603248285336}
+  _networkObjectCache: {fileID: 0}
+  _componentConfiguration: 0
+  _synchronizeParent: 0
+  _packing:
+    Position: 1
+    Rotation: 1
+    Scale: 0
+  _useScaledTime: 1
+  _interpolation: 2
+  _extrapolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _clientAuthoritative: 1
+  _sendToOwner: 1
+  _interval: 1
+  _synchronizePosition: 1
+  _positionSensitivity: 0.001
+  _positionSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeRotation: 1
+  _rotationSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeScale: 1
+  _scaleSensitivity: 0.001
+  _scaleSnapping:
+    X: 0
+    Y: 0
+    Z: 0
 --- !u!1001 &611917899391920075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -291,11 +446,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 97a04097a7853e44f8f97175ee0f20cf, type: 3}
       propertyPath: m_Name
-      value: cassiuss
+      value: CassiussSword
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 97a04097a7853e44f8f97175ee0f20cf, type: 3}
+      propertyPath: m_TagString
+      value: Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 97a04097a7853e44f8f97175ee0f20cf, type: 3}
+      propertyPath: m_TagString
+      value: Sword
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 97a04097a7853e44f8f97175ee0f20cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5066715013792906358}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97a04097a7853e44f8f97175ee0f20cf, type: 3}
 --- !u!4 &1150460158141792288 stripped
@@ -337,7 +503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0be05aef17b76e4408ca66084314d39c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0be05aef17b76e4408ca66084314d39c, type: 3}
       propertyPath: m_LocalRotation.x
@@ -345,7 +511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0be05aef17b76e4408ca66084314d39c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0be05aef17b76e4408ca66084314d39c, type: 3}
       propertyPath: m_LocalRotation.z
@@ -357,7 +523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0be05aef17b76e4408ca66084314d39c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0be05aef17b76e4408ca66084314d39c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

@@ -9,6 +9,7 @@ public class PlayerInputs : NetworkBehaviour
 
     public Vector2 MoveInput => _moveInput;
     public Action OnJumpInput;
+    public Action OnDownInput;
     public Action OnAttackInput;
 
     public void OnMove(InputValue value)
@@ -19,6 +20,11 @@ public class PlayerInputs : NetworkBehaviour
     public void OnJump(InputValue value)
     {
         OnJumpInput?.Invoke();
+    }
+
+    public void OnDown(InputValue value)
+    {
+        OnDownInput?.Invoke();
     }
 
     public void OnAttack(InputValue value)

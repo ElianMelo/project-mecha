@@ -7,20 +7,36 @@ public class EnemySpawner : NetworkBehaviour
 {
     public NetworkObject prefabEnemy;
     public List<Transform> spawnPoints;
-
+    [SerializeField] private float spawnInterval = 4f;
+    [SerializeField] private int maximumEnemies = 6;
+    private readonly List<NetworkObject> spawned = new List<NetworkObject>();
+    private Coroutine routine;
     public override void OnStartServer()
     {
-        StartCoroutine(SpawnEnemy());
+        base.OnStartServer();
+        if (prefabEnemy != null && spawnPoints != null && spawnPoints.Count > 0) routine = StartCoroutine(SpawnEnemy());
+        else Debug.LogWarning("EnemySpawner needs a prefab and spawn points.", this);
     }
-
-    IEnumerator SpawnEnemy()
+    public override void OnStopServer()
     {
-        while(true)
+        if (routine != null) StopCoroutine(routine);
+        routine = null; spawned.Clear(); base.OnStopServer();
+    }
+    private IEnumerator SpawnEnemy()
+    {
+        while (true)
         {
-            Vector3 position = spawnPoints[Random.Range(0, spawnPoints.Count)].position;
-            NetworkObject netObj = Instantiate(prefabEnemy, position, Quaternion.identity);
-            ServerManager.Spawn(netObj, base.Owner);
-            yield return new WaitForSeconds(0.5f);
+            spawned.RemoveAll(enemy => enemy == null || !enemy.IsSpawned);
+            if (spawned.Count < maximumEnemies)
+            {
+                Transform point = spawnPoints[Random.Range(0, spawnPoints.Count)];
+                if (point != null)
+                {
+                    NetworkObject enemy = Instantiate(prefabEnemy, point.position, Quaternion.identity);
+                    enemy.gameObject.SetActive(true); ServerManager.Spawn(enemy); spawned.Add(enemy);
+                }
+            }
+            yield return new WaitForSeconds(spawnInterval);
         }
     }
 }

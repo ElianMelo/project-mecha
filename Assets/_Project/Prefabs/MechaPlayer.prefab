@@ -50,7 +50,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 11.835958
@@ -79,7 +79,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
@@ -101,13 +101,15 @@ GameObject:
   - component: {fileID: 6879919603248285336}
   - component: {fileID: 4537651670445241914}
   - component: {fileID: 2972072107767035201}
-  m_Layer: 0
+  - component: {fileID: 7481528825516330149}
+  - component: {fileID: 4135614358746418101}
+  m_Layer: 8
   m_Name: MechaPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8856876819597454106
 Transform:
   m_ObjectHideFlags: 0
@@ -133,7 +135,7 @@ Rigidbody:
   m_GameObject: {fileID: 1554257071974495511}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 1
+  m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -146,9 +148,9 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 120
   m_CollisionDetection: 2
 --- !u!136 &1155694695204934803
@@ -219,14 +221,24 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 6879919603248285336}
   _networkObjectCache: {fileID: 6879919603248285336}
-  movementSpeed: 5
+  movementSpeed: 4.5
   jumpForce: 10
   visuals: {fileID: 5944004185166973327}
-  sphereRadius: 0.2
-  castDistance: 10
-  platformLayer:
+  dashSpeed: 11.5
+  runSpeed: 7
+  dashDuration: 0.18
+  dashCooldown: 0.12
+  dashBuffer: 0.14
+  risingGravity: 24
+  fallingGravity: 40
+  jumpCutGravity: 52
+  apexGravity: 14
+  terminalVelocity: 20
+  coyoteTime: 0.1
+  jumpBuffer: 0.12
+  groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
 --- !u!114 &1628554577923205467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +254,7 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 6879919603248285336}
   _networkObjectCache: {fileID: 6879919603248285336}
+  doubleTapWindow: 0.23
 --- !u!114 &9003777642885895122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +270,13 @@ MonoBehaviour:
   _componentIndexCache: 2
   _addedNetworkObject: {fileID: 6879919603248285336}
   _networkObjectCache: {fileID: 6879919603248285336}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  manaRegen: 7
+  attackInputBuffer: 0.22
+  skillInputBuffer: 0.2
+  networkRecoveryGrace: 0.035
 --- !u!114 &6879919603248285336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +407,34 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
+--- !u!114 &7481528825516330149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554257071974495511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16fbea83e73d52e41bc6c8fcbf7de1f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 6879919603248285336}
+  _networkObjectCache: {fileID: 0}
+  maxHealth: 100
+--- !u!114 &4135614358746418101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554257071974495511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3de0572d007a9d44b8c63f0d13df929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombatVfx
 --- !u!1001 &611917899391920075
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour
         //    currentGameState = currentGameState == GameState.Moving ? GameState.Drawing : GameState.Moving;
         //    SwitchState();
         //}
+        if (Keyboard.current == null) return;
+        var selected = UnityEngine.EventSystems.EventSystem.current?.currentSelectedGameObject;
+        if (selected != null && selected.GetComponent<TMPro.TMP_InputField>() != null) return;
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
             StartHost();

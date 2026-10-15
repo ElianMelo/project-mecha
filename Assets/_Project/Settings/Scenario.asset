@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83128046a07e5b54a908920ca2aa9de1, type: 3}
+  m_Name: Scenario
+  m_EditorClassIdentifier: Assembly-CSharp::ScenarioSettings
+  platformAtlas: {fileID: 2800000, guid: 229b6bd28851dd345a9dae52e84efac9, type: 3}
+  floorSprite: {fileID: 21300000, guid: 0028c66c32b4cd94d8e795245258a131, type: 2}
+  floatingSprite: {fileID: 21300000, guid: 78c09a7d154440d4dbaa935bd6eed71a, type: 2}
+  floorFaceHeight: 1.5
+  floorTileWidth: 6
+  floatingFaceHeight: 0.55
+  propDepth: 0.6
+  boxSize: {x: 1, y: 1, z: 0.7}
+  boxFeet:
+  - {x: -25, y: -3.5, z: 0}
+  - {x: -17, y: -3.5, z: 0}
+  - {x: -5, y: -3.5, z: 0}
+  - {x: 7, y: -3.5, z: 0}
+  - {x: 21, y: -3.5, z: 0}
+  - {x: 31, y: -3.5, z: 0}
+  - {x: -30, y: -1.69, z: 0}
+  - {x: -14, y: -1.69, z: 0}
+  - {x: 2, y: -1.69, z: 0}
+  - {x: 10, y: 0.16, z: 0}
+  - {x: 27, y: 0.16, z: 0}
+  crateColor: {r: 0.28, g: 0.38, b: 0.45, a: 1}
+  crateTrimColor: {r: 0.07, g: 0.11, b: 0.15, a: 1}
+  crateLampColor: {r: 0.2, g: 0.85, b: 0.95, a: 1}
+  trimSize: {x: 0.12, y: 1, z: 0.08}
+  trimOffset: {x: 0.36, y: 0, z: -0.37}
+  lampSize: {x: 0.35, y: 0.06, z: 0.06}
+  lampOffset: {x: 0, y: 0.17, z: -0.37}

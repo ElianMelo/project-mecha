@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1134320c6c02ac94eab6dd3495edf3e6, type: 3}
+  m_Name: PlayerAnimation
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimationSettings
+  controller: {fileID: 9100000, guid: bcd7cc7f41aeb584c89fa86db759e094, type: 2}
+  clips:
+  - state: Idle
+    clip: {fileID: 7400000, guid: ba12df1a70556ed4e8aa880e5ff5a613, type: 2}
+  - state: Run
+    clip: {fileID: 7400000, guid: da77ee7ee45afb54797e8863cea77b87, type: 2}
+  - state: Dash
+    clip: {fileID: 7400000, guid: 609c741bd846d3d488caaa19a8f7dd91, type: 2}
+  - state: Jump
+    clip: {fileID: 7400000, guid: 0263b9b77227c5c43854653388f5cf63, type: 2}
+  - state: Fall
+    clip: {fileID: 7400000, guid: beb8d3cf0a3a9df4b8e3abc92eb364dd, type: 2}
+  - state: Hit
+    clip: {fileID: 7400000, guid: b10783479317fbe40b13891ac5713cb8, type: 2}
+  - state: Death
+    clip: {fileID: 7400000, guid: 0c3a4a0326bf16144bbc0ce2a72d286c, type: 2}
+  - state: Attack
+    clip: {fileID: 7400000, guid: 7638bfaec7dbf614f9f76a982bf4b1cb, type: 2}
+  - state: Slash1
+    clip: {fileID: 7400000, guid: 7638bfaec7dbf614f9f76a982bf4b1cb, type: 2}
+  - state: Slash2
+    clip: {fileID: 7400000, guid: b10783479317fbe40b13891ac5713cb8, type: 2}
+  - state: Slash3
+    clip: {fileID: 7400000, guid: de28089b109107e4b9082ec42649139b, type: 2}
+  - state: AirSlash
+    clip: {fileID: 7400000, guid: 7638bfaec7dbf614f9f76a982bf4b1cb, type: 2}
+  - state: DashSlash
+    clip: {fileID: 7400000, guid: 7638bfaec7dbf614f9f76a982bf4b1cb, type: 2}
+  - state: MegaSlash
+    clip: {fileID: 7400000, guid: 7638bfaec7dbf614f9f76a982bf4b1cb, type: 2}
+  - state: SwordFire
+    clip: {fileID: 7400000, guid: b10783479317fbe40b13891ac5713cb8, type: 2}
+  - state: CriticalX
+    clip: {fileID: 7400000, guid: de28089b109107e4b9082ec42649139b, type: 2}
+  - state: RisingSlash
+    clip: {fileID: 7400000, guid: de28089b109107e4b9082ec42649139b, type: 2}
+  crossFade: 0.035
+  movementThreshold: 0.25
+  hitPoseTime: 0.2

@@ -26,12 +26,12 @@ public class MechaGameplayHud : MonoBehaviour
         }
         status.text = $"MECHA KNIGHT  /  HP {health.Health:0}  /  MP {player.Mana:0}  /  {player.CurrentAction}";
         healthFill.fillAmount = health.Health / health.MaxHealth;
-        manaFill.fillAmount = player.Mana / 100f;
+        manaFill.fillAmount = player.Mana / player.MaxMana;
         for (int i = 0; i < skills.Length; i++)
         {
             float cooldown = player.Cooldown(i);
-            skills[i].text = SkillNames[i] + "\n" + (cooldown > 0f ? $"{cooldown:0.0}s" : player.Mana < PlayerAttack.Cost(i) ? "LOW MP" : "READY") + $"  /  {PlayerAttack.Cost(i):0} MP";
-            skills[i].color = cooldown > 0f || player.Mana < PlayerAttack.Cost(i) ? new Color(0.5f, 0.6f, 0.68f) : Color.white;
+            skills[i].text = SkillNames[i] + "\n" + (cooldown > 0f ? $"{cooldown:0.0}s" : player.Mana < player.Cost(i) ? "LOW MP" : "READY") + $"  /  {player.Cost(i):0} MP";
+            skills[i].color = cooldown > 0f || player.Mana < player.Cost(i) ? new Color(0.5f, 0.6f, 0.68f) : Color.white;
         }
     }
 }

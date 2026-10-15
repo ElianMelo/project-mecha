@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 // Bindings become intentions here; movement and combat remain separate.
 public class PlayerInputs : NetworkBehaviour
 {
-    [SerializeField] private float doubleTapWindow = 0.23f;
+    [SerializeField] private PlayerInputSettings settings;
     public Vector2 MoveInput { get; private set; }
     public bool JumpHeld { get; private set; }
     public bool DownHeld { get; private set; }
@@ -58,11 +58,11 @@ public class PlayerInputs : NetworkBehaviour
     {
         if (!HasControl || typing) return;
         MoveInput = value.Get<Vector2>();
-        int direction = Mathf.Abs(MoveInput.x) < 0.3f ? 0 : (MoveInput.x > 0f ? 1 : -1);
+        int direction = Mathf.Abs(MoveInput.x) < settings.movementDeadzone ? 0 : (MoveInput.x > 0f ? 1 : -1);
         if (direction != 0 && direction != previousDirection)
         {
             float previous = direction > 0 ? lastRight : lastLeft;
-            if (Time.time - previous <= doubleTapWindow)
+            if (Time.time - previous <= settings.doubleTapWindow)
             {
                 OnDashInput?.Invoke(direction);
                 if (direction > 0) lastRight = -10f; else lastLeft = -10f;

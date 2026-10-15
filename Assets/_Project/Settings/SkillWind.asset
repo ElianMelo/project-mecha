@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97bc0e50e37ae02449a7b73637bf4028, type: 3}
+  m_Name: SkillWind
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleEffectSettings
+  material: {fileID: 2100000, guid: 116bd5800dc0a914199d52c4ebbf9647, type: 2}
+  count: 14
+  maxParticles: 80
+  lifetime: {x: 0.12, y: 0.28}
+  speed: {x: 4, y: 7}
+  size: {x: 0.2, y: 0.45}
+  color: {r: 0.65, g: 0.85, b: 1, a: 0.9}
+  spread: 0.6
+  gravity: 0
+  growth: 1.4
+  emissionRadius: 0.08
+  drag: 2
+  renderMode: 1
+  lengthScale: 1.8
+  velocityScale: 0.2
+  localScale: {x: 1, y: 1, z: 1}

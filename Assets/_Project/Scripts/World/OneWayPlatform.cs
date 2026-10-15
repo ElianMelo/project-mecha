@@ -5,16 +5,21 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class OneWayPlatform : MonoBehaviour
 {
+    [SerializeField] private OneWayPlatformSettings settings;
     private static readonly HashSet<Collider> Actors = new HashSet<Collider>();
+    private static readonly HashSet<OneWayPlatform> Platforms = new HashSet<OneWayPlatform>();
+    public static IReadOnlyCollection<OneWayPlatform> ActivePlatforms => Platforms;
+    public Collider Surface => surface;
     private readonly Dictionary<Collider, float> drops = new Dictionary<Collider, float>();
     private readonly HashSet<Collider> ignored = new HashSet<Collider>();
     private Collider surface;
     private void Awake() => surface = GetComponent<Collider>();
+    private void OnEnable() => Platforms.Add(this);
     public static void Register(Collider actor) { if (actor != null) Actors.Add(actor); }
     public static void Unregister(Collider actor) { if (actor != null) Actors.Remove(actor); }
     public void Drop(Collider actor)
     {
-        drops[actor] = Time.time + 0.45f;
+        drops[actor] = Time.time + settings.dropDuration;
         SetIgnored(actor, true);
     }
     private void FixedUpdate()
@@ -25,8 +30,8 @@ public class OneWayPlatform : MonoBehaviour
             Bounds b = actor.bounds, p = surface.bounds;
             bool overlaps = b.max.x > p.min.x && b.min.x < p.max.x && b.max.z > p.min.z && b.min.z < p.max.z;
             bool dropping = drops.TryGetValue(actor, out float until) && Time.time < until;
-            bool fromBelow = b.min.y < p.max.y - 0.06f;
-            bool rising = actor.attachedRigidbody.linearVelocity.y > 0.1f;
+            bool fromBelow = b.min.y < p.max.y - settings.surfaceTolerance;
+            bool rising = actor.attachedRigidbody.linearVelocity.y > settings.risingThreshold;
             SetIgnored(actor, overlaps && (dropping || fromBelow || rising));
             if (!dropping) drops.Remove(actor);
         }
@@ -44,6 +49,7 @@ public class OneWayPlatform : MonoBehaviour
     }
     private void OnDisable()
     {
+        Platforms.Remove(this);
         foreach (var actor in ignored) if (actor != null && surface != null) Physics.IgnoreCollision(actor, surface, false);
         ignored.Clear(); drops.Clear();
     }

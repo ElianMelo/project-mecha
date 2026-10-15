@@ -2,44 +2,43 @@ using UnityEngine;
 
 public class PlayerCombatVfx : MonoBehaviour
 {
-    private static readonly Color Ruby = new Color(1f, 0.18f, 0.12f);
-    private static readonly Color Fire = new Color(1f, 0.62f, 0.08f);
-    private static readonly Color Violet = new Color(0.65f, 0.3f, 1f);
-    public void Begin(PlayerAttack.ActionKind kind, int facing)
+    [SerializeField] private CombatVfxSettings settings;
+    [SerializeField] private PlayerCombatSettings combat;
+    private PlayerMovement movement;
+    private CharacterHitFeedback feedback;
+    private float nextSmoke;
+    private bool wasGrounded;
+    private float previousVerticalSpeed;
+    private void Awake() { movement=GetComponent<PlayerMovement>(); feedback=GetComponent<CharacterHitFeedback>(); }
+    private void Update()
     {
-        if (PlayerAttack.IsSkill(kind)) CombatEffect.Burst(transform.position + Vector3.up * 0.65f, kind == PlayerAttack.ActionKind.CriticalX ? Violet : Ruby, 12);
+        if(movement==null || settings==null) return;
+        if (!wasGrounded && movement.IsGrounded && previousVerticalSpeed < -settings.landingSpeedThreshold)
+        {
+            var foot = transform.position + settings.dashOffset;
+            ParticleBurstEmitter.Emit(settings.landingSmoke, foot, Vector3.left);
+            ParticleBurstEmitter.Emit(settings.landingSmoke, foot, Vector3.right);
+        }
+        wasGrounded = movement.IsGrounded;
+        previousVerticalSpeed = movement.Velocity.y;
+        if (movement.IsDashing && Time.time>=nextSmoke) Dash(movement.Facing);
     }
-    public void Strike(PlayerAttack.ActionKind kind, int facing, int pulse)
+    public void Strike(PlayerAttack.ActionKind kind,int facing,int pulse)
     {
-        Vector3 center = transform.position + new Vector3(0f, 0.65f, -0.35f);
-        if (kind == PlayerAttack.ActionKind.RisingSlash)
-        {
-            CombatEffect.Arc(center, facing, 1.1f, -65f, 100f, new Color(0.3f, 0.85f, 1f), 0.13f);
-            CombatEffect.Arc(center, facing, 0.85f, -50f, 95f, Color.white, 0.04f);
-        }
-        else if (kind == PlayerAttack.ActionKind.SwordFire)
-        {
-            center.x += facing * (1.7f + pulse * 0.7f);
-            CombatEffect.Arc(center, facing, 0.7f, -80f, 80f, Fire, 0.2f, Vector3.right * facing * 2f);
-            CombatEffect.Burst(center, Fire, 16);
-        }
-        else if (kind == PlayerAttack.ActionKind.CriticalX)
-        {
-            center += new Vector3(facing * 0.7f, 0.4f, 0f);
-            CombatEffect.Arc(center, facing, 1.6f, pulse == 0 ? -140f : 40f, pulse == 0 ? 40f : 220f, Violet, 0.2f);
-            CombatEffect.Arc(center, facing, 1.2f, -75f, 105f, Color.white, 0.07f);
-        }
-        else
-        {
-            bool alternate = pulse % 2 == 1 || kind == PlayerAttack.ActionKind.Slash2;
-            CombatEffect.Arc(center, facing, kind == PlayerAttack.ActionKind.MegaSlash ? 1.2f : 0.95f, alternate ? -85f : -35f, alternate ? 55f : 95f, PlayerAttack.IsSkill(kind) ? Ruby : Fire);
-            if (kind == PlayerAttack.ActionKind.MegaSlash && pulse == 3) CombatEffect.Burst(center + Vector3.right * facing * 0.8f, Ruby, 28);
-        }
+        var action=combat.Get(kind);
+        Vector3 offset=new Vector3(facing*(action.reach+pulse*action.pulseAdvance),action.height,settings.strikeOffset.z);
+        Vector3 direction=kind==PlayerAttack.ActionKind.RisingSlash ? new Vector3(facing*0.5f,1f,0f) : new Vector3(facing,kind==PlayerAttack.ActionKind.Slash2?-0.3f:0.3f,0f);
+        ParticleBurstEmitter.Emit(PlayerAttack.IsSkill(kind)?settings.skillWind:settings.wind,transform.position+offset,direction);
+        ParticleBurstEmitter.Emit(settings.slashEdges,transform.position+offset,direction);
+        if (PlayerAttack.IsSkill(kind))
+            ParticleBurstEmitter.Emit(settings.slashEdges,transform.position+offset,new Vector3(facing,-direction.y,0f));
     }
-    public void Dash(int facing)
+    public void Dash(int facing, bool beginning = false)
     {
-        Vector3 center = transform.position + Vector3.up * 0.5f + Vector3.back * 0.3f;
-        CombatEffect.Arc(center, facing, 0.5f, 110f, 250f, new Color(0.2f, 0.8f, 1f), 0.08f, Vector3.left * facing);
+        nextSmoke=Time.time+settings.dashEmissionInterval;
+        ParticleBurstEmitter.Emit(settings.dashSmoke,transform.position+settings.dashOffset,new Vector3(-facing,0.25f,0f));
+        ParticleBurstEmitter.Emit(settings.dashStreaks,transform.position+settings.strikeOffset.y*Vector3.up,new Vector3(-facing,0.05f,0f));
+        if (beginning) ParticleBurstEmitter.Emit(settings.dashDebris,transform.position+settings.dashOffset,new Vector3(-facing,0.65f,0f));
     }
-    public void Hit(Vector3 position) => CombatEffect.Burst(position, Ruby, 18);
+    public void Hit(Vector3 direction) => feedback?.Hit(0f,direction);
 }

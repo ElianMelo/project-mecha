@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55280593e1e193741a10102db4e32b74, type: 3}
+  m_Name: RoomCamera
+  m_EditorClassIdentifier: Assembly-CSharp::RoomCameraSettings
+  viewBounds:
+    serializedVersion: 2
+    x: -36
+    y: -5.6
+    width: 72
+    height: 14.4
+  physicalWalls: {x: -36, y: 36}
+  wallThickness: 0.4
+  wallHeight: 24
+  wallDepth: 6
+  orthographicSize: 3.485
+  cameraDistance: 10
+  targetHeight: 0.9
+  deadZone: {x: 0.12, y: 0.6}
+  hardLimits: {x: 0.74, y: 0.72}
+  screenPosition: {x: 0, y: -0.06}
+  centerDamping: 1.1
+  edgeDamping: 0.04
+  searchInterval: 0.25
+  landingHeightTolerance: 0.06
+  landingBlendDuration: 0.96
+  landingBlend:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  airborneFollowWeight: 0.18
+  maximumAirborneOffset: 0.55
+  airborneSmoothTime: 0.35
+  airborneMaximumSpeed: 1.2
+  framingFloorHeight: -3.5
+  floorFeetViewport: 0.1
+  groundedRiseByElevation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1.9
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 3.66
+      value: 1.569
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 5.51
+      value: 2.8614
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  initialPosition: {x: -27, y: -0.7120001, z: -10}

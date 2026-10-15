@@ -3,7 +3,6 @@ using System.Linq;
 using FishNet.Component.Transforming;
 using TMPro;
 using UnityEditor;
-using UnityEditor.Animations;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,7 +15,9 @@ public static class MechaGameplaySetup
     public static void Apply()
     {
         if (EditorApplication.isPlaying) throw new System.InvalidOperationException("Exit Play Mode before applying gameplay assets.");
-        ConfigureLayers(); ConfigureInputs(); ConfigureAnimator(); ConfigurePlayer(); ConfigureEnemy(); ConfigureScene();
+        MechaPresentationSetup.EnsureProfiles();
+        ConfigureLayers(); ConfigureInputs(); ConfigurePlayer(); ConfigureEnemy(); ConfigureScene();
+        MechaPresentationSetup.Apply();
         AssetDatabase.SaveAssets();
         Debug.Log("Mecha gameplay configured: player, enemy, inputs, animator, one-way arena and HUD.");
     }
@@ -26,7 +27,7 @@ public static class MechaGameplaySetup
         tags.FindProperty("layers").GetArrayElementAtIndex(8).stringValue = "Player";
         tags.FindProperty("layers").GetArrayElementAtIndex(9).stringValue = "Enemy";
         tags.ApplyModifiedProperties();
-        Physics.IgnoreLayerCollision(8, 8, true); Physics.IgnoreLayerCollision(8, 9, true); Physics.IgnoreLayerCollision(9, 9, true);
+        Physics.IgnoreLayerCollision(8, 8, true); Physics.IgnoreLayerCollision(8, 9, false); Physics.IgnoreLayerCollision(9, 9, true);
         // Persist the collision matrix as well as its live state.
         var physics = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/DynamicsManager.asset")[0]);
         EditorUtility.SetDirty(physics.targetObject);
@@ -57,27 +58,11 @@ public static class MechaGameplaySetup
         if (alternate != null) action.AddBinding(alternate, groups: "Keyboard&Mouse");
         action.AddBinding(pad, groups: "Gamepad");
     }
-    private static void ConfigureAnimator()
+    private static T Ensure<T>(GameObject go) where T : Component
     {
-        var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>("Assets/_Project/Animations/PlayerAnimator.controller");
-        AddParameter(controller, "Grounded", AnimatorControllerParameterType.Bool);
-        AddParameter(controller, "VerticalSpeed", AnimatorControllerParameterType.Float);
-        AddParameter(controller, "Dashing", AnimatorControllerParameterType.Bool);
-        AddParameter(controller, "AttackSpeed", AnimatorControllerParameterType.Float);
-        foreach (var entry in controller.layers[0].stateMachine.states)
-        {
-            if (entry.state.name != "Attack") continue;
-            entry.state.speedParameter = "AttackSpeed"; entry.state.speedParameterActive = true;
-            foreach (var transition in entry.state.transitions) entry.state.RemoveTransition(transition);
-            EditorUtility.SetDirty(entry.state);
-        }
-        EditorUtility.SetDirty(controller);
+        var component=go.GetComponent<T>();
+        return component!=null?component:go.AddComponent<T>();
     }
-    private static void AddParameter(AnimatorController controller, string name, AnimatorControllerParameterType type)
-    {
-        if (!controller.parameters.Any(p => p.name == name)) controller.AddParameter(name, type);
-    }
-    private static T Ensure<T>(GameObject go) where T : Component => go.GetComponent<T>() ?? go.AddComponent<T>();
     private static void ConfigurePlayer()
     {
         const string path = "Assets/_Project/Prefabs/MechaPlayer.prefab";
@@ -90,9 +75,7 @@ public static class MechaGameplaySetup
             rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
             rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
             var movement = new SerializedObject(root.GetComponent<PlayerMovement>());
-            movement.FindProperty("movementSpeed").floatValue = 4.5f;
-            movement.FindProperty("jumpForce").floatValue = 10f;
-            movement.FindProperty("groundLayer").intValue = (1 << 6) | (1 << 7);
+            movement.FindProperty("settings").objectReferenceValue = MechaPresentationSetup.Profile<PlayerMovementSettings>("PlayerMovement");
             movement.ApplyModifiedPropertiesWithoutUndo();
             foreach (var collider in root.GetComponentsInChildren<Collider>(true))
                 if (collider.gameObject != root) collider.enabled = false;
@@ -125,64 +108,7 @@ public static class MechaGameplaySetup
     {
         Scene scene = SceneManager.GetActiveScene();
         if (scene.path != "Assets/Scenes/MainScene.unity") throw new System.InvalidOperationException("Open MainScene before configuring the arena.");
-        var colliders = Object.FindObjectsByType<Collider>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        foreach (var collider in colliders)
-        {
-            if (collider.CompareTag("Platform"))
-            {
-                int slot = collider.name == "Platform 1" ? 0 : collider.name == "Platform 2" ? 1 : 2;
-                collider.transform.position = new Vector3(slot == 0 ? -6f : slot == 1 ? 0f : 6f, -1.8f, 0f);
-                collider.transform.localScale = new Vector3(4.8f, 0.22f, 2f);
-                Ensure<OneWayPlatform>(collider.gameObject);
-                collider.GetComponent<Renderer>().sharedMaterial = ArenaMaterial("Platform", new Color(0.12f, 0.23f, 0.32f));
-            }
-            else if (collider.CompareTag("Ground"))
-            {
-                collider.transform.position = new Vector3(0f, -3.75f, 0f); collider.transform.localScale = new Vector3(24f, 0.5f, 3f);
-                collider.GetComponent<Renderer>().sharedMaterial = ArenaMaterial("Ground", new Color(0.08f, 0.12f, 0.2f));
-            }
-            else if (collider.name == "Left" || collider.name == "Right")
-            {
-                collider.transform.rotation = Quaternion.identity;
-                collider.transform.position = new Vector3(collider.name == "Left" ? -12.2f : 12.2f, 1f, 0f);
-                collider.transform.localScale = new Vector3(0.4f, 14f, 3f);
-            }
-            else if (collider.name == "Top") collider.transform.position = new Vector3(0f, 8f, 0f);
-        }
-        Platform("Upper Platform Left", new Vector3(-3f, 0.05f, 0f), 4.8f);
-        Platform("Upper Platform Right", new Vector3(3f, 0.05f, 0f), 4.8f);
-        Platform("Summit Platform", new Vector3(0f, 1.9f, 0f), 4f);
-        var spawner = Object.FindFirstObjectByType<EnemySpawner>();
-        if (spawner != null)
-        {
-            for (int i = 0; i < spawner.spawnPoints.Count; i++)
-                if (spawner.spawnPoints[i] != null) spawner.spawnPoints[i].position = new Vector3(i < 5 ? -8f + i * 4f : -6f + ((i - 5) % 3) * 6f, i < 5 ? -3.4f : -1.55f, 0f);
-            EditorUtility.SetDirty(spawner);
-        }
-        var playerSpawner = Object.FindFirstObjectByType<FishNet.Component.Spawning.PlayerSpawner>();
-        if (playerSpawner != null)
-        {
-            var serialized = new SerializedObject(playerSpawner);
-            var points = serialized.FindProperty("Spawns");
-            if (points == null) points = serialized.FindProperty("_spawns");
-            if (points != null && points.isArray)
-            {
-                var start = GameObject.Find("PlayerStart") ?? new GameObject("PlayerStart");
-                start.transform.position = new Vector3(-4f, -3.35f, 0f);
-                points.arraySize = 1; points.GetArrayElementAtIndex(0).objectReferenceValue = start.transform;
-                serialized.ApplyModifiedProperties();
-            }
-        }
-        var camera = Camera.main;
-        if (camera != null)
-        {
-            camera.transform.position = new Vector3(-3.25f, -1.7f, -10f); camera.transform.rotation = Quaternion.identity;
-            camera.orthographic = true; camera.orthographicSize = 3.2f;
-            Ensure<PlayerCameraFollow>(camera.gameObject);
-            camera.clearFlags = CameraClearFlags.SolidColor; camera.backgroundColor = new Color(0.035f, 0.055f, 0.10f);
-        }
-        RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-        RenderSettings.ambientLight = new Color(0.5f, 0.56f, 0.68f);
+        MechaArenaSetup.Apply();
         var networkHud = GameObject.Find("NetworkHudCanvas");
         if (networkHud != null) networkHud.SetActive(false);
         if (Object.FindFirstObjectByType<MechaGameplayHud>() == null) CreateHud();
@@ -195,24 +121,8 @@ public static class MechaGameplaySetup
             controls.anchoredPosition = new Vector2(0f, -110f); controls.sizeDelta = new Vector2(1180f, 40f);
             controls.GetComponent<TMP_Text>().text = "ARROWS move / jump    Hold DOWN descend    Z combo + UP launcher    Double-tap / SHIFT dash    A / S / D skills";
         }
+        MechaHudSetup.Apply(hud);
         EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene);
-    }
-    private static Material ArenaMaterial(string name, Color color)
-    {
-        const string folder = "Assets/_Project/Materials";
-        if (!AssetDatabase.IsValidFolder(folder)) AssetDatabase.CreateFolder("Assets/_Project", "Materials");
-        string path = folder + "/Mecha" + name + ".mat";
-        var mat = AssetDatabase.LoadAssetAtPath<Material>(path);
-        if (mat == null) { mat = new Material(Shader.Find("Universal Render Pipeline/Lit")); AssetDatabase.CreateAsset(mat, path); }
-        mat.SetColor("_BaseColor", color); mat.SetFloat("_Smoothness", 0.25f); EditorUtility.SetDirty(mat); return mat;
-    }
-    private static void Platform(string name, Vector3 position, float width)
-    {
-        var go = GameObject.Find(name);
-        if (go == null) go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        go.name = name; go.tag = "Platform"; go.layer = 6; go.transform.position = position;
-        go.transform.localScale = new Vector3(width, 0.22f, 2f); Ensure<OneWayPlatform>(go);
-        go.GetComponent<Renderer>().sharedMaterial = ArenaMaterial("Platform", new Color(0.12f, 0.23f, 0.32f));
     }
     private static RectTransform Rect(string name, Transform parent, Vector2 anchor, Vector2 position, Vector2 size)
     {

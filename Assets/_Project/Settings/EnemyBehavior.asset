@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3860766b89b3f74ca387bff7af2affd, type: 3}
+  m_Name: EnemyBehavior
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySettings
+  maxHealth: 90
+  moveSpeed: 3.6
+  attackDamage: 12
+  windup: 0.24
+  attackCooldown: 0.65
+  deathDuration: 0.65
+  attackRange: 1.05
+  impactRange: 1.35
+  heightTolerance: 0.9
+  stopDistance: 0.65
+  fallLimit: -12
+  abandonWindupDistance: 1.8
+  attackKnockback: {x: 5, y: 4, z: 0}

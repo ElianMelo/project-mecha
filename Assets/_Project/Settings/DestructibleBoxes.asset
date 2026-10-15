@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512732524a8c64047b2eefaf92fd5e17, type: 3}
+  m_Name: DestructibleBoxes
+  m_EditorClassIdentifier: Assembly-CSharp::DestructibleSettings
+  health: 28
+  hitFeedback: {fileID: 11400000, guid: f23bce19dadd7ac45b5b20bb71cd1475, type: 2}
+  debris: {fileID: 11400000, guid: aa2726df4bbd28449afeba472310844b, type: 2}
+  smoke: {fileID: 11400000, guid: 589647c073c7e8945b9c54b21e055333, type: 2}

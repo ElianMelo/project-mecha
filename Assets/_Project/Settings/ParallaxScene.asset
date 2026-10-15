@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d684111cd5da5c46af7ac0d6d67f68e, type: 3}
+  m_Name: ParallaxScene
+  m_EditorClassIdentifier: Assembly-CSharp::ParallaxSceneSettings
+  layers:
+  - name: Far Sky
+    sprite: {fileID: 21300000, guid: dfb21afb3dd201e449c87ee51449ac5d, type: 2}
+    motion: {fileID: 11400000, guid: 5f8ab53e36b25da4baf7cdf6137898b3, type: 2}
+    position: {x: -27, y: 7, z: 20}
+    size: {x: 36, y: 24}
+    tint: {r: 1, g: 1, b: 1, a: 1}
+    sortingOrder: -120
+    sideCopies: 1
+  - name: Middle Skyline
+    sprite: {fileID: 21300000, guid: e6489f9828cd9ff419258a7a6e3287b2, type: 2}
+    motion: {fileID: 11400000, guid: 14b551489aa3d71428ae015b191e4c10, type: 2}
+    position: {x: -27, y: 5, z: 16}
+    size: {x: 30, y: 20}
+    tint: {r: 1, g: 1, b: 1, a: 1}
+    sortingOrder: -110
+    sideCopies: 1
+  - name: Near Rooftops
+    sprite: {fileID: 21300000, guid: b0378b44a7cd6054e8e9488b9435e652, type: 2}
+    motion: {fileID: 11400000, guid: 7fc9b8d31a978e343bdc26c64aeb3d02, type: 2}
+    position: {x: -27, y: 4, z: 10}
+    size: {x: 30, y: 20}
+    tint: {r: 1, g: 1, b: 1, a: 1}
+    sortingOrder: -100
+    sideCopies: 1

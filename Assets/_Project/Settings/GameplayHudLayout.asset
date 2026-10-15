@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d429a37a255f54399a4d295cd486f4, type: 3}
+  m_Name: GameplayHudLayout
+  m_EditorClassIdentifier: Assembly-CSharp::GameplayHudLayoutSettings
+  skillBarAnchor: {x: 0, y: 1}
+  skillBarOffset: {x: 24, y: -100}
+  skillSize: {x: 144, y: 52}
+  skillSpacing: 8
+  skillFontSize: 13
+  skillTextInset: {x: 8, y: 5}
+  skillTextPadding: {x: 12, y: 8}
+  tutorialSize: {x: 600, y: 72}
+  tutorialOffset: {x: -24, y: -18}
+  tutorialFontSize: 12
+  tutorialText: 'MOVE Left / Right   JUMP Up / Space   DESCEND Hold Down
+
+    ATTACK
+    Z   LAUNCHER Z + Up   DASH Double-tap / Shift
+
+    SKILLS A / S / D'

@@ -7,25 +7,21 @@ using UnityEngine;
 public class PlayerAttack : NetworkBehaviour
 {
     public enum ActionKind { Slash1, Slash2, Slash3, AirSlash, DashSlash, MegaSlash, SwordFire, CriticalX, RisingSlash }
-    [SerializeField] private LayerMask enemyLayer = 1 << 9;
-    [SerializeField] private float manaRegen = 7f;
+    [SerializeField] private PlayerCombatSettings settings;
     private readonly SyncVar<float> mana = new SyncVar<float>(100f);
     private float soloMana = 100f;
     private readonly float[] localCooldowns = new float[3], serverCooldowns = new float[3];
     private readonly Collider[] hitBuffer = new Collider[48];
-    private readonly HashSet<EnemyController> hitTargets = new HashSet<EnemyController>();
+    private readonly HashSet<ICombatTarget> hitTargets = new HashSet<ICombatTarget>();
     private PlayerInputs inputs;
     private PlayerMovement movement;
     private PlayerHealth health;
     private PlayerCombatVfx vfx;
-    private Animator animator;
+    private CharacterAnimator animationView;
     private ActionKind localKind, serverKind;
     private float localStart, serverStart, comboExpires, attackBuffered = -10f;
     private int localPulse, serverPulse, localDirection, serverDirection, combo;
     private bool localActive, serverActive;
-    [SerializeField] private float attackInputBuffer = 0.22f;
-    [SerializeField] private float skillInputBuffer = 0.2f;
-    [SerializeField] private float networkRecoveryGrace = 0.035f;
     private float risingBufferedUntil = -10f, skillBufferedUntil = -10f;
     private int bufferedSkill = -1;
     private bool landedDuringAirSlash;
@@ -35,25 +31,28 @@ public class PlayerAttack : NetworkBehaviour
     public float Mana => NetworkObject.IsSpawned ? mana.Value : soloMana;
     public string CurrentAction => localActive ? localKind.ToString() : "Ready";
     public float Cooldown(int skill) => Mathf.Max(0f, localCooldowns[skill] - Time.time);
-    public static float Cost(int skill) => skill == 0 ? 25f : skill == 1 ? 40f : 60f;
+    public float MaxMana => settings.maxMana;
+    public float Cost(int skill) => settings.Get((ActionKind)(skill + 5)).manaCost;
     private bool HasControl => !NetworkObject.IsSpawned || IsOwner;
     public static bool IsSkill(ActionKind kind) => kind >= ActionKind.MegaSlash && kind <= ActionKind.CriticalX;
-    private static float Duration(ActionKind kind) => kind == ActionKind.MegaSlash ? 0.8f : kind == ActionKind.SwordFire ? 0.85f : kind == ActionKind.CriticalX ? 1.05f : kind == ActionKind.Slash3 ? 0.46f : kind == ActionKind.RisingSlash ? 0.42f : 0.34f;
-    private static int Pulses(ActionKind kind) => kind == ActionKind.MegaSlash ? 4 : kind == ActionKind.SwordFire ? 3 : kind == ActionKind.CriticalX ? 2 : 1;
-    private static float ImpactTime(ActionKind kind, int pulse) => kind == ActionKind.MegaSlash ? 0.12f + pulse * 0.13f : kind == ActionKind.SwordFire ? 0.24f + pulse * 0.12f : kind == ActionKind.CriticalX ? 0.25f + pulse * 0.2f : 0.1f;
-    private static float CancelTime(ActionKind kind) => IsSkill(kind) ? ImpactTime(kind, Pulses(kind) - 1) + 0.08f : 0.19f;
+    private float Duration(ActionKind kind) => settings.Get(kind).duration;
+    private int Pulses(ActionKind kind) => settings.Get(kind).pulses;
+    private float ImpactTime(ActionKind kind, int pulse) => settings.Get(kind).impact + pulse * settings.Get(kind).pulseInterval;
+    private float CancelTime(ActionKind kind) => settings.Get(kind).cancel;
     private void Awake()
     {
         inputs = GetComponent<PlayerInputs>(); movement = GetComponent<PlayerMovement>();
-        health = GetComponent<PlayerHealth>(); vfx = GetComponent<PlayerCombatVfx>(); animator = GetComponentInChildren<Animator>();
+        health = GetComponent<PlayerHealth>(); vfx = GetComponent<PlayerCombatVfx>(); animationView = GetComponent<CharacterAnimator>();
+        soloMana = settings.maxMana;
     }
     private void OnEnable() { inputs.OnAttackInput += HandleAttack; inputs.OnSkillInput += HandleSkill; }
     private void OnDisable() { inputs.OnAttackInput -= HandleAttack; inputs.OnSkillInput -= HandleSkill; localActive = serverActive = false; ClearBuffers(); }
+    public override void OnStartServer() { base.OnStartServer(); mana.Value = settings.maxMana; }
     private void Update()
     {
         bool solo = !NetworkObject.IsSpawned;
-        if (solo) soloMana = Mathf.Min(100f, soloMana + manaRegen * Time.deltaTime);
-        else if (IsServerInitialized) mana.Value = Mathf.Min(100f, mana.Value + manaRegen * Time.deltaTime);
+        if (solo) soloMana = Mathf.Min(settings.maxMana, soloMana + settings.manaRegen * Time.deltaTime);
+        else if (IsServerInitialized) mana.Value = Mathf.Min(settings.maxMana, mana.Value + settings.manaRegen * Time.deltaTime);
         if (localActive)
         {
             float elapsed = Time.time - localStart;
@@ -84,7 +83,7 @@ public class PlayerAttack : NetworkBehaviour
         {
             int skill = bufferedSkill; bufferedSkill = -1; HandleSkill(skill);
         }
-        else if (canChain && Time.time - attackBuffered <= attackInputBuffer)
+        else if (canChain && Time.time - attackBuffered <= settings.attackBuffer)
         {
             attackBuffered = -10f; HandleAttack();
         }
@@ -92,7 +91,7 @@ public class PlayerAttack : NetworkBehaviour
     public bool TryRisingBranch()
     {
         if (!HasControl || !movement.IsGrounded || !localActive || localKind > ActionKind.Slash3 || (health != null && health.IsStunned)) return false;
-        risingBufferedUntil = Time.time + attackInputBuffer;
+        risingBufferedUntil = Time.time + settings.attackBuffer;
         return true;
     }
     public void HandleLanding()
@@ -113,7 +112,7 @@ public class PlayerAttack : NetworkBehaviour
         if (Time.time > comboExpires) combo = 0;
         ActionKind kind = !movement.IsGrounded ? ActionKind.AirSlash : movement.IsDashing ? ActionKind.DashSlash : (ActionKind)combo;
         combo = kind <= ActionKind.Slash3 ? (combo + 1) % 3 : 0;
-        comboExpires = Time.time + 0.8f;
+        comboExpires = Time.time + settings.comboWindow;
         StartPresentation(kind, movement.Facing);
         if (NetworkObject.IsSpawned) RequestAction(kind, movement.Facing);
     }
@@ -122,7 +121,7 @@ public class PlayerAttack : NetworkBehaviour
         if (!HasControl || skill < 0 || skill > 2 || (health != null && health.IsStunned) || Cooldown(skill) > 0f || Mana < Cost(skill)) return;
         if (localActive && Time.time - localStart < CancelTime(localKind))
         {
-            bufferedSkill = skill; skillBufferedUntil = Time.time + skillInputBuffer; return;
+            bufferedSkill = skill; skillBufferedUntil = Time.time + settings.skillBuffer; return;
         }
         bufferedSkill = -1; attackBuffered = risingBufferedUntil = -10f;
         localCooldowns[skill] = Time.time + SkillCooldown(skill);
@@ -130,24 +129,19 @@ public class PlayerAttack : NetworkBehaviour
         StartPresentation((ActionKind)(skill + 5), movement.Facing);
         if (NetworkObject.IsSpawned) RequestAction((ActionKind)(skill + 5), movement.Facing);
     }
-    private static float SkillCooldown(int skill) => skill == 0 ? 3f : skill == 1 ? 5f : 7f;
+    private float SkillCooldown(int skill) => settings.Get((ActionKind)(skill + 5)).cooldown;
     private void StartPresentation(ActionKind kind, int direction)
     {
         localKind = kind; localStart = Time.time; localPulse = 0; localDirection = direction; localActive = true;
         landedDuringAirSlash = false;
         movement.StopDash();
-        if (animator != null)
-        {
-            animator.SetFloat("AttackSpeed", 2f / Duration(kind));
-            animator.Play("Attack", 0, 0f);
-        }
-        vfx?.Begin(kind, direction);
+        animationView?.Action(kind, Duration(kind));
     }
     private void EndPresentation()
     {
         localActive = false;
         landedDuringAirSlash = false;
-        if (animator != null) animator.CrossFade(movement.IsGrounded && Mathf.Abs(movement.Velocity.x) > 0.3f ? "Run" : "Idle", 0.04f);
+        animationView?.ReleaseAction();
     }
     public bool TryMovementCancel()
     {
@@ -156,6 +150,18 @@ public class PlayerAttack : NetworkBehaviour
         EndPresentation(); ClearBuffers(); combo = 0;
         if (NetworkObject.IsSpawned && IsOwner) RequestCancel(false);
         return true;
+    }
+    // Dash cancels startup, active frames and recovery. Spent skill costs stay spent.
+    public void CancelForDash()
+    {
+        EndPresentation(); ClearBuffers(); combo = 0; comboExpires = 0f;
+        if (!NetworkObject.IsSpawned || IsServerInitialized) serverActive = false;
+    }
+    public void CancelForDashOnServer()
+    {
+        if (!IsServerInitialized) return;
+        serverActive = false;
+        ShowCancel();
     }
     public void Interrupt()
     {
@@ -166,16 +172,17 @@ public class PlayerAttack : NetworkBehaviour
     [ServerRpc]
     private void RequestAction(ActionKind kind, int direction)
     {
-        if ((int)kind < 0 || (int)kind > 8 || (direction != -1 && direction != 1) || (health != null && health.IsStunned)) { RejectAction(Owner); return; }
+        if (!System.Enum.IsDefined(typeof(ActionKind),kind) || (direction != -1 && direction != 1) || (health != null && health.IsStunned)) { RejectAction(Owner); return; }
         // RPCs begin on a network tick, after the owner's presentation starts.
         // A small grace covers that tick boundary while preserving startup locks.
-        if (serverActive && Time.time - serverStart + networkRecoveryGrace < CancelTime(serverKind)) { RejectAction(Owner); return; }
+        if (serverActive && Time.time - serverStart + settings.networkRecoveryGrace < CancelTime(serverKind)) { RejectAction(Owner); return; }
         if (IsSkill(kind))
         {
             int skill = (int)kind - 5;
             if (Time.time < serverCooldowns[skill] || mana.Value < Cost(skill)) { RejectAction(Owner); return; }
             mana.Value -= Cost(skill); serverCooldowns[skill] = Time.time + SkillCooldown(skill);
         }
+        movement.StopDash();
         serverKind = kind; serverDirection = direction; serverStart = Time.time; serverPulse = 0; serverActive = true;
         ShowAction(kind, direction);
     }
@@ -192,7 +199,7 @@ public class PlayerAttack : NetworkBehaviour
         float elapsed = Time.time - serverStart;
         bool validLanding = landing && serverKind == ActionKind.AirSlash && elapsed >= ImpactTime(serverKind, 0) &&
             Physics.Raycast(transform.position + Vector3.up * 0.15f, Vector3.down, 0.5f, (1 << 6) | (1 << 7), QueryTriggerInteraction.Ignore);
-        if (!validLanding && elapsed + networkRecoveryGrace < CancelTime(serverKind)) return;
+        if (!validLanding && elapsed + settings.networkRecoveryGrace < CancelTime(serverKind)) return;
         serverActive = false; ShowCancel();
     }
     [ObserversRpc(ExcludeOwner = true)]
@@ -202,22 +209,22 @@ public class PlayerAttack : NetworkBehaviour
     private void ApplyHits(ActionKind kind, int direction, int pulse)
     {
         if (NetworkObject.IsSpawned && !IsServerInitialized) return;
-        Vector3 half = kind == ActionKind.SwordFire ? new Vector3(0.7f, 0.7f, 0.75f) : kind == ActionKind.CriticalX ? new Vector3(1.55f, 1.5f, 0.75f) : kind == ActionKind.RisingSlash ? new Vector3(0.6f, 0.9f, 0.65f) : kind == ActionKind.MegaSlash ? new Vector3(0.7f, 0.7f, 0.65f) : new Vector3(0.55f, 0.65f, 0.65f);
-        float reach = kind == ActionKind.SwordFire ? 1.7f + pulse * 0.7f : kind == ActionKind.CriticalX ? 0.8f : kind == ActionKind.MegaSlash ? 0.65f : 0.5f;
-        Vector3 center = transform.position + new Vector3(direction * reach, kind == ActionKind.CriticalX ? 1.2f : kind == ActionKind.RisingSlash ? 1f : 0.7f, 0f);
-        int count = Physics.OverlapBoxNonAlloc(center, half, hitBuffer, Quaternion.identity, enemyLayer, QueryTriggerInteraction.Ignore);
+        var action = settings.Get(kind);
+        float reach = action.reach + pulse * action.pulseAdvance;
+        Vector3 center = transform.position + new Vector3(direction * reach, action.height, 0f);
+        int count = Physics.OverlapBoxNonAlloc(center, action.hitHalfSize, hitBuffer, Quaternion.identity, settings.enemyLayers, QueryTriggerInteraction.Ignore);
         hitTargets.Clear();
         for (int i = 0; i < count; i++)
         {
-            var enemy = hitBuffer[i].GetComponentInParent<EnemyController>();
+            var enemy = hitBuffer[i].GetComponentInParent<ICombatTarget>();
             if (enemy == null || !hitTargets.Add(enemy) || enemy.IsDead) continue;
-            float damage = kind == ActionKind.MegaSlash ? (pulse == 3 ? 18f : 8f) : kind == ActionKind.SwordFire ? 14f : kind == ActionKind.CriticalX ? 28f : kind == ActionKind.Slash3 ? 15f : kind == ActionKind.RisingSlash ? 13f : 9f;
-            bool launcher = kind == ActionKind.CriticalX || kind == ActionKind.Slash3 || kind == ActionKind.RisingSlash || (kind == ActionKind.MegaSlash && pulse == 3);
-            enemy.TakeHit(damage, new Vector3(direction * (launcher ? 4f : 1.6f), launcher ? 7f : 1f, 0f), launcher ? 0.55f : 0.22f);
+            float damage = pulse == action.pulses - 1 ? action.finalDamage : action.damage;
+            bool launcher = action.launcher || action.finalPulseLaunch && pulse == action.pulses - 1;
+            enemy.TakeHit(damage, new Vector3(direction * action.push, launcher ? action.lift : 1f, 0f), action.stun);
             if (!IsSkill(kind))
             {
-                if (NetworkObject.IsSpawned) mana.Value = Mathf.Min(100f, mana.Value + 4f);
-                else soloMana = Mathf.Min(100f, soloMana + 4f);
+                if (NetworkObject.IsSpawned) mana.Value = Mathf.Min(settings.maxMana, mana.Value + settings.hitMana);
+                else soloMana = Mathf.Min(settings.maxMana, soloMana + settings.hitMana);
             }
         }
     }

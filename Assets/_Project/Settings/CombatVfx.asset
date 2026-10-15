@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f56d777bc7807ca42875ea95b849c8bf, type: 3}
+  m_Name: CombatVfx
+  m_EditorClassIdentifier: Assembly-CSharp::CombatVfxSettings
+  dashSmoke: {fileID: 11400000, guid: 4e1d0e682d450104a9256e51bbec85eb, type: 2}
+  wind: {fileID: 11400000, guid: fbaef993c60e5b84e9f341273a0ec893, type: 2}
+  hitSparks: {fileID: 11400000, guid: 96858439a06ab0c4fb00d56bd21604cd, type: 2}
+  hitSmoke: {fileID: 11400000, guid: 589647c073c7e8945b9c54b21e055333, type: 2}
+  skillWind: {fileID: 11400000, guid: 8743c5ca7be7cc946bb6000f36d904d7, type: 2}
+  dashStreaks: {fileID: 11400000, guid: 449b2af2e53aa6f428a855b35dec61b0, type: 2}
+  dashDebris: {fileID: 11400000, guid: 70acc3bd549b7f84ca588792cd36cb31, type: 2}
+  slashEdges: {fileID: 11400000, guid: a23241972bce9ff49ad69cae42db56bc, type: 2}
+  hitCore: {fileID: 11400000, guid: 5a6a17d8c10b5dc41a992790782a9232, type: 2}
+  hitDebris: {fileID: 11400000, guid: aa2726df4bbd28449afeba472310844b, type: 2}
+  landingSmoke: {fileID: 11400000, guid: 98bdc4f3bf1404e42882caa9fd9f760f, type: 2}
+  landingSpeedThreshold: 4
+  dashOffset: {x: 0, y: 0.08, z: -0.15}
+  strikeOffset: {x: 0.7, y: 0.85, z: -0.35}
+  hitOffset: {x: 0, y: 0.8, z: -0.35}
+  damageTextOffset: {x: 0, y: 0.5, z: 0}
+  hitSprayLift: 0.25
+  dashEmissionInterval: 0.045
+  flashDuration: 0.1
+  telegraphDuration: 0.35
+  flashColor: {r: 2, g: 2, b: 2, a: 1}
+  telegraphColor: {r: 1.4, g: 0.3, b: 0.05, a: 1}
+  damageNumberLifetime: 0.65
+  damageNumberSpeed: 1.2
+  damageNumberSize: 4
+  damageNumberColor: {r: 1, g: 0.85, b: 0.35, a: 1}

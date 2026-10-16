@@ -37,7 +37,7 @@ public sealed class LevelObjectiveHud : MonoBehaviour
         if (portal) target = levels.Layout.Portal + Vector3.up * 0.9f;
         objective.text = $"ROOM {levels.LevelNumber:00}  /  {levels.Layout.Description}  /  " +
             (portal ? (Vector3.Distance(player.transform.position, levels.Layout.Portal) <= levels.Settings.portalInteractionRange
-                ? "E / UP  ·  ENTER PORTAL" : "ROOM CLEAR  ·  FIND THE PORTAL") : $"{levels.Remaining} ENEMIES");
+                ? GameInputPresentation.Hint("Interact") + "  ·  ENTER PORTAL" : "ROOM CLEAR  ·  FIND THE PORTAL") : $"{levels.Remaining} ENEMIES");
         arrow.gameObject.SetActive(portal || foundEnemy && !visibleEnemy);
         if (!arrow.gameObject.activeSelf) return;
         graphic.color = portal ? levels.Settings.portalColor : levels.Settings.enemyPointerColor;

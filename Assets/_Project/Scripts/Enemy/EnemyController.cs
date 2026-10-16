@@ -105,7 +105,14 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
             }
             brain.TickMovement();
         }
-        finally { motor.EndTempo(); }
+        finally
+        {
+            // Navigation can travel away from the target (retreats, jumps and routes).
+            // Face actual travel after AI decisions, retaining deliberate attack facing.
+            if (!IsDead && !IsStunned && !IsAttacking && Mathf.Abs(motor.Velocity.x) > settings.facingSpeedThreshold)
+                Face(motor.Velocity.x);
+            motor.EndTempo();
+        }
     }
     public void Face(float direction)
     {

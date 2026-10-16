@@ -40,7 +40,6 @@ public sealed class GameplayDiagnostics : MonoBehaviour
 #endif
     private void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.f3Key.wasPressedThisFrame) Toggle();
         if (skipFrameSample) skipFrameSample = false;
         else
         {
@@ -79,9 +78,16 @@ public sealed class GameplayDiagnostics : MonoBehaviour
         for (int i = history.Length - 1; i > 0; i--) history[i] = history[i - 1];
         history[0] = $"{Time.frameCount:000000}   {command}"; historyCount = Mathf.Min(historyCount + 1, history.Length);
     }
-    private void RecordSkill(int slot) => RecordInput(slot == 0 ? "A / MEGA" : slot == 1 ? "S / FIRE" : "D / CRITICAL X");
+    private void RecordSkill(int slot) => RecordInput(GameInputPresentation.Hint(slot == 0 ? "SkillA" : slot == 1 ? "SkillS" : "SkillD") +
+        (slot == 0 ? " / MEGA" : slot == 1 ? " / FIRE" : " / CRITICAL X"));
     private void RecordDamage(float damage) { if (firstDamage < 0f) firstDamage = Time.unscaledTime; sessionDamage += damage; }
-    public void Toggle() { panel.SetActive(!panel.activeSelf); }
+    public void Toggle()
+    {
+        panel.SetActive(!panel.activeSelf);
+        GameManager.Instance?.SuppressGameplayInput();
+        var events = UnityEngine.EventSystems.EventSystem.current;
+        if (events != null) events.SetSelectedGameObject(Visible ? panel.GetComponentInChildren<UnityEngine.UI.Button>()?.gameObject : null);
+    }
     public void ToggleEnemyPractice()
     {
         var network = GameManager.Instance != null ? GameManager.Instance.Network : null;

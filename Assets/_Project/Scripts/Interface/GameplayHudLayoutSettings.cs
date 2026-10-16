@@ -11,7 +11,8 @@ public class GameplayHudLayoutSettings : ScriptableObject
     public Color startupColor = new Color(0.25f, 0.6f, 0.95f), activeColor = new Color(1f, 0.3f, 0.15f);
     public Color recoveryColor = new Color(0.35f, 0.78f, 0.38f), neutralColor = new Color(0.15f, 0.2f, 0.23f);
     public Sprite panelSprite;
-    [Range(0.25f, 1f)] public float pilotHudScale = 0.5f;
+    [Range(0.25f, 1f)] public float pilotHudScale = 0.625f;
+    [Range(1f, 1.3f)] public float interfaceTextScale = 1.25f;
     public Vector2 cockpitAnchor = new Vector2(0f, 1f);
     public Vector2 cockpitOffset = new Vector2(28f, -48f), cockpitSize = new Vector2(348f, 148f);
     public Vector2 diagnosticsSize = new Vector2(660f, 414f), diagnosticsOffset = new Vector2(24f, -84f);

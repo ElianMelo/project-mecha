@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: EnemyLance
   m_EditorClassIdentifier: Assembly-CSharp::EnemyLanceSettings
   projectile: {fileID: 5243729367998728196, guid: d68a75a6c15287d45baf7fb9d96aef37, type: 3}
+  impactParticles: {fileID: 11400000, guid: 96858439a06ab0c4fb00d56bd21604cd, type: 2}
   preferredRange: 7
   retreatRange: 4
   detectionRange: 15
@@ -20,9 +21,12 @@ MonoBehaviour:
   cooldown: 2.4
   launchHeight: 1.25
   gravity: 17
-  arcHeight: 2.8
+  arcHeight: 0.35
   leadTime: 0.25
   maximumLead: 1.8
+  embeddedLifetime: 1.5
+  tipOffset: 1
+  embedDepth: 0.18
   damage: 16
   lifetime: 4
   hitRadius: 0.12

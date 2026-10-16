@@ -21,7 +21,8 @@ MonoBehaviour:
   recoveryColor: {r: 0.35, g: 0.78, b: 0.38, a: 1}
   neutralColor: {r: 0.15, g: 0.2, b: 0.23, a: 1}
   panelSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  pilotHudScale: 0.5
+  pilotHudScale: 0.625
+  interfaceTextScale: 1.25
   cockpitAnchor: {x: 0, y: 1}
   cockpitOffset: {x: 28, y: -48}
   cockpitSize: {x: 348, y: 148}
@@ -30,7 +31,7 @@ MonoBehaviour:
   diagnosticsRefresh: 0.15
   practiceTempo: 0.5
   skillBarAnchor: {x: 0, y: 1}
-  skillBarOffset: {x: 28, y: -126}
+  skillBarOffset: {x: 28, y: -146}
   skillSize: {x: 144, y: 74}
   skillSpacing: 6
   skillFontSize: 16

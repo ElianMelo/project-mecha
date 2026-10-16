@@ -21,3 +21,11 @@ MonoBehaviour:
   rosterRefreshSeconds: 3
   connectionTimeoutSeconds: 25
   localPort: 7777
+  waitingColor: {r: 1, g: 0.7, b: 0.28, a: 1}
+  readyColor: {r: 0.3, g: 0.94, b: 0.68, a: 1}
+  emptyColor: {r: 0.3, g: 0.4, b: 0.5, a: 1}
+  cardColor: {r: 0.035, g: 0.06, b: 0.09, a: 1}
+  actionTextColor: {r: 0.015, g: 0.04, b: 0.055, a: 1}
+  textScale: 1.25
+  transitionSeconds: 0.22
+  readyPunch: 0.035

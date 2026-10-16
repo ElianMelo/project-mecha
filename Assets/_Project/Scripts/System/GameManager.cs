@@ -15,27 +15,52 @@ public class GameManager : MonoBehaviour
     [SerializeField] private NetworkManager _networkManager;
     [SerializeField] private LobbySettings lobbySettings;
     [SerializeField] private MechaLobbyPanel lobbyPanel;
-    private InputAction localHost, localClient, lobbies;
+    [SerializeField] private ControllerInterfaceSettings controllerSettings;
+    private InputActionAsset interfaceActions;
+    private InputActionMap systemActions;
+    private GameplayDiagnostics diagnostics;
+    private ControllerTextEntry textEntry;
+    private float resumeInputAt;
     private string localAddress = "127.0.0.1";
     public static GameManager Instance { get; private set; }
-    public bool MenuOpen => lobbyPanel != null && lobbyPanel.IsVisible;
+    public bool MenuOpen => lobbyPanel != null && lobbyPanel.IsVisible || diagnostics != null && diagnostics.Visible || textEntry != null && textEntry.IsVisible;
+    public bool GameplayInputBlocked => MenuOpen || Time.unscaledTime < resumeInputAt;
+    public ControllerInterfaceSettings ControllerSettings => controllerSettings;
     public NetworkManager Network => _networkManager;
     private void Awake()
     {
         Instance = this;
-        localHost = new InputAction("Local host", InputActionType.Button, "<Keyboard>/1");
-        localClient = new InputAction("Local client", InputActionType.Button, "<Keyboard>/2");
-        lobbies = new InputAction("Online lobbies", InputActionType.Button, "<Keyboard>/3");
-        localHost.performed += _ => { if (AcceptShortcut()) StartHost(); };
-        localClient.performed += _ => { if (AcceptShortcut()) StartClient(); };
-        lobbies.performed += _ => { if (AcceptShortcut()) lobbyPanel?.Show(); };
+        diagnostics = FindFirstObjectByType<GameplayDiagnostics>();
+        textEntry = FindFirstObjectByType<ControllerTextEntry>();
+        interfaceActions = Instantiate(controllerSettings.actions);
+        systemActions = interfaceActions.FindActionMap("System", true);
+        systemActions.FindAction("LocalHost").performed += _ => { if (AcceptShortcut()) StartHost(); };
+        systemActions.FindAction("LocalJoin").performed += _ => { if (AcceptShortcut()) StartClient(); };
+        systemActions.FindAction("Menu").performed += context => {
+            if (MenuOpen || context.control.device is Gamepad || AcceptShortcut()) ToggleMenu();
+        };
+        systemActions.FindAction("Back").performed += _ => Back();
+        systemActions.FindAction("Diagnostics").performed += _ => {
+            if (AcceptShortcut() && (lobbyPanel == null || !lobbyPanel.IsVisible)) diagnostics?.Toggle();
+        };
     }
     private bool AcceptShortcut()
     {
         var selected = UnityEngine.EventSystems.EventSystem.current?.currentSelectedGameObject;
         return selected == null || selected.GetComponent<TMPro.TMP_InputField>() == null;
     }
-    private void OnEnable() { localHost.Enable(); localClient.Enable(); lobbies.Enable(); }
+    private void OnEnable() => systemActions.Enable();
+    public void SuppressGameplayInput() => resumeInputAt = Time.unscaledTime + controllerSettings.menuResumeDelay;
+    private void ToggleMenu()
+    {
+        if (MenuOpen) Back(); else lobbyPanel?.Show();
+    }
+    private void Back()
+    {
+        if (textEntry != null && textEntry.IsVisible) textEntry.Cancel();
+        else if (diagnostics != null && diagnostics.Visible) diagnostics.Toggle();
+        else if (lobbyPanel != null && lobbyPanel.IsVisible) lobbyPanel.Hide();
+    }
     private async void Start()
     {
         // Optional launch parameters exercise the same public lobby flow as the menu.
@@ -49,8 +74,8 @@ public class GameManager : MonoBehaviour
         }
         else if (System.Array.IndexOf(args, "--mecha-local-client") >= 0) StartClient();
     }
-    private void OnDisable() { localHost.Disable(); localClient.Disable(); lobbies.Disable(); }
-    private void OnDestroy() { localHost.Dispose(); localClient.Dispose(); lobbies.Dispose(); if (Instance == this) Instance = null; }
+    private void OnDisable() => systemActions?.Disable();
+    private void OnDestroy() { if (interfaceActions != null) Destroy(interfaceActions); if (Instance == this) Instance = null; }
     public void StartHost()
     {
         if (_networkManager.ServerManager.Started || _networkManager.ClientManager.Started) return;

@@ -226,6 +226,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 5243729367998728196}
   _networkObjectCache: {fileID: 0}
+  settings: {fileID: 11400000, guid: 83105327bbb8f06449304038c22e141f, type: 2}
 --- !u!114 &9215228414746121266
 MonoBehaviour:
   m_ObjectHideFlags: 0

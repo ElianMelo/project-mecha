@@ -1,5 +1,13 @@
 # Project content classification
 
+## Controller support — 2026-10-16
+
+The Input Action asset, player prefab, MainScene, HUD/input/menu scripts and new controller interface profile remain **Placeholder**, with their existing unverified provenance preserved. New `ControllerInterfaceSettings`, `GameInputPresentation`, `ControllerTextEntry` and `ControllerTextField` scripts and their metadata are also **Placeholder / Unverified**. `Assets/Editor/MechaControllerSetup.cs`, its metadata and `Docs/ControllerSupport.md` are **Others** support content. Native uGUI/TMP and the existing Unity Input System supply the controls; no artwork or external package was added. The inventory includes these new maintained files. Temporary Gamepad devices used for manual inspection are runtime state and are not maintained content.
+
+## Enemy and UI polish — 2026-10-16
+
+Enemy movement-facing fixes, flatter lance tuning, stationary scenery impacts, the 25% larger HUD and the lobby feedback pass modify existing provisional scripts, profiles, projectile prefab and MainScene. The new `Assets/_Project/Scripts/Interface/LobbyPlayerCard.cs` and its Unity metadata are **Placeholder** content with **Unverified** origin under the existing policy. Bordered cards reuse Unity's built-in UI Sprite; lance impact sparks reuse the existing native Particle System profile. No generated artwork or new external dependency was added. Editor setup and documentation changes remain **Others**. The maintained-file inventory includes the new presenter and metadata; no final-product approval is implied. Temporary local previews are excluded from maintained content.
+
 ## Repository lock recovery — 2026-10-16
 
 Removed a confirmed stale, empty `.git/index.lock` after checking that no Git process was running and that the file could be opened exclusively. An index refresh completed without a lock error and released its lock normally; existing working changes and staged selections were preserved. The process that originally left the lock behind could not be identified from the available log.

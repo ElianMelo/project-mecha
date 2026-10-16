@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a645d58581cfc7e4585151eecb96da10, type: 3}
+  m_Name: ControllerInterface
+  m_EditorClassIdentifier: Assembly-CSharp::ControllerInterfaceSettings
+  actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  menuResumeDelay: 0.15
+  navigationRepeatDelay: 0.35
+  navigationRepeatRate: 0.1
+  keyboardCharacters: ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_'.
+  controllerHelp: 'STICK / D-PAD Move   {jump} Jump   {attack} Combo   {dash} Dash
+
+    {tech}
+    Recall   {skill1} / {skill2} / {skill3} Skills   {interact} Portal
+
+    {dash}
+    + {jump} Rocket   then DOWN Mushidon   DOWN + {attack} Dive
+
+    {menu} Menu  
+    {diagnostics} Combat lab'

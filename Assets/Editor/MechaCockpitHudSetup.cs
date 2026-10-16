@@ -28,17 +28,18 @@ public static class MechaCockpitHudSetup
         Assign(hud, "motion", Label(panel, "Motion", "SYSTEM STANDBY", 16, 116, 316, 18, 11));
         var mark = Label(hud.transform, "Expedition Mark", "PROJECT MECHA  /  COMBAT SYSTEMS\nMK-01    //    FIELD OPERATIONS", 28, 22, 340, 40, 12);
         mark.rectTransform.localScale = Vector3.one * palette.pilotHudScale;
-        var link = Label(hud.transform, "Link", "OFFLINE  /  F3 DIAGNOSTICS", 0, 0, 330, 24, 12);
-        Position(link.rectTransform, Vector2.one, new Vector2(-28f, -22f), new Vector2(330f, 24f));
+        var link = Label(hud.transform, "Link", "OFFLINE  /  F3 DIAGNOSTICS", 0, 0, 330, 24, 12 * palette.interfaceTextScale);
+        Position(link.rectTransform, Vector2.one, new Vector2(-28f, -22f), new Vector2(330f, 24f) * palette.interfaceTextScale);
         link.alignment = TextAlignmentOptions.TopRight; Assign(hud, "link", link);
-        var combo = Label(hud.transform, "Combo Readout", "", 0, 0, 260, 94, 16);
-        Position(combo.rectTransform, new Vector2(1f, 0.5f), new Vector2(-32f, 0f), new Vector2(260f, 94f));
+        var combo = Label(hud.transform, "Combo Readout", "", 0, 0, 260, 94, 16 * palette.interfaceTextScale);
+        Position(combo.rectTransform, new Vector2(1f, 0.5f), new Vector2(-32f, 0f), new Vector2(260f, 94f) * palette.interfaceTextScale);
         combo.alignment = TextAlignmentOptions.TopRight; Assign(hud, "comboReadout", combo);
         var controls = hud.transform.Find("Controls")?.GetComponent<TMP_Text>();
         if (controls != null)
         {
-            Position(controls.rectTransform, Vector2.one, new Vector2(-28f, -55f), new Vector2(470f, 66f));
-            controls.fontSize = 11f; controls.color = new Color(0.64f, 0.75f, 0.78f);
+            Assign(hud, "controls", controls);
+            Position(controls.rectTransform, Vector2.one, new Vector2(-28f, -55f), new Vector2(470f, 66f) * palette.interfaceTextScale);
+            controls.fontSize = 11f * palette.interfaceTextScale; controls.color = new Color(0.64f, 0.75f, 0.78f);
             controls.text = palette.tutorialText;
         }
         var room = hud.GetComponentInChildren<LevelObjectiveHud>() ?? hud.GetComponent<LevelObjectiveHud>();
@@ -47,8 +48,8 @@ public static class MechaCockpitHudSetup
             var objective = new SerializedObject(room).FindProperty("objective").objectReferenceValue as TMP_Text;
             if (objective != null)
             {
-                Position(objective.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -26f), new Vector2(520f, 38f));
-                objective.fontSize = 12f; objective.alignment = TextAlignmentOptions.Top; objective.color = palette.textColor;
+                Position(objective.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -26f), new Vector2(520f, 38f) * palette.interfaceTextScale);
+                objective.fontSize = 12f * palette.interfaceTextScale; objective.alignment = TextAlignmentOptions.Top; objective.color = palette.textColor;
             }
         }
         var skillBar = hud.transform.Find("Skills Top Bar");
@@ -57,12 +58,14 @@ public static class MechaCockpitHudSetup
             { image.sprite = palette.panelSprite; image.type = UnityEngine.UI.Image.Type.Sliced; image.color = palette.panelColor; }
         Diagnostics(hud);
         SkillFocus(hud);
+        MechaUiFeelSetup.ApplyHud(hud);
         EditorUtility.SetDirty(palette); EditorUtility.SetDirty(hud);
     }
     private static void Diagnostics(MechaGameplayHud hud)
     {
         var diagnostics = MechaPresentationSetup.Ensure<GameplayDiagnostics>(hud.gameObject);
         var panel = Rect(hud.transform, "F3 Diagnostics", new Vector2(0f, 1f), palette.diagnosticsOffset, palette.diagnosticsSize);
+        panel.localScale = Vector3.one * palette.interfaceTextScale;
         Panel(panel, new Color(0.015f, 0.025f, 0.035f, 0.97f));
         Line(panel, "Accent", Vector2.zero, new Vector2(palette.diagnosticsSize.x, 2f), palette.accentColor);
         Label(panel, "Title", "F3  //  COMBAT LAB", 16, 12, 450, 26, 18);

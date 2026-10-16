@@ -25,5 +25,6 @@ MonoBehaviour:
   fallLimit: -12
   abandonWindupDistance: 1.8
   hitDrag: 6
+  facingSpeedThreshold: 0.15
   juggleGravityScale: 0.55
   attackKnockback: {x: 5, y: 4, z: 0}

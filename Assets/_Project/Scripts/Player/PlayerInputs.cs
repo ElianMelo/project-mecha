@@ -11,7 +11,8 @@ public class PlayerInputs : NetworkBehaviour
     public Vector2 MoveInput { get; private set; }
     public bool JumpHeld { get; private set; }
     public bool DownHeld { get; private set; }
-    public bool HasControl => (!NetworkObject.IsSpawned || IsOwner) && !(GameManager.Instance != null && GameManager.Instance.MenuOpen);
+    public bool HasControl => (!NetworkObject.IsSpawned || IsOwner) && !GameInputPresentation.Disconnected &&
+        !(GameManager.Instance != null && GameManager.Instance.GameplayInputBlocked);
     public event Action OnJumpInput;
     public event Action OnDownInput;
     public event Action OnAttackInput;
@@ -25,23 +26,18 @@ public class PlayerInputs : NetworkBehaviour
     private int previousDirection;
     private PlayerInput input;
     private InputActionAsset cachedActions;
-    private InputAction jumpAction, downAction, interactAction;
+    private InputAction jumpAction, downAction, moveAction;
     private bool typing;
     private void Awake()
     {
         input = GetComponent<PlayerInput>();
-        interactAction = new InputAction("Portal interaction", InputActionType.Button, settings.interactBinding);
-        interactAction.AddBinding(settings.alternateInteractBinding);
-        interactAction.performed += HandleInteract;
     }
-    private void OnEnable() => interactAction.Enable();
-    public void OnTech(InputValue value) { if (HasControl && !typing && value.isPressed) { OnCommand?.Invoke("X / TECH"); OnTechInput?.Invoke(); } }
-    private void HandleInteract(InputAction.CallbackContext context)
+    public void OnTech(InputValue value) { if (HasControl && !typing && value.isPressed) { OnCommand?.Invoke(GameInputPresentation.Hint("Tech") + " / TECH"); OnTechInput?.Invoke(); } }
+    public void OnInteract(InputValue value)
     {
         var selected = EventSystem.current?.currentSelectedGameObject;
-        if (HasControl && (selected == null || selected.GetComponent<TMPro.TMP_InputField>() == null)) OnInteractInput?.Invoke();
+        if (value.isPressed && HasControl && (selected == null || selected.GetComponent<TMPro.TMP_InputField>() == null)) OnInteractInput?.Invoke();
     }
-    private void OnDestroy() { interactAction.performed -= HandleInteract; interactAction.Dispose(); }
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -68,14 +64,14 @@ public class PlayerInputs : NetworkBehaviour
     }
     private void Update()
     {
+        RefreshDevicePairing();
         var selected = EventSystem.current != null ? EventSystem.current.currentSelectedGameObject : null;
         bool nowTyping = selected != null && selected.GetComponent<TMPro.TMP_InputField>() != null;
         if (nowTyping && !typing) ResetInput();
         typing = nowTyping;
         if (!HasControl || typing || input == null || !input.isActiveAndEnabled)
         {
-            MoveInput = Vector2.zero;
-            JumpHeld = DownHeld = false;
+            ResetInput();
             return;
         }
         if (cachedActions != input.actions)
@@ -83,18 +79,46 @@ public class PlayerInputs : NetworkBehaviour
             cachedActions = input.actions;
             jumpAction = cachedActions?.FindAction("Player/Jump", false);
             downAction = cachedActions?.FindAction("Player/Down", false);
+            moveAction = cachedActions?.FindAction("Player/Move", false);
         }
         // SendMessages only reports performed events for buttons; poll held state
         // from this player's actions so releases are handled for every device.
         JumpHeld = jumpAction != null && jumpAction.IsPressed();
         DownHeld = downAction != null && downAction.IsPressed();
+        // Polling restores a held stick after closing UI and clears it on device loss.
+        ApplyMove(moveAction != null ? moveAction.ReadValue<Vector2>() : Vector2.zero);
     }
-    private void OnDisable() { interactAction.Disable(); ResetInput(); }
+    private void RefreshDevicePairing()
+    {
+        if (input == null || !input.isActiveAndEnabled || NetworkObject.IsSpawned && !IsOwner || GameInputPresentation.Revision == 0) return;
+        var pad = GameInputPresentation.ActiveGamepad;
+        if (pad != null && pad.added)
+        {
+            bool paired = false;
+            foreach (var device in input.devices) if (device == pad) paired = true;
+            if (!paired) input.SwitchCurrentControlScheme("Gamepad", pad);
+        }
+        else if (!GameInputPresentation.UsingGamepad && Keyboard.current != null &&
+            (input.currentControlScheme != "Keyboard&Mouse" || input.hasMissingRequiredDevices))
+        {
+            // A removed controller can leave PlayerInput waiting for its old
+            // device. Ask the native API to pair the keyboard on explicit use.
+            if (Mouse.current != null) input.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current, Mouse.current);
+            else input.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
+        }
+    }
+    private void OnDisable() => ResetInput();
+    public void OnDeviceLost(PlayerInput playerInput) => ResetInput();
+    public void OnControlsChanged(PlayerInput playerInput) => ResetInput();
     private void ResetInput() { MoveInput = Vector2.zero; JumpHeld = DownHeld = false; previousDirection = 0; lastLeft = lastRight = LastJumpPressed = -10f; }
     public void OnMove(InputValue value)
     {
         if (!HasControl || typing) return;
-        MoveInput = value.Get<Vector2>();
+        ApplyMove(value.Get<Vector2>());
+    }
+    private void ApplyMove(Vector2 value)
+    {
+        MoveInput = value;
         int direction = Mathf.Abs(MoveInput.x) < settings.movementDeadzone ? 0 : (MoveInput.x > 0f ? 1 : -1);
         if (direction != 0 && direction != previousDirection)
         {
@@ -126,9 +150,15 @@ public class PlayerInputs : NetworkBehaviour
         if (!HasControl || typing || !value.isPressed) return;
         // Read the action state so a simultaneous Down+Z is independent of callback order.
         if (downAction != null) DownHeld = downAction.IsPressed();
-        OnCommand?.Invoke(DownHeld ? "DOWN + Z" : "Z"); OnAttackInput?.Invoke();
+        OnCommand?.Invoke((DownHeld ? "DOWN + " : "") + GameInputPresentation.Hint("Attack")); OnAttackInput?.Invoke();
     }
-    public void OnDash(InputValue value) { if (HasControl && !typing && value.isPressed) { OnCommand?.Invoke("DASH"); OnDashInput?.Invoke(MoveInput.x == 0f ? 0 : (MoveInput.x > 0f ? 1 : -1)); } }
+    public void OnDash(InputValue value)
+    {
+        if (!HasControl || typing || !value.isPressed) return;
+        Vector2 move = moveAction != null ? moveAction.ReadValue<Vector2>() : MoveInput;
+        OnCommand?.Invoke("DASH");
+        OnDashInput?.Invoke(Mathf.Abs(move.x) < settings.movementDeadzone ? 0 : (move.x > 0f ? 1 : -1));
+    }
     public void OnSkillA(InputValue value) { if (HasControl && !typing && value.isPressed) OnSkillInput?.Invoke(0); }
     public void OnSkillS(InputValue value) { if (HasControl && !typing && value.isPressed) OnSkillInput?.Invoke(1); }
     public void OnSkillD(InputValue value) { if (HasControl && !typing && value.isPressed) OnSkillInput?.Invoke(2); }

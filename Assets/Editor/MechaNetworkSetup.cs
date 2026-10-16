@@ -95,7 +95,7 @@ public static class MechaNetworkSetup
         try
         {
             MechaPresentationSetup.Ensure<NetworkObject>(go);
-            MechaPresentationSetup.Ensure<EnemyLanceProjectile>(go);
+            MechaPresentationSetup.Assign(MechaPresentationSetup.Ensure<EnemyLanceProjectile>(go), "settings", settings);
             MechaPresentationSetup.Ensure<NetworkTransform>(go); ConfigureTransform(go, false);
             var body = go.GetComponent<Rigidbody>(); body.isKinematic = true; body.useGravity = false; body.interpolation = RigidbodyInterpolation.Interpolate;
             var line = go.GetComponent<LineRenderer>(); if (line != null) Object.DestroyImmediate(line);

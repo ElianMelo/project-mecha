@@ -18,6 +18,7 @@ public static class MechaGameplaySetup
         MechaPresentationSetup.EnsureProfiles();
         ConfigureLayers(); ConfigureInputs(); ConfigurePlayer(); ConfigureEnemy(); ConfigureScene();
         MechaPresentationSetup.Apply();
+        MechaControllerSetup.Apply();
         AssetDatabase.SaveAssets();
         Debug.Log("Mecha gameplay configured: player, enemy, inputs, animator, one-way arena and HUD.");
     }

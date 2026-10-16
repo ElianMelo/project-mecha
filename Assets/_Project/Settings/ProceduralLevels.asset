@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3365189f9ea6d8b43beb339587672bd9, type: 3}
+  m_Name: ProceduralLevels
+  m_EditorClassIdentifier: Assembly-CSharp::ProceduralLevelSettings
+  firstRoomSeed: 104729
+  longWidth: {x: 30, y: 38}
+  bigWidth: {x: 23, y: 29}
+  risingTiers: {x: 7, y: 9}
+  bigTiers: {x: 5, y: 7}
+  firstRoomWidth: 22
+  floorHeight: -3.5
+  tierHeight: 1.6
+  firstRoomTiers: 3
+  firstRoomPlatforms:
+  - name: Arrival Shelf
+    position: {x: -7.6, y: -2.11}
+    width: 5.6
+  - name: Lower Crossing
+    position: {x: -1.2, y: -1.71}
+    width: 5
+  - name: Right Landing
+    position: {x: 6.5, y: -2.36}
+    width: 6.8
+  - name: Left Overhang
+    position: {x: -6, y: -0.36}
+    width: 6.4
+  - name: Central Causeway
+    position: {x: 2, y: 0.040000007}
+    width: 7.2
+  - name: Right Perch
+    position: {x: 8.6, y: -0.71000004}
+    width: 3.6
+  - name: Upper Left Perch
+    position: {x: -7.1, y: 1.24}
+    width: 4.4
+  - name: Upper Bridge
+    position: {x: 2.7, y: 1.64}
+    width: 12.6
+  enemyCount: {x: 7, y: 11}
+  minimumSpawnDistance: 3.2
+  platformThickness: 0.22
+  horizontalCellWidth: 5
+  edgeInset: 0.6
+  platformJitter: 0.45
+  platformWidthFraction: {x: 0.76, y: 0.88}
+  risingGap: 0.7
+  risingStepOffset: 0.18
+  minimumEnemySpacing: 2.25
+  playerSpawnSpacing: 0.85
+  portalInteractionRange: 1.8
+  pointerInset: 48
+  enemyPointerColor: {r: 1, g: 0.78, b: 0.16, a: 1}
+  portalColor: {r: 0.2, g: 0.95, b: 1, a: 1}
+  scenario: {fileID: 11400000, guid: f4b2d92faf150ff4ab902606a6787f6c, type: 2}
+  oneWay: {fileID: 11400000, guid: ac727f4e1e331154db2fb0231d01dc78, type: 2}
+  cameraSettings: {fileID: 11400000, guid: bdc90cfe200f1714392e2b59718fa7e1, type: 2}
+  portalMaterial: {fileID: 2100000, guid: 72ea55eed3be18b428762d084f6583c6, type: 2}

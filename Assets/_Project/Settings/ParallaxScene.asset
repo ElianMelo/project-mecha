@@ -18,7 +18,7 @@ MonoBehaviour:
     motion: {fileID: 11400000, guid: 5f8ab53e36b25da4baf7cdf6137898b3, type: 2}
     position: {x: -27, y: 7, z: 20}
     size: {x: 36, y: 24}
-    tint: {r: 1, g: 1, b: 1, a: 1}
+    tint: {r: 0.3, g: 0.33, b: 0.42, a: 1}
     sortingOrder: -120
     sideCopies: 1
   - name: Middle Skyline
@@ -26,7 +26,7 @@ MonoBehaviour:
     motion: {fileID: 11400000, guid: 14b551489aa3d71428ae015b191e4c10, type: 2}
     position: {x: -27, y: 5, z: 16}
     size: {x: 30, y: 20}
-    tint: {r: 1, g: 1, b: 1, a: 1}
+    tint: {r: 0.23, g: 0.26, b: 0.32, a: 1}
     sortingOrder: -110
     sideCopies: 1
   - name: Near Rooftops
@@ -34,6 +34,6 @@ MonoBehaviour:
     motion: {fileID: 11400000, guid: 7fc9b8d31a978e343bdc26c64aeb3d02, type: 2}
     position: {x: -27, y: 4, z: 10}
     size: {x: 30, y: 20}
-    tint: {r: 1, g: 1, b: 1, a: 1}
+    tint: {r: 0.18, g: 0.21, b: 0.27, a: 1}
     sortingOrder: -100
     sideCopies: 1

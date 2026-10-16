@@ -7,4 +7,5 @@
 - Prefer CLI and MCP to inspect, modify, and validate work. Modify Unity scenes, prefabs, materials and importer settings through Unity APIs.
 - Use the official Unity CLI MCP server (`unity mcp`) with `com.unity.pipeline` for this project. Discover live commands before invoking them; see Docs/UnityMcpSetup.md. Do not reintroduce the removed third-party MCP integration.
 - Enter Play Mode when useful, then restore the previous editor state.
-- Do not create, add, or run automated tests unless the user explicitly requests automated tests. Use source review, compilation, static checks, and manual runtime inspection.
+- Prefer focused automated regression tests for gameplay rules and bug fixes, alongside compilation and source review. Keep the default validation local and proportional to the change.
+- Reduce network testing: do not routinely build extra players or repeat multi-client/Relay sessions for local gameplay, UI, VFX, or authored-data changes. Use targeted network checks when changing transport, lobby flow, authority, replication, spawning, or remote-only behavior; broaden them only when evidence warrants it.

@@ -63,7 +63,8 @@ public class EnemyPlatformNavigator : MonoBehaviour
         motor.Move(Mathf.Abs(landingX - transform.position.x) > motor.Settings.airborneArrival ? Mathf.Sign(landingX - transform.position.x) * speed : 0f, false);
         if (to.max.y < from.max.y - motor.Settings.heightSafety && landingX >= from.min.x && landingX <= from.max.x)
             motor.Drop();
-        else motor.Jump();
+        // Keep the full arc for a gap; overlapping surfaces only need a short hop.
+        else motor.Jump(Mathf.Abs(landingX - transform.position.x) > 0.5f ? float.PositiveInfinity : to.max.y - from.max.y);
     }
 
     private Collider FindNext(Collider start, Collider destination, float speed)

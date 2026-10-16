@@ -29,6 +29,7 @@ public static class MechaCameraSetup
         boundsGo.transform.position=Vector3.zero; bounds.size=settings.viewBounds.size; bounds.offset=settings.viewBounds.center; bounds.isTrigger=true;
         var confiner=MechaPresentationSetup.Ensure<CinemachineConfiner2D>(go);
         confiner.BoundingShape2D=bounds; confiner.Damping=0f; confiner.SlowingDistance=0f; confiner.InvalidateBoundingShapeCache();
+        confiner.OversizeWindow = new CinemachineConfiner2D.OversizeWindowSettings {Enabled = true, MaxWindowSize = settings.orthographicSize * 1.2f, Padding = 0.05f};
         foreach(string side in new[]{"Left","Right"})
         {
             var wall=GameObject.Find(side) ?? new GameObject(side);

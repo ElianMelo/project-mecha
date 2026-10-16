@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55280593e1e193741a10102db4e32b74, type: 3}
   m_Name: RoomCamera
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraSettings
+  groundedFeetViewport: 0.32
+  airborneFeetBand: {x: 0.22, y: 0.55}
+  verticalSafetyBand: {x: 0.08, y: 0.65}
+  verticalRiseSmoothTime: 0.24
+  verticalFallSmoothTime: 0.18
   viewBounds:
     serializedVersion: 2
-    x: -36
-    y: -5.6
-    width: 72
-    height: 14.4
-  physicalWalls: {x: -36, y: 36}
+    x: -11
+    y: -4.2
+    width: 22
+    height: 11.7699995
+  physicalWalls: {x: -11, y: 11}
   wallThickness: 0.4
   wallHeight: 24
   wallDepth: 6
@@ -31,78 +36,5 @@ MonoBehaviour:
   centerDamping: 1.1
   edgeDamping: 0.04
   searchInterval: 0.25
-  landingHeightTolerance: 0.06
-  landingBlendDuration: 0.96
-  landingBlend:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  airborneFollowWeight: 0.18
-  maximumAirborneOffset: 0.55
-  airborneSmoothTime: 0.35
-  airborneMaximumSpeed: 1.2
   framingFloorHeight: -3.5
-  floorFeetViewport: 0.1
-  groundedRiseByElevation:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1.9
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 3.66
-      value: 1.569
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 5.51
-      value: 2.8614
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  initialPosition: {x: -27, y: -0.7120001, z: -10}
+  initialPosition: {x: -8.32, y: -0.7149999, z: -10}

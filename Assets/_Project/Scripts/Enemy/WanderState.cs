@@ -30,7 +30,8 @@ public sealed class WanderState : IEnemyState
     {
         var settings = context.Settings;
         surface = context.Motor.Support;
-        if (Random.value < settings.changePlatformChance)
+        bool guard = context.Actor.Role == EnemyRole.Guard;
+        if (!guard && Random.value < settings.changePlatformChance)
         {
             int count = Physics.OverlapBoxNonAlloc(context.Home,
                 new Vector3(settings.wanderRadius, settings.wanderVerticalRange, 1f), candidates,
@@ -45,8 +46,9 @@ public sealed class WanderState : IEnemyState
         }
         if (surface == null) { Pause(); return; }
         var bounds = surface.bounds; float inset = context.Motor.Settings.landingInset;
-        float minimum = Mathf.Max(context.Home.x - settings.wanderRadius, bounds.min.x + inset);
-        float maximum = Mathf.Min(context.Home.x + settings.wanderRadius, bounds.max.x - inset);
+        float radius = guard ? context.GetComponent<EnemyTactics>().GuardPatrolRadius : settings.wanderRadius;
+        float minimum = Mathf.Max(context.Home.x - radius, bounds.min.x + inset);
+        float maximum = Mathf.Min(context.Home.x + radius, bounds.max.x - inset);
         if (minimum > maximum) { Pause(); return; }
         destination = new Vector3(Random.Range(minimum, maximum), bounds.max.y, context.Home.z);
         travelUntil = Time.time + EnemyStateMachine.RandomRange(settings.patrolTravelTime);

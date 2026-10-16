@@ -21,7 +21,7 @@ public class MechaGameplayHud : MonoBehaviour
         }
         if (player == null)
         {
-            status.text = "TRAINING ARENA  /  Press 1 to host locally  /  2 to join";
+            status.text = "MECHA  /  1 Local host  /  2 Local join  /  3 Online lobbies";
             return;
         }
         status.text = $"MECHA KNIGHT  /  HP {health.Health:0}  /  MP {player.Mana:0}  /  {player.CurrentAction}";

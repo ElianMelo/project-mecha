@@ -13,6 +13,12 @@ public class DestructibleProp : NetworkBehaviour, ICombatTarget
     private float soloHealth;
     public bool IsDead => (NetworkObject.IsSpawned ? health.Value : soloHealth) <= 0f;
     public float Health => NetworkObject.IsSpawned ? health.Value : soloHealth;
+    public void RestoreForLevel()
+    {
+        if (NetworkObject.IsSpawned && !IsServerInitialized) return;
+        if (NetworkObject.IsSpawned) health.Value = settings.health; else soloHealth = settings.health;
+        if (hitbox != null) SetVisible(true);
+    }
     private void Awake()
     {
         visuals = GetComponentsInChildren<Renderer>(); hitbox = GetComponent<Collider>();

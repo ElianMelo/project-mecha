@@ -4,4 +4,5 @@ using UnityEngine;
 public class OneWayPlatformSettings : ScriptableObject
 {
     public float dropDuration = 0.45f, surfaceTolerance = 0.06f, risingThreshold = 0.1f;
+    public float supportReleaseDepth = 0.3f;
 }

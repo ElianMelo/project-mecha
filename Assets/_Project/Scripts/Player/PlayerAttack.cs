@@ -19,6 +19,19 @@ public class PlayerAttack : NetworkBehaviour
     private PlayerCombatVfx vfx;
     private CharacterAnimator animationView;
     private ActionKind localKind, serverKind;
+    private int localPiece, serverPiece;
+    private readonly ComboSequencePlayer sequence = new ComboSequencePlayer();
+    private ComboLoadout previewLoadout;
+    public ComboLoadout Loadout => previewLoadout != null ? previewLoadout : settings.combos;
+    public PlayerCombatSettings Settings => settings;
+    public void UseLoadout(ComboLoadout loadout) { Interrupt(); previewLoadout = loadout; }
+    public void ResetPracticeResources()
+    {
+        if (NetworkObject.IsSpawned) return;
+        soloMana = settings.maxMana;
+        System.Array.Clear(localCooldowns, 0, localCooldowns.Length);
+    }
+    public void BeginAirCombo() => sequence.Reset();
     private float localStart, serverStart, comboExpires, attackBuffered = -10f;
     private int localPulse, serverPulse, localDirection, serverDirection, combo;
     private bool localActive, serverActive;
@@ -35,10 +48,10 @@ public class PlayerAttack : NetworkBehaviour
     public float Cost(int skill) => settings.Get((ActionKind)(skill + 5)).manaCost;
     private bool HasControl => !NetworkObject.IsSpawned || IsOwner;
     public static bool IsSkill(ActionKind kind) => kind >= ActionKind.MegaSlash && kind <= ActionKind.CriticalX;
-    private float Duration(ActionKind kind) => settings.Get(kind).duration;
-    private int Pulses(ActionKind kind) => settings.Get(kind).pulses;
-    private float ImpactTime(ActionKind kind, int pulse) => settings.Get(kind).impact + pulse * settings.Get(kind).pulseInterval;
-    private float CancelTime(ActionKind kind) => settings.Get(kind).cancel;
+    private float Duration(int piece) => settings.At(piece).duration;
+    private int Pulses(int piece) => settings.At(piece).pulses;
+    private float ImpactTime(int piece, int pulse) => settings.At(piece).impact + pulse * settings.At(piece).pulseInterval;
+    private float CancelTime(int piece) => settings.At(piece).cancel;
     private void Awake()
     {
         inputs = GetComponent<PlayerInputs>(); movement = GetComponent<PlayerMovement>();
@@ -46,7 +59,7 @@ public class PlayerAttack : NetworkBehaviour
         soloMana = settings.maxMana;
     }
     private void OnEnable() { inputs.OnAttackInput += HandleAttack; inputs.OnSkillInput += HandleSkill; }
-    private void OnDisable() { inputs.OnAttackInput -= HandleAttack; inputs.OnSkillInput -= HandleSkill; localActive = serverActive = false; ClearBuffers(); }
+    private void OnDisable() { inputs.OnAttackInput -= HandleAttack; inputs.OnSkillInput -= HandleSkill; localActive = serverActive = false; ClearBuffers(); sequence.Reset(); }
     public override void OnStartServer() { base.OnStartServer(); mana.Value = settings.maxMana; }
     private void Update()
     {
@@ -56,28 +69,28 @@ public class PlayerAttack : NetworkBehaviour
         if (localActive)
         {
             float elapsed = Time.time - localStart;
-            while (localPulse < Pulses(localKind) && elapsed >= ImpactTime(localKind, localPulse))
+            while (localPulse < Pulses(localPiece) && elapsed >= ImpactTime(localPiece, localPulse))
             {
-                vfx?.Strike(localKind, localDirection, localPulse);
-                if (solo) ApplyHits(localKind, localDirection, localPulse);
+                vfx?.Strike(settings.At(localPiece), localDirection, localPulse);
+                if (solo) ApplyHits(localPiece, localDirection, localPulse);
                 localPulse++;
             }
-            if (elapsed >= Duration(localKind)) EndPresentation();
+            if (elapsed >= Duration(localPiece)) EndPresentation();
             else if (landedDuringAirSlash && localPulse > 0) FinishLanding();
         }
         if (IsServerInitialized && serverActive)
         {
             float elapsed = Time.time - serverStart;
-            while (serverPulse < Pulses(serverKind) && elapsed >= ImpactTime(serverKind, serverPulse))
-                ApplyHits(serverKind, serverDirection, serverPulse++);
-            if (elapsed >= Duration(serverKind)) serverActive = false;
+            while (serverPulse < Pulses(serverPiece) && elapsed >= ImpactTime(serverPiece, serverPulse))
+                ApplyHits(serverPiece, serverDirection, serverPulse++);
+            if (elapsed >= Duration(serverPiece)) serverActive = false;
         }
-        bool canChain = HasControl && (!localActive || Time.time - localStart >= CancelTime(localKind));
+        bool canChain = HasControl && (!localActive || Time.time - localStart >= CancelTime(localPiece));
         if (canChain && Time.time <= risingBufferedUntil)
         {
             risingBufferedUntil = attackBuffered = -10f; combo = 0;
-            StartPresentation(ActionKind.RisingSlash, movement.Facing);
-            if (NetworkObject.IsSpawned) RequestAction(ActionKind.RisingSlash, movement.Facing);
+            sequence.Reset();
+            TryBeginPiece(Loadout != null ? settings.IndexOf(Loadout.risingBranch) : settings.IndexOf(ActionKind.RisingSlash));
         }
         else if (canChain && bufferedSkill >= 0 && Time.time <= skillBufferedUntil)
         {
@@ -96,6 +109,7 @@ public class PlayerAttack : NetworkBehaviour
     }
     public void HandleLanding()
     {
+        sequence.Reset();
         if (!localActive || localKind != ActionKind.AirSlash) return;
         landedDuringAirSlash = true;
         if (localPulse > 0) FinishLanding();
@@ -108,34 +122,54 @@ public class PlayerAttack : NetworkBehaviour
     public void HandleAttack()
     {
         if (!HasControl || (health != null && health.IsStunned)) return;
-        if (localActive && Time.time - localStart < CancelTime(localKind)) { attackBuffered = Time.time; return; }
+        if (localActive && Time.time - localStart < CancelTime(localPiece)) { attackBuffered = Time.time; return; }
+        if (Loadout != null)
+        {
+            AttackPiece piece;
+            if (movement.IsDashing) { sequence.Reset(); piece = Loadout.dashAttack; }
+            else piece = sequence.Consume(movement.IsGrounded ? Loadout.groundCombo : Loadout.airCombo, Time.time);
+            if (!TryBeginPiece(settings.IndexOf(piece))) sequence.Reset();
+            return;
+        }
         if (Time.time > comboExpires) combo = 0;
         ActionKind kind = !movement.IsGrounded ? ActionKind.AirSlash : movement.IsDashing ? ActionKind.DashSlash : (ActionKind)combo;
         combo = kind <= ActionKind.Slash3 ? (combo + 1) % 3 : 0;
         comboExpires = Time.time + settings.comboWindow;
-        StartPresentation(kind, movement.Facing);
-        if (NetworkObject.IsSpawned) RequestAction(kind, movement.Facing);
+        TryBeginPiece(settings.IndexOf(kind));
     }
     public void HandleSkill(int skill)
     {
         if (!HasControl || skill < 0 || skill > 2 || (health != null && health.IsStunned) || Cooldown(skill) > 0f || Mana < Cost(skill)) return;
-        if (localActive && Time.time - localStart < CancelTime(localKind))
+        if (localActive && Time.time - localStart < CancelTime(localPiece))
         {
             bufferedSkill = skill; skillBufferedUntil = Time.time + settings.skillBuffer; return;
         }
         bufferedSkill = -1; attackBuffered = risingBufferedUntil = -10f;
-        localCooldowns[skill] = Time.time + SkillCooldown(skill);
-        if (!NetworkObject.IsSpawned) soloMana -= Cost(skill);
-        StartPresentation((ActionKind)(skill + 5), movement.Facing);
-        if (NetworkObject.IsSpawned) RequestAction((ActionKind)(skill + 5), movement.Facing);
+        sequence.Reset(); TryBeginPiece(settings.IndexOf((ActionKind)(skill + 5)));
     }
-    private float SkillCooldown(int skill) => settings.Get((ActionKind)(skill + 5)).cooldown;
-    private void StartPresentation(ActionKind kind, int direction)
+    private bool TryBeginPiece(int piece)
     {
+        if (!settings.IsValidPiece(piece)) return false;
+        var data = settings.At(piece);
+        if (IsSkill(data.kind))
+        {
+            int skill = (int)data.kind - 5;
+            if (Cooldown(skill) > 0f || Mana < data.manaCost) return false;
+            localCooldowns[skill] = Time.time + data.cooldown;
+            if (!NetworkObject.IsSpawned) soloMana -= data.manaCost;
+        }
+        StartPresentation(piece, movement.Facing);
+        if (NetworkObject.IsSpawned) RequestAction(piece, movement.Facing);
+        return true;
+    }
+    private void StartPresentation(int piece, int direction)
+    {
+        localPiece = piece;
+        ActionKind kind = settings.At(piece).kind;
         localKind = kind; localStart = Time.time; localPulse = 0; localDirection = direction; localActive = true;
         landedDuringAirSlash = false;
         movement.StopDash();
-        animationView?.Action(kind, Duration(kind));
+        animationView?.Action(kind, Duration(piece));
     }
     private void EndPresentation()
     {
@@ -146,15 +180,15 @@ public class PlayerAttack : NetworkBehaviour
     public bool TryMovementCancel()
     {
         if (!localActive) return true;
-        if (Time.time - localStart < CancelTime(localKind)) return false;
-        EndPresentation(); ClearBuffers(); combo = 0;
+        if (Time.time - localStart < CancelTime(localPiece)) return false;
+        EndPresentation(); ClearBuffers(); combo = 0; sequence.Reset();
         if (NetworkObject.IsSpawned && IsOwner) RequestCancel(false);
         return true;
     }
     // Dash cancels startup, active frames and recovery. Spent skill costs stay spent.
     public void CancelForDash()
     {
-        EndPresentation(); ClearBuffers(); combo = 0; comboExpires = 0f;
+        EndPresentation(); ClearBuffers(); combo = 0; comboExpires = 0f; sequence.Reset();
         if (!NetworkObject.IsSpawned || IsServerInitialized) serverActive = false;
     }
     public void CancelForDashOnServer()
@@ -165,26 +199,28 @@ public class PlayerAttack : NetworkBehaviour
     }
     public void Interrupt()
     {
-        EndPresentation(); ClearBuffers(); combo = 0;
+        EndPresentation(); ClearBuffers(); combo = 0; sequence.Reset();
         serverActive = false;
     }
     private void ClearBuffers() { attackBuffered = risingBufferedUntil = skillBufferedUntil = -10f; bufferedSkill = -1; }
     [ServerRpc]
-    private void RequestAction(ActionKind kind, int direction)
+    private void RequestAction(int piece, int direction)
     {
-        if (!System.Enum.IsDefined(typeof(ActionKind),kind) || (direction != -1 && direction != 1) || (health != null && health.IsStunned)) { RejectAction(Owner); return; }
+        if (!settings.IsValidPiece(piece) || (direction != -1 && direction != 1) || (health != null && health.IsStunned)) { RejectAction(Owner); return; }
+        var action = settings.At(piece);
+        ActionKind kind = action.kind;
         // RPCs begin on a network tick, after the owner's presentation starts.
         // A small grace covers that tick boundary while preserving startup locks.
-        if (serverActive && Time.time - serverStart + settings.networkRecoveryGrace < CancelTime(serverKind)) { RejectAction(Owner); return; }
+        if (serverActive && Time.time - serverStart + settings.networkRecoveryGrace < CancelTime(serverPiece)) { RejectAction(Owner); return; }
         if (IsSkill(kind))
         {
             int skill = (int)kind - 5;
-            if (Time.time < serverCooldowns[skill] || mana.Value < Cost(skill)) { RejectAction(Owner); return; }
-            mana.Value -= Cost(skill); serverCooldowns[skill] = Time.time + SkillCooldown(skill);
+            if (Time.time < serverCooldowns[skill] || mana.Value < action.manaCost) { RejectAction(Owner); return; }
+            mana.Value -= action.manaCost; serverCooldowns[skill] = Time.time + action.cooldown;
         }
         movement.StopDash();
-        serverKind = kind; serverDirection = direction; serverStart = Time.time; serverPulse = 0; serverActive = true;
-        ShowAction(kind, direction);
+        serverPiece = piece; serverKind = kind; serverDirection = direction; serverStart = Time.time; serverPulse = 0; serverActive = true;
+        ShowAction(piece, direction);
     }
     [TargetRpc]
     private void RejectAction(FishNet.Connection.NetworkConnection connection)
@@ -197,19 +233,20 @@ public class PlayerAttack : NetworkBehaviour
     {
         if (!serverActive) return;
         float elapsed = Time.time - serverStart;
-        bool validLanding = landing && serverKind == ActionKind.AirSlash && elapsed >= ImpactTime(serverKind, 0) &&
+        bool validLanding = landing && serverKind == ActionKind.AirSlash && elapsed >= ImpactTime(serverPiece, 0) &&
             Physics.Raycast(transform.position + Vector3.up * 0.15f, Vector3.down, 0.5f, (1 << 6) | (1 << 7), QueryTriggerInteraction.Ignore);
-        if (!validLanding && elapsed + settings.networkRecoveryGrace < CancelTime(serverKind)) return;
+        if (!validLanding && elapsed + settings.networkRecoveryGrace < CancelTime(serverPiece)) return;
         serverActive = false; ShowCancel();
     }
     [ObserversRpc(ExcludeOwner = true)]
-    private void ShowAction(ActionKind kind, int direction) => StartPresentation(kind, direction);
+    private void ShowAction(int piece, int direction) => StartPresentation(piece, direction);
     [ObserversRpc(ExcludeOwner = true)]
     private void ShowCancel() => EndPresentation();
-    private void ApplyHits(ActionKind kind, int direction, int pulse)
+    private void ApplyHits(int piece, int direction, int pulse)
     {
         if (NetworkObject.IsSpawned && !IsServerInitialized) return;
-        var action = settings.Get(kind);
+        var action = settings.At(piece);
+        ActionKind kind = action.kind;
         float reach = action.reach + pulse * action.pulseAdvance;
         Vector3 center = transform.position + new Vector3(direction * reach, action.height, 0f);
         int count = Physics.OverlapBoxNonAlloc(center, action.hitHalfSize, hitBuffer, Quaternion.identity, settings.enemyLayers, QueryTriggerInteraction.Ignore);
@@ -218,7 +255,7 @@ public class PlayerAttack : NetworkBehaviour
         {
             var enemy = hitBuffer[i].GetComponentInParent<ICombatTarget>();
             if (enemy == null || !hitTargets.Add(enemy) || enemy.IsDead) continue;
-            float damage = pulse == action.pulses - 1 ? action.finalDamage : action.damage;
+            float damage = (pulse == action.pulses - 1 ? action.finalDamage : action.damage) * settings.damageMultiplier;
             bool launcher = action.launcher || action.finalPulseLaunch && pulse == action.pulses - 1;
             enemy.TakeHit(damage, new Vector3(direction * action.push, launcher ? action.lift : 1f, 0f), action.stun);
             if (!IsSkill(kind))

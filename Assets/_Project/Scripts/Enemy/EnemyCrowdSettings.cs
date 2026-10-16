@@ -8,4 +8,5 @@ public class EnemyCrowdSettings : ScriptableObject
     public float neighborRadius = 2f, verticalTolerance = 0.75f;
     public int denseNeighborCount = 5;
     public float separationStrength = 8f, maximumCorrection = 4.5f, anticipation = 0.18f;
+    public float minimumSpacing = 1.15f;
 }

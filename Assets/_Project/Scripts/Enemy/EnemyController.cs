@@ -6,11 +6,17 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyPlatformNavigator), typeof(EnemyStateMachine))]
 public class EnemyController : NetworkBehaviour, ICombatTarget
 {
+    public static readonly System.Collections.Generic.HashSet<EnemyController> ActiveEnemies = new System.Collections.Generic.HashSet<EnemyController>();
     [SerializeField] private EnemySettings settings;
     private readonly SyncVar<float> health = new SyncVar<float>(90f);
     private readonly SyncVar<bool> dead = new SyncVar<bool>();
     private readonly SyncVar<bool> grounded = new SyncVar<bool>();
     private readonly SyncVar<EnemyStateId> state = new SyncVar<EnemyStateId>(EnemyStateId.Wander);
+    private readonly SyncVar<EnemyRole> role = new SyncVar<EnemyRole>();
+    private EnemyRole initialRole;
+    private EnemyLanceAttack lance;
+    public EnemyRole Role => NetworkObject.IsSpawned ? role.Value : initialRole;
+    public void AssignRole(EnemyRole value) { initialRole = value; if (IsServerInitialized) role.Value = value; }
     private float soloHealth = 90f, stunnedUntil, nextAttack, windupUntil, deathUntil;
     private bool windingUp, soloDead;
     private int facing = -1;
@@ -26,7 +32,7 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
     public bool IsDead => NetworkObject.IsSpawned ? dead.Value : soloDead;
     public bool IsStunned => Time.time < stunnedUntil;
     public bool IsGrounded => NetworkObject.IsSpawned && !IsServerInitialized ? grounded.Value : motor != null && motor.IsGrounded;
-    public bool IsAttacking => windingUp;
+    public bool IsAttacking => windingUp || lance != null && lance.IsCharging;
     public EnemyStateId CurrentState => NetworkObject.IsSpawned && !IsServerInitialized ? state.Value : brain != null ? brain.CurrentState : EnemyStateId.Wander;
     public float ChaseSpeed => settings.moveSpeed;
     public float StopDistance => settings.stopDistance;
@@ -34,14 +40,19 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
     {
         body = GetComponent<Rigidbody>(); capsule = GetComponent<CapsuleCollider>(); presentation = GetComponent<EnemyPresentation>();
         motor = GetComponent<EnemyMotor>(); brain = GetComponent<EnemyStateMachine>();
+        lance = GetComponent<EnemyLanceAttack>();
         body.useGravity = false; body.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
         body.interpolation = RigidbodyInterpolation.Interpolate; body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         soloHealth = settings.maxHealth;
     }
-    private void OnEnable() => OneWayPlatform.Register(GetComponent<CapsuleCollider>());
-    private void OnDisable() => OneWayPlatform.Unregister(capsule);
-    public override void OnStartServer() { base.OnStartServer(); health.Value = settings.maxHealth; dead.Value = false; brain.ResetBehavior(); }
-    public override void OnStartClient() { base.OnStartClient(); if (!IsServerInitialized) body.isKinematic = true; }
+    private void OnEnable() { ActiveEnemies.Add(this); OneWayPlatform.Register(GetComponent<CapsuleCollider>()); }
+    private void OnDisable() { ActiveEnemies.Remove(this); OneWayPlatform.Unregister(capsule); }
+    public override void OnStartServer() { base.OnStartServer(); health.Value = settings.maxHealth; dead.Value = false; role.Value = initialRole; brain.ResetBehavior(); }
+    public override void OnStartClient()
+    {
+        base.OnStartClient(); if (!IsServerInitialized) body.isKinematic = true;
+        if (IsDead) { capsule.enabled = false; presentation?.Death(); }
+    }
     private void FixedUpdate()
     {
         if (!Authority) return;
@@ -57,6 +68,7 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
         brain.UpdateAwareness();
         if (IsServerInitialized) state.Value = brain.CurrentState;
         if (IsStunned) return;
+        if (!windingUp && lance != null && lance.Tick()) return;
         if (windingUp)
         {
             motor.Move(0f);
@@ -87,18 +99,22 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
         if (!Authority || IsDead || IsStunned || victim == null || victim.Health <= 0f || !motor.IsGrounded || Time.time < nextAttack) return false;
         var difference = victim.transform.position - transform.position;
         if (Mathf.Abs(difference.y) >= settings.heightTolerance || Mathf.Abs(difference.x) >= settings.attackRange) return false;
-        target = victim; windingUp = true; windupUntil = Time.time + settings.windup;
+        target = victim; windingUp = true;
+        float startup = Mathf.Max(0.18f, settings.windup);
+        windupUntil = Time.time + startup;
         motor.Move(0f);
-        if (NetworkObject.IsSpawned) Telegraph(); else presentation?.Telegraph();
+        if (NetworkObject.IsSpawned) Telegraph(startup); else presentation?.Telegraph(startup);
         return true;
     }
-    public void CancelAttack() { windingUp = false; target = null; }
+    public void CancelAttack() { windingUp = false; target = null; lance?.Cancel(); }
+    [ObserversRpc(RunLocally = true)] public void ShowLanceWindup(float duration) => presentation?.Telegraph(duration);
     public void TakeHit(float damage, Vector3 knockback, float stun)
     {
         if (!Authority || IsDead) return;
         if (NetworkObject.IsSpawned) health.Value = Mathf.Max(0f, health.Value - damage);
         else soloHealth = Mathf.Max(0f, soloHealth - damage);
         windingUp = false; stunnedUntil = Time.time + stun;
+        lance?.Cancel();
         brain.AlertFromDamage();
         body.linearVelocity = knockback;
         if (NetworkObject.IsSpawned) HitFeedback(damage, knockback, stun); else presentation?.Hit(damage, knockback, stun);
@@ -111,7 +127,7 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
         deathUntil = Time.time + settings.deathDuration; capsule.enabled = false;
         if (NetworkObject.IsSpawned) DeathFeedback(); else presentation?.Death();
     }
-    [ObserversRpc(RunLocally = true)] private void Telegraph() => presentation?.Telegraph();
+    [ObserversRpc(RunLocally = true)] private void Telegraph(float duration) => presentation?.Telegraph(duration);
     [ObserversRpc(RunLocally = true)] private void HitFeedback(float damage, Vector3 direction, float stun) => presentation?.Hit(damage, direction, stun);
     [ObserversRpc(RunLocally = true)] private void DeathFeedback() => presentation?.Death();
 }

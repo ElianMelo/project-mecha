@@ -15,3 +15,4 @@ MonoBehaviour:
   dropDuration: 0.45
   surfaceTolerance: 0.06
   risingThreshold: 0.1
+  supportReleaseDepth: 0.3

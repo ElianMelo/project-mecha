@@ -47,6 +47,13 @@ public class EnemyStateMachine : MonoBehaviour
             if (candidate.Movement.Support != null) LastKnownSupport = candidate.Movement.Support;
         }
         else if (Target != null && !Target.IsAlive) Target = null;
+        if (currentState == EnemyStateId.Prediction && candidate != null && Prediction.NeedsDirectCombat(candidate))
+        {
+            ChangeState(EnemyStateId.Alert);
+            Actor.Face(candidate.transform.position.x - transform.position.x);
+            Actor.TryStartAttack(candidate.Health);
+            return;
+        }
         // An interceptor may retain a different elevation; immediate melee danger still wins.
         if (currentState == EnemyStateId.Prediction && candidate != null && desired != EnemyStateId.Wander && !Prediction.NeedsDirectCombat(candidate))
         { hasPending = false; return; }
@@ -94,7 +101,7 @@ public class EnemyStateMachine : MonoBehaviour
     public void TickMovement() => states[(int)currentState].Tick();
     public bool TryBeginPrediction()
     {
-        if (Prediction == null || Target == null || !Prediction.TryPlan(Target.Movement, LastKnownSupport, Actor.ChaseSpeed)) return false;
+        if (Actor.Role != EnemyRole.Hunter || Prediction == null || Target == null || !Prediction.TryPlan(Target.Movement, LastKnownSupport, Actor.ChaseSpeed)) return false;
         ChangeState(EnemyStateId.Prediction); return true;
     }
     public void EndPrediction() => ChangeState(EnemyStateId.Alert);

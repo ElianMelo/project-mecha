@@ -30,7 +30,7 @@ public class EnemyCrowdAvoidance : MonoBehaviour
         {
             if (!IsNeighbor(other, center)) continue;
             float dx = center.x - other.capsule.bounds.center.x;
-            float spacing = (capsule.bounds.extents.x + other.capsule.bounds.extents.x) * (1f - AllowedOverlap);
+            float spacing = Mathf.Max(settings.minimumSpacing, (capsule.bounds.extents.x + other.capsule.bounds.extents.x) * (1f - AllowedOverlap));
             float side = Mathf.Abs(dx) > 0.001f ? Mathf.Sign(dx) : GetInstanceID() > other.GetInstanceID() ? 1f : -1f;
             float gap = Mathf.Abs(dx) - spacing;
             // Match a nearby actor's velocity before contact, then relax any penetration.

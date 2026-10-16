@@ -13,6 +13,10 @@ public class RoomCameraZoom : MonoBehaviour
     private PlayerMovement player;
     private PlayerAttack attack;
     private float amount, velocity, returnTime;
+    private float lockedRoomWidth;
+    public float BaseSize => lockedRoomWidth > 0f && Camera.main != null
+        ? lockedRoomWidth / (2f * Camera.main.aspect) : framing.orthographicSize;
+    public void SetRoomWidth(float width) { lockedRoomWidth = width; amount = velocity = 0f; SetSize(BaseSize); }
     public float CurrentAmount => amount;
 
     private void Awake()
@@ -49,7 +53,7 @@ public class RoomCameraZoom : MonoBehaviour
         }
         // Absolute offsets blend across cancels/chains instead of accumulating zoom.
         amount = Mathf.SmoothDamp(amount, target, ref velocity, Mathf.Max(0.01f, smoothTime));
-        SetSize(framing.orthographicSize * (1f + amount));
+        SetSize(lockedRoomWidth > 0f ? BaseSize : BaseSize * (1f + amount));
     }
 
     private void SetSize(float size)

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fbfec601ab29bb45be379a12f7c7003, type: 3}
+  m_Name: EnemyLance
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyLanceSettings
+  projectile: {fileID: 5243729367998728196, guid: d68a75a6c15287d45baf7fb9d96aef37, type: 3}
+  preferredRange: 7
+  retreatRange: 4
+  detectionRange: 15
+  windup: 0.65
+  cooldown: 2.4
+  launchHeight: 1.25
+  gravity: 17
+  arcHeight: 2.8
+  leadTime: 0.25
+  maximumLead: 1.8
+  damage: 16
+  lifetime: 4
+  hitRadius: 0.12
+  knockback: {x: 4, y: 3}
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 449

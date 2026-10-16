@@ -15,6 +15,7 @@ public sealed class PredictionState : IEnemyState
         if (target == null || !target.IsAlive || plan.Destination == null || Time.time >= expires)
         { context.EndPrediction(); return; }
         context.Actor.Face(target.transform.position.x - context.transform.position.x);
+        if (context.Actor.TryStartAttack(target.Health)) return;
         bool arrived = context.Motor.IsGrounded && context.Motor.Support == plan.Destination &&
             Mathf.Abs(context.transform.position.x - plan.Position.x) <= plan.Settings.arrival;
         if (arrived)

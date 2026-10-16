@@ -24,9 +24,19 @@ public class PlayerCombatVfx : MonoBehaviour
         if (movement.IsDashing && Time.time>=nextSmoke) Dash(movement.Facing);
     }
     public void Strike(PlayerAttack.ActionKind kind,int facing,int pulse)
+        => Strike(combat.Get(kind), facing, pulse);
+    public void Strike(PlayerCombatSettings.ActionData action,int facing,int pulse)
     {
-        var action=combat.Get(kind);
+        var kind=action.kind;
         Vector3 offset=new Vector3(facing*(action.reach+pulse*action.pulseAdvance),action.height,settings.strikeOffset.z);
+        var fire = kind == PlayerAttack.ActionKind.SwordFire ? settings.swordFire
+            : kind == PlayerAttack.ActionKind.MegaSlash ? settings.megaSlashFire
+            : kind == PlayerAttack.ActionKind.CriticalX ? settings.criticalXFire : null;
+        if (fire != null)
+        {
+            SwordFireVfxEmitter.Emit(fire, transform.position + offset, facing, pulse);
+            return;
+        }
         Vector3 direction=kind==PlayerAttack.ActionKind.RisingSlash ? new Vector3(facing*0.5f,1f,0f) : new Vector3(facing,kind==PlayerAttack.ActionKind.Slash2?-0.3f:0.3f,0f);
         ParticleBurstEmitter.Emit(PlayerAttack.IsSkill(kind)?settings.skillWind:settings.wind,transform.position+offset,direction);
         ParticleBurstEmitter.Emit(settings.slashEdges,transform.position+offset,direction);

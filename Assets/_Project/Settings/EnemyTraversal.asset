@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5f1037b3d63f84ca5f841b2cb90bc6, type: 3}
   m_Name: EnemyTraversal
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTraversalSettings
-  jumpSpeed: 11.6
-  risingGravity: 24
-  fallingGravity: 40
-  terminalVelocity: 22
+  jumpSpeed: 15
+  risingGravity: 40
+  fallingGravity: 64
+  terminalVelocity: 28
+  minimumHopHeight: 0.85
+  landingClearance: 0.4
   acceleration: 38
   airAcceleration: 24
   dropSpeed: 4.5

@@ -15,7 +15,7 @@ MonoBehaviour:
   maxHealth: 90
   moveSpeed: 3.6
   attackDamage: 12
-  windup: 0.24
+  windup: 0.34
   attackCooldown: 0.65
   deathDuration: 0.65
   attackRange: 1.05

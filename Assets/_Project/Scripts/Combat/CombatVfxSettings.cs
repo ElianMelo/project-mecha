@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Mecha/Presentation/Combat Effects")]
 public class CombatVfxSettings : ScriptableObject
 {
+    public SwordFireVfxSettings swordFire;
+    public SwordFireVfxSettings megaSlashFire, criticalXFire;
     public ParticleEffectSettings dashSmoke, wind, hitSparks, hitSmoke, skillWind;
     public ParticleEffectSettings dashStreaks, dashDebris, slashEdges, hitCore, hitDebris, landingSmoke;
     public float landingSpeedThreshold = 4f;

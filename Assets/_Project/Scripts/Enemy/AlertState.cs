@@ -9,7 +9,9 @@ public sealed class AlertState : IEnemyState
         var target = context.Target;
         if (target == null || !target.IsAlive) { context.Motor.Move(0f); return; }
         context.Actor.Face(target.transform.position.x - context.transform.position.x);
-        if (context.Actor.TryStartAttack(target.Health) || context.TryBeginPrediction()) return;
+        if (context.Actor.TryStartAttack(target.Health)) return;
+        if (context.GetComponent<EnemyTactics>()?.HoldPosition(target) == true) return;
+        if (context.TryBeginPrediction()) return;
         context.Navigation.Pursue(target.Movement, context.Actor.ChaseSpeed, context.Actor.StopDistance);
     }
 }

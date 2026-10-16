@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 5090173100892393032}
   - component: {fileID: 3004766775428425445}
   - component: {fileID: 5570303292173814995}
+  - component: {fileID: 8336708009453389880}
   m_Layer: 9
   m_Name: EvaEnemy
   m_TagString: Untagged
@@ -153,7 +154,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5411630197792669422}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9f92f7a771adc3f45ab1dab4019c4641, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -206,8 +207,8 @@ MonoBehaviour:
   _useScaledTime: 1
   _interpolation: 2
   _extrapolation: 2
-  _enableTeleport: 0
-  _teleportThreshold: 1
+  _enableTeleport: 1
+  _teleportThreshold: 3
   _clientAuthoritative: 0
   _sendToOwner: 1
   _interval: 1
@@ -330,6 +331,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1625e557fa749843ac73f2bee79b5f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBodyCollider
+--- !u!114 &8336708009453389880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5411630197792669422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96072bff36f69bd43985182bd711569f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyTactics
+  settings: {fileID: 11400000, guid: eb99e807653a1bf47a913108acfd19be, type: 2}
 --- !u!1001 &5932389606384564754
 PrefabInstance:
   m_ObjectHideFlags: 0

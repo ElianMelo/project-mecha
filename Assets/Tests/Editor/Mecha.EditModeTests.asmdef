@@ -1,0 +1,7 @@
+{
+    "name": "Mecha.EditModeTests",
+    "references": ["Mecha.TestSupport"],
+    "includePlatforms": ["Editor"],
+    "autoReferenced": false,
+    "optionalUnityReferences": ["TestAssemblies"]
+}

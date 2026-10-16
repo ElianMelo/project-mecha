@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 7794294595902901556}
   - component: {fileID: 6926906529972948209}
   - component: {fileID: 5562125822316158375}
+  - component: {fileID: 8913947402954253003}
+  - component: {fileID: 5910179844396686676}
   m_Layer: 8
   m_Name: MechaPlayer
   m_TagString: Untagged
@@ -81,7 +83,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554257071974495511}
-  m_Material: {fileID: 13400000, guid: 50785d70f98287d489ffb213e0b6a3e3, type: 2}
+  m_Material: {fileID: 13400000, guid: 9f92f7a771adc3f45ab1dab4019c4641, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -284,8 +286,8 @@ MonoBehaviour:
   _useScaledTime: 1
   _interpolation: 2
   _extrapolation: 2
-  _enableTeleport: 0
-  _teleportThreshold: 1
+  _enableTeleport: 1
+  _teleportThreshold: 3
   _clientAuthoritative: 1
   _sendToOwner: 1
   _interval: 1
@@ -388,6 +390,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerEnemyCollision
   settings: {fileID: 11400000, guid: c858791022ed1ad47b3e9134b566dbfc, type: 2}
+--- !u!114 &8913947402954253003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554257071974495511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69474876e7b9fbd4e80ab50ee30cbb83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLevelTravel
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 6879919603248285336}
+  _networkObjectCache: {fileID: 0}
+--- !u!114 &5910179844396686676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554257071974495511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a321a80f62987354fa4179954cfd1543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLedgeAssist
 --- !u!1001 &4389558030087222968
 PrefabInstance:
   m_ObjectHideFlags: 0

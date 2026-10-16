@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f15d2f98be95f4f9bec7a0d1100670, type: 3}
+  m_Name: ComboConfigurator
+  m_EditorClassIdentifier: Assembly-CSharp::ComboConfiguratorSettings
+  combat: {fileID: 11400000, guid: 9e0ab38bb0d5058408f943b05271c8d7, type: 2}
+  loadout: {fileID: 11400000, guid: ceda6f78c6a37ec44823afae75c3e659, type: 2}
+  presets:
+  - {fileID: 11400000, guid: 93718151c9b3b044ca5f94fb14e01c75, type: 2}
+  - {fileID: 11400000, guid: cb1d96eb70c2e2b47b287b68c67ffefb, type: 2}
+  - {fileID: 11400000, guid: faf09f89bf5b7484e8b4af9584e7b350, type: 2}
+  - {fileID: 11400000, guid: 8ce1c0a9e853da143ba06ec1f87b3dc5, type: 2}
+  maximumSteps: 8
+  previewSpawn: {x: 2, y: 0.03, z: 0}

@@ -1,0 +1,6 @@
+{
+    "name": "Mecha.PlayModeTests",
+    "references": ["Mecha.TestSupport", "FishNet.Runtime"],
+    "autoReferenced": false,
+    "optionalUnityReferences": ["TestAssemblies"]
+}

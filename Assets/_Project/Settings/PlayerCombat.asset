@@ -184,6 +184,18 @@ MonoBehaviour:
     stun: 0.55
     manaCost: 0
     cooldown: 0
+  pieces:
+  - {fileID: 11400000, guid: 00ce543397741e94a9bc2196095771cb, type: 2}
+  - {fileID: 11400000, guid: c7b9ad3be08069846b10b702da2a8131, type: 2}
+  - {fileID: 11400000, guid: 024a51c43fc3b514aab872de4106071f, type: 2}
+  - {fileID: 11400000, guid: 2ef7c3de22225e84694ebbe49c6306ba, type: 2}
+  - {fileID: 11400000, guid: 47c51f316cd8d4a48bd1935460e382ec, type: 2}
+  - {fileID: 11400000, guid: c5ad41fa179c33e47a7d0f7ab69d4944, type: 2}
+  - {fileID: 11400000, guid: ea64648e687b5e74ea660e67b64c92e3, type: 2}
+  - {fileID: 11400000, guid: 745dbfd131ec56a4f9701a3ad476bf8a, type: 2}
+  - {fileID: 11400000, guid: f6b6fa8ede36381458b3a822c082dda5, type: 2}
+  combos: {fileID: 11400000, guid: ceda6f78c6a37ec44823afae75c3e659, type: 2}
+  damageMultiplier: 2
   maxMana: 100
   manaRegen: 7
   hitMana: 4

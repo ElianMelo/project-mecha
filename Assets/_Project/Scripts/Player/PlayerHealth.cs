@@ -18,7 +18,7 @@ public class PlayerHealth : NetworkBehaviour
     public float MaxHealth => settings.maxHealth;
     private void Awake() { body = GetComponent<Rigidbody>(); movement = GetComponent<PlayerMovement>(); spawnPosition = transform.position; soloHealth = settings.maxHealth; }
     public override void OnStartServer() { base.OnStartServer(); health.Value = settings.maxHealth; spawnPosition = transform.position; }
-    public override void OnStartClient() { base.OnStartClient(); spawnPosition = transform.position; }
+    public override void OnStartClient() { base.OnStartClient(); spawnPosition = transform.position; if (Health <= 0f) ApplyDefeat(); }
     private void Update()
     {
         if (defeated)
@@ -68,13 +68,24 @@ public class PlayerHealth : NetworkBehaviour
         if (NetworkObject.IsSpawned) { health.Value = settings.maxHealth; ResetAtSpawn(spawnPosition); }
         else { soloHealth = settings.maxHealth; ApplyReset(spawnPosition); }
     }
+    public void EnterLevel(Vector3 position)
+    {
+        if (NetworkObject.IsSpawned && !IsServerInitialized) return;
+        spawnPosition = position;
+        Respawn();
+    }
     [ObserversRpc(RunLocally = true)]
     private void ResetAtSpawn(Vector3 position) => ApplyReset(position);
     private void ApplyReset(Vector3 position)
     {
-        defeated = false; stunnedUntil = 0f; body.position = position;
+        defeated = false; stunnedUntil = 0f; spawnPosition = position;
+        invincibleUntil = Time.time + settings.respawnInvincibility;
+        body.position = position; transform.position = position;
+        GetComponent<FishNet.Component.Transforming.NetworkTransform>()?.Teleport();
         if (!body.isKinematic) body.linearVelocity = Vector3.zero;
         GetComponent<PlayerAttack>().Interrupt(); GetComponent<PlayerMovement>().StopDash();
         GetComponent<CharacterAnimator>()?.ResetPresentation();
+        movement?.ResetTraversal();
+        if (movement != null && movement.HasControl) FindFirstObjectByType<RoomCameraRig>()?.Focus(movement);
     }
 }

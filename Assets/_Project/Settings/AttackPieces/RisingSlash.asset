@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93d0c8407305438429d78cb432671fc8, type: 3}
+  m_Name: RisingSlash
+  m_EditorClassIdentifier: Assembly-CSharp::AttackPiece
+  displayName: Rising Slash
+  action:
+    kind: 8
+    duration: 0.55
+    impact: 0.2
+    cancel: 0.38
+    pulses: 1
+    pulseInterval: 0.13
+    damage: 13
+    finalDamage: 13
+    launcher: 1
+    finalPulseLaunch: 0
+    hitHalfSize: {x: 0.65, y: 0.7, z: 0.7}
+    reach: 0.7
+    pulseAdvance: 0
+    height: 0.85
+    push: 4
+    lift: 7
+    stun: 0.55
+    manaCost: 0
+    cooldown: 0

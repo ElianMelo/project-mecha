@@ -11,19 +11,33 @@ public class PlayerInputs : NetworkBehaviour
     public Vector2 MoveInput { get; private set; }
     public bool JumpHeld { get; private set; }
     public bool DownHeld { get; private set; }
-    public bool HasControl => !NetworkObject.IsSpawned || IsOwner;
+    public bool HasControl => (!NetworkObject.IsSpawned || IsOwner) && !(GameManager.Instance != null && GameManager.Instance.MenuOpen);
     public event Action OnJumpInput;
     public event Action OnDownInput;
     public event Action OnAttackInput;
+    public event Action OnInteractInput;
     public event Action<int> OnDashInput;
     public event Action<int> OnSkillInput;
     private float lastLeft = -10f, lastRight = -10f;
     private int previousDirection;
     private PlayerInput input;
     private InputActionAsset cachedActions;
-    private InputAction jumpAction, downAction;
+    private InputAction jumpAction, downAction, interactAction;
     private bool typing;
-    private void Awake() => input = GetComponent<PlayerInput>();
+    private void Awake()
+    {
+        input = GetComponent<PlayerInput>();
+        interactAction = new InputAction("Portal interaction", InputActionType.Button, settings.interactBinding);
+        interactAction.AddBinding(settings.alternateInteractBinding);
+        interactAction.performed += HandleInteract;
+    }
+    private void OnEnable() => interactAction.Enable();
+    private void HandleInteract(InputAction.CallbackContext context)
+    {
+        var selected = EventSystem.current?.currentSelectedGameObject;
+        if (HasControl && (selected == null || selected.GetComponent<TMPro.TMP_InputField>() == null)) OnInteractInput?.Invoke();
+    }
+    private void OnDestroy() { interactAction.performed -= HandleInteract; interactAction.Dispose(); }
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -38,6 +52,7 @@ public class PlayerInputs : NetworkBehaviour
         typing = nowTyping;
         if (!HasControl || typing || input == null || !input.isActiveAndEnabled)
         {
+            MoveInput = Vector2.zero;
             JumpHeld = DownHeld = false;
             return;
         }
@@ -52,7 +67,7 @@ public class PlayerInputs : NetworkBehaviour
         JumpHeld = jumpAction != null && jumpAction.IsPressed();
         DownHeld = downAction != null && downAction.IsPressed();
     }
-    private void OnDisable() => ResetInput();
+    private void OnDisable() { interactAction.Disable(); ResetInput(); }
     private void ResetInput() { MoveInput = Vector2.zero; JumpHeld = DownHeld = false; previousDirection = 0; lastLeft = lastRight = -10f; }
     public void OnMove(InputValue value)
     {

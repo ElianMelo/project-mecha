@@ -25,7 +25,8 @@ public class CharacterAnimator : MonoBehaviour
         previousPosition = transform.position;
         if (animator == null || settings == null || dead || Time.time < lockedUntil) return;
         bool grounded = player != null ? player.IsGrounded : enemy != null ? enemy.IsGrounded : Mathf.Abs(body.linearVelocity.y) < 0.5f;
-        string state = !grounded ? (body.linearVelocity.y > 0.2f ? "Jump" : "Fall") :
+        float vertical = player != null ? player.Velocity.y : enemy != null && enemy.IsSpawned && !enemy.IsServerInitialized ? motion.y : body.linearVelocity.y;
+        string state = !grounded ? (vertical > 0.2f ? "Jump" : "Fall") :
             player != null && player.IsDashing ? "Dash" : Mathf.Abs(motion.x) > settings.movementThreshold ? "Run" : "Idle";
         Play(state);
     }

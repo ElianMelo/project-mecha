@@ -11,6 +11,7 @@ public class PlayerMovementSettings : ScriptableObject
     public float groundAcceleration = 90f, airAcceleration = 45f, airAttackAcceleration = 20f;
     public float rocketMomentum = 0.28f, dropSpeed = 4f, fastFallSpeed = 6f;
     public float groundProbe = 0.15f, groundProbeInset = 0.08f;
+    public float vaultHeight = 0.28f, vaultReach = 0.3f, vaultMaxRiseSpeed = 2f, vaultCooldown = 0.2f;
     public LayerMask groundLayers = (1 << 6) | (1 << 7);
     public float capsuleHeight = 1.75f, capsuleRadius = 0.27f;
     public Vector3 capsuleCenter = new Vector3(0f,0.875f,0f);

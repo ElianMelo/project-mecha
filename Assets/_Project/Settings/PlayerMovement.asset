@@ -19,6 +19,7 @@ MonoBehaviour:
   dashDuration: 0.18
   dashCooldown: 0.12
   dashBuffer: 0.14
+  dashNetworkGrace: 0.08
   risingGravity: 24
   fallingGravity: 40
   apexGravity: 14
@@ -34,6 +35,13 @@ MonoBehaviour:
   fastFallSpeed: 6
   groundProbe: 0.15
   groundProbeInset: 0.08
+  vaultHeight: 0.28
+  vaultReach: 0.3
+  vaultMaxRiseSpeed: 2
+  vaultCooldown: 0.2
   groundLayers:
     serializedVersion: 2
     m_Bits: 192
+  capsuleHeight: 1.75
+  capsuleRadius: 0.27
+  capsuleCenter: {x: 0, y: 0.875, z: 0}

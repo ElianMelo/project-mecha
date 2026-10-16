@@ -1,4 +1,5 @@
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider), typeof(PlayerInputs))]
@@ -11,6 +12,7 @@ public class PlayerMovement : NetworkBehaviour
     private PlayerInputs inputs;
     private PlayerAttack attack;
     private PlayerHealth health;
+    private PlayerLedgeAssist ledgeAssist;
     private readonly RaycastHit[] groundHits = new RaycastHit[12];
     private float jumpRequested = -10f, lastGrounded = -10f, dashUntil, nextDash, momentumUntil;
     private int dashDirection = 1;
@@ -19,20 +21,37 @@ public class PlayerMovement : NetworkBehaviour
     private bool airDashUsed, running;
     private float serverDashUntil, serverNextDash;
     private bool serverAirDashUsed;
-    public bool IsGrounded { get; private set; }
+    private readonly SyncVar<bool> observedGrounded = new SyncVar<bool>();
+    private bool locallyGrounded;
+    private Vector3 previousObservedPosition, observedVelocity;
+    public bool IsGrounded
+    {
+        get => NetworkObject.IsSpawned && !IsOwner && !IsServerInitialized ? observedGrounded.Value : locallyGrounded;
+        private set => locallyGrounded = value;
+    }
     public bool IsDashing => Time.time < dashUntil || IsServerInitialized && Time.time < serverDashUntil;
-    public int Facing { get; private set; } = 1;
+    private int localFacing = 1;
+    public int Facing => NetworkObject.IsSpawned && !IsOwner ? (transform.forward.x >= 0f ? 1 : -1) : localFacing;
     public Collider Support { get; private set; }
-    public Vector3 Velocity => body.linearVelocity;
+    public Vector3 Velocity => HasControl ? body.linearVelocity : observedVelocity;
     public bool HasControl => !NetworkObject.IsSpawned || IsOwner;
+    public void ResetTraversal()
+    {
+        StopDash(); IsGrounded = false; Support = null;
+        jumpRequested = lastGrounded = dashRequestedUntil = -10f;
+        airDashUsed = serverAirDashUsed = false; nextDash = serverNextDash = 0f;
+        previousObservedPosition = transform.position; observedVelocity = Vector3.zero;
+    }
     private void Awake()
     {
         body = GetComponent<Rigidbody>(); capsule = GetComponent<CapsuleCollider>();
         inputs = GetComponent<PlayerInputs>(); attack = GetComponent<PlayerAttack>(); health = GetComponent<PlayerHealth>();
+        ledgeAssist = GetComponent<PlayerLedgeAssist>();
         body.useGravity = false; body.linearDamping = 0f;
         body.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
         body.interpolation = RigidbodyInterpolation.Interpolate;
         body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        previousObservedPosition = transform.position;
     }
     private void OnEnable()
     {
@@ -58,11 +77,15 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!HasControl)
         {
-            if (IsServerInitialized) { CheckGround(); if (IsGrounded) serverAirDashUsed = false; }
+            observedVelocity = Vector3.Lerp(observedVelocity, Vector3.ClampMagnitude((transform.position - previousObservedPosition) / Time.fixedDeltaTime, settings.terminalVelocity), 0.4f);
+            previousObservedPosition = transform.position;
+            if (IsServerInitialized) { CheckGround(); observedGrounded.Value = IsGrounded; if (IsGrounded) serverAirDashUsed = false; }
             return;
         }
         bool wasGrounded = IsGrounded;
+        if ((health == null || !health.IsStunned) && (attack == null || !attack.IsBusy)) ledgeAssist?.TryAssist(settings, inputs);
         CheckGround();
+        if (IsServerInitialized) observedGrounded.Value = IsGrounded;
         if (IsGrounded) { lastGrounded = Time.time; airDashUsed = serverAirDashUsed = false; }
         if (!wasGrounded && IsGrounded) attack?.HandleLanding();
         if (health != null && health.IsStunned)
@@ -78,6 +101,7 @@ public class PlayerMovement : NetworkBehaviour
             bool rocket = IsDashing || Time.time < momentumUntil;
             body.linearVelocity = new Vector3(rocket ? dashDirection * settings.dashSpeed : body.linearVelocity.x, settings.jumpSpeed, 0f);
             jumpRequested = lastGrounded = -10f; IsGrounded = false; Support = null;
+            attack?.BeginAirCombo();
             if (rocket) momentumUntil = Time.time + settings.rocketMomentum;
         }
         float direction = Mathf.Abs(inputs.MoveInput.x) > 0.25f ? Mathf.Sign(inputs.MoveInput.x) : 0f;
@@ -104,7 +128,7 @@ public class PlayerMovement : NetworkBehaviour
     private void CheckGround()
     {
         IsGrounded = false; Support = null;
-        if (body.linearVelocity.y > 0.1f) return;
+        if ((HasControl ? body.linearVelocity.y : observedVelocity.y) > 0.1f) return;
         Bounds b = capsule.bounds;
         Vector3 origin = new Vector3(b.center.x, b.min.y + settings.groundProbeInset, b.center.z);
         int count = Physics.BoxCastNonAlloc(origin, new Vector3(b.extents.x * 0.8f, 0.02f, b.extents.z * 0.75f), Vector3.down, groundHits, Quaternion.identity, settings.groundProbe, settings.groundLayers, QueryTriggerInteraction.Ignore);
@@ -194,7 +218,7 @@ public class PlayerMovement : NetworkBehaviour
     public void StopDash() { dashUntil = serverDashUntil = momentumUntil = 0f; dashRequestedUntil = -10f; running = false; }
     public void Face(int direction)
     {
-        Facing = direction >= 0 ? 1 : -1;
+        localFacing = direction >= 0 ? 1 : -1;
         transform.rotation = Quaternion.Euler(0f, 90f * Facing, 0f);
     }
 }

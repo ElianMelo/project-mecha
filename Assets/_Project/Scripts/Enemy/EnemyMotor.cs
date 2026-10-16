@@ -46,11 +46,13 @@ public class EnemyMotor : MonoBehaviour
         float acceleration = IsGrounded ? settings.acceleration : settings.airAcceleration;
         body.linearVelocity = new Vector3(Mathf.MoveTowards(body.linearVelocity.x, desiredSpeed, acceleration * Time.fixedDeltaTime), body.linearVelocity.y, 0f);
     }
-    public bool Jump()
+    public bool Jump(float height = float.PositiveInfinity)
     {
         if (!IsGrounded || Time.time < nextJump) return false;
         nextJump = Time.time + settings.jumpCooldown;
-        body.linearVelocity = new Vector3(body.linearVelocity.x, settings.jumpSpeed, 0f);
+        float speed = Mathf.Min(settings.jumpSpeed, Mathf.Sqrt(2f * settings.risingGravity *
+            Mathf.Max(settings.minimumHopHeight, height + settings.landingClearance)));
+        body.linearVelocity = new Vector3(body.linearVelocity.x, speed, 0f);
         IsGrounded = false; Support = null;
         return true;
     }

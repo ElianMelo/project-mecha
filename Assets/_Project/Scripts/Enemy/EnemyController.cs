@@ -30,6 +30,12 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
     public float Health => NetworkObject.IsSpawned ? health.Value : soloHealth;
     public float MaxHealth => settings.maxHealth;
     public bool IsDead => NetworkObject.IsSpawned ? dead.Value : soloDead;
+    private float impactPauseUntil;
+    public float Tempo => Time.time < impactPauseUntil ? 0f : PlayerAttack.EnemyTempoAt(transform.position);
+    public bool IsJuggling => !IsGrounded;
+    public bool PracticePassive { get; set; }
+    public float StunRemaining => Mathf.Max(0f, stunnedUntil - Time.time);
+    public void PauseImpact(float duration) => impactPauseUntil = Mathf.Max(impactPauseUntil, Time.time + duration);
     public bool IsStunned => Time.time < stunnedUntil;
     public bool IsGrounded => NetworkObject.IsSpawned && !IsServerInitialized ? grounded.Value : motor != null && motor.IsGrounded;
     public bool IsAttacking => windingUp || lance != null && lance.IsCharging;
@@ -50,43 +56,56 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
     public override void OnStartServer() { base.OnStartServer(); health.Value = settings.maxHealth; dead.Value = false; role.Value = initialRole; brain.ResetBehavior(); }
     public override void OnStartClient()
     {
-        base.OnStartClient(); if (!IsServerInitialized) body.isKinematic = true;
+        base.OnStartClient(); // NetworkTransform configures replica Rigidbody authority/interpolation.
         if (IsDead) { capsule.enabled = false; presentation?.Death(); }
     }
     private void FixedUpdate()
     {
         if (!Authority) return;
-        if (IsDead)
+        float tempo = Tempo;
+        float delay = Time.fixedDeltaTime * (1f - tempo);
+        if (stunnedUntil > Time.time) stunnedUntil += delay;
+        if (nextAttack > Time.time) nextAttack += delay;
+        if (windingUp) windupUntil += delay;
+        lance?.DelayForTempo(delay);
+        motor.BeginTempo(tempo);
+        try
         {
-            body.linearVelocity = Vector3.zero;
-            if (Time.time >= deathUntil) { if (NetworkObject.IsSpawned) Despawn(); else Destroy(gameObject); }
-            return;
-        }
-        if (transform.position.y < settings.fallLimit) { Die(); return; }
-        motor.Tick();
-        if (IsServerInitialized) grounded.Value = motor.IsGrounded;
-        brain.UpdateAwareness();
-        if (IsServerInitialized) state.Value = brain.CurrentState;
-        if (IsStunned) return;
-        if (!windingUp && lance != null && lance.Tick()) return;
-        if (windingUp)
-        {
-            motor.Move(0f);
-            if (target == null || target.Health <= 0f || Vector3.Distance(target.transform.position, transform.position) > settings.impactRange * settings.abandonWindupDistance)
-            { windingUp = false; return; }
-            if (Time.time >= windupUntil)
+            if (tempo <= 0f) return;
+            if (IsDead)
             {
-                windingUp = false; nextAttack = Time.time + settings.attackCooldown;
-                if (target != null)
-                {
-                    Vector3 difference = target.transform.position - transform.position;
-                    if (Mathf.Abs(difference.x) < settings.impactRange && Mathf.Abs(difference.y) < settings.heightTolerance && difference.x * facing >= -0.1f)
-                        target.TakeHit(settings.attackDamage, new Vector3(facing * settings.attackKnockback.x, settings.attackKnockback.y, 0f));
-                }
+                body.linearVelocity = Vector3.zero;
+                if (Time.time >= deathUntil) { if (NetworkObject.IsSpawned) Despawn(); else Destroy(gameObject); }
+                return;
             }
-            return;
+            if (transform.position.y < settings.fallLimit) { Die(); return; }
+            motor.Tick(IsStunned && IsJuggling ? settings.juggleGravityScale : 1f);
+            if (IsServerInitialized) grounded.Value = motor.IsGrounded;
+            brain.UpdateAwareness();
+            if (IsServerInitialized) state.Value = brain.CurrentState;
+            if (IsStunned) { motor.DampImpact(settings.hitDrag); return; }
+            if (PracticePassive) { CancelAttack(); motor.Move(0f); return; }
+            if (!windingUp && lance != null && lance.Tick()) return;
+            if (windingUp)
+            {
+                motor.Move(0f);
+                if (target == null || target.Health <= 0f || Vector3.Distance(target.transform.position, transform.position) > settings.impactRange * settings.abandonWindupDistance)
+                { windingUp = false; return; }
+                if (Time.time >= windupUntil)
+                {
+                    windingUp = false; nextAttack = Time.time + settings.attackCooldown;
+                    if (target != null)
+                    {
+                        Vector3 difference = target.transform.position - transform.position;
+                        if (Mathf.Abs(difference.x) < settings.impactRange && Mathf.Abs(difference.y) < settings.heightTolerance && difference.x * facing >= -0.1f)
+                            target.TakeHit(settings.attackDamage, new Vector3(facing * settings.attackKnockback.x, settings.attackKnockback.y, 0f));
+                    }
+                }
+                return;
+            }
+            brain.TickMovement();
         }
-        brain.TickMovement();
+        finally { motor.EndTempo(); }
     }
     public void Face(float direction)
     {
@@ -96,7 +115,7 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
     }
     public bool TryStartAttack(PlayerHealth victim)
     {
-        if (!Authority || IsDead || IsStunned || victim == null || victim.Health <= 0f || !motor.IsGrounded || Time.time < nextAttack) return false;
+        if (!Authority || IsDead || IsStunned || PracticePassive || victim == null || victim.Health <= 0f || !motor.IsGrounded || Time.time < nextAttack) return false;
         var difference = victim.transform.position - transform.position;
         if (Mathf.Abs(difference.y) >= settings.heightTolerance || Mathf.Abs(difference.x) >= settings.attackRange) return false;
         target = victim; windingUp = true;
@@ -116,7 +135,7 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
         windingUp = false; stunnedUntil = Time.time + stun;
         lance?.Cancel();
         brain.AlertFromDamage();
-        body.linearVelocity = knockback;
+        motor.SetImpact(knockback);
         if (NetworkObject.IsSpawned) HitFeedback(damage, knockback, stun); else presentation?.Hit(damage, knockback, stun);
         if (Health <= 0f) Die();
     }

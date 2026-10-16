@@ -11,3 +11,12 @@
 - Enter Play Mode when useful, then restore the previous editor state.
 - Do not create, add, modify or run automated tests unless explicitly requested by the user. Validate with compilation, code review, static checks and manual runtime inspection proportional to the change.
 - Reduce network testing: do not routinely build extra players or repeat multi-client/Relay sessions for local gameplay, UI, VFX, or authored-data changes. Use targeted network checks when changing transport, lobby flow, authority, replication, spawning, or remote-only behavior; broaden them only when evidence warrants it.
+
+# Git update reliability
+
+- Run Git operations that write repository state sequentially. Wait for each operation to finish before starting another; coordinate with GitHub Desktop commits, staging and updates.
+- Use `git --no-optional-locks` for read-only inspection (status, diff, ls-files). Scope this option to inspection commands; normal writes still need Git's lock protection.
+- Allow Git writes to complete. If a tool times out or returns a running session, inspect or resume that session before retrying; do not force-stop a write merely because it is slow.
+- If Git reports an existing lock, inspect its timestamp, size and running Git processes first. Never delete locks belonging to live operations or automatically delete every `*.lock` file. Remove only a specifically confirmed stale lock after checking it is not in use; preserve nonempty locks for investigation.
+- After stale-index-lock recovery, use `git update-index --refresh` and read-only status to verify access. Exit code 1 with `needs update` reports existing working changes; preserve those changes and the staged selection. Do not reset, stash, commit or pull just to verify a lock repair.
+- In the sandbox, use a command-scoped `-c safe.directory=D:/PersonalProjects/project-mecha` only when Git reports the known workspace ownership mismatch. Do not disable ownership checks globally.

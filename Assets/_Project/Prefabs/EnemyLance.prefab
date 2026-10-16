@@ -249,8 +249,8 @@ MonoBehaviour:
     Scale: 0
   _useScaledTime: 1
   _interpolation: 2
-  _extrapolation: 2
-  _enableTeleport: 1
+  _extrapolation: 0
+  _enableTeleport: 0
   _teleportThreshold: 3
   _clientAuthoritative: 0
   _sendToOwner: 1
@@ -266,7 +266,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
-  _synchronizeScale: 1
+  _synchronizeScale: 0
   _scaleSensitivity: 0.001
   _scaleSnapping:
     X: 0

@@ -1,5 +1,11 @@
 # Project content classification
 
+## Repository lock recovery — 2026-10-16
+
+Removed a confirmed stale, empty `.git/index.lock` after checking that no Git process was running and that the file could be opened exclusively. An index refresh completed without a lock error and released its lock normally; existing working changes and staged selections were preserved. The process that originally left the lock behind could not be identified from the available log.
+
+Git reliability instructions in `AGENTS.md` now require sequential repository writes, inspection with optional locking disabled, waiting for active commands before retrying, and checking lock ownership before recovery. These documentation changes remain **Others** support content. No maintained files or game assets were added; inventory paths and classifications remain unchanged. These precautions reduce recurrence; interrupted Git processes can still leave stale locks.
+
 Recorded at the user's request on 2026-10-16. **All current game content is provisional and used for testing. Nothing is approved as final product content.** This includes imported characters, AI-generated scenery, animations, UI, VFX, scenes, prefabs, authored tuning and gameplay implementations.
 
 ## Categories and provenance
@@ -46,3 +52,21 @@ The complete snapshot contains 2,892 maintained files: 22 AI Generated entries (
 Unity compilation completed with no errors after the Image migration. Live inspection confirmed the Image used DropdownArrow and that no old custom-arrow components remained before the obsolete script was removed through AssetDatabase. Source/reference checks confirm the scene and profile reference the native Image and built-in Sprite. The label operation exceeded Pipeline's 60-second response limit while imports continued, and subsequent main-thread operations timed out. Labels were verified directly from the saved Unity metadata. The maintenance command now batches label changes with StartAssetEditing/StopAssetEditing to avoid per-file reimports on future runs.
 
 Play Mode rendering and directional behavior could not be checked after that editor timeout. The Editor was in stopped Edit Mode before the operation; this pass never entered Play Mode or started a network session. No automated tests were created, changed or run. Existing FishNet obsolete-API warnings and a supplied weapon OBJ self-intersection warning appeared during imports; no vendor source was changed.
+
+## Reference-cadence content update — 2026-10-16
+
+The movement/combat/HUD pass adds three authored attack pieces (Dive Strike, Critical Cross-through and Magnetic Recall), charge/recall particle profiles, a skill-presentation profile/material, and native uGUI diagnostics/skill-focus presentation. These remain **Placeholder** with unverified upstream authorship; no final-product readiness is implied. Setup/extraction/manual-inspection utilities and the frame-analysis document/reference images are **Others**. The recordings and screenshot studies do not establish new AI image provenance. Existing confirmed AI environment assets retain their separate AI Generated + Placeholder classification.
+
+The new cockpit's panels, bars, letterbox and frame meter are native UI Images using Unity's built-in UISprite. The focus backdrop is a native SpriteRenderer using the same built-in sprite. No new generated art or runtime shape generator is involved. The original recordings were read from the user-supplied Downloads paths; decoded frames and intermediate media tooling stay in ignored Temp output. Only selected reference studies and gameplay screenshots are maintained under Docs/References.
+
+The updated maintained-file snapshot contains **2,924 files**: **22 AI Generated**, **499 Placeholder**, and **2,403 Others** (including the preserved archive). The native label pass covered **1,273 importable assets**, updating **12** new assets. All new runtime content retains provisional readiness. The earlier counts above describe the preceding objective-arrow pass.
+
+The follow-up HUD placement and speed-matched locomotion changes modify existing runtime scripts, animation/layout profiles and MainScene, all retaining Placeholder readiness and their existing origin classifications. The refreshed cockpit screenshot and updated documentation remain Others. No maintained files or art assets were added; inventory paths and counts are unchanged. Temporary offline preview objects and capture intermediates are not project content.
+
+The subsequent 50% HUD size reduction updates the same existing layout profile, setup tools, scene and cockpit screenshot. Existing classifications, maintained-file inventory paths and totals remain unchanged.
+
+## Network synchronization update — 2026-10-16
+
+NetworkSimulationSettings, its authored profile and the development-only NetworkValidationProbe remain **Placeholder** prototype content with **Unverified** origin. The focused editor setup, manual inspection helper and networking document are **Others** support files. Existing actor/projectile prefabs remain Placeholder. This pass adds no generated art, changes no provenance claims, and leaves FishNet vendor source untouched. Separate-player builds, local logs and intermediate build output remain ignored.
+
+The refreshed inventory contains **2,934 files**: **22 AI Generated**, **505 Placeholder**, and **2,407 Others** (including the archive). Native labels cover **1,277 importable assets**, with **4** new assets labeled. These totals supersede the earlier historical snapshots.

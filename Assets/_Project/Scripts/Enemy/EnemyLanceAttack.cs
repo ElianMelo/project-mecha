@@ -26,6 +26,11 @@ public sealed class EnemyLanceAttack : NetworkBehaviour
         IsCharging = false;
         if (settings != null) nextShot = Mathf.Max(nextShot, Time.time + settings.windup);
     }
+    public void DelayForTempo(float duration)
+    {
+        if (IsCharging) fireAt += duration;
+        if (nextShot > Time.time) nextShot += duration;
+    }
     public bool Tick()
     {
         if (settings == null) return false;

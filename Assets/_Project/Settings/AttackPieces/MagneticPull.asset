@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93d0c8407305438429d78cb432671fc8, type: 3}
+  m_Name: MagneticPull
+  m_EditorClassIdentifier: Assembly-CSharp::AttackPiece
+  displayName: Magnetic Recall
+  action:
+    kind: 11
+    duration: 0.55
+    impact: 0.18
+    cancel: 0.37
+    pulses: 1
+    pulseInterval: 0.13
+    damage: 5
+    finalDamage: 5
+    launcher: 0
+    finalPulseLaunch: 0
+    hitHalfSize: {x: 2.3, y: 1.25, z: 0.7}
+    reach: 1.7
+    pulseAdvance: 0
+    height: 1.1
+    push: 1.6
+    lift: 1
+    stun: 0.48
+    manaCost: 0
+    cooldown: 0
+    stepSpeed: 0
+    stepDuration: 0.09
+    hitStop: 0.035
+    airLift: 5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 1
+    diveSpeed: 0
+    pullSpeed: 6

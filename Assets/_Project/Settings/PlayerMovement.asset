@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f11058c80bdeefe49b4d231e6c927f95, type: 3}
   m_Name: PlayerMovement
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementSettings
-  walkSpeed: 4.5
-  runSpeed: 7
+  walkSpeed: 1.8
+  runSpeed: 4.2
   jumpSpeed: 10
-  dashSpeed: 11.5
-  dashDuration: 0.18
-  dashCooldown: 0.12
-  dashBuffer: 0.14
+  dashSpeed: 10.5
+  dashDuration: 0.2
+  dashCooldown: 0.06666667
+  dashBuffer: 0.083333336
   dashNetworkGrace: 0.08
   risingGravity: 24
   fallingGravity: 40
@@ -27,12 +27,24 @@ MonoBehaviour:
   coyoteTime: 0.1
   jumpBuffer: 0.12
   apexSpeed: 1.5
-  groundAcceleration: 90
-  airAcceleration: 45
+  groundAcceleration: 100
+  airAcceleration: 25
   airAttackAcceleration: 20
   rocketMomentum: 0.28
   dropSpeed: 4
   fastFallSpeed: 6
+  rocketSpeed: 14
+  rocketRiseSpeed: 7.8
+  rocketDuration: 0.25
+  mushidonSpeed: 18.5
+  mushidonDuration: 0.36666667
+  mushidonFallSpeed: 12
+  chordWindow: 0.083333336
+  mushidonWindow: 0.25
+  brakeLock: 0.06666667
+  impulseEndRatio: 0.52
+  slideDrag: 22
+  attackDrag: 35
   groundProbe: 0.15
   groundProbeInset: 0.08
   vaultHeight: 0.28

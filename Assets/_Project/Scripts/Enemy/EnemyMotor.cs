@@ -9,6 +9,28 @@ public class EnemyMotor : MonoBehaviour
     private EnemyCrowdAvoidance crowd;
     private readonly RaycastHit[] hits = new RaycastHit[12];
     private float nextJump;
+    private float tempo = 1f, previousTempo = 1f;
+    private Vector3 pausedVelocity;
+    public void BeginTempo(float value)
+    {
+        body.linearVelocity = previousTempo > 0f ? body.linearVelocity / previousTempo : pausedVelocity;
+        tempo = Mathf.Clamp01(value);
+    }
+    public void EndTempo()
+    {
+        pausedVelocity = body.linearVelocity;
+        body.linearVelocity *= tempo;
+        previousTempo = tempo;
+    }
+    public void SetImpact(Vector3 velocity)
+    {
+        pausedVelocity = velocity; body.linearVelocity = velocity * previousTempo;
+        if (velocity.y > 0.1f) { IsGrounded = false; Support = null; }
+    }
+    public void DampImpact(float drag)
+    {
+        if (IsGrounded) body.linearVelocity = new Vector3(Mathf.MoveTowards(body.linearVelocity.x, 0f, drag * Time.fixedDeltaTime * tempo), body.linearVelocity.y, 0f);
+    }
     public EnemyTraversalSettings Settings => settings;
     public bool IsGrounded { get; private set; }
     public Collider Support { get; private set; }
@@ -16,12 +38,12 @@ public class EnemyMotor : MonoBehaviour
     public float FeetY => capsule.bounds.min.y;
     private void Awake() { body = GetComponent<Rigidbody>(); capsule = GetComponent<CapsuleCollider>(); crowd = GetComponent<EnemyCrowdAvoidance>(); }
 
-    public void Tick()
+    public void Tick(float gravityScale = 1f)
     {
         CheckGround();
         float gravity = body.linearVelocity.y > 0f ? settings.risingGravity : settings.fallingGravity;
         var velocity = body.linearVelocity;
-        velocity.y = Mathf.Max(velocity.y - gravity * Time.fixedDeltaTime, -settings.terminalVelocity);
+        velocity.y = Mathf.Max(velocity.y - gravity * gravityScale * Time.fixedDeltaTime * tempo, -settings.terminalVelocity);
         body.linearVelocity = velocity;
     }
     private void CheckGround()
@@ -44,7 +66,7 @@ public class EnemyMotor : MonoBehaviour
     {
         if (avoidCrowd && crowd != null && IsGrounded) desiredSpeed = crowd.Steer(desiredSpeed);
         float acceleration = IsGrounded ? settings.acceleration : settings.airAcceleration;
-        body.linearVelocity = new Vector3(Mathf.MoveTowards(body.linearVelocity.x, desiredSpeed, acceleration * Time.fixedDeltaTime), body.linearVelocity.y, 0f);
+        body.linearVelocity = new Vector3(Mathf.MoveTowards(body.linearVelocity.x, desiredSpeed, acceleration * Time.fixedDeltaTime * tempo), body.linearVelocity.y, 0f);
     }
     public bool Jump(float height = float.PositiveInfinity)
     {

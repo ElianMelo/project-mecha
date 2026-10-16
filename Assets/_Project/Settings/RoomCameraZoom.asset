@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14373169b3da58a48a6f63b4751fe08f, type: 3}
   m_Name: RoomCameraZoom
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraZoomSettings
-  skillZoomOut: 0.096
+  skillZoomOut: -0.075
   dashZoomOut: 0.033
-  skillEaseIn: 0.12
-  skillEaseOut: 0.35
+  skillEaseIn: 0.08
+  skillEaseOut: 0.32
   dashEaseIn: 0.24
   dashEaseOut: 0.5

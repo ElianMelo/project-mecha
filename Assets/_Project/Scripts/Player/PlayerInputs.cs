@@ -18,6 +18,9 @@ public class PlayerInputs : NetworkBehaviour
     public event Action OnInteractInput;
     public event Action<int> OnDashInput;
     public event Action<int> OnSkillInput;
+    public event Action OnTechInput;
+    public event Action<string> OnCommand;
+    public float LastJumpPressed { get; private set; } = -10f;
     private float lastLeft = -10f, lastRight = -10f;
     private int previousDirection;
     private PlayerInput input;
@@ -32,6 +35,7 @@ public class PlayerInputs : NetworkBehaviour
         interactAction.performed += HandleInteract;
     }
     private void OnEnable() => interactAction.Enable();
+    public void OnTech(InputValue value) { if (HasControl && !typing && value.isPressed) { OnCommand?.Invoke("X / TECH"); OnTechInput?.Invoke(); } }
     private void HandleInteract(InputAction.CallbackContext context)
     {
         var selected = EventSystem.current?.currentSelectedGameObject;
@@ -43,6 +47,24 @@ public class PlayerInputs : NetworkBehaviour
         base.OnStartClient();
         if (input != null) input.enabled = IsOwner;
         ResetInput();
+    }
+    // The prefab keeps PlayerInput disabled until ownership is known, so remote
+    // replicas never auto-pair with (and take) the local keyboard/gamepad.
+    private void Start()
+    {
+        if (input != null && !NetworkObject.IsSpawned) input.enabled = true;
+    }
+    public override void OnOwnershipClient(FishNet.Connection.NetworkConnection previousOwner)
+    {
+        base.OnOwnershipClient(previousOwner);
+        if (input != null) input.enabled = IsOwner;
+        ResetInput();
+    }
+    public override void OnStopClient()
+    {
+        if (input != null) input.enabled = false;
+        ResetInput();
+        base.OnStopClient();
     }
     private void Update()
     {
@@ -68,7 +90,7 @@ public class PlayerInputs : NetworkBehaviour
         DownHeld = downAction != null && downAction.IsPressed();
     }
     private void OnDisable() { interactAction.Disable(); ResetInput(); }
-    private void ResetInput() { MoveInput = Vector2.zero; JumpHeld = DownHeld = false; previousDirection = 0; lastLeft = lastRight = -10f; }
+    private void ResetInput() { MoveInput = Vector2.zero; JumpHeld = DownHeld = false; previousDirection = 0; lastLeft = lastRight = LastJumpPressed = -10f; }
     public void OnMove(InputValue value)
     {
         if (!HasControl || typing) return;
@@ -76,10 +98,11 @@ public class PlayerInputs : NetworkBehaviour
         int direction = Mathf.Abs(MoveInput.x) < settings.movementDeadzone ? 0 : (MoveInput.x > 0f ? 1 : -1);
         if (direction != 0 && direction != previousDirection)
         {
+            OnCommand?.Invoke(direction > 0 ? ">" : "<");
             float previous = direction > 0 ? lastRight : lastLeft;
             if (Time.time - previous <= settings.doubleTapWindow)
             {
-                OnDashInput?.Invoke(direction);
+                OnCommand?.Invoke(direction > 0 ? ">> / DASH" : "<< / DASH"); OnDashInput?.Invoke(direction);
                 if (direction > 0) lastRight = -10f; else lastLeft = -10f;
             }
             else if (direction > 0) lastRight = Time.time; else lastLeft = Time.time;
@@ -90,16 +113,22 @@ public class PlayerInputs : NetworkBehaviour
     {
         if (!HasControl || typing) return;
         JumpHeld = value.isPressed;
-        if (JumpHeld) OnJumpInput?.Invoke();
+        if (JumpHeld) { LastJumpPressed = Time.time; OnCommand?.Invoke("UP"); OnJumpInput?.Invoke(); }
     }
     public void OnDown(InputValue value)
     {
         if (!HasControl || typing) return;
         DownHeld = value.isPressed;
-        if (DownHeld) OnDownInput?.Invoke();
+        if (DownHeld) { OnCommand?.Invoke("DOWN"); OnDownInput?.Invoke(); }
     }
-    public void OnAttack(InputValue value) { if (HasControl && !typing && value.isPressed) OnAttackInput?.Invoke(); }
-    public void OnDash(InputValue value) { if (HasControl && !typing && value.isPressed) OnDashInput?.Invoke(MoveInput.x == 0f ? 0 : (MoveInput.x > 0f ? 1 : -1)); }
+    public void OnAttack(InputValue value)
+    {
+        if (!HasControl || typing || !value.isPressed) return;
+        // Read the action state so a simultaneous Down+Z is independent of callback order.
+        if (downAction != null) DownHeld = downAction.IsPressed();
+        OnCommand?.Invoke(DownHeld ? "DOWN + Z" : "Z"); OnAttackInput?.Invoke();
+    }
+    public void OnDash(InputValue value) { if (HasControl && !typing && value.isPressed) { OnCommand?.Invoke("DASH"); OnDashInput?.Invoke(MoveInput.x == 0f ? 0 : (MoveInput.x > 0f ? 1 : -1)); } }
     public void OnSkillA(InputValue value) { if (HasControl && !typing && value.isPressed) OnSkillInput?.Invoke(0); }
     public void OnSkillS(InputValue value) { if (HasControl && !typing && value.isPressed) OnSkillInput?.Invoke(1); }
     public void OnSkillD(InputValue value) { if (HasControl && !typing && value.isPressed) OnSkillInput?.Invoke(2); }

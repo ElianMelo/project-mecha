@@ -15,9 +15,9 @@ MonoBehaviour:
   displayName: Slash 1
   action:
     kind: 0
-    duration: 0.48
-    impact: 0.18
-    cancel: 0.32
+    duration: 0.41666666
+    impact: 0.11666667
+    cancel: 0.23333333
     pulses: 1
     pulseInterval: 0.13
     damage: 9
@@ -28,8 +28,18 @@ MonoBehaviour:
     reach: 0.7
     pulseAdvance: 0
     height: 0.85
-    push: 1.6
+    push: 2
     lift: 1
-    stun: 0.25
+    stun: 0.38
     manaCost: 0
     cooldown: 0
+    stepSpeed: 3
+    stepDuration: 0.083333336
+    hitStop: 0.05
+    airLift: 6.3
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6

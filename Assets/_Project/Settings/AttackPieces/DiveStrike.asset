@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93d0c8407305438429d78cb432671fc8, type: 3}
+  m_Name: DiveStrike
+  m_EditorClassIdentifier: Assembly-CSharp::AttackPiece
+  displayName: Dive Strike
+  action:
+    kind: 9
+    duration: 2
+    impact: 0.08
+    cancel: 2
+    pulses: 24
+    pulseInterval: 0.08
+    damage: 15
+    finalDamage: 15
+    launcher: 0
+    finalPulseLaunch: 0
+    hitHalfSize: {x: 0.65, y: 0.8, z: 0.7}
+    reach: 0.25
+    pulseAdvance: 0
+    height: 0.35
+    push: 3
+    lift: 0
+    stun: 0.45
+    manaCost: 0
+    cooldown: 0
+    stepSpeed: 3
+    stepDuration: 0.08
+    hitStop: 0.055
+    airLift: 4.5
+    airOnly: 1
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 18
+    pullSpeed: 6

@@ -42,7 +42,7 @@ public class RoomCameraZoom : MonoBehaviour
         if (skill)
         {
             target = settings.skillZoomOut;
-            smoothTime = target > amount ? settings.skillEaseIn : settings.skillEaseOut;
+            smoothTime = Mathf.Abs(target) > Mathf.Abs(amount) ? settings.skillEaseIn : settings.skillEaseOut;
             returnTime = settings.skillEaseOut;
         }
         else if (dash)
@@ -53,7 +53,7 @@ public class RoomCameraZoom : MonoBehaviour
         }
         // Absolute offsets blend across cancels/chains instead of accumulating zoom.
         amount = Mathf.SmoothDamp(amount, target, ref velocity, Mathf.Max(0.01f, smoothTime));
-        SetSize(lockedRoomWidth > 0f ? BaseSize : BaseSize * (1f + amount));
+        SetSize(BaseSize * (1f + (lockedRoomWidth > 0f ? Mathf.Min(0f, amount) : amount)));
     }
 
     private void SetSize(float size)

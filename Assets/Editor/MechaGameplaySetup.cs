@@ -49,6 +49,7 @@ public static class MechaGameplaySetup
         Bind(map, "SkillA", "<Keyboard>/a", null, "<Gamepad>/buttonNorth");
         Bind(map, "SkillS", "<Keyboard>/s", null, "<Gamepad>/buttonEast");
         Bind(map, "SkillD", "<Keyboard>/d", null, "<Gamepad>/leftShoulder");
+        Bind(map, "Tech", "<Keyboard>/x", null, "<Gamepad>/rightStickPress");
         File.WriteAllText(path, asset.ToJson()); AssetDatabase.ImportAsset(path);
     }
     private static void Bind(InputActionMap map, string name, string key, string alternate, string pad)

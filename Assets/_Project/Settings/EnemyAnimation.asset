@@ -51,3 +51,8 @@ MonoBehaviour:
   crossFade: 0.035
   movementThreshold: 0.25
   hitPoseTime: 0.2
+  runReferenceSpeed: 3.6
+  dashReferenceSpeed: 3.6
+  minimumLocomotionPlayback: 0.2
+  maximumLocomotionPlayback: 2.5
+  locomotionDamping: 0.05

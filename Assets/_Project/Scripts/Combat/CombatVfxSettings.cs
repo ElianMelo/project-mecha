@@ -7,6 +7,7 @@ public class CombatVfxSettings : ScriptableObject
     public SwordFireVfxSettings megaSlashFire, criticalXFire;
     public ParticleEffectSettings dashSmoke, wind, hitSparks, hitSmoke, skillWind;
     public ParticleEffectSettings dashStreaks, dashDebris, slashEdges, hitCore, hitDebris, landingSmoke;
+    public ParticleEffectSettings skillCharge, magneticRecall;
     public float landingSpeedThreshold = 4f;
     public Vector3 dashOffset = new Vector3(0f, 0.08f, -0.15f), strikeOffset = new Vector3(0.7f, 0.85f, -0.35f);
     public Vector3 hitOffset = new Vector3(0f,0.8f,-0.35f), damageTextOffset = Vector3.up * 0.5f;

@@ -21,7 +21,7 @@ public sealed class PlayerEnemyCollision : MonoBehaviour
     private void FixedUpdate()
     {
         if (settings == null) return;
-        bool dashing = movement.IsDashing;
+        bool dashing = movement.IsPassingThrough;
         if (dashing)
         {
             foreach (var enemy in EnemyBodyCollider.Active)

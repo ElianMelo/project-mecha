@@ -52,6 +52,7 @@ public static class MechaNetworkSetup
         AssetDatabase.SaveAssets();
         var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
         EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene);
+        MechaNetworkSynchronizationSetup.Apply();
     }
     private static void ConfigureMelee(EnemyTacticsSettings profile)
     {
@@ -134,11 +135,9 @@ public static class MechaNetworkSetup
     private static void ConfigureTransform(GameObject go, bool owner)
     {
         var transform = go.GetComponent<NetworkTransform>(); if (transform == null) return;
-        var so = new SerializedObject(transform);
-        so.FindProperty("_clientAuthoritative").boolValue = owner;
-        so.FindProperty("_sendToOwner").boolValue = true;
-        so.FindProperty("_enableTeleport").boolValue = true;
-        so.FindProperty("_teleportThreshold").floatValue = 3f; so.ApplyModifiedPropertiesWithoutUndo();
+        MechaNetworkSynchronizationSetup.ConfigureTransform(transform,
+            MechaPresentationSetup.Create<NetworkSimulationSettings>("NetworkSimulation"), owner,
+            go.GetComponent<EnemyLanceProjectile>() != null);
     }
     private static void Serialize(GameObject go)
     {

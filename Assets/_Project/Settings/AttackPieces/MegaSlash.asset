@@ -15,9 +15,9 @@ MonoBehaviour:
   displayName: Mega Slash
   action:
     kind: 5
-    duration: 0.8
-    impact: 0.12
-    cancel: 0.62
+    duration: 1.2
+    impact: 0.65
+    cancel: 1.2
     pulses: 4
     pulseInterval: 0.13
     damage: 8
@@ -30,6 +30,16 @@ MonoBehaviour:
     height: 0.85
     push: 1.6
     lift: 7
-    stun: 0.25
+    stun: 0.5
     manaCost: 25
     cooldown: 3
+    stepSpeed: 0
+    stepDuration: 0
+    hitStop: 0.065
+    airLift: 5.2
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6

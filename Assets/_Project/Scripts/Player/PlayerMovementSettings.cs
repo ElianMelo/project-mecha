@@ -10,6 +10,11 @@ public class PlayerMovementSettings : ScriptableObject
     public float coyoteTime = 0.1f, jumpBuffer = 0.12f, apexSpeed = 1.5f;
     public float groundAcceleration = 90f, airAcceleration = 45f, airAttackAcceleration = 20f;
     public float rocketMomentum = 0.28f, dropSpeed = 4f, fastFallSpeed = 6f;
+    [Header("Impulse cadence (seconds, not render frames)")]
+    public float rocketSpeed = 14f, rocketRiseSpeed = 7.8f, rocketDuration = 0.25f;
+    public float mushidonSpeed = 18.5f, mushidonDuration = 0.36f, mushidonFallSpeed = 12f;
+    public float chordWindow = 0.0833f, mushidonWindow = 0.25f, brakeLock = 0.0667f;
+    public float impulseEndRatio = 0.52f, slideDrag = 22f, attackDrag = 22f;
     public float groundProbe = 0.15f, groundProbeInset = 0.08f;
     public float vaultHeight = 0.28f, vaultReach = 0.3f, vaultMaxRiseSpeed = 2f, vaultCooldown = 0.2f;
     public LayerMask groundLayers = (1 << 6) | (1 << 7);

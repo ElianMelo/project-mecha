@@ -32,6 +32,16 @@ MonoBehaviour:
     stun: 0.25
     manaCost: 0
     cooldown: 0
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    hitStop: 0.05
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
   - kind: 1
     duration: 0.52
     impact: 0.2
@@ -51,6 +61,16 @@ MonoBehaviour:
     stun: 0.25
     manaCost: 0
     cooldown: 0
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    hitStop: 0.05
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
   - kind: 2
     duration: 0.65
     impact: 0.26
@@ -70,6 +90,16 @@ MonoBehaviour:
     stun: 0.55
     manaCost: 0
     cooldown: 0
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    hitStop: 0.05
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
   - kind: 3
     duration: 0.46
     impact: 0.16
@@ -89,6 +119,16 @@ MonoBehaviour:
     stun: 0.25
     manaCost: 0
     cooldown: 0
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    hitStop: 0.05
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
   - kind: 4
     duration: 0.48
     impact: 0.16
@@ -108,6 +148,16 @@ MonoBehaviour:
     stun: 0.25
     manaCost: 0
     cooldown: 0
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    hitStop: 0.05
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
   - kind: 5
     duration: 0.8
     impact: 0.12
@@ -127,6 +177,16 @@ MonoBehaviour:
     stun: 0.25
     manaCost: 25
     cooldown: 3
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    hitStop: 0.05
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
   - kind: 6
     duration: 0.85
     impact: 0.24
@@ -146,6 +206,16 @@ MonoBehaviour:
     stun: 0.25
     manaCost: 40
     cooldown: 5
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    hitStop: 0.05
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
   - kind: 7
     duration: 1.05
     impact: 0.25
@@ -165,6 +235,16 @@ MonoBehaviour:
     stun: 0.55
     manaCost: 60
     cooldown: 7
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    hitStop: 0.05
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
   - kind: 8
     duration: 0.55
     impact: 0.2
@@ -184,6 +264,16 @@ MonoBehaviour:
     stun: 0.55
     manaCost: 0
     cooldown: 0
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    hitStop: 0.05
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
   pieces:
   - {fileID: 11400000, guid: 00ce543397741e94a9bc2196095771cb, type: 2}
   - {fileID: 11400000, guid: c7b9ad3be08069846b10b702da2a8131, type: 2}
@@ -194,15 +284,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ea64648e687b5e74ea660e67b64c92e3, type: 2}
   - {fileID: 11400000, guid: 745dbfd131ec56a4f9701a3ad476bf8a, type: 2}
   - {fileID: 11400000, guid: f6b6fa8ede36381458b3a822c082dda5, type: 2}
+  - {fileID: 11400000, guid: c5bcbe9639521d74d9ad7db050ccae74, type: 2}
+  - {fileID: 11400000, guid: 9493b75a6ca764e478807fbf753b2104, type: 2}
+  - {fileID: 11400000, guid: d8e13a696b0c76c4ea708ed3e08f0195, type: 2}
   combos: {fileID: 11400000, guid: ceda6f78c6a37ec44823afae75c3e659, type: 2}
   damageMultiplier: 2
   maxMana: 100
   manaRegen: 7
   hitMana: 4
-  attackBuffer: 0.4
-  skillBuffer: 0.4
+  attackBuffer: 0.28
+  skillBuffer: 0.3
   networkRecoveryGrace: 0.04
   comboWindow: 0.9
   enemyLayers:
     serializedVersion: 2
     m_Bits: 1536
+  comboDisplayWindow: 1.25
+  skillFieldRadius: 7
+  skillFieldDuration: 0.6
+  skillEnemyTempo: 0.18

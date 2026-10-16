@@ -26,6 +26,8 @@ MonoBehaviour:
   hitCore: {fileID: 11400000, guid: 5a6a17d8c10b5dc41a992790782a9232, type: 2}
   hitDebris: {fileID: 11400000, guid: aa2726df4bbd28449afeba472310844b, type: 2}
   landingSmoke: {fileID: 11400000, guid: 98bdc4f3bf1404e42882caa9fd9f760f, type: 2}
+  skillCharge: {fileID: 11400000, guid: a8e42e09467a50d49a19b862df9437ee, type: 2}
+  magneticRecall: {fileID: 11400000, guid: 0de3f96b3c79e19418e9eb09449597a0, type: 2}
   landingSpeedThreshold: 4
   dashOffset: {x: 0, y: 0.08, z: -0.15}
   strikeOffset: {x: 0.7, y: 0.85, z: -0.35}

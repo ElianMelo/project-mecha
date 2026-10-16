@@ -15,6 +15,7 @@ public static class MechaHudSetup
         }
         bar.anchorMin = bar.anchorMax = bar.pivot = settings.skillBarAnchor;
         bar.anchoredPosition = settings.skillBarOffset;
+        bar.localScale = Vector3.one * settings.pilotHudScale;
         bar.sizeDelta = new Vector2(skills.arraySize * settings.skillSize.x + Mathf.Max(0, skills.arraySize - 1) * settings.skillSpacing, settings.skillSize.y);
         var layout = MechaPresentationSetup.Ensure<UnityEngine.UI.HorizontalLayoutGroup>(bar.gameObject);
         layout.spacing = settings.skillSpacing;
@@ -47,5 +48,6 @@ public static class MechaHudSetup
         }
         UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(bar);
         EditorUtility.SetDirty(bar); EditorUtility.SetDirty(settings);
+        MechaCockpitHudSetup.Apply(hud);
     }
 }

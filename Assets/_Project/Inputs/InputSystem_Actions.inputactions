@@ -593,6 +593,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Tech",
+                    "type": "Button",
+                    "id": "e583f795-b95c-45a6-8d5d-204c7f8f8027",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -824,6 +833,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "SkillD",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "caecb6a1-896c-486e-8694-e634acb2d034",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Tech",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "88fba883-993e-4b3e-9f82-747866d84613",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Tech",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

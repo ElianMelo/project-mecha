@@ -12,22 +12,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d429a37a255f54399a4d295cd486f4, type: 3}
   m_Name: GameplayHudLayout
   m_EditorClassIdentifier: Assembly-CSharp::GameplayHudLayoutSettings
+  panelColor: {r: 0.025, g: 0.042, b: 0.055, a: 0.92}
+  textColor: {r: 0.84, g: 0.9, b: 0.91, a: 1}
+  accentColor: {r: 0.36, g: 0.9, b: 0.92, a: 1}
+  warningColor: {r: 1, g: 0.48, b: 0.22, a: 1}
+  startupColor: {r: 0.25, g: 0.6, b: 0.95, a: 1}
+  activeColor: {r: 1, g: 0.3, b: 0.15, a: 1}
+  recoveryColor: {r: 0.35, g: 0.78, b: 0.38, a: 1}
+  neutralColor: {r: 0.15, g: 0.2, b: 0.23, a: 1}
+  panelSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  pilotHudScale: 0.5
+  cockpitAnchor: {x: 0, y: 1}
+  cockpitOffset: {x: 28, y: -48}
+  cockpitSize: {x: 348, y: 148}
+  diagnosticsSize: {x: 660, y: 414}
+  diagnosticsOffset: {x: 24, y: -84}
+  diagnosticsRefresh: 0.15
+  practiceTempo: 0.5
   skillBarAnchor: {x: 0, y: 1}
-  skillBarOffset: {x: 24, y: -100}
-  skillSize: {x: 144, y: 52}
-  skillSpacing: 8
-  skillFontSize: 13
+  skillBarOffset: {x: 28, y: -126}
+  skillSize: {x: 144, y: 74}
+  skillSpacing: 6
+  skillFontSize: 16
   skillTextInset: {x: 8, y: 5}
   skillTextPadding: {x: 12, y: 8}
   tutorialSize: {x: 600, y: 72}
   tutorialOffset: {x: -24, y: -18}
   tutorialFontSize: 12
-  tutorialText: 'MOVE Left / Right   JUMP Up / Space   DESCEND Hold Down
+  tutorialText: 'ARROWS Move   Z Combo   X Magnetic recall   A / S / D Skills
 
-    ATTACK
-    Z   LAUNCHER Z + Up   DASH Double-tap / Shift
+    >>
+    + UP Rocket   then DOWN Mushidon   DOWN + Z Air dive
 
-    SKILLS A / S / D
-
-    ONLINE
-    LOBBIES 3   LOCAL HOST 1   PORTAL E / UP   INFINITE REVIVES'
+    1 Local host   2 Local
+    join   3 Lobbies   E / UP Portal'

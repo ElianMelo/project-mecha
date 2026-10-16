@@ -81,6 +81,8 @@ public static class MechaCharacterSetup
     {
         var profile=MechaPresentationSetup.Create<CharacterAnimationSettings>(name);
         if(profile.controller!=null)return profile;
+        profile.runReferenceSpeed=player?4.2f:3.6f;
+        profile.dashReferenceSpeed=player?10.5f:3.6f;
         string folder=player?Animations:"Assets/_Project/Animations/Enemies";
         MechaPresentationSetup.Folder(folder);
         AnimationClip Clip(string key)=>AssetDatabase.LoadAssetAtPath<AnimationClip>(Animations+"/"+key+".anim");

@@ -10,6 +10,12 @@ public sealed class EnemyLanceProjectile : NetworkBehaviour
     private Rigidbody body;
     private readonly RaycastHit[] hits = new RaycastHit[16];
     private void Awake() { body = GetComponent<Rigidbody>(); body.useGravity = false; body.isKinematic = true; }
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        // The server uses kinematic MovePosition; observers use NetworkTransform alone.
+        if (!IsServerInitialized) body.interpolation = RigidbodyInterpolation.None;
+    }
     public void Launch(EnemyLanceSettings profile, Vector3 initialVelocity)
     { settings = profile; velocity = initialVelocity; expires = Time.time + settings.lifetime; }
     private void FixedUpdate()

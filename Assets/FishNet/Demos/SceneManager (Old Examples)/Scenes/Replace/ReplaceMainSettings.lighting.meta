@@ -1,11 +1,7 @@
 fileFormatVersion: 2
 guid: 8fa881c2b33440b488753a73333b050d
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 4890085278179872738
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -13,3 +9,9 @@ AssetOrigin:
   packageVersion: 4.7.2R
   assetPath: Assets/FishNet/Demos/SceneManager (Old Examples)/Scenes/Replace/ReplaceMainSettings.lighting
   uploadId: 901598
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4890085278179872738
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

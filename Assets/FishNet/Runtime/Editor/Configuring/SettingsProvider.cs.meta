@@ -1,5 +1,14 @@
 fileFormatVersion: 2
 guid: b3d7d3c45d53dea4e8a0a7da73d64021
+labels:
+- Others
+AssetOrigin:
+  serializedVersion: 1
+  productId: 207815
+  packageName: 'FishNet: Networking Evolved'
+  packageVersion: 4.7.2R
+  assetPath: Assets/FishNet/Runtime/Editor/Configuring/SettingsProvider.cs
+  uploadId: 901598
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +18,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 207815
-  packageName: 'FishNet: Networking Evolved'
-  packageVersion: 4.7.2R
-  assetPath: Assets/FishNet/Runtime/Editor/Configuring/SettingsProvider.cs
-  uploadId: 901598

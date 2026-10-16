@@ -1,10 +1,7 @@
 fileFormatVersion: 2
 guid: 969cc8a8a67c58b4da9baa82a65c66bf
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -12,3 +9,8 @@ AssetOrigin:
   packageVersion: 4.7.2R
   assetPath: Assets/FishNet/Demos/SceneManager/Additive Scenes/Scenes/AdditiveScenes_2.unity
   uploadId: 901598
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

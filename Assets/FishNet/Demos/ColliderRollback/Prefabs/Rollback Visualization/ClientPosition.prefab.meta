@@ -1,10 +1,7 @@
 fileFormatVersion: 2
 guid: ad8f5b5504b971d42886f4f6fd087d90
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -12,3 +9,8 @@ AssetOrigin:
   packageVersion: 4.7.2R
   assetPath: Assets/FishNet/Demos/ColliderRollback/Prefabs/Rollback Visualization/ClientPosition.prefab
   uploadId: 901598
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

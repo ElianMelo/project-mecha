@@ -1,5 +1,14 @@
 fileFormatVersion: 2
 guid: c631fa10037fa844292bacd140d7c7f9
+labels:
+- Others
+AssetOrigin:
+  serializedVersion: 1
+  productId: 207815
+  packageName: 'FishNet: Networking Evolved'
+  packageVersion: 4.7.2R
+  assetPath: Assets/FishNet/Runtime/Generated/Component/Utility/DetachableNetworkTickSmoother.cs
+  uploadId: 901598
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +18,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 207815
-  packageName: 'FishNet: Networking Evolved'
-  packageVersion: 4.7.2R
-  assetPath: Assets/FishNet/Runtime/Generated/Component/Utility/DetachableNetworkTickSmoother.cs
-  uploadId: 901598

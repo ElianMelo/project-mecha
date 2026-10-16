@@ -1,5 +1,8 @@
 fileFormatVersion: 2
 guid: e2a03313ef18ec145bdbb73871863bc1
+labels:
+- AI Generated
+- Placeholder
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

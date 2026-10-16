@@ -1,7 +1,14 @@
 fileFormatVersion: 2
 guid: f8b47752cc2784843b70d83bf47de090
-timeCreated: 1522106622
-licenseType: Store
+labels:
+- Others
+AssetOrigin:
+  serializedVersion: 1
+  productId: 207815
+  packageName: 'FishNet: Networking Evolved'
+  packageVersion: 4.7.2R
+  assetPath: Assets/FishNet/Runtime/Plugins/GameKit/Dependencies/Utilities/Types/ObjectPooling/Scripts/PoolData.cs
+  uploadId: 901598
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -11,10 +18,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 207815
-  packageName: 'FishNet: Networking Evolved'
-  packageVersion: 4.7.2R
-  assetPath: Assets/FishNet/Runtime/Plugins/GameKit/Dependencies/Utilities/Types/ObjectPooling/Scripts/PoolData.cs
-  uploadId: 901598

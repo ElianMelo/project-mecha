@@ -1,5 +1,14 @@
 fileFormatVersion: 2
 guid: b8627bf3171f6274790bc7e60e471260
+labels:
+- Others
+AssetOrigin:
+  serializedVersion: 1
+  productId: 207815
+  packageName: 'FishNet: Networking Evolved'
+  packageVersion: 4.7.2R
+  assetPath: Assets/FishNet/Runtime/Object/Synchronizing/SyncHashset.cs
+  uploadId: 901598
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +18,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 207815
-  packageName: 'FishNet: Networking Evolved'
-  packageVersion: 4.7.2R
-  assetPath: Assets/FishNet/Runtime/Object/Synchronizing/SyncHashset.cs
-  uploadId: 901598

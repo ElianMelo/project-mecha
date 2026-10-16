@@ -1,10 +1,7 @@
 fileFormatVersion: 2
 guid: fa009a2a1952c0647ae5cf75a5fd4c05
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -12,3 +9,8 @@ AssetOrigin:
   packageVersion: 4.7.2R
   assetPath: Assets/FishNet/Demos/IntermediateLayer/Scenes/IntermediateLayer.unity
   uploadId: 901598
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

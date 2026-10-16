@@ -1,10 +1,7 @@
 fileFormatVersion: 2
 guid: 3f63d6f7a8daa2e49bcf0602c329e95e
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -12,3 +9,8 @@ AssetOrigin:
   packageVersion: 4.7.2R
   assetPath: Assets/FishNet/Runtime/Transporting/Transports/Synapse/SynapseSocket/CodeBoost/CodeBoost.xasmdef
   uploadId: 901598
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

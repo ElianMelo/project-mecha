@@ -1,10 +1,7 @@
 fileFormatVersion: 2
 guid: ff1ecc2a24fd9684a862c4b99cfc2fcd
-TextScriptImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -12,3 +9,8 @@ AssetOrigin:
   packageVersion: 4.7.2R
   assetPath: Assets/FishNet/Runtime/Plugins/ColliderRollback/LICENSE.txt
   uploadId: 901598
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

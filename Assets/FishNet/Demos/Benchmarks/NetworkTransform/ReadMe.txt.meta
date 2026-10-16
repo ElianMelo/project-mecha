@@ -1,10 +1,7 @@
 fileFormatVersion: 2
 guid: c373771d26a3af04a84bd1afd5aabfe8
-TextScriptImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -12,3 +9,8 @@ AssetOrigin:
   packageVersion: 4.7.2R
   assetPath: Assets/FishNet/Demos/Benchmarks/NetworkTransform/ReadMe.txt
   uploadId: 901598
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

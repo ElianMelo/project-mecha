@@ -1,10 +1,7 @@
 fileFormatVersion: 2
 guid: 35639798ad77fc145871588b25d66259
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -13,3 +10,8 @@ AssetOrigin:
   assetPath: Assets/FishNet/Demos/Benchmarks/NetworkTransform/Prefabs/NetworkTransform
     Benchmark 2D.prefab
   uploadId: 901598
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

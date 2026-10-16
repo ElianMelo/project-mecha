@@ -1,11 +1,7 @@
 fileFormatVersion: 2
 guid: 927568f7fc1cfa14ca78ab4e2ecd8d76
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 2100000
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -13,3 +9,9 @@ AssetOrigin:
   packageVersion: 4.7.2R
   assetPath: Assets/FishNet/Demos/Prediction/Rigidbody/Materials/OrangeMat.mat
   uploadId: 901598
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

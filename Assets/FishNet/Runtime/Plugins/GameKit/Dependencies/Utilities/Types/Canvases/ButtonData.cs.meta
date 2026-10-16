@@ -1,5 +1,14 @@
 fileFormatVersion: 2
 guid: 1baacd2a6a8a0e94b897c6b7176c7000
+labels:
+- Others
+AssetOrigin:
+  serializedVersion: 1
+  productId: 207815
+  packageName: 'FishNet: Networking Evolved'
+  packageVersion: 4.7.2R
+  assetPath: Assets/FishNet/Runtime/Plugins/GameKit/Dependencies/Utilities/Types/Canvases/ButtonData.cs
+  uploadId: 901598
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +18,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 207815
-  packageName: 'FishNet: Networking Evolved'
-  packageVersion: 4.7.2R
-  assetPath: Assets/FishNet/Runtime/Plugins/GameKit/Dependencies/Utilities/Types/Canvases/ButtonData.cs
-  uploadId: 901598

@@ -2,6 +2,8 @@
 
 Grand Chase / Elesis-inspired movement and combat prototype.
 
+All current game content is provisional test content; nothing is final-product approved. See [file categories, provenance and Unity labels](Docs/ProjectContentClassification.md) and the [complete maintained-file inventory](Docs/ProjectFileClassification.csv). Confirmed AI-generated art is also a placeholder. Prefer built-in Unity components, official packages and established packages before custom solutions; fixed visual graphics use images/Sprites through native renderers.
+
 Open `Assets/Scenes/MainScene.unity`, enter Play Mode and press **1** to start the local host. Use **Left/Right** to move, **Up/Space** to jump, **Down** to descend or fast-fall, **Z** to attack, and **double-tap a direction or Shift** to dash. Skills: **A Mega Slash**, **S Sword Fire**, **D Critical X**.
 
 Player inputs, movement, attacks, health and effects remain separate components on `MechaPlayer`. The arena has one-way platforms; enemies have server-controlled damage and hit reactions. Each encounter spawns eighteen enemies and finishes. Player-centered ranges select calm wandering, suspicious investigation or alert pursuit. Prediction enemies can choose a different reachable platform and wait to intercept the player. The existing Relay flow remains available.

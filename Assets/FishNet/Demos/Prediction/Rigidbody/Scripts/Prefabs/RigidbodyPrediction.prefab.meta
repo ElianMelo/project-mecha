@@ -1,10 +1,7 @@
 fileFormatVersion: 2
 guid: 26a567abbe21227428f5c3d309d1d73c
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -12,3 +9,8 @@ AssetOrigin:
   packageVersion: 4.7.2R
   assetPath: Assets/FishNet/Demos/Prediction/Rigidbody/Scripts/Prefabs/RigidbodyPrediction.prefab
   uploadId: 901598
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

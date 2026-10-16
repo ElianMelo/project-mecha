@@ -82,9 +82,7 @@ public static class MechaProceduralSetup
         var arrowGo = MechaScenarioSetup.Child(root.transform, "Objective Arrow");
         var arrow = MechaPresentationSetup.Ensure<RectTransform>(arrowGo);
         arrow.anchorMin = arrow.anchorMax = arrow.pivot = Vector2.one * 0.5f;
-        arrow.sizeDelta = new Vector2(36f, 28f);
-        MechaPresentationSetup.Ensure<CanvasRenderer>(arrowGo);
-        MechaPresentationSetup.Ensure<ObjectiveArrowGraphic>(arrowGo).raycastTarget = false;
+        ConfigureObjectiveArrow(arrowGo);
         var textGo = MechaScenarioSetup.Child(root.transform, "Room Status");
         var textRt = MechaPresentationSetup.Ensure<RectTransform>(textGo);
         textRt.anchorMin = textRt.anchorMax = textRt.pivot = new Vector2(0.5f, 0f);
@@ -96,5 +94,40 @@ public static class MechaProceduralSetup
         MechaPresentationSetup.Assign(objective, "arrow", arrow); MechaPresentationSetup.Assign(objective, "objective", text);
         var controls = hud.transform.Find("Controls")?.GetComponent<TMP_Text>();
         if (controls != null && !controls.text.Contains("PORTAL")) { controls.text += "\nPORTAL E / UP  ·  INFINITE REVIVES"; EditorUtility.SetDirty(controls); }
+    }
+
+    [MenuItem("Tools/Mecha/Apply Objective Arrow Sprite")]
+    public static void ApplyObjectiveArrow()
+    {
+        if (EditorApplication.isPlaying) throw new System.InvalidOperationException("Stop Play Mode before applying arrow setup.");
+        var hud = Object.FindFirstObjectByType<LevelObjectiveHud>();
+        if (hud == null) throw new System.InvalidOperationException("Open a scene with LevelObjectiveHud first.");
+        var serialized = new SerializedObject(hud);
+        var arrow = (RectTransform)serialized.FindProperty("arrow").objectReferenceValue;
+        ConfigureObjectiveArrow(arrow.gameObject);
+        AssetDatabase.SaveAssets();
+        EditorSceneManager.MarkSceneDirty(hud.gameObject.scene);
+        EditorSceneManager.SaveScene(hud.gameObject.scene);
+    }
+
+    private static void ConfigureObjectiveArrow(GameObject arrowGo)
+    {
+        var profile = MechaPresentationSetup.Profile<ProceduralLevelSettings>("ProceduralLevels");
+        if (profile.objectiveArrowSprite == null)
+        {
+            profile.objectiveArrowSprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/DropdownArrow.psd");
+            EditorUtility.SetDirty(profile);
+        }
+        // Migrate the old custom mesh without rebuilding the HUD hierarchy.
+        foreach (var graphic in arrowGo.GetComponents<UnityEngine.UI.Graphic>())
+            if (graphic.GetType().Name == "ObjectiveArrowGraphic") Object.DestroyImmediate(graphic);
+        var image = MechaPresentationSetup.Ensure<UnityEngine.UI.Image>(arrowGo);
+        image.sprite = profile.objectiveArrowSprite;
+        image.type = UnityEngine.UI.Image.Type.Simple;
+        image.preserveAspect = true;
+        image.raycastTarget = false;
+        image.rectTransform.sizeDelta = new Vector2(28f, 36f);
+        image.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+        EditorUtility.SetDirty(image);
     }
 }

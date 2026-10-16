@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 8242f0003620a1d489d76208987c34dc
+labels:
+- Placeholder
 VisualEffectImporter:
   externalObjects: {}
   serializedVersion: 2

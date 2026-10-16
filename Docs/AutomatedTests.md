@@ -1,6 +1,6 @@
 # Focused gameplay regression tests
 
-The default validation loop is compilation, source review, and the relevant local test fixture. Run both project test assemblies when a change crosses these systems. Use visual inspection for appearance and feel.
+Current preference (2026-10-16): do not create, add, modify or run automated tests without an explicit user request. Default validation uses compilation, source review, static checks and manual runtime inspection. The following coverage, commands and results document the existing suite; they do not authorize running it for future changes.
 
 Avoid repeating standalone builds, Relay sessions, or multi-client sweeps for local gameplay, UI, VFX, and profile edits. Use a targeted network smoke check when changing transport, lobby membership/readiness, authority, replicated state, network spawning, or remote presentation. Broaden that check only when failures or source changes justify it. Local tests do not prove remote synchronization.
 

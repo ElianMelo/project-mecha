@@ -1,11 +1,7 @@
 fileFormatVersion: 2
 guid: 36f616b823d57714b97b12b9319c9db9
-timeCreated: 1449962048
-licenseType: Store
-NativeFormatImporter:
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -13,3 +9,9 @@ AssetOrigin:
   packageVersion: 4.7.2R
   assetPath: Assets/FishNet/Demos/ColliderRollback/Models/Weapons/Materials/Gray4.mat
   uploadId: 901598
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

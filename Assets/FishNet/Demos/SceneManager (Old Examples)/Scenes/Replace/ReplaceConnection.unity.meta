@@ -1,10 +1,7 @@
 fileFormatVersion: 2
 guid: 58053e81b62de3a499afaf0f73d01b01
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -12,3 +9,8 @@ AssetOrigin:
   packageVersion: 4.7.2R
   assetPath: Assets/FishNet/Demos/SceneManager (Old Examples)/Scenes/Replace/ReplaceConnection.unity
   uploadId: 901598
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

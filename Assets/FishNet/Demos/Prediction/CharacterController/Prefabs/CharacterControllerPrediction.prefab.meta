@@ -1,10 +1,7 @@
 fileFormatVersion: 2
 guid: 5b712878ecece354ba4ffb026c0a221c
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -12,3 +9,8 @@ AssetOrigin:
   packageVersion: 4.7.2R
   assetPath: Assets/FishNet/Demos/Prediction/CharacterController/Prefabs/CharacterControllerPrediction.prefab
   uploadId: 901598
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

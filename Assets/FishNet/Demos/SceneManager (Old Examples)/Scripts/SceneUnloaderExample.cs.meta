@@ -1,5 +1,14 @@
 fileFormatVersion: 2
 guid: 84ae572fef1171b41ab287d1c9b5da63
+labels:
+- Others
+AssetOrigin:
+  serializedVersion: 1
+  productId: 207815
+  packageName: 'FishNet: Networking Evolved'
+  packageVersion: 4.7.2R
+  assetPath: Assets/FishNet/Demos/SceneManager (Old Examples)/Scripts/SceneUnloaderExample.cs
+  uploadId: 901598
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +18,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 207815
-  packageName: 'FishNet: Networking Evolved'
-  packageVersion: 4.7.2R
-  assetPath: Assets/FishNet/Demos/SceneManager (Old Examples)/Scripts/SceneUnloaderExample.cs
-  uploadId: 901598

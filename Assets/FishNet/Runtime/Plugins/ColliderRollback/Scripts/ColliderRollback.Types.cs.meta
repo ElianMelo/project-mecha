@@ -1,5 +1,14 @@
 fileFormatVersion: 2
 guid: 83b62057280ff8e4faf4a7344b9f3bda
+labels:
+- Others
+AssetOrigin:
+  serializedVersion: 1
+  productId: 207815
+  packageName: 'FishNet: Networking Evolved'
+  packageVersion: 4.7.2R
+  assetPath: Assets/FishNet/Runtime/Plugins/ColliderRollback/Scripts/ColliderRollback.Types.cs
+  uploadId: 901598
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +18,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 207815
-  packageName: 'FishNet: Networking Evolved'
-  packageVersion: 4.7.2R
-  assetPath: Assets/FishNet/Runtime/Plugins/ColliderRollback/Scripts/ColliderRollback.Types.cs
-  uploadId: 901598

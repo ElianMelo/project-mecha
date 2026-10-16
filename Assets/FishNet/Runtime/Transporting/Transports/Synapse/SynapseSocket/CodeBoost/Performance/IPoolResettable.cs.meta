@@ -1,5 +1,14 @@
 fileFormatVersion: 2
 guid: 1edbf5d5a1040d3418b21320638e5408
+labels:
+- Others
+AssetOrigin:
+  serializedVersion: 1
+  productId: 207815
+  packageName: 'FishNet: Networking Evolved'
+  packageVersion: 4.7.2R
+  assetPath: Assets/FishNet/Runtime/Transporting/Transports/Synapse/SynapseSocket/CodeBoost/Performance/IPoolResettable.cs
+  uploadId: 901598
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +18,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 207815
-  packageName: 'FishNet: Networking Evolved'
-  packageVersion: 4.7.2R
-  assetPath: Assets/FishNet/Runtime/Transporting/Transports/Synapse/SynapseSocket/CodeBoost/Performance/IPoolResettable.cs
-  uploadId: 901598

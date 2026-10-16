@@ -1,5 +1,14 @@
 fileFormatVersion: 2
 guid: b018639a2facd9d48860a56d37188ead
+labels:
+- Others
+AssetOrigin:
+  serializedVersion: 1
+  productId: 207815
+  packageName: 'FishNet: Networking Evolved'
+  packageVersion: 4.7.2R
+  assetPath: Assets/FishNet/Runtime/Transporting/Transports/Synapse/SynapseSocket/CodeBoost/Environment/IDEApplicationState.cs
+  uploadId: 901598
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +18,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 207815
-  packageName: 'FishNet: Networking Evolved'
-  packageVersion: 4.7.2R
-  assetPath: Assets/FishNet/Runtime/Transporting/Transports/Synapse/SynapseSocket/CodeBoost/Environment/IDEApplicationState.cs
-  uploadId: 901598

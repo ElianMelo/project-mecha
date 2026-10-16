@@ -17,6 +17,8 @@ public class ProceduralLevelSettings : ScriptableObject
     public float playerSpawnSpacing = 0.85f;
     public float portalInteractionRange = 1.8f, pointerInset = 48f;
     public Color enemyPointerColor = new Color(1f, 0.78f, 0.16f), portalColor = new Color(0.2f, 0.95f, 1f);
+    [Tooltip("Downward-facing pointer image, rotated by the HUD toward its objective.")]
+    public Sprite objectiveArrowSprite;
     public ScenarioSettings scenario;
     public OneWayPlatformSettings oneWay;
     public RoomCameraSettings cameraSettings;

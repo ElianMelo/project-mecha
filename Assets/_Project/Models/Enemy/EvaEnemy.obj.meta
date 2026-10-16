@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: c1b07eb618de03a45b49adc5943ce4d7
+labels:
+- Placeholder
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []

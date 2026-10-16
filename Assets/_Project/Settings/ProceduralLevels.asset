@@ -61,6 +61,7 @@ MonoBehaviour:
   pointerInset: 48
   enemyPointerColor: {r: 1, g: 0.78, b: 0.16, a: 1}
   portalColor: {r: 0.2, g: 0.95, b: 1, a: 1}
+  objectiveArrowSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   scenario: {fileID: 11400000, guid: f4b2d92faf150ff4ab902606a6787f6c, type: 2}
   oneWay: {fileID: 11400000, guid: ac727f4e1e331154db2fb0231d01dc78, type: 2}
   cameraSettings: {fileID: 11400000, guid: bdc90cfe200f1714392e2b59718fa7e1, type: 2}

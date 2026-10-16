@@ -1,10 +1,7 @@
 fileFormatVersion: 2
 guid: b8017cef39731ba439c70fecc09488e3
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -13,3 +10,8 @@ AssetOrigin:
   assetPath: Assets/FishNet/Demos/Benchmarks/NetworkTransform/Prefabs/NetworkTransform
     Benchmark Rigidbodies.prefab
   uploadId: 901598
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

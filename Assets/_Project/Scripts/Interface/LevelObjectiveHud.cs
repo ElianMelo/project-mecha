@@ -8,8 +8,8 @@ public sealed class LevelObjectiveHud : MonoBehaviour
     private PlayerMovement player;
     private Camera view;
     private float nextSearch;
-    private ObjectiveArrowGraphic graphic;
-    private void Awake() { view = Camera.main; graphic = arrow.GetComponent<ObjectiveArrowGraphic>(); }
+    private UnityEngine.UI.Image graphic;
+    private void Awake() { view = Camera.main; graphic = arrow.GetComponent<UnityEngine.UI.Image>(); }
     private void LateUpdate()
     {
         var levels = ProceduralLevelDirector.Instance;
@@ -50,6 +50,7 @@ public sealed class LevelObjectiveHud : MonoBehaviour
         if (direction.sqrMagnitude < 0.01f) direction = Vector2.up;
         float scale = Mathf.Min(half.x / Mathf.Max(0.001f, Mathf.Abs(direction.x)), half.y / Mathf.Max(0.001f, Mathf.Abs(direction.y)));
         arrow.anchoredPosition = direction * scale;
-        arrow.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+        // The native dropdown sprite points down; rotate its image toward the objective.
+        arrow.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f);
     }
 }

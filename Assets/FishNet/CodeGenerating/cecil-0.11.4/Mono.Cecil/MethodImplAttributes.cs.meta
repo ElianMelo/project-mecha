@@ -1,5 +1,14 @@
 fileFormatVersion: 2
 guid: bbe7f8d150d8c6b48abd24ac7718c9f4
+labels:
+- Others
+AssetOrigin:
+  serializedVersion: 1
+  productId: 207815
+  packageName: 'FishNet: Networking Evolved'
+  packageVersion: 4.7.2R
+  assetPath: Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono.Cecil/MethodImplAttributes.cs
+  uploadId: 901598
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +18,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 207815
-  packageName: 'FishNet: Networking Evolved'
-  packageVersion: 4.7.2R
-  assetPath: Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono.Cecil/MethodImplAttributes.cs
-  uploadId: 901598

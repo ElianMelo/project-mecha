@@ -1,5 +1,14 @@
 fileFormatVersion: 2
 guid: f2bd52d360e4406468da1fec5510d40c
+labels:
+- Others
+AssetOrigin:
+  serializedVersion: 1
+  productId: 207815
+  packageName: 'FishNet: Networking Evolved'
+  packageVersion: 4.7.2R
+  assetPath: Assets/FishNet/Runtime/Transporting/Transports/Synapse/SynapseSocket/CodeBoost/Types/RingBuffer.cs
+  uploadId: 901598
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +18,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 207815
-  packageName: 'FishNet: Networking Evolved'
-  packageVersion: 4.7.2R
-  assetPath: Assets/FishNet/Runtime/Transporting/Transports/Synapse/SynapseSocket/CodeBoost/Types/RingBuffer.cs
-  uploadId: 901598

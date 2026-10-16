@@ -1,5 +1,8 @@
 fileFormatVersion: 2
 guid: 78c09a7d154440d4dbaa935bd6eed71a
+labels:
+- AI Generated
+- Placeholder
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 21300000

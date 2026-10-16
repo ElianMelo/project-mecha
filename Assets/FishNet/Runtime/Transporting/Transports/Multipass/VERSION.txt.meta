@@ -1,10 +1,7 @@
 fileFormatVersion: 2
 guid: e4f9d944e2ca8484587859cf4ec80b6c
-TextScriptImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 207815
@@ -12,3 +9,8 @@ AssetOrigin:
   packageVersion: 4.7.2R
   assetPath: Assets/FishNet/Runtime/Transporting/Transports/Multipass/VERSION.txt
   uploadId: 901598
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

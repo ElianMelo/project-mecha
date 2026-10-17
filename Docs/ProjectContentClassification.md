@@ -1,5 +1,9 @@
 # Project content classification
 
+## Route availability contrast — 2026-10-17
+
+This revision changes existing routing Code, the LevelRouting Authored Data profile and supporting documentation. Native per-renderer material overrides reuse the existing miniature artwork, rings and path sprites; no new artwork, material, shader, prefab or maintained file is added. Categories, provisional readiness, provenance and inventory paths/totals remain unchanged. Manual Play Mode captures stay under ignored Logs/LevelRoutingContrast.
+
 ## A/S/D thermal skills — accepted initial baseline, 2026-10-17
 
 Original native Particle System assemblies, an authored S casting clip and light animation, project-owned source-map copies/materials/HLSL, three read-only skill profiles and focused VFX scripts now live under `Assets/_Project/VFX/FireSkills`. Two shared combat-origin/window source files remain in Combat; gameplay contact tuning remains in the existing AttackPiece assets. New effect assemblies are Prefabs, runtime C# is Code, profiles/controller are Authored Data, maps/materials/shader/animation are Placeholder artwork, and authoring/inspection/source records are Others. Supplied map lineage is recorded in [VfxEffectOrigins.csv](VfxEffectOrigins.csv); upstream AI provenance stays unverified and no final art approval is implied.

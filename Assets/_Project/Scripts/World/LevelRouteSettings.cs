@@ -20,9 +20,15 @@ public sealed class LevelRouteSettings : ScriptableObject
     public Material pathMaterial;
     public UiFeelSettings feel;
     public SquadPresentationSettings squad;
-    public Color reachableColor = new Color(0.24f, 0.92f, 0.93f);
+    public Color reachableColor = new Color(0.3f, 1f, 1f);
     public Color visitedColor = new Color(0.98f, 0.7f, 0.25f);
-    public Color lockedColor = new Color(0.46f, 0.55f, 0.64f);
+    public Color lockedColor = new Color(0.17f, 0.23f, 0.28f);
+    public Color lockedLabelColor = new Color(0.38f, 0.45f, 0.51f);
+    [Header("Miniature availability")]
+    [Tooltip("Multiplies each miniature's original material color without changing shared materials.")]
+    [Range(0f, 2f)] public float reachableModelBrightness = 1.4f;
+    [Range(0f, 2f)] public float visitedModelBrightness = 0.45f;
+    [Range(0f, 2f)] public float lockedModelBrightness = 0.16f;
     [Range(24, 31)] public int boardLayer = 30;
     [Min(0.1f)] public float pathDashSpacing = 0.65f;
     [Min(0.01f)] public float hapticSeconds = 0.065f;

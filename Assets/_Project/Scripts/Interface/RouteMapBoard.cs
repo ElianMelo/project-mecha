@@ -73,8 +73,8 @@ public sealed class RouteMapBoard : MonoBehaviour
         {
             bool travelled = route.Visited.Contains(edge.from) && route.Visited.Contains(edge.to);
             bool reachable = edge.from == route.CurrentNode && route.IsAvailable(edge.to);
-            bool preview = edge.from == focused || edge.to == focused && reachable;
-            bool chosen = edge.to == route.Winner && route.IsRouting;
+            bool preview = reachable && (edge.from == focused || edge.to == focused);
+            bool chosen = reachable && edge.to == route.Winner && route.IsRouting;
             Color color = travelled || chosen ? route.Settings.visitedColor : preview ? Color.white : reachable ? route.Settings.reachableColor : route.Settings.lockedColor;
             foreach (var dash in edge.dashes) dash.color = color;
         }
@@ -89,7 +89,8 @@ public sealed class RouteMapBoard : MonoBehaviour
         previewBody.text = "ENCOUNTER " + (node.depth + 1).ToString("00") + " / " + room.shape.ToString().ToUpperInvariant() + "\n\n" + room.description + "\n\n" + room.rewardPreview;
         bool voted = route.Pilots.Any(x => x.playerId == route.ClientManager.Connection.ClientId && x.nodeId == id);
         previewState.text = route.Winner == id ? "DESTINATION CONFIRMED" : voted ? "YOUR VOTE" : pending == id ? "SENDING VOTE..." : route.IsAvailable(id) ? "AVAILABLE / CONFIRM TO SELECT" : route.Visited.Contains(id) ? "CLEARED" : "SCOUTING AHEAD";
-        previewState.color = route.IsAvailable(id) ? route.Settings.reachableColor : route.Settings.visitedColor;
+        previewState.color = route.IsAvailable(id) ? route.Settings.reachableColor :
+            route.Visited.Contains(id) ? route.Settings.visitedColor : route.Settings.lockedLabelColor;
         roster.text = "SQUAD INTENT\n" + string.Join("\n", route.Pilots.Select((pilot, index) =>
             "<color=#" + ColorUtility.ToHtmlStringRGB(route.Settings.squad.PilotColor(pilot.colorSlot)) + ">P" + (index + 1) + "</color> " + pilot.name.Replace("<", "").Replace(">", "") + " / " +
             (pilot.nodeId < 0 ? "Choosing" : route.Encounter(route.Nodes[pilot.nodeId].encounterId)?.displayName)));

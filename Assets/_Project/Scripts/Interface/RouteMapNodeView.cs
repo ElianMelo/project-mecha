@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,15 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
     private RouteMapMenu menu;
     private LevelRouteDirector route;
     private Animator model;
+    private sealed class ModelTint
+    {
+        public MeshRenderer renderer;
+        public int materialIndex, colorProperty;
+        public Color originalColor;
+    }
+    private readonly List<ModelTint> modelTints = new List<ModelTint>();
+    private MaterialPropertyBlock modelProperties;
+    private float displayedBrightness = -1f;
     public int NodeId { get; private set; }
     public void Bind(RouteMapMenu owner, LevelRouteDirector director, LevelRouteNode node, Camera camera)
     {
@@ -24,6 +34,7 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
             var miniature = Instantiate(room.mapModel, transform); miniature.transform.localPosition = Vector3.zero;
             model = miniature.GetComponent<Animator>();
             if (model != null) model.enabled = route.Settings.feel == null || route.Settings.feel.motionEnabled;
+            CacheModelColors(miniature);
         }
         Refresh(false);
     }
@@ -31,6 +42,8 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
     {
         bool available = route.IsAvailable(NodeId), visited = route.Visited.Contains(NodeId);
         bool winner = route.Winner == NodeId && route.IsRouting;
+        SetModelBrightness(winner || available ? route.Settings.reachableModelBrightness :
+            visited ? route.Settings.visitedModelBrightness : route.Settings.lockedModelBrightness);
         ring.color = winner || visited ? route.Settings.visitedColor : available ? route.Settings.reachableColor : route.Settings.lockedColor;
         focusRing.enabled = focused; // Persistent even with every Animator disabled.
         state.text = winner ? "CONFIRMED" : available ? "SELECT ROUTE" : visited ? "CLEARED" : "SCOUT AHEAD";
@@ -43,7 +56,39 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
             if (i < supporters.Length) votePips[i].color = route.Settings.squad.PilotColor(supporters[i].colorSlot);
         }
         if (model != null && model.enabled) model.SetBool("Focused", focused);
-        label.color = focused || available || visited ? Color.white : new Color(0.67f,0.75f,0.82f);
+        // Scouting focus must not make an unavailable destination look selectable.
+        label.color = winner || available ? Color.white : visited ? route.Settings.visitedColor : route.Settings.lockedLabelColor;
+    }
+    private void CacheModelColors(GameObject miniature)
+    {
+        int baseColor = Shader.PropertyToID("_BaseColor"), legacyColor = Shader.PropertyToID("_Color");
+        foreach (var renderer in miniature.GetComponentsInChildren<MeshRenderer>(true))
+        {
+            var materials = renderer.sharedMaterials;
+            for (int i = 0; i < materials.Length; i++)
+            {
+                var material = materials[i];
+                if (material == null) continue;
+                int property = material.HasProperty(baseColor) ? baseColor : legacyColor;
+                if (!material.HasProperty(property)) continue;
+                modelTints.Add(new ModelTint { renderer = renderer, materialIndex = i,
+                    colorProperty = property, originalColor = material.GetColor(property) });
+            }
+        }
+    }
+    private void SetModelBrightness(float brightness)
+    {
+        if (Mathf.Approximately(displayedBrightness, brightness)) return;
+        displayedBrightness = brightness;
+        if (modelProperties == null) modelProperties = new MaterialPropertyBlock();
+        foreach (var tint in modelTints)
+        {
+            var color = tint.originalColor;
+            color.r *= brightness; color.g *= brightness; color.b *= brightness;
+            tint.renderer.GetPropertyBlock(modelProperties, tint.materialIndex);
+            modelProperties.SetColor(tint.colorProperty, color);
+            tint.renderer.SetPropertyBlock(modelProperties, tint.materialIndex);
+        }
     }
     public void Confirm() { if (model != null && model.enabled) model.SetTrigger("Confirm"); }
     public void OnPointerEnter(PointerEventData data) { if (menu != null && menu.CanInteract) EventSystem.current?.SetSelectedGameObject(gameObject); }

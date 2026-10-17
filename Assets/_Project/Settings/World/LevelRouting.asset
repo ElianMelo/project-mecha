@@ -28,9 +28,13 @@ MonoBehaviour:
   pathMaterial: {fileID: 2100000, guid: 3d836de297f4e5243a172a1f83980c84, type: 2}
   feel: {fileID: 11400000, guid: 9da1de78216e3d4479286dbd613223fb, type: 2}
   squad: {fileID: 11400000, guid: 6345f742abc10764fa5a084ef8888e63, type: 2}
-  reachableColor: {r: 0.24, g: 0.92, b: 0.93, a: 1}
+  reachableColor: {r: 0.3, g: 1, b: 1, a: 1}
   visitedColor: {r: 0.98, g: 0.7, b: 0.25, a: 1}
-  lockedColor: {r: 0.46, g: 0.55, b: 0.64, a: 1}
+  lockedColor: {r: 0.17, g: 0.23, b: 0.28, a: 1}
+  lockedLabelColor: {r: 0.38, g: 0.45, b: 0.51, a: 1}
+  reachableModelBrightness: 1.4
+  visitedModelBrightness: 0.45
+  lockedModelBrightness: 0.16
   boardLayer: 30
   pathDashSpacing: 0.65
   hapticSeconds: 0.065

@@ -1,5 +1,13 @@
 # Level routing — first iteration, 2026-10-17
 
+## Availability contrast — 2026-10-17
+
+Available destinations have bright cyan rings/paths, white labels and miniatures at 140% of their authored material color. Unavailable miniatures use 16% brightness with dark slate rings/paths and muted labels; cleared miniatures use 45% brightness and retain their amber completion marker. LevelRouteSettings owns this tuning. Native MaterialPropertyBlock overrides preserve each model's original palette and alpha without cloning or changing shared materials.
+
+The persistent white focus ring still identifies the controller's scouting selection, including unavailable encounters. Scouting does not brighten a locked miniature, its label or its future paths. Only reachable connections can receive the white path preview or destination-confirmation highlight. Unavailable terminal previews use a muted status color, keeping them distinct from confirmed/cleared encounters. Existing directional scouting, voting eligibility and modal navigation remain intact.
+
+Validation: Unity compilation completed without errors. Manual Play Mode inspection confirmed the bright opening destination against dark future miniatures, and a white scouting ring on a still-dark unavailable encounter with dim future paths. Directional neighbour selection, initial available-node focus, locked-submit rejection, vote withdrawal, modal interaction blocking and focus restoration were source-reviewed. No automated tests or extra clients were used. Pipeline inspection requests timed out around Editor reloads; subsequent live captures/inspection succeeded, and the recorded errors were tooling timeouts. A follow-up navigation inspection overlapped scene/Play Mode changes, so it is not counted as runtime navigation proof. Final state is stopped, clean MainScene. Captures remain under ignored Logs/LevelRoutingContrast.
+
 ## Current presentation — dedicated 3D scene
 
 At the user's request, the routing GUI has been replaced by **Assets/Scenes/LevelRouting.unity**. RouteMapMenu now loads/unloads this scene additively for local presentation while MainScene and its authoritative FishNet objects remain resident. The scene contains a perspective camera, physical table, encounter miniature prefabs, SpriteRenderer paths/focus/vote markers, BoxCollider selection volumes, and a 3D briefing terminal using TextMeshPro meshes. There are **no routing Canvases, RawImages, RenderTextures or invisible UI Buttons**. Opening this scene in the Editor shows authored example miniatures for scene/art iteration; runtime replaces them with the host's current graph.

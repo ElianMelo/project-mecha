@@ -20,18 +20,21 @@ public class GameManager : MonoBehaviour
     private InputActionMap systemActions;
     private GameplayDiagnostics diagnostics;
     private ControllerTextEntry textEntry;
+    private MechaGameplayHud hud;
     private float resumeInputAt;
     private string localAddress = "127.0.0.1";
     public static GameManager Instance { get; private set; }
     public bool MenuOpen => lobbyPanel != null && lobbyPanel.IsVisible || diagnostics != null && diagnostics.Visible || textEntry != null && textEntry.IsVisible;
-    public bool GameplayInputBlocked => MenuOpen || Time.unscaledTime < resumeInputAt;
+    public bool GameplayInputBlocked => MenuOpen || MechaChat.IsTyping || Time.unscaledTime < resumeInputAt;
     public ControllerInterfaceSettings ControllerSettings => controllerSettings;
     public NetworkManager Network => _networkManager;
+    public bool LobbyOpen => lobbyPanel != null && lobbyPanel.IsVisible;
     private void Awake()
     {
         Instance = this;
         diagnostics = FindFirstObjectByType<GameplayDiagnostics>();
         textEntry = FindFirstObjectByType<ControllerTextEntry>();
+        hud = FindFirstObjectByType<MechaGameplayHud>();
         interfaceActions = Instantiate(controllerSettings.actions);
         systemActions = interfaceActions.FindActionMap("System", true);
         systemActions.FindAction("LocalHost").performed += _ => { if (AcceptShortcut()) StartHost(); };
@@ -43,6 +46,8 @@ public class GameManager : MonoBehaviour
         systemActions.FindAction("Diagnostics").performed += _ => {
             if (AcceptShortcut() && (lobbyPanel == null || !lobbyPanel.IsVisible)) diagnostics?.Toggle();
         };
+        systemActions.FindAction("ControlsHelp").performed += _ => { if (AcceptShortcut()) hud?.ToggleControls(); };
+        systemActions.FindAction("ChatVisibility").performed += _ => { if (AcceptShortcut()) MechaChat.Instance?.ToggleVisibility(); };
     }
     private bool AcceptShortcut()
     {
@@ -53,10 +58,12 @@ public class GameManager : MonoBehaviour
     public void SuppressGameplayInput() => resumeInputAt = Time.unscaledTime + controllerSettings.menuResumeDelay;
     private void ToggleMenu()
     {
+        if (MechaChat.IsTyping) return;
         if (MenuOpen) Back(); else lobbyPanel?.Show();
     }
     private void Back()
     {
+        if (MechaChat.IsTyping) { MechaChat.Instance.Close(); return; }
         if (textEntry != null && textEntry.IsVisible) textEntry.Cancel();
         else if (diagnostics != null && diagnostics.Visible) diagnostics.Toggle();
         else if (lobbyPanel != null && lobbyPanel.IsVisible) lobbyPanel.Hide();

@@ -109,6 +109,8 @@ public static class MechaNetworkSetup
             visual.transform.localScale = Vector3.one * scale;
             visual.transform.localRotation = Quaternion.identity;
             visual.transform.localPosition = -source.sharedMesh.bounds.center * scale;
+            visual.transform.localPosition += Vector3.forward * settings.projectileVisualDepth;
+            MechaAdjustmentsSetup.ProjectileForeground(visual.GetComponent<Renderer>());
             Serialize(go); PrefabUtility.SaveAsPrefabAsset(go, path);
         }
         finally { if (exists) PrefabUtility.UnloadPrefabContents(go); else Object.DestroyImmediate(go); }

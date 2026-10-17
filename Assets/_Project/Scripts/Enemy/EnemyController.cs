@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider), typeof(EnemyMotor))]
 [RequireComponent(typeof(EnemyPlatformNavigator), typeof(EnemyStateMachine))]
-public class EnemyController : NetworkBehaviour, ICombatTarget
+public class EnemyController : NetworkBehaviour, ICombatTarget, ITargetable
 {
     public static readonly System.Collections.Generic.HashSet<EnemyController> ActiveEnemies = new System.Collections.Generic.HashSet<EnemyController>();
     [SerializeField] private EnemySettings settings;
@@ -30,12 +30,14 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
     public float Health => NetworkObject.IsSpawned ? health.Value : soloHealth;
     public float MaxHealth => settings.maxHealth;
     public bool IsDead => NetworkObject.IsSpawned ? dead.Value : soloDead;
-    private float impactPauseUntil;
-    public float Tempo => Time.time < impactPauseUntil ? 0f : PlayerAttack.EnemyTempoAt(transform.position);
+    public bool CanTarget => isActiveAndEnabled && !IsDead && capsule != null && capsule.enabled;
+    public int TargetPriority => 2;
+    public Bounds TargetBounds => capsule.bounds;
+    public Vector3 AimPoint => TargetBounds.center;
+    public Transform TargetTransform => transform;
     public bool IsJuggling => !IsGrounded;
     public bool PracticePassive { get; set; }
     public float StunRemaining => Mathf.Max(0f, stunnedUntil - Time.time);
-    public void PauseImpact(float duration) => impactPauseUntil = Mathf.Max(impactPauseUntil, Time.time + duration);
     public bool IsStunned => Time.time < stunnedUntil;
     public bool IsGrounded => NetworkObject.IsSpawned && !IsServerInitialized ? grounded.Value : motor != null && motor.IsGrounded;
     public bool IsAttacking => windingUp || lance != null && lance.IsCharging;
@@ -62,16 +64,8 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
     private void FixedUpdate()
     {
         if (!Authority) return;
-        float tempo = Tempo;
-        float delay = Time.fixedDeltaTime * (1f - tempo);
-        if (stunnedUntil > Time.time) stunnedUntil += delay;
-        if (nextAttack > Time.time) nextAttack += delay;
-        if (windingUp) windupUntil += delay;
-        lance?.DelayForTempo(delay);
-        motor.BeginTempo(tempo);
         try
         {
-            if (tempo <= 0f) return;
             if (IsDead)
             {
                 body.linearVelocity = Vector3.zero;
@@ -111,7 +105,6 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
             // Face actual travel after AI decisions, retaining deliberate attack facing.
             if (!IsDead && !IsStunned && !IsAttacking && Mathf.Abs(motor.Velocity.x) > settings.facingSpeedThreshold)
                 Face(motor.Velocity.x);
-            motor.EndTempo();
         }
     }
     public void Face(float direction)
@@ -146,6 +139,8 @@ public class EnemyController : NetworkBehaviour, ICombatTarget
         if (NetworkObject.IsSpawned) HitFeedback(damage, knockback, stun); else presentation?.Hit(damage, knockback, stun);
         if (Health <= 0f) Die();
     }
+    public void TakeDamage(float damage, Vector3 knockback, float stun, PlayerHealth attacker)
+        => TakeHit(damage, knockback, stun);
     private void Die()
     {
         if (IsDead) return;

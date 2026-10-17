@@ -32,18 +32,14 @@ public class CharacterAnimator : MonoBehaviour
         Vector3 motion = (transform.position - previousPosition) / Mathf.Max(Time.deltaTime, 0.001f);
         previousPosition = transform.position;
         // Observers consume NetworkAnimator state. Local locomotion/RPC callbacks must
-        // not overwrite the authority's states, playback parameters or hit-stop speed.
+        // not overwrite the authority's states or playback parameters.
         if (!DrivesAnimator) return;
         if (animator != null)
-            animator.speed = attack != null && attack.IsInHitStop ? 0f : enemy != null ? enemy.Tempo : 1f;
-        if (attack != null && attack.IsInHitStop && Time.time < lockedUntil) lockedUntil += Time.deltaTime;
-        if (enemy != null && Time.time < lockedUntil) lockedUntil += Time.deltaTime * (1f - enemy.Tempo);
+            animator.speed = 1f;
         if (animator == null || settings == null || dead || Time.time < lockedUntil) return;
-        if (enemy != null && enemy.Tempo <= 0f) return;
         bool grounded = player != null ? player.IsGrounded : enemy != null ? enemy.IsGrounded : Mathf.Abs(body.linearVelocity.y) < 0.5f;
         Vector3 velocity = player != null ? player.Velocity : enemy != null && enemy.IsSpawned && !enemy.IsServerInitialized ? motion : body != null ? body.linearVelocity : motion;
-        // Enemy motion and Animator.speed already share tempo. Normalize here so slowdown applies once.
-        float horizontal = Mathf.Abs(velocity.x) / (enemy != null ? enemy.Tempo : 1f);
+        float horizontal = Mathf.Abs(velocity.x);
         float vertical = velocity.y;
         string state = !grounded ? (vertical > 0.2f ? "Jump" : "Fall") :
             player != null && player.IsDashing ? "Dash" : horizontal > settings.movementThreshold ? "Run" : "Idle";

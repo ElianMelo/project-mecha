@@ -27,9 +27,17 @@ public static class MechaControllerSetup
             Bind(player, "Jump", "<Gamepad>/dpad/up", "Gamepad");
             Bind(player, "Down", "<Gamepad>/leftStick/down", "Gamepad");
             Bind(player, "Tech", "<Gamepad>/leftTrigger", "Gamepad");
+            var tech = player.FindAction("Tech", true);
+            for (int i = tech.bindings.Count - 1; i >= 0; i--)
+                if (tech.bindings[i].path == "<Gamepad>/rightStickPress") tech.ChangeBinding(i).Erase();
             Bind(player, "Interact", inputSettings.interactBinding, "Keyboard&Mouse");
             Bind(player, "Interact", inputSettings.alternateInteractBinding, "Keyboard&Mouse");
-            Bind(player, "Interact", "<Gamepad>/rightTrigger", "Gamepad");
+            var interact = player.FindAction("Interact", true);
+            for (int i = interact.bindings.Count - 1; i >= 0; i--)
+                if (interact.bindings[i].path == "<Gamepad>/rightTrigger") interact.ChangeBinding(i).Erase();
+            Bind(player, "Interact", "<Gamepad>/leftStickPress", "Gamepad");
+            Bind(player, "SecondaryFire", "<Keyboard>/c", "Keyboard&Mouse");
+            Bind(player, "SecondaryFire", "<Gamepad>/rightTrigger", "Gamepad");
             var system = actions.FindActionMap("System", false) ?? actions.AddActionMap("System");
             Bind(system, "Menu", "<Keyboard>/escape", "Keyboard&Mouse");
             Bind(system, "Menu", "<Keyboard>/3", "Keyboard&Mouse");
@@ -39,6 +47,9 @@ public static class MechaControllerSetup
             Bind(system, "Diagnostics", "<Gamepad>/select", "Gamepad");
             Bind(system, "LocalHost", "<Keyboard>/1", "Keyboard&Mouse");
             Bind(system, "LocalJoin", "<Keyboard>/2", "Keyboard&Mouse");
+            Bind(system, "ControlsHelp", "<Keyboard>/f1", "Keyboard&Mouse");
+            Bind(system, "ControlsHelp", "<Gamepad>/rightStickPress", "Gamepad");
+            Bind(system, "ChatVisibility", "<Keyboard>/f2", "Keyboard&Mouse");
             File.WriteAllText(path, actions.ToJson());
         }
         finally { UnityEngine.Object.DestroyImmediate(actions); }

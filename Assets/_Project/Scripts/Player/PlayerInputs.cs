@@ -11,7 +11,7 @@ public class PlayerInputs : NetworkBehaviour
     public Vector2 MoveInput { get; private set; }
     public bool JumpHeld { get; private set; }
     public bool DownHeld { get; private set; }
-    public bool HasControl => (!NetworkObject.IsSpawned || IsOwner) && !GameInputPresentation.Disconnected &&
+    public bool HasControl => (!NetworkObject.IsSpawned || IsOwner) && !GameInputPresentation.Disconnected && !MechaChat.IsTyping &&
         !(GameManager.Instance != null && GameManager.Instance.GameplayInputBlocked);
     public event Action OnJumpInput;
     public event Action OnDownInput;
@@ -20,13 +20,15 @@ public class PlayerInputs : NetworkBehaviour
     public event Action<int> OnDashInput;
     public event Action<int> OnSkillInput;
     public event Action OnTechInput;
+    public event Action OnSecondaryFireInput;
     public event Action<string> OnCommand;
+    public bool FireHeld { get; private set; }
     public float LastJumpPressed { get; private set; } = -10f;
     private float lastLeft = -10f, lastRight = -10f;
     private int previousDirection;
     private PlayerInput input;
     private InputActionAsset cachedActions;
-    private InputAction jumpAction, downAction, moveAction;
+    private InputAction jumpAction, downAction, moveAction, fireAction;
     private bool typing;
     private void Awake()
     {
@@ -80,11 +82,13 @@ public class PlayerInputs : NetworkBehaviour
             jumpAction = cachedActions?.FindAction("Player/Jump", false);
             downAction = cachedActions?.FindAction("Player/Down", false);
             moveAction = cachedActions?.FindAction("Player/Move", false);
+            fireAction = cachedActions?.FindAction("Player/SecondaryFire", false);
         }
         // SendMessages only reports performed events for buttons; poll held state
         // from this player's actions so releases are handled for every device.
         JumpHeld = jumpAction != null && jumpAction.IsPressed();
         DownHeld = downAction != null && downAction.IsPressed();
+        FireHeld = fireAction != null && fireAction.IsPressed();
         // Polling restores a held stick after closing UI and clears it on device loss.
         ApplyMove(moveAction != null ? moveAction.ReadValue<Vector2>() : Vector2.zero);
     }
@@ -110,7 +114,13 @@ public class PlayerInputs : NetworkBehaviour
     private void OnDisable() => ResetInput();
     public void OnDeviceLost(PlayerInput playerInput) => ResetInput();
     public void OnControlsChanged(PlayerInput playerInput) => ResetInput();
-    private void ResetInput() { MoveInput = Vector2.zero; JumpHeld = DownHeld = false; previousDirection = 0; lastLeft = lastRight = LastJumpPressed = -10f; }
+    private void ResetInput() { MoveInput = Vector2.zero; FireHeld = JumpHeld = DownHeld = false; previousDirection = 0; lastLeft = lastRight = LastJumpPressed = -10f; }
+    public void OnSecondaryFire(InputValue value)
+    {
+        if (!HasControl || typing) return;
+        FireHeld = value.isPressed;
+        if (value.isPressed) OnSecondaryFireInput?.Invoke();
+    }
     public void OnMove(InputValue value)
     {
         if (!HasControl || typing) return;

@@ -611,6 +611,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SecondaryFire",
+                    "type": "Button",
+                    "id": "dff70628-a5cd-43b0-8521-0e7169bcb124",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -858,17 +867,6 @@
                 },
                 {
                     "name": "",
-                    "id": "88fba883-993e-4b3e-9f82-747866d84613",
-                    "path": "<Gamepad>/rightStickPress",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Tech",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "5b2a2f52-c778-4824-a536-65f6353c8671",
                     "path": "<Gamepad>/dpad",
                     "interactions": "",
@@ -935,12 +933,34 @@
                 },
                 {
                     "name": "",
-                    "id": "e63fdaf4-5661-4799-9b5c-0fd7e2d653cc",
-                    "path": "<Gamepad>/rightTrigger",
+                    "id": "c8aafd85-52a2-4686-91a2-ff1981e0302e",
+                    "path": "<Gamepad>/leftStickPress",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8aea9fbc-ed0f-4c84-8fae-23a30604fbbf",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SecondaryFire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c0689ee-7958-456f-8d94-299614d1924e",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SecondaryFire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -990,6 +1010,24 @@
                     "name": "LocalJoin",
                     "type": "Button",
                     "id": "df169193-1198-44bb-a761-eb51a2ec007b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ControlsHelp",
+                    "type": "Button",
+                    "id": "13d445ad-be2d-4c5f-81dc-dd75bb0c45f1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChatVisibility",
+                    "type": "Button",
+                    "id": "57b61621-cb5e-4a26-bbb9-0dcfcbd8f48c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1082,6 +1120,39 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "LocalJoin",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b99f6fe-7931-40b9-9da5-9c1ee653c172",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ControlsHelp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "981d8b7e-7d69-44e9-9e37-836ef9310f37",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ControlsHelp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "78918653-694e-42b8-8a4b-ff60e975faa8",
+                    "path": "<Keyboard>/f2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ChatVisibility",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

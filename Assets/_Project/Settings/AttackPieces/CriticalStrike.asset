@@ -35,7 +35,6 @@ MonoBehaviour:
     cooldown: 0
     stepSpeed: 10.5
     stepDuration: 0.21
-    hitStop: 0.06
     airLift: 5
     airOnly: 0
     requiresGround: 1

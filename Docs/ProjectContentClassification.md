@@ -1,5 +1,17 @@
 # Project content classification
 
+## Current policy — game adjustments, 2026-10-16
+
+The user's classification correction supersedes the historical entries below: **Placeholder applies to unfinished artwork**, including images, models, materials, visual effects and animation. Runtime source is **Code**, reusable assemblies are **Prefabs**, ScriptableObject definitions/profiles and native controller/input configuration are **Authored Data**, and level compositions are **Scenes**. These four categories have **Provisional** readiness; none implies final approval. **Others** remains for vendor dependencies, maintenance/editor tools, documentation, tests and project configuration. Confirmed generated artwork retains **AI Generated + Placeholder**. Unknown provenance remains unverified.
+
+The game-adjustment pass adds a static hollow-ring image rendered through native SpriteRenderers, native world-space enemy health bars and pilot labels, a secondary weapon using the supplied Sci Fi Gun Heavy art, authored settings, a chat assembly and a targeted chat regression fixture. The 2026-10-17 follow-up replaces the original Particle System bullets with physical GameObject bullet prefabs and native Unity physics. The ring is authoring-time geometric artwork; its generation process is not evidence of AI image-generation provenance. Imported weapon artwork is Placeholder; the package's prefabs are Prefabs. New interface/environment assembly prefabs keep their referenced artwork's provenance separate from assembly configuration.
+
+Current inventory: **3,130 maintained files**, including **238 Code**, **186 Authored Data**, **40 Prefabs**, **6 Scenes**, **220 Placeholder**, **22 AI Generated** and **2,418 Others** rows (metadata included). The 2026-10-17 follow-ups add SecondaryWeaponProjectile, IDamageable and ITargetable source (Code), SecondaryBullet prefab (Prefabs), and its native emissive material (Placeholder), each including Unity metadata. Their native labels match the inventory. Origin remains unverified. The earlier native label pass covered 1,360 importable assets and changed 270; all runtime C# source metadata was checked and no longer carries Placeholder. This snapshot supersedes historical totals below.
+
+`AgentScripts/Update-ProjectClassification.ps1` regenerates the complete inventory using the current categories. `ApplyAssetClassification` removes obsolete managed labels before applying the current labels through Unity APIs. All historical totals and descriptions below describe the earlier policy and are retained as a record, not current classifications.
+
+The projectile platform/foreground revision changes existing Code, Prefabs and Authored Data only, plus the native sorting-layer setting (Others) and support documentation/helpers. No maintained files, meshes, shaders or artwork were added; the inventory paths and totals remain unchanged.
+
 ## Controller support — 2026-10-16
 
 The Input Action asset, player prefab, MainScene, HUD/input/menu scripts and new controller interface profile remain **Placeholder**, with their existing unverified provenance preserved. New `ControllerInterfaceSettings`, `GameInputPresentation`, `ControllerTextEntry` and `ControllerTextField` scripts and their metadata are also **Placeholder / Unverified**. `Assets/Editor/MechaControllerSetup.cs`, its metadata and `Docs/ControllerSupport.md` are **Others** support content. Native uGUI/TMP and the existing Unity Input System supply the controls; no artwork or external package was added. The inventory includes these new maintained files. Temporary Gamepad devices used for manual inspection are runtime state and are not maintained content.
@@ -23,14 +35,18 @@ Recorded at the user's request on 2026-10-16. **All current game content is prov
 | Category | Meaning | Readiness |
 | --- | --- | --- |
 | AI Generated | Confirmed generated images and native Sprite assets derived from those images. | Also Placeholder; generation is an origin, not a production approval. |
-| Placeholder | Current prototype game code, art, scenes, prefabs, materials, profiles and other game content without confirmed AI provenance. | Replace, refine or review before any future final-product approval. |
+| Placeholder | Unfinished artwork: models, materials, images, visual effects and animation. | Replace, refine or review before any future final-product approval. |
+| Code | Runtime game source. | Provisional. |
+| Prefabs | Reusable actor, world and interface assemblies. | Provisional; referenced artwork can remain Placeholder. |
+| Authored Data | ScriptableObjects, native animation controllers, input assets and other game configuration. | Provisional. |
+| Scenes | Scene composition. | Provisional. |
 | Others | Vendor dependencies, Unity/package resources, documentation, tooling, existing tests, configuration, registries and archives. | Support or Archive; this category does not mean final or human-authored. |
 
 Unknown AI origin stays **Unverified**. Commit authors, filenames, Unity serialization and procedural generation do not establish AI authorship. Supplied/imported models and clips retain that lineage, while their original creation method and licensing are not established by this classification. Existing source may have AI assistance; the repository does not provide sufficient per-file evidence to certify all source origins.
 
 Confirmed AI artwork: `CyberpunkCity.png`, `IndustrialPlatforms.png`, `CyberpunkFarSky.png`, `CyberpunkMiddleSkyline.png`, `CyberpunkNearRooftops.png` under `Assets/_Project/Art/Environment/`, plus the six native Sprite assets that reference them. Evidence and prompts are in [scenario art](ScenarioArtPrompts.md) and [three-layer art](ThreeLayerParallaxPrompts.md). Their `.meta` files inherit the classification of their owner; metadata itself is produced by Unity.
 
-Unity's built-in Project labels are applied to importable file assets: **AI Generated**, **Placeholder**, **Others**. Confirmed AI art receives both AI Generated and Placeholder. Other existing labels are preserved. Search with `l:Placeholder`, `l:"AI Generated"` or `l:Others` in the Project window. Folder `.meta` entries and non-importable files remain covered by the inventory; they do not need synthetic Unity assets. Vendor labels are local project metadata, not changes to vendor source or license notices.
+Unity's built-in Project labels match the current categories. Confirmed AI art receives both AI Generated and Placeholder. Other existing labels are preserved. Search with `l:Code`, `l:Prefabs`, `l:"Authored Data"`, `l:Scenes`, `l:Placeholder`, `l:"AI Generated"` or `l:Others` in the Project window. Folder `.meta` entries and non-importable files remain covered by the inventory; they do not need synthetic Unity assets. Vendor labels are local project metadata, not changes to vendor source or license notices.
 
 ## Scope and maintenance
 

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DestructibleBoxes
   m_EditorClassIdentifier: Assembly-CSharp::DestructibleSettings
   health: 28
+  healOnBreak: 25
   hitFeedback: {fileID: 11400000, guid: f23bce19dadd7ac45b5b20bb71cd1475, type: 2}
   debris: {fileID: 11400000, guid: aa2726df4bbd28449afeba472310844b, type: 2}
   smoke: {fileID: 11400000, guid: 589647c073c7e8945b9c54b21e055333, type: 2}

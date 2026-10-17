@@ -30,6 +30,15 @@ MonoBehaviour:
   damage: 16
   lifetime: 4
   hitRadius: 0.12
+  throwSpeed: 14
+  minimumFlightTime: 0.25
+  landingFollowThrough: 1.25
+  landingEdgeInset: 0.2
+  landingSearchDepth: 35
+  landingLayers:
+    serializedVersion: 2
+    m_Bits: 192
+  projectileVisualDepth: -1.2
   knockback: {x: 4, y: 3}
   collisionLayers:
     serializedVersion: 2

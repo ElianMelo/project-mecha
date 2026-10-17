@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: dd12c263a3b44e746ae46b6fa5800239
+labels:
+- Placeholder
+AssetOrigin:
+  serializedVersion: 1
+  productId: 87878
+  packageName: Sci-Fi Gun Heavy
+  packageVersion: 1.1
+  assetPath: Assets/Sci Fi Gun Heavy/Materials/SciFiGunHeavy/SciFiGunHeavy_Rad.mat
+  uploadId: 731013
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

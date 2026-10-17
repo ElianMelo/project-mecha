@@ -16,7 +16,7 @@ public class GameplayHudLayoutSettings : ScriptableObject
     public Vector2 cockpitAnchor = new Vector2(0f, 1f);
     public Vector2 cockpitOffset = new Vector2(28f, -48f), cockpitSize = new Vector2(348f, 148f);
     public Vector2 diagnosticsSize = new Vector2(660f, 414f), diagnosticsOffset = new Vector2(24f, -84f);
-    public float diagnosticsRefresh = 0.15f, practiceTempo = 0.5f;
+    public float diagnosticsRefresh = 0.15f;
     public Vector2 skillBarAnchor = new Vector2(0f, 1f);
     public Vector2 skillBarOffset = new Vector2(28f, -126f);
     public Vector2 skillSize = new Vector2(144f, 52f);

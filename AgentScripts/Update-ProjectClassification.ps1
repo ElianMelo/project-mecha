@@ -3,7 +3,7 @@ param([string]$ProjectRoot = (Split-Path $PSScriptRoot -Parent))
 $ErrorActionPreference = 'Stop'
 $ProjectRoot = (Resolve-Path -LiteralPath $ProjectRoot).Path
 $gitRoot = $ProjectRoot.Replace('\', '/')
-$paths = @(& git -c "safe.directory=$gitRoot" -C $ProjectRoot ls-files --cached --others --exclude-standard)
+$paths = @(& git -c "safe.directory=$gitRoot" --no-optional-locks -C $ProjectRoot ls-files --cached --others --exclude-standard)
 if ($LASTEXITCODE -ne 0) { throw 'Could not enumerate maintained project files.' }
 
 # These are the only images with documented AI provenance. Sprite assets derived
@@ -43,8 +43,25 @@ $rows = foreach ($path in ($paths | Sort-Object -Unique)) {
     } elseif ($basePath -match '^Assets/_Project/NewSkills(/|$)' -or $basePath -match '^\.agents(/|$)') {
         $origin = 'Imported tooling'; $kind = 'Agent skill / reference'
         $evidence = 'Tooling instructions; not game content or proof of AI-authored code.'
+    } elseif ($basePath -match '^Assets/_Project/Scripts/.+\.cs$') {
+        $category = 'Code'; $status = 'Provisional'; $kind = 'Gameplay implementation'
+        $evidence = 'User classification correction 2026-10-16: Placeholder describes unfinished art, not source code.'
+    } elseif ($basePath -match '^Assets/(_Project|Scenes|Settings)/.+\.prefab$') {
+        $category = 'Prefabs'; $status = 'Provisional'; $kind = 'Reusable game assembly'
+        $evidence = 'Contains references to provisional art; prefab configuration is not itself placeholder artwork.'
+    } elseif ($basePath -match '^Assets/(_Project|Scenes|Settings)/.+\.unity$') {
+        $category = 'Scenes'; $status = 'Provisional'; $kind = 'Scene composition'
+    } elseif ($basePath -match '^Assets/(_Project|Scenes|Settings)/.+\.(asset|inputactions|controller|overrideController|physicsMaterial|physicMaterial|renderTexture|shadersubgraph)$') {
+        $category = 'Authored Data'; $status = 'Provisional'; $kind = 'Settings, definition or native configuration'
+        $evidence = 'User classification correction 2026-10-16: authored configuration is separate from unfinished art.'
+    } elseif ($basePath -match '^Assets/Sci Fi Gun Heavy(/|$)') {
+        $category = 'Placeholder'; $status = 'Placeholder'; $origin = 'Supplied / imported; upstream AI origin unverified'
+        $kind = 'Imported weapon art'; $evidence = 'Existing Sci Fi Gun Heavy package supplied in workspace; no final art approval.'
+        if ($basePath -like '*.prefab') { $category = 'Prefabs'; $status = 'Provisional'; $kind = 'Imported weapon prefab' }
+        if ($basePath -like '*.unity') { $category = 'Scenes'; $status = 'Provisional'; $kind = 'Imported weapon demonstration scene' }
+        if ($basePath -match '\.(txt|pdf)$') { $category = 'Others'; $status = 'Support'; $kind = 'Imported package documentation' }
     } elseif ($basePath -match '^Assets/(_Project|Scenes|Settings)(/|$)') {
-        $category = 'Placeholder'; $status = 'Placeholder'; $kind = 'Prototype implementation, content or authored configuration'
+        $category = 'Placeholder'; $status = 'Placeholder'; $kind = 'Unfinished visual content'
         $evidence = 'User decision 2026-10-16: current game content exists for testing; no final product.'
     } elseif ($basePath -match '^Assets/DefaultPrefabObjects\.asset$') {
         $origin = 'Unity / FishNet generated metadata'; $kind = 'Generated network prefab registry'

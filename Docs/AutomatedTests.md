@@ -6,6 +6,10 @@ Avoid repeating standalone builds, Relay sessions, or multi-client sweeps for lo
 
 ## Coverage
 
+Explicitly requested in the 2026-10-16 game-adjustment task: `ChatRegressionTests.EnterSendsOnceExpiresMessagesAndRemainsUsableAfterHostStarts` passed against the saved MainScene. It covers real Enter events, one send per submit, literal text, bounded history, real-time expiry, cancellation, input suppression, a local host broadcast and continued use after disconnect. Run only this fixture for the chat scope; this request does not authorize unrelated suites.
+
+The final expanded run on 2026-10-17 also passed chat over the controller-keyboard/menu overlay and mouse/native TMP activation without reopening after submit: 1 passed, 0 failed, 5.35 s. See [game-adjustment validation](GameAdjustments.md).
+
 | Fixture | Cases | Regression coverage |
 | --- | ---: | --- |
 | `ComboSequenceTests` | 7 | Authored attack order and looping, input timeout, non-loop completion, ground/air switching, independent player cursors, reset, missing/empty sequences, unchanged sequence asset |

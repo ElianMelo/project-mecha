@@ -18,15 +18,14 @@ public sealed class GameplayDiagnostics : MonoBehaviour
     private readonly float[] sortedTimes = new float[240];
     private readonly string[] history = new string[12];
     private int samples, cursor, historyCount, meterCursor;
-    private float nextRefresh, nextSearch, meterTime, firstDamage = -1f, sessionDamage, previousTimeScale = 1f;
-    private bool slow, hitboxes;
+    private float nextRefresh, nextSearch, meterTime, firstDamage = -1f, sessionDamage;
+    private bool hitboxes;
     private bool skipFrameSample;
     private readonly StringBuilder text = new StringBuilder(1600);
     public bool Visible => panel != null && panel.activeSelf;
     private void Start()
     {
         panel.SetActive(false);
-        previousTimeScale = Time.timeScale;
     }
     private void OnEnable()
     {
@@ -48,7 +47,6 @@ public sealed class GameplayDiagnostics : MonoBehaviour
         }
         if (player == null && Time.unscaledTime >= nextSearch)
         { nextSearch = Time.unscaledTime + 0.5f; BindPlayer(); }
-        if (slow && (player == null || player.NetworkObject.IsSpawned)) RestoreTempo();
         if (!Visible) return;
         meterTime += Time.unscaledDeltaTime;
         if (frameMeter != null && frameMeter.Length > 0 && meterTime >= 1f / 60f)
@@ -109,14 +107,6 @@ public sealed class GameplayDiagnostics : MonoBehaviour
         if (player == null || player.NetworkObject.IsSpawned) { notice.text = "Refill is available in the offline practice deck."; return; }
         player.ResetPracticeResources(); notice.text = "Practice energy and skill cooldowns reset.";
     }
-    public void TogglePracticeTempo()
-    {
-        if (player == null || player.NetworkObject.IsSpawned) { notice.text = "Slow practice is available only offline."; return; }
-        if (slow) RestoreTempo();
-        else { previousTimeScale = Time.timeScale; slow = true; Time.timeScale = settings.practiceTempo; }
-        notice.text = slow ? "Offline practice at 50% tempo." : "Practice tempo restored.";
-    }
-    private void RestoreTempo() { if (slow) Time.timeScale = previousTimeScale; slow = false; }
     public void CopySnapshot()
     {
         Refresh(); GUIUtility.systemCopyBuffer = readout.text + "\nINPUTS\n" + inputHistory.text;
@@ -161,7 +151,6 @@ public sealed class GameplayDiagnostics : MonoBehaviour
     }
     private void OnDisable()
     {
-        RestoreTempo();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.pauseStateChanged -= EditorPauseChanged;
 #endif

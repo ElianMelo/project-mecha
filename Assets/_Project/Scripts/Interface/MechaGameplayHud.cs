@@ -10,18 +10,63 @@ public class MechaGameplayHud : MonoBehaviour
     [SerializeField] private TMP_Text healthValue, energyValue, motion, comboReadout, link;
     [SerializeField] private GameplayHudLayoutSettings settings;
     [SerializeField] private TMP_Text controls;
+    [SerializeField] private CanvasGroup controlsPanel;
+    [SerializeField] private UnityEngine.UI.Button controlsToggle;
+    [SerializeField] private TMP_Text controlsToggleLabel;
+    [SerializeField] private RectTransform controlsRoot;
+    [SerializeField] private ChatSettings chatLayout;
+    [SerializeField] private TMP_Text ammunition;
     private PlayerMovement movement;
     private PlayerAttack player;
     private PlayerHealth health;
+    private PlayerSecondaryWeapon secondary;
     private float nextSearch;
     private GameplayHudFeedback feedback;
     private int promptRevision = -1;
+    private bool controlsVisible;
+    private bool refreshControlsLayout;
     private readonly string[] skillNames = new string[3];
     private static readonly string[] SkillTitles = { "MEGA SLASH", "SWORD FIRE", "CRITICAL X" };
     private static readonly string[] SkillActions = { "SkillA", "SkillS", "SkillD" };
-    private void Awake() => feedback = GetComponent<GameplayHudFeedback>();
+    private void Awake()
+    {
+        feedback = GetComponent<GameplayHudFeedback>();
+        if (controlsPanel != null) controlsPanel.alpha = 0f;
+        RefreshControlsToggle();
+    }
+    public void ToggleControls()
+    {
+        if (MechaChat.IsTyping || controlsPanel == null || GameManager.Instance != null && GameManager.Instance.LobbyOpen) return;
+        controlsVisible = !controlsVisible;
+        controlsPanel.alpha = controlsVisible ? 1f : 0f;
+        refreshControlsLayout = controlsVisible;
+        RefreshControlsToggle();
+    }
+    private void LateUpdate()
+    {
+        if (!refreshControlsLayout) return;
+        refreshControlsLayout = false;
+        controls?.SetAllDirty();
+        Canvas.ForceUpdateCanvases();
+    }
+    private void RefreshControlsToggle()
+    {
+        if (controlsToggle != null) controlsToggle.interactable = !MechaChat.IsTyping;
+        if (controlsToggleLabel != null)
+        {
+            controlsToggleLabel.text = GameInputPresentation.Hint("ControlsHelp") + (controlsVisible ? "  HIDE CONTROLS" : "  SHOW CONTROLS");
+            controlsToggleLabel.alpha = MechaChat.IsTyping ? 0.4f : 1f;
+        }
+    }
     private void Update()
     {
+        RefreshControlsToggle();
+        if (controlsRoot != null)
+        {
+            controlsRoot.gameObject.SetActive(GameManager.Instance == null || !GameManager.Instance.LobbyOpen);
+            if (chatLayout != null) controlsRoot.anchoredPosition = chatLayout.offset + Vector2.down *
+                (MechaChat.Instance != null && MechaChat.Instance.ContentVisible ? chatLayout.size.y + 12f : 0f);
+        }
         if (promptRevision != GameInputPresentation.Revision)
         {
             promptRevision = GameInputPresentation.Revision;
@@ -33,7 +78,7 @@ public class MechaGameplayHud : MonoBehaviour
         {
             nextSearch = Time.unscaledTime + 0.5f;
             foreach (var candidate in FindObjectsByType<PlayerAttack>(FindObjectsSortMode.None))
-                if (!candidate.NetworkObject.IsSpawned || candidate.IsOwner) { player = candidate; health = candidate.GetComponent<PlayerHealth>(); movement = candidate.GetComponent<PlayerMovement>(); break; }
+                if (!candidate.NetworkObject.IsSpawned || candidate.IsOwner) { player = candidate; health = candidate.GetComponent<PlayerHealth>(); movement = candidate.GetComponent<PlayerMovement>(); secondary = candidate.GetComponent<PlayerSecondaryWeapon>(); break; }
         }
         if (player == null)
         {
@@ -44,6 +89,7 @@ public class MechaGameplayHud : MonoBehaviour
             return;
         }
         status.text = "MK-01  //  MECHA KNIGHT";
+        if (ammunition != null) ammunition.text = secondary != null ? $"{GameInputPresentation.Hint("SecondaryFire")}  SMG   {secondary.Ammo:00} / {secondary.Capacity}   ·   AUTO REFILL" : "";
         if (healthValue != null) healthValue.text = $"AP   {health.Health:000} <size=12>/ {health.MaxHealth:0}</size>";
         if (energyValue != null) energyValue.text = $"EN   {player.Mana:000} <size=12>/ {player.MaxMana:0}</size>";
         if (motion != null) motion.text = $"{movement.MovementState.ToUpperInvariant()}    {Mathf.Abs(movement.Velocity.x):0.0} m/s    //    {player.Phase}";

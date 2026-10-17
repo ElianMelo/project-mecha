@@ -15,11 +15,11 @@ MonoBehaviour:
   displayName: Critical X
   action:
     kind: 7
-    duration: 1.3
-    impact: 0.65
-    cancel: 1.3
+    duration: 0.72
+    impact: 0.2
+    cancel: 0.72
     pulses: 2
-    pulseInterval: 0.2
+    pulseInterval: 0.08
     damage: 28
     finalDamage: 28
     launcher: 1
@@ -35,7 +35,6 @@ MonoBehaviour:
     cooldown: 7
     stepSpeed: 0
     stepDuration: 0
-    hitStop: 0.065
     airLift: 5.2
     airOnly: 0
     requiresGround: 0

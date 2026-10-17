@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public interface ICombatTarget
+// Retains the existing hit API for combat callers; new systems use IDamageable.
+public interface ICombatTarget : IDamageable
 {
-    bool IsDead { get; }
-    float Health { get; }
     void TakeHit(float damage, Vector3 knockback, float stun);
 }

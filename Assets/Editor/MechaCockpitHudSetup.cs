@@ -69,7 +69,7 @@ public static class MechaCockpitHudSetup
         Panel(panel, new Color(0.015f, 0.025f, 0.035f, 0.97f));
         Line(panel, "Accent", Vector2.zero, new Vector2(palette.diagnosticsSize.x, 2f), palette.accentColor);
         Label(panel, "Title", "F3  //  COMBAT LAB", 16, 12, 450, 26, 18);
-        Label(panel, "Phase Key", "BLUE Startup    RED Active    GREEN Recovery    WHITE Hit stop", 16, 46, 620, 20, 11);
+        Label(panel, "Phase Key", "BLUE Startup    RED Active    GREEN Recovery", 16, 46, 620, 20, 11);
         var strip = Rect(panel, "Frame Meter", new Vector2(0f, 1f), new Vector2(16f, -73f), new Vector2(624f, 12f));
         var layout = MechaPresentationSetup.Ensure<UnityEngine.UI.HorizontalLayoutGroup>(strip.gameObject);
         layout.spacing = 1f; layout.childControlWidth = layout.childControlHeight = false;
@@ -86,14 +86,13 @@ public static class MechaCockpitHudSetup
         var inputs = Label(panel, "Input History", "", 494, 114, 152, 230, 11); inputs.lineSpacing = 4f;
         Assign(diagnostics, "panel", panel.gameObject); Assign(diagnostics, "readout", readout);
         Assign(diagnostics, "inputHistory", inputs); Assign(diagnostics, "settings", palette);
-        Assign(diagnostics, "notice", Label(panel, "Notice", "Offline practice: refill / slow tempo. Hit volumes appear in Scene view.", 16, 378, 620, 24, 10));
+        Assign(diagnostics, "notice", Label(panel, "Notice", "Offline practice: refill. Hit volumes appear in Scene view.", 16, 378, 620, 24, 10));
         var serialized = new SerializedObject(diagnostics); var array = serialized.FindProperty("frameMeter"); array.arraySize = cells.Length;
         for (int i = 0; i < cells.Length; i++) array.GetArrayElementAtIndex(i).objectReferenceValue = cells[i];
         serialized.ApplyModifiedPropertiesWithoutUndo();
         Button(panel, "Reset", "RESET", 16, diagnostics.ResetCounters);
         Button(panel, "Copy", "COPY DATA", 120, diagnostics.CopySnapshot);
         Button(panel, "Refill", "REFILL", 224, diagnostics.RefillPractice);
-        Button(panel, "Tempo", "50% TEMPO", 328, diagnostics.TogglePracticeTempo);
         Button(panel, "Hitboxes", "HITBOXES", 432, diagnostics.ToggleHitboxes);
         Button(panel, "Enemy Hold", "HOLD AI", 536, diagnostics.ToggleEnemyPractice);
         panel.gameObject.SetActive(false);

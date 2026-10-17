@@ -75,6 +75,7 @@ public static class MechaUiFeelSetup
         var keyboard = panel.Find("Controller Keyboard");
         if (keyboard != null) Reveal(keyboard.gameObject, style, true);
         foreach (var button in lobby.GetComponentsInChildren<UnityEngine.UI.Button>(true)) Button(button, style);
+        foreach (var field in lobby.GetComponentsInChildren<TMPro.TMP_InputField>(true)) Button(field, style);
     }
     private static HudResourceFeedback Resource(UnityEngine.UI.Image fill, TMPro.TMP_Text text, UiFeelSettings style, bool armor)
     {
@@ -91,7 +92,7 @@ public static class MechaUiFeelSetup
         var data = new SerializedObject(feedback); data.FindProperty("armor").boolValue = armor; data.ApplyModifiedPropertiesWithoutUndo();
         return feedback;
     }
-    private static void Button(UnityEngine.UI.Button button, UiFeelSettings style)
+    public static void Button(UnityEngine.UI.Selectable button, UiFeelSettings style)
     {
         var frame = Child(button.transform, "Focus Frame");
         frame.anchorMin = Vector2.zero; frame.anchorMax = Vector2.one; frame.offsetMin = new Vector2(-3f, -3f); frame.offsetMax = new Vector2(3f, 3f);

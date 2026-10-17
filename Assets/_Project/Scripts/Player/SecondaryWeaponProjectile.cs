@@ -1,0 +1,48 @@
+using FishNet.Object;
+using UnityEngine;
+
+// Native Rigidbody/CCD and Collider contacts own flight and impact; FishNet owns replication.
+[RequireComponent(typeof(Rigidbody), typeof(SphereCollider))]
+public sealed class SecondaryWeaponProjectile : NetworkBehaviour
+{
+    [SerializeField] private SecondaryWeaponSettings settings;
+    private PlayerHealth shooter;
+    private Rigidbody body;
+    private Collider hitbox;
+    private Vector3 origin;
+    private float expires;
+    private bool launched, spent;
+    private void Awake() { body = GetComponent<Rigidbody>(); hitbox = GetComponent<Collider>(); }
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (!IsServerInitialized) { body.isKinematic = true; hitbox.enabled = false; }
+    }
+    public void Launch(SecondaryWeaponSettings profile, PlayerHealth source, Vector3 direction)
+    {
+        settings = profile; shooter = source; origin = body.position;
+        hitbox.excludeLayers = ~settings.hitLayers.value;
+        expires = Time.time + settings.projectileLifetime; launched = true;
+        body.isKinematic = false; body.linearVelocity = direction.normalized * settings.boltSpeed;
+    }
+    private void Update()
+    {
+        if (!launched || IsSpawned && !IsServerInitialized) return;
+        if (Time.time >= expires || (transform.position - origin).sqrMagnitude >= settings.range * settings.range) Finish();
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (spent || !launched || IsSpawned && !IsServerInitialized) return;
+        var target = collision.collider.GetComponentInParent<IDamageable>();
+        Vector3 force = body.linearVelocity.normalized * 0.5f;
+        if (target != null && !target.IsDead)
+            target.TakeDamage(settings.damage, force, 0.04f, shooter);
+        Finish();
+    }
+    private void Finish()
+    {
+        if (spent) return;
+        spent = true; hitbox.enabled = false;
+        if (IsSpawned) Despawn(); else Destroy(gameObject);
+    }
+}

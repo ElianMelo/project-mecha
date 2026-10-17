@@ -38,7 +38,7 @@ public static class MechaCadenceSetup
         void Tune(PlayerAttack.ActionKind kind, float duration, float impact, float cancel)
         {
             var data = Action(kind); data.duration = duration / 60f; data.impact = impact / 60f; data.cancel = cancel / 60f;
-            data.hitStop = 3f / 60f; data.airLift = 6.3f; data.stepSpeed = 3f; data.stepDuration = 5f / 60f;
+            data.airLift = 6.3f; data.stepSpeed = 3f; data.stepDuration = 5f / 60f;
             data.stun = 0.38f; data.push = 2f;
         }
         Tune(PlayerAttack.ActionKind.Slash1, 25, 7, 14);
@@ -56,8 +56,8 @@ public static class MechaCadenceSetup
         foreach (var kind in new[] { PlayerAttack.ActionKind.MegaSlash, PlayerAttack.ActionKind.SwordFire, PlayerAttack.ActionKind.CriticalX })
         {
             var data = Action(kind);
-            data.duration = kind == PlayerAttack.ActionKind.CriticalX ? 1.3f : 1.2f;
-            data.impact = 0.65f; data.cancel = data.duration; data.hitStop = 0.065f;
+            data.duration = kind == PlayerAttack.ActionKind.CriticalX ? 0.72f : 0.62f;
+            data.impact = 0.2f; data.cancel = data.duration; data.pulseInterval = 0.08f;
             data.stepSpeed = 0f; data.stepDuration = 0f; data.airLift = 5.2f; data.stun = 0.5f;
         }
         var dive = EnsurePiece(combat, PlayerAttack.ActionKind.DiveStrike, "Dive Strike");
@@ -65,22 +65,21 @@ public static class MechaCadenceSetup
             duration = 2f, impact = 0.08f, cancel = 2f, pulses = 24, pulseInterval = 0.08f,
             damage = 15f, finalDamage = 15f, airOnly = true, diveSpeed = 18f,
             hitHalfSize = new Vector3(0.65f, 0.8f, 0.7f), height = 0.35f, reach = 0.25f,
-            push = 3f, lift = 0f, stun = 0.45f, stepSpeed = 3f, stepDuration = 0.08f, hitStop = 0.055f };
+            push = 3f, lift = 0f, stun = 0.45f, stepSpeed = 3f, stepDuration = 0.08f };
         var critical = EnsurePiece(combat, PlayerAttack.ActionKind.CriticalStrike, "Critical Cross-through");
         critical.action = new PlayerCombatSettings.ActionData { kind = PlayerAttack.ActionKind.CriticalStrike,
             duration = 0.45f, impact = 0.09f, cancel = 0.31f, damage = 18f, finalDamage = 18f,
             sideSwitch = true, requiresGround = true, stepSpeed = 10.5f, stepDuration = 0.21f,
             reach = 0.25f, hitHalfSize = new Vector3(0.85f, 0.85f, 0.7f),
-            push = 2.5f, stun = 0.4f, hitStop = 0.06f, airLift = 5f };
+            push = 2.5f, stun = 0.4f, airLift = 5f };
         var tech = EnsurePiece(combat, PlayerAttack.ActionKind.MagneticPull, "Magnetic Recall");
         tech.action = new PlayerCombatSettings.ActionData { kind = PlayerAttack.ActionKind.MagneticPull,
             duration = 0.55f, impact = 0.18f, cancel = 0.37f, damage = 5f, finalDamage = 5f,
             pull = true, pullSpeed = 6f, stepSpeed = 0f, reach = 1.7f,
             hitHalfSize = new Vector3(2.3f, 1.25f, 0.7f), height = 1.1f,
-            stun = 0.48f, hitStop = 0.035f, airLift = 5f };
+            stun = 0.48f, airLift = 5f };
         combat.combos.diveAttack = dive; combat.combos.criticalBranch = critical; combat.combos.techBranch = tech;
         combat.attackBuffer = 0.28f; combat.skillBuffer = 0.3f;
-        combat.skillFieldDuration = 0.6f; combat.skillFieldRadius = 7f; combat.skillEnemyTempo = 0.18f;
         foreach (var piece in combat.pieces) EditorUtility.SetDirty(piece);
         EditorUtility.SetDirty(combat.combos); EditorUtility.SetDirty(combat);
         var effects = MechaPresentationSetup.Profile<CombatVfxSettings>("CombatVfx");

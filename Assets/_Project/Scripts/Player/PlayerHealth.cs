@@ -41,6 +41,12 @@ public class PlayerHealth : NetworkBehaviour
         }
         if (NetworkObject.IsSpawned) React(knockback); else ApplyReaction(knockback);
     }
+    public void Heal(float amount)
+    {
+        if (amount <= 0f || defeated || Health <= 0f || NetworkObject.IsSpawned && !IsServerInitialized) return;
+        if (NetworkObject.IsSpawned) health.Value = Mathf.Min(settings.maxHealth, health.Value + amount);
+        else soloHealth = Mathf.Min(settings.maxHealth, soloHealth + amount);
+    }
     [ObserversRpc(RunLocally = true)]
     private void Defeat() => ApplyDefeat();
     private void ApplyDefeat()

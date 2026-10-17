@@ -17,6 +17,7 @@ public sealed class MechaLobbyPanel : MonoBehaviour
     private bool wasInGame;
     private ControllerTextEntry textEntry;
     public bool IsVisible => panel.activeSelf;
+    public string PilotName => ChatHistory.Clean(playerName.text, 24, service.Settings.defaultPlayerName);
     private void Awake()
     {
         textEntry = GetComponent<ControllerTextEntry>();
@@ -59,7 +60,7 @@ public sealed class MechaLobbyPanel : MonoBehaviour
     private void EnsureSelection()
     {
         var events = UnityEngine.EventSystems.EventSystem.current;
-        if (events == null) return;
+        if (events == null || MechaChat.IsTyping) return;
         var selected = events.currentSelectedGameObject;
         var selectable = selected != null ? selected.GetComponent<UnityEngine.UI.Selectable>() : null;
         if (selectable != null && selectable.IsActive() && selectable.IsInteractable() && selected.transform.IsChildOf(panel.transform)) return;

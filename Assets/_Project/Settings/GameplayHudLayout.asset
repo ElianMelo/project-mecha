@@ -29,7 +29,6 @@ MonoBehaviour:
   diagnosticsSize: {x: 660, y: 414}
   diagnosticsOffset: {x: 24, y: -84}
   diagnosticsRefresh: 0.15
-  practiceTempo: 0.5
   skillBarAnchor: {x: 0, y: 1}
   skillBarOffset: {x: 28, y: -146}
   skillSize: {x: 144, y: 74}
@@ -46,4 +45,9 @@ MonoBehaviour:
     + UP Rocket   then DOWN Mushidon   DOWN + Z Air dive
 
     1 Local host   2 Local
-    join   3 Lobbies   E / UP Portal'
+    join   3 Lobbies   E / UP Portal
+
+    SMG Hold C   /   ENTER Chat
+
+    F1 Controls
+    / F2 Chat visibility'

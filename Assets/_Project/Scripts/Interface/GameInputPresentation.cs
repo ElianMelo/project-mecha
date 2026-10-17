@@ -40,13 +40,14 @@ public sealed class GameInputPresentation : MonoBehaviour
     {
         if (!UsingGamepad)
             return action == "Jump" ? "UP / SPACE" : action == "Attack" ? "Z" : action == "Dash" ? "SHIFT" :
-                action == "Tech" ? "X" : action == "SkillA" ? "A" : action == "SkillS" ? "S" : action == "SkillD" ? "D" :
-                action == "Interact" ? "E / UP" : action == "Menu" ? "ESC / 3" : action == "Diagnostics" ? "F3" : "ENTER";
+                action == "Tech" ? "X" : action == "SecondaryFire" ? "C" : action == "SkillA" ? "A" : action == "SkillS" ? "S" : action == "SkillD" ? "D" :
+                action == "Interact" ? "E / UP" : action == "Menu" ? "ESC / 3" : action == "ControlsHelp" ? "F1" : action == "ChatVisibility" ? "F2" : action == "Diagnostics" ? "F3" : "ENTER";
+        if (action == "ChatVisibility") return "F2";
         var pad = Instance.gamepad;
         InputControl control = action == "Jump" || action == "Submit" ? pad.buttonSouth : action == "Attack" ? pad.buttonWest :
             action == "Dash" ? pad.rightShoulder : action == "Tech" ? pad.leftTrigger : action == "SkillA" ? pad.buttonNorth :
             action == "SkillS" || action == "Cancel" ? pad.buttonEast : action == "SkillD" ? pad.leftShoulder :
-            action == "Interact" ? pad.rightTrigger : action == "Menu" ? pad.startButton : pad.selectButton;
+            action == "SecondaryFire" ? pad.rightTrigger : action == "ControlsHelp" ? pad.rightStickButton : action == "Interact" ? pad.leftStickButton : action == "Menu" ? pad.startButton : pad.selectButton;
         return (string.IsNullOrEmpty(control.shortDisplayName) ? control.displayName : control.shortDisplayName).ToUpperInvariant();
     }
 

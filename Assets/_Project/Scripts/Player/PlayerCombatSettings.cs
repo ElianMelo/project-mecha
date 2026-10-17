@@ -19,7 +19,7 @@ public class PlayerCombatSettings : ScriptableObject
         public float manaCost, cooldown;
         [Header("Cadence and authored motion")]
         public float stepSpeed = 2.8f, stepDuration = 0.09f;
-        public float hitStop = 0.05f, airLift = 4.5f;
+        public float airLift = 4.5f;
         public bool airOnly, requiresGround, sideSwitch, pull;
         public float diveSpeed, pullSpeed = 6f;
     }
@@ -31,8 +31,6 @@ public class PlayerCombatSettings : ScriptableObject
     public float attackBuffer = 0.4f, skillBuffer = 0.4f, networkRecoveryGrace = 0.04f, comboWindow = 0.9f;
     public LayerMask enemyLayers = 1 << 9;
     public float comboDisplayWindow = 1.25f;
-    public float skillFieldRadius = 7f, skillFieldDuration = 0.6f;
-    [Range(0.05f, 1f)] public float skillEnemyTempo = 0.18f;
     public ActionData Get(PlayerAttack.ActionKind kind)
     {
         if (pieces != null) foreach (var piece in pieces) if (piece != null && piece.action.kind == kind) return piece.action;

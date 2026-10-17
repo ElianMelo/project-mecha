@@ -34,7 +34,6 @@ MonoBehaviour:
     cooldown: 0
     stepSpeed: 2.8
     stepDuration: 0.09
-    hitStop: 0.05
     airLift: 4.5
     airOnly: 0
     requiresGround: 0
@@ -63,7 +62,6 @@ MonoBehaviour:
     cooldown: 0
     stepSpeed: 2.8
     stepDuration: 0.09
-    hitStop: 0.05
     airLift: 4.5
     airOnly: 0
     requiresGround: 0
@@ -92,7 +90,6 @@ MonoBehaviour:
     cooldown: 0
     stepSpeed: 2.8
     stepDuration: 0.09
-    hitStop: 0.05
     airLift: 4.5
     airOnly: 0
     requiresGround: 0
@@ -121,7 +118,6 @@ MonoBehaviour:
     cooldown: 0
     stepSpeed: 2.8
     stepDuration: 0.09
-    hitStop: 0.05
     airLift: 4.5
     airOnly: 0
     requiresGround: 0
@@ -150,7 +146,6 @@ MonoBehaviour:
     cooldown: 0
     stepSpeed: 2.8
     stepDuration: 0.09
-    hitStop: 0.05
     airLift: 4.5
     airOnly: 0
     requiresGround: 0
@@ -179,7 +174,6 @@ MonoBehaviour:
     cooldown: 3
     stepSpeed: 2.8
     stepDuration: 0.09
-    hitStop: 0.05
     airLift: 4.5
     airOnly: 0
     requiresGround: 0
@@ -208,7 +202,6 @@ MonoBehaviour:
     cooldown: 5
     stepSpeed: 2.8
     stepDuration: 0.09
-    hitStop: 0.05
     airLift: 4.5
     airOnly: 0
     requiresGround: 0
@@ -237,7 +230,6 @@ MonoBehaviour:
     cooldown: 7
     stepSpeed: 2.8
     stepDuration: 0.09
-    hitStop: 0.05
     airLift: 4.5
     airOnly: 0
     requiresGround: 0
@@ -266,7 +258,6 @@ MonoBehaviour:
     cooldown: 0
     stepSpeed: 2.8
     stepDuration: 0.09
-    hitStop: 0.05
     airLift: 4.5
     airOnly: 0
     requiresGround: 0
@@ -300,6 +291,3 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1536
   comboDisplayWindow: 1.25
-  skillFieldRadius: 7
-  skillFieldDuration: 0.6
-  skillEnemyTempo: 0.18

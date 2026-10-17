@@ -12,6 +12,14 @@ public sealed class EnemyLanceSettings : ScriptableObject
     [Range(1f, 2f)] public float embeddedLifetime = 1.5f;
     [Min(0f)] public float tipOffset = 1f, embedDepth = 0.18f;
     public float damage = 16f, lifetime = 4f, hitRadius = 0.12f;
+    [Header("Planned throw and landing")]
+    [Min(1f)] public float throwSpeed = 14f;
+    [Min(0.1f)] public float minimumFlightTime = 0.25f;
+    [Min(0f)] public float landingFollowThrough = 1.25f, landingEdgeInset = 0.2f;
+    [Min(1f)] public float landingSearchDepth = 35f;
+    public LayerMask landingLayers = (1 << 6) | (1 << 7);
+    [Header("Readability")]
+    public float projectileVisualDepth = -1.2f;
     public Vector2 knockback = new Vector2(4f, 3f);
     public LayerMask collisionLayers = (1 << 8) | (1 << 6) | (1 << 7) | 1;
 }

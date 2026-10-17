@@ -17,6 +17,7 @@ MonoBehaviour:
   navigationRepeatDelay: 0.35
   navigationRepeatRate: 0.1
   keyboardCharacters: ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_'.
+  keyboardPanelAnchor: {x: 0.65, y: 0.58}
   controllerHelp: 'STICK / D-PAD Move   {jump} Jump   {attack} Combo   {dash} Dash
 
     {tech}
@@ -26,4 +27,6 @@ MonoBehaviour:
     + {jump} Rocket   then DOWN Mushidon   DOWN + {attack} Dive
 
     {menu} Menu  
-    {diagnostics} Combat lab'
+    {diagnostics} Combat lab
+
+    RT SMG   /   ENTER Chat'

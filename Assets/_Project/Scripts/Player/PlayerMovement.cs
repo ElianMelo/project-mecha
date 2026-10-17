@@ -23,8 +23,6 @@ public class PlayerMovement : NetworkBehaviour
     private ImpulseKind impulse;
     private float impulseStart, impulseSpeed, impulseDuration, rocketStarted = -10f, stepUntil;
     private float stepSpeed;
-    private bool pausedMotion;
-    private Vector3 savedMotion;
     public string MovementState => health != null && health.IsStunned ? "Hit stun" : attack != null && attack.IsBusy ? "Action" : IsDashing ? impulse.ToString() : Time.time < nextDash ? "Recovery" :
         !IsGrounded ? "Air" : Mathf.Abs(Velocity.x) < 0.1f ? "Idle" : running ? "Run" : "Walk";
     public float RecoveryRemaining => Mathf.Max(0f, nextDash - Time.time);
@@ -47,7 +45,7 @@ public class PlayerMovement : NetworkBehaviour
     public bool HasControl => !NetworkObject.IsSpawned || IsOwner;
     public void ResetTraversal()
     {
-        StopDash(); pausedMotion = false; stepUntil = 0f; rocketStarted = -10f; IsGrounded = false; Support = null;
+        StopDash(); stepUntil = 0f; rocketStarted = -10f; IsGrounded = false; Support = null;
         jumpRequested = lastGrounded = dashRequestedUntil = -10f;
         airDashUsed = serverAirDashUsed = false; nextDash = serverNextDash = 0f;
         previousObservedPosition = transform.position; observedVelocity = Vector3.zero;
@@ -92,17 +90,10 @@ public class PlayerMovement : NetworkBehaviour
         if (!wasGrounded && IsGrounded) attack?.HandleLanding();
         if (health != null && health.IsStunned)
         {
-            StopDash(); pausedMotion = false; jumpRequested = dashRequestedUntil = -10f;
+            StopDash(); jumpRequested = dashRequestedUntil = -10f;
             ApplyGravity(); return;
         }
         // Evaluate held input again after support changes and recovery windows open.
-        if (attack != null && attack.IsInHitStop)
-        {
-            if (!pausedMotion) { savedMotion = body.linearVelocity; pausedMotion = true; }
-            stepUntil += Time.fixedDeltaTime;
-            body.linearVelocity = Vector3.zero; return;
-        }
-        if (pausedMotion) { body.linearVelocity = savedMotion; pausedMotion = false; }
         if (inputs.DownHeld && (attack == null || !attack.IsBusy) && !IsDashing) ApplyDescent();
         if (Time.time <= dashRequestedUntil) TryStartDash(requestedDashDirection);
         if (Time.time - jumpRequested <= settings.jumpBuffer && Time.time - lastGrounded <= settings.coyoteTime && TryCancel())
@@ -330,7 +321,6 @@ public class PlayerMovement : NetworkBehaviour
     {
         StopDash(); stepUntil = 0f;
         if (!HasControl) return;
-        pausedMotion = false;
         body.linearVelocity = new Vector3(0f, action.diveSpeed > 0f ? -action.diveSpeed : body.linearVelocity.y, 0f);
         if (PlayerAttack.IsSkill(action.kind)) body.linearVelocity = Vector3.zero;
         if (action.sideSwitch) ApplyAttackStep(action, direction);

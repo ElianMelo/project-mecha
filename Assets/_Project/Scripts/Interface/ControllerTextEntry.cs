@@ -17,7 +17,7 @@ public sealed class ControllerTextEntry : MonoBehaviour
     public bool IsVisible => panel != null && panel.activeInHierarchy;
     private void LateUpdate()
     {
-        if (!IsVisible || EventSystem.current == null) return;
+        if (!IsVisible || EventSystem.current == null || MechaChat.IsTyping) return;
         var selected = EventSystem.current.currentSelectedGameObject;
         if (selected == null || !selected.transform.IsChildOf(panel.transform))
             EventSystem.current.SetSelectedGameObject(keys[0].gameObject);

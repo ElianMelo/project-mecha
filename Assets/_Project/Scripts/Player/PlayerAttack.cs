@@ -12,8 +12,8 @@ public class PlayerAttack : NetworkBehaviour
     private float soloMana = 100f;
     private readonly float[] localCooldowns = new float[3], serverCooldowns = new float[3];
     private readonly Collider[] hitBuffer = new Collider[48];
-    private readonly HashSet<ICombatTarget> hitTargets = new HashSet<ICombatTarget>();
-    private readonly HashSet<ICombatTarget> diveTargets = new HashSet<ICombatTarget>();
+    private readonly HashSet<IDamageable> hitTargets = new HashSet<IDamageable>();
+    private readonly HashSet<IDamageable> diveTargets = new HashSet<IDamageable>();
     private PlayerInputs inputs;
     private PlayerMovement movement;
     private PlayerHealth health;
@@ -39,16 +39,14 @@ public class PlayerAttack : NetworkBehaviour
     private float risingBufferedUntil = -10f, skillBufferedUntil = -10f;
     private int bufferedSkill = -1;
     private bool bufferedDive;
-    private float pauseUntil;
     private float branchUntil = -10f;
     private int bufferedBranch = -1, branchDirection;
     public bool ServerBusy => serverActive;
-    public bool IsInHitStop => Time.time < pauseUntil;
     public PlayerCombatSettings.ActionData ActiveData => localActive ? settings.At(localPiece) : null;
     public float ActionElapsed => localActive ? Mathf.Max(0f, Time.time - localStart) : 0f;
     public float ActionDuration => localActive ? Duration(localPiece) : 0f;
     public float CancelRemaining => localActive ? Mathf.Max(0f, CancelTime(localPiece) - ActionElapsed) : 0f;
-    public string Phase => !localActive ? "NEUTRAL" : IsInHitStop ? "HIT STOP" :
+    public string Phase => !localActive ? "NEUTRAL" :
         ActionElapsed < ImpactTime(localPiece, 0) ? "STARTUP" :
         ActionElapsed < ImpactTime(localPiece, Pulses(localPiece) - 1) + 0.05f ? "ACTIVE" : "RECOVERY";
     public bool IsSideSwitchActive => localActive && settings.At(localPiece).sideSwitch && ActionElapsed < settings.At(localPiece).stepDuration;
@@ -61,15 +59,6 @@ public class PlayerAttack : NetworkBehaviour
     public float PeakComboDamage { get; private set; }
     public event System.Action<float> HitConfirmed;
     public static readonly HashSet<PlayerAttack> ActiveActors = new HashSet<PlayerAttack>();
-    public static float EnemyTempoAt(Vector3 position)
-    {
-        float tempo = 1f;
-        foreach (var actor in ActiveActors)
-            if (actor != null && actor.IsSkillActive && actor.ActionElapsed < actor.settings.skillFieldDuration &&
-                (position - actor.transform.position).sqrMagnitude < actor.settings.skillFieldRadius * actor.settings.skillFieldRadius)
-                tempo = Mathf.Min(tempo, actor.settings.skillEnemyTempo);
-        return tempo;
-    }
     public void ResetDamageReadout() { ComboHits = 0; ComboDamage = TotalDamage = LastDamage = PeakComboDamage = 0f; LastHitTime = -10f; }
     public bool IsBusy => localActive;
     public bool IsSkillActive => (localActive && IsSkill(localKind)) || (IsServerInitialized && serverActive && IsSkill(serverKind));
@@ -97,14 +86,9 @@ public class PlayerAttack : NetworkBehaviour
     private void Update()
     {
         bool solo = !NetworkObject.IsSpawned;
-        if (IsInHitStop)
-        {
-            if (localActive) localStart += Time.deltaTime;
-            if (serverActive) serverStart += Time.deltaTime;
-        }
         if (solo) soloMana = Mathf.Min(settings.maxMana, soloMana + settings.manaRegen * Time.deltaTime);
         else if (IsServerInitialized) mana.Value = Mathf.Min(settings.maxMana, mana.Value + settings.manaRegen * Time.deltaTime);
-        if (localActive && !IsInHitStop)
+        if (localActive)
         {
             float elapsed = Time.time - localStart;
             while (localPulse < Pulses(localPiece) && elapsed >= ImpactTime(localPiece, localPulse))
@@ -116,14 +100,14 @@ public class PlayerAttack : NetworkBehaviour
             }
             if (elapsed >= Duration(localPiece)) EndPresentation();
         }
-        if (IsServerInitialized && serverActive && !IsInHitStop)
+        if (IsServerInitialized && serverActive)
         {
             float elapsed = Time.time - serverStart;
             while (serverPulse < Pulses(serverPiece) && elapsed >= ImpactTime(serverPiece, serverPulse))
                 ApplyHits(serverPiece, serverDirection, serverPulse++);
             if (elapsed >= Duration(serverPiece)) serverActive = false;
         }
-        bool canChain = HasControl && !IsInHitStop && (!localActive || Time.time - localStart >= CancelTime(localPiece));
+        bool canChain = HasControl && (!localActive || Time.time - localStart >= CancelTime(localPiece));
         if (canChain && bufferedBranch >= 0 && Time.time <= branchUntil)
         {
             int piece = bufferedBranch; bufferedBranch = -1; sequence.Reset(); ClearBuffers();
@@ -243,13 +227,12 @@ public class PlayerAttack : NetworkBehaviour
     private void EndPresentation()
     {
         localActive = false;
-        pauseUntil = 0f;
         animationView?.ReleaseAction();
     }
     public bool TryMovementCancel()
     {
         if (!localActive) return true;
-        if (IsSkill(localKind) || IsAirAttack(localKind) || IsInHitStop || Time.time - localStart < CancelTime(localPiece)) return false;
+        if (IsSkill(localKind) || IsAirAttack(localKind) || Time.time - localStart < CancelTime(localPiece)) return false;
         EndPresentation(); ClearBuffers(); combo = 0; sequence.Reset();
         if (NetworkObject.IsSpawned && IsOwner) RequestCancel(false);
         return true;
@@ -302,13 +285,12 @@ public class PlayerAttack : NetworkBehaviour
     [ObserversRpc(ExcludeOwner = true)]
     private void ShowCancel() => EndPresentation();
     [ObserversRpc(RunLocally = true)]
-    private void ConfirmHit(float damage, float hitStop) => RecordHit(damage, hitStop);
-    private void RecordHit(float damage, float hitStop)
+    private void ConfirmHit(float damage) => RecordHit(damage);
+    private void RecordHit(float damage)
     {
         if (!ComboVisible) { ComboHits = 0; ComboDamage = 0f; }
         ComboHits++; ComboDamage += damage; TotalDamage += damage; LastDamage = damage; LastHitTime = Time.time;
         PeakComboDamage = Mathf.Max(PeakComboDamage, ComboDamage);
-        pauseUntil = Mathf.Max(pauseUntil, Time.time + hitStop);
         HitConfirmed?.Invoke(damage);
     }
     private void ApplyHits(int piece, int direction, int pulse)
@@ -325,7 +307,7 @@ public class PlayerAttack : NetworkBehaviour
         hitTargets.Clear();
         for (int i = 0; i < count; i++)
         {
-            var enemy = hitBuffer[i].GetComponentInParent<ICombatTarget>();
+            var enemy = hitBuffer[i].GetComponentInParent<IDamageable>();
             if (enemy == null || !hitTargets.Add(enemy) || enemy.IsDead) continue;
             if (kind == ActionKind.DiveStrike && !diveTargets.Add(enemy)) continue;
             float damage = (pulse == action.pulses - 1 ? action.finalDamage : action.damage) * settings.damageMultiplier;
@@ -335,10 +317,9 @@ public class PlayerAttack : NetworkBehaviour
             bool airborne = target != null && target.IsJuggling;
             float push = action.pull ? Mathf.Sign(transform.position.x - hitBuffer[i].transform.position.x) * action.pullSpeed : direction * action.push;
             float lift = launcher ? action.lift : airborne ? action.airLift : 0f;
-            enemy.TakeHit(damage, new Vector3(push, lift, 0f), action.stun);
-            target?.PauseImpact(action.hitStop);
-            if (NetworkObject.IsSpawned) ConfirmHit(dealt, action.hitStop);
-            else RecordHit(dealt, action.hitStop);
+            enemy.TakeDamage(damage, new Vector3(push, lift, 0f), action.stun, health);
+            if (NetworkObject.IsSpawned) ConfirmHit(dealt);
+            else RecordHit(dealt);
             if (!IsSkill(kind))
             {
                 if (NetworkObject.IsSpawned) mana.Value = Mathf.Min(settings.maxMana, mana.Value + settings.hitMana);

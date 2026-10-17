@@ -94,7 +94,7 @@ public static class MechaLobbySetup
         overlay.anchorMin = Vector2.zero; overlay.anchorMax = Vector2.one; overlay.offsetMin = overlay.offsetMax = Vector2.zero;
         MechaPresentationSetup.Ensure<UnityEngine.UI.Image>(overlay.gameObject).color = new Color(0.005f, 0.01f, 0.025f, 0.98f);
         var card = Rect(overlay, "Keyboard Card", Vector2.zero, new Vector2(800f, 480f));
-        card.anchorMin = card.anchorMax = card.pivot = new Vector2(0.5f, 0.5f); card.anchoredPosition = Vector2.zero;
+        card.anchorMin = card.anchorMax = profile.keyboardPanelAnchor; card.pivot = new Vector2(0.5f, 0.5f); card.anchoredPosition = Vector2.zero;
         MechaPresentationSetup.Ensure<UnityEngine.UI.Image>(card.gameObject).color = Card;
         var title = Label(card, "Title", "EDIT TEXT", new Vector2(24f, 16f), new Vector2(752f, 40f), 22f);
         var preview = Label(card, "Preview", "", new Vector2(24f, 68f), new Vector2(752f, 48f), 22f);

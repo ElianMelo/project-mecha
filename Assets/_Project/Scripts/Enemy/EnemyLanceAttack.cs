@@ -26,11 +26,6 @@ public sealed class EnemyLanceAttack : NetworkBehaviour
         IsCharging = false;
         if (settings != null) nextShot = Mathf.Max(nextShot, Time.time + settings.windup);
     }
-    public void DelayForTempo(float duration)
-    {
-        if (IsCharging) fireAt += duration;
-        if (nextShot > Time.time) nextShot += duration;
-    }
     public bool Tick()
     {
         if (settings == null) return false;
@@ -71,12 +66,9 @@ public sealed class EnemyLanceAttack : NetworkBehaviour
         Vector3 origin = ReleasePosition;
         Vector3 end = target.transform.position + Vector3.up * 0.8f;
         end.x += Mathf.Clamp(target.Movement.Velocity.x * settings.leadTime, -settings.maximumLead, settings.maximumLead);
-        float apex = Mathf.Max(origin.y, end.y) + settings.arcHeight;
-        float vy = Mathf.Sqrt(2f * settings.gravity * (apex - origin.y));
-        float flight = vy / settings.gravity + Mathf.Sqrt(2f * (apex - end.y) / settings.gravity);
-        Vector3 velocity = new Vector3((end.x - origin.x) / flight, vy, (end.z - origin.z) / flight);
-        var projectile = Instantiate(settings.projectile, origin, Quaternion.Euler(0f, 0f, Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg));
-        projectile.GetComponent<EnemyLanceProjectile>().Launch(settings, velocity);
+        Vector3 direction = end - origin;
+        var projectile = Instantiate(settings.projectile, origin, Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
+        projectile.GetComponent<EnemyLanceProjectile>().Launch(settings, end, target.Movement.Support);
         holdingLance.Value = false;
         actor.ServerManager.Spawn(projectile);
     }

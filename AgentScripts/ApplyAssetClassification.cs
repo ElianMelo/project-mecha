@@ -10,7 +10,7 @@ using UnityEngine;
 // Unity's built-in labels remain editable in the Project window.
 public static class ApplyAssetClassification
 {
-    private static readonly string[] ManagedLabels = { "AI Generated", "Placeholder", "Others" };
+    private static readonly string[] ManagedLabels = { "AI Generated", "Placeholder", "Others", "Code", "Prefabs", "Scenes", "Authored Data" };
 
     public static object Apply()
     {

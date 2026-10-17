@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 2463010151647989947}
   - component: {fileID: 8976639177702148948}
   - component: {fileID: 5170532791733305702}
+  - component: {fileID: 2588281735961851604}
   m_Layer: 8
   m_Name: MechaPlayer
   m_TagString: Untagged
@@ -746,6 +747,18 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 6879919603248285336}
   _networkObjectCache: {fileID: 0}
   settings: {fileID: 11400000, guid: b3c009afeb9fbf44a8a2b1ed34eed8f4, type: 2}
+--- !u!114 &2588281735961851604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554257071974495511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02de9612a5942644cb59992861bdd319, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActorFootstepAudio
 --- !u!1 &1885827494726923718
 GameObject:
   m_ObjectHideFlags: 0

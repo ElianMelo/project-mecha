@@ -109,7 +109,7 @@ public sealed class EnemyLanceProjectile : NetworkBehaviour
             if (victim != null)
             {
                 victim.TakeHit(settings.damage, new Vector3(Mathf.Sign(velocity.x) * settings.knockback.x, settings.knockback.y, 0f));
-                Despawn(); return;
+                StopAtImpact(hit.point, hit.normal, direction, settings.playerImpactLifetime); return;
             }
             Embed(hit.point, hit.normal, direction); return;
         }
@@ -125,14 +125,17 @@ public sealed class EnemyLanceProjectile : NetworkBehaviour
     }
     private static Quaternion Facing(Vector3 direction) => Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
     private void Embed(Vector3 point, Vector3 normal, Vector3 direction)
+        => StopAtImpact(point, normal, direction, settings.embeddedLifetime);
+    private void StopAtImpact(Vector3 point, Vector3 normal, Vector3 direction, float lifetime)
     {
-        velocity = Vector3.zero; expires = Time.time + settings.embeddedLifetime;
+        velocity = Vector3.zero; expires = Time.time + lifetime;
         Pin(point - direction * (settings.tipOffset - settings.embedDepth), Facing(direction));
         Impact(point, normal);
     }
     [ObserversRpc(RunLocally = true)]
     private void Impact(Vector3 position, Vector3 normal)
     {
+        GameAudio.Play(GameAudioCue.LanceImpact, position);
         if (settings != null) ParticleBurstEmitter.Emit(settings.impactParticles, position, normal);
     }
     [ObserversRpc(BufferLast = true, RunLocally = true)]

@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 5570303292173814995}
   - component: {fileID: 8336708009453389880}
   - component: {fileID: 1247423434095074212}
+  - component: {fileID: 3884677810023784635}
   m_Layer: 9
   m_Name: EvaEnemy
   m_TagString: Untagged
@@ -444,6 +445,18 @@ MonoBehaviour:
   _interpolation: 2
   _clientAuthoritative: 0
   _sendToOwner: 1
+--- !u!114 &3884677810023784635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5411630197792669422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02de9612a5942644cb59992861bdd319, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActorFootstepAudio
 --- !u!1 &5477547318891857529
 GameObject:
   m_ObjectHideFlags: 0

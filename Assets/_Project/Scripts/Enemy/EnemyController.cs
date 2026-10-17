@@ -88,6 +88,7 @@ public class EnemyController : NetworkBehaviour, ICombatTarget, ITargetable
                 if (Time.time >= windupUntil)
                 {
                     windingUp = false; nextAttack = Time.time + settings.attackCooldown;
+                    if (NetworkObject.IsSpawned) AttackFeedback(); else presentation?.Attack();
                     if (target != null)
                     {
                         Vector3 difference = target.transform.position - transform.position;
@@ -151,4 +152,5 @@ public class EnemyController : NetworkBehaviour, ICombatTarget, ITargetable
     [ObserversRpc(RunLocally = true)] private void Telegraph(float duration) => presentation?.Telegraph(duration);
     [ObserversRpc(RunLocally = true)] private void HitFeedback(float damage, Vector3 direction, float stun) => presentation?.Hit(damage, direction, stun);
     [ObserversRpc(RunLocally = true)] private void DeathFeedback() => presentation?.Death();
+    [ObserversRpc(RunLocally = true)] private void AttackFeedback() => presentation?.Attack();
 }

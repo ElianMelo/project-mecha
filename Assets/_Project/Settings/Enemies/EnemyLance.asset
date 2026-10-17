@@ -25,6 +25,7 @@ MonoBehaviour:
   leadTime: 0.25
   maximumLead: 1.8
   embeddedLifetime: 1.5
+  playerImpactLifetime: 0.8
   tipOffset: 1.0430819
   embedDepth: 0.18
   damage: 16

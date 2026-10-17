@@ -10,5 +10,10 @@ public class EnemyPresentation : MonoBehaviour
     public void Telegraph() { flash?.Telegraph(); animationView?.Telegraph(settings.windup); }
     public void Telegraph(float duration) { flash?.Telegraph(); animationView?.Telegraph(duration); }
     public void Hit(float damage,Vector3 direction,float stun) { feedback?.Hit(damage,direction); animationView?.Reaction(stun); }
-    public void Death() => animationView?.Death(settings.deathDuration);
+    public void Attack() => GameAudio.Play(GameAudioCue.EnemyAttack, transform.position, transform);
+    public void Death()
+    {
+        GameAudio.Play(GameAudioCue.EnemyDeath, transform.position);
+        animationView?.Death(settings.deathDuration);
+    }
 }

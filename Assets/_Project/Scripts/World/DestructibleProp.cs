@@ -54,6 +54,7 @@ public class DestructibleProp : NetworkBehaviour, ICombatTarget, ITargetable
     [ObserversRpc(RunLocally = true)] private void ShowHit(Vector3 direction, bool broken) => ApplyHit(direction, broken);
     private void ApplyHit(Vector3 direction, bool broken)
     {
+        GameAudio.Play(broken ? GameAudioCue.CrateBreak : GameAudioCue.CrateHit, transform.position);
         if (!broken) feedback?.Hit(0f, direction);
         else
         {

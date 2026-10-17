@@ -25,6 +25,15 @@ $rows = foreach ($path in ($paths | Sort-Object -Unique)) {
         $category = 'AI Generated'; $origin = 'AI Generated'; $status = 'Placeholder'
         $kind = 'Environment image or derived native Sprite'
         $evidence = 'Docs/ScenarioArtPrompts.md; Docs/ThreeLayerParallaxPrompts.md'
+    } elseif ($basePath -match '^Assets/(_Project/Audio|8 Sci fi Tracks|AlpineAudio|Gamemaster Audio - Pro Sound Collection|Sci Fi Ambiances|Sci-Fi Alarm SFX|UI - Mechanical)/.+\.(wav|ogg|mp3|aiff?)$') {
+        $category = 'Placeholder'; $status = 'Placeholder'; $origin = 'Supplied / imported; upstream AI origin unverified'
+        $kind = 'Imported audio artwork'
+        $evidence = 'Latest supplied audio packages; Docs/AudioClipOrigins.csv records selected clip moves with retained GUIDs. No final audio approval.'
+    } elseif ($basePath -match '^Assets/_Project/(Audio|Scripts/Audio)(/|$)' -and
+        (Test-Path -LiteralPath (Join-Path $ProjectRoot $basePath) -PathType Container)) {
+        $category = 'Others'; $status = 'Support'; $kind = 'Audio organization folder'
+    } elseif ($basePath -match '^Assets/(8 Sci fi Tracks|AlpineAudio|Gamemaster Audio - Pro Sound Collection|Sci Fi Ambiances|Sci-Fi Alarm SFX|UI - Mechanical)(/|$)') {
+        $origin = 'Supplied / imported; upstream AI origin unverified'; $kind = 'Imported audio package support or folder'
     } elseif ($basePath -match '^Assets/(FishNet|Plugins)(/|$)') {
         $origin = 'Third-party dependency'; $kind = 'Vendor code, asset, demo or license'
         $evidence = 'Imported vendor tree; retain upstream notices. AI provenance not audited.'
@@ -55,7 +64,7 @@ $rows = foreach ($path in ($paths | Sort-Object -Unique)) {
         $evidence = 'Contains references to provisional art; prefab configuration is not itself placeholder artwork.'
     } elseif ($basePath -match '^Assets/(_Project|Scenes|Settings)/.+\.unity$') {
         $category = 'Scenes'; $status = 'Provisional'; $kind = 'Scene composition'
-    } elseif ($basePath -match '^Assets/(_Project|Scenes|Settings)/.+\.(asset|inputactions|controller|overrideController|physicsMaterial|physicMaterial|renderTexture|shadersubgraph)$') {
+    } elseif ($basePath -match '^Assets/(_Project|Scenes|Settings)/.+\.(asset|mixer|inputactions|controller|overrideController|physicsMaterial|physicMaterial|renderTexture|shadersubgraph)$') {
         $category = 'Authored Data'; $status = 'Provisional'; $kind = 'Settings, definition or native configuration'
         $evidence = 'User classification correction 2026-10-16: authored configuration is separate from unfinished art.'
     } elseif ($basePath -match '^Assets/Sci Fi Gun Heavy(/|$)') {

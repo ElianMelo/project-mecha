@@ -23,18 +23,19 @@ public class PlayerInputs : NetworkBehaviour
     public event Action OnSecondaryFireInput;
     public event Action<string> OnCommand;
     public bool FireHeld { get; private set; }
+    public bool AttackHeld { get; private set; }
     public float LastJumpPressed { get; private set; } = -10f;
     private float lastLeft = -10f, lastRight = -10f;
     private int previousDirection;
     private PlayerInput input;
     private InputActionAsset cachedActions;
-    private InputAction jumpAction, downAction, moveAction, fireAction;
+    private InputAction jumpAction, downAction, moveAction, fireAction, attackAction;
     private bool typing;
     private void Awake()
     {
         input = GetComponent<PlayerInput>();
     }
-    public void OnTech(InputValue value) { if (HasControl && !typing && value.isPressed) { OnCommand?.Invoke(GameInputPresentation.Hint("Tech") + " / TECH"); OnTechInput?.Invoke(); } }
+    public void OnTech(InputValue value) { if (HasControl && !typing && value.isPressed) { OnCommand?.Invoke(GameInputPresentation.Hint("Tech") + " / HEAVY ATTACK"); OnTechInput?.Invoke(); } }
     public void OnInteract(InputValue value)
     {
         var selected = EventSystem.current?.currentSelectedGameObject;
@@ -83,12 +84,14 @@ public class PlayerInputs : NetworkBehaviour
             downAction = cachedActions?.FindAction("Player/Down", false);
             moveAction = cachedActions?.FindAction("Player/Move", false);
             fireAction = cachedActions?.FindAction("Player/SecondaryFire", false);
+            attackAction = cachedActions?.FindAction("Player/Attack", false);
         }
         // SendMessages only reports performed events for buttons; poll held state
         // from this player's actions so releases are handled for every device.
         JumpHeld = jumpAction != null && jumpAction.IsPressed();
         DownHeld = downAction != null && downAction.IsPressed();
         FireHeld = fireAction != null && fireAction.IsPressed();
+        AttackHeld = attackAction != null && attackAction.IsPressed();
         // Polling restores a held stick after closing UI and clears it on device loss.
         ApplyMove(moveAction != null ? moveAction.ReadValue<Vector2>() : Vector2.zero);
     }
@@ -114,7 +117,7 @@ public class PlayerInputs : NetworkBehaviour
     private void OnDisable() => ResetInput();
     public void OnDeviceLost(PlayerInput playerInput) => ResetInput();
     public void OnControlsChanged(PlayerInput playerInput) => ResetInput();
-    private void ResetInput() { MoveInput = Vector2.zero; FireHeld = JumpHeld = DownHeld = false; previousDirection = 0; lastLeft = lastRight = LastJumpPressed = -10f; }
+    private void ResetInput() { MoveInput = Vector2.zero; AttackHeld = FireHeld = JumpHeld = DownHeld = false; previousDirection = 0; lastLeft = lastRight = LastJumpPressed = -10f; }
     public void OnSecondaryFire(InputValue value)
     {
         if (!HasControl || typing) return;
@@ -158,6 +161,7 @@ public class PlayerInputs : NetworkBehaviour
     public void OnAttack(InputValue value)
     {
         if (!HasControl || typing || !value.isPressed) return;
+        if (GetComponent<PlayerLevelTravel>()?.CanUsePortal == true) return;
         // Read the action state so a simultaneous Down+Z is independent of callback order.
         if (downAction != null) DownHeld = downAction.IsPressed();
         OnCommand?.Invoke((DownHeld ? "DOWN + " : "") + GameInputPresentation.Hint("Attack")); OnAttackInput?.Invoke();

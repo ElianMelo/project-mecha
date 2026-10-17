@@ -93,7 +93,7 @@ public static class MechaProceduralSetup
         var objective = MechaPresentationSetup.Ensure<LevelObjectiveHud>(root);
         MechaPresentationSetup.Assign(objective, "arrow", arrow); MechaPresentationSetup.Assign(objective, "objective", text);
         var controls = hud.transform.Find("Controls")?.GetComponent<TMP_Text>();
-        if (controls != null && !controls.text.Contains("PORTAL")) { controls.text += "\nPORTAL E / UP  ·  INFINITE REVIVES"; EditorUtility.SetDirty(controls); }
+        if (controls != null && !controls.text.Contains("PORTAL")) { controls.text += "\nPORTAL HOLD Z / X  ·  INFINITE REVIVES"; EditorUtility.SetDirty(controls); }
     }
 
     [MenuItem("Tools/Mecha/Apply Objective Arrow Sprite")]

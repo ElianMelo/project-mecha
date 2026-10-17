@@ -50,7 +50,7 @@ public static class MechaLobbySetup
         Label(createCard, "Room Label", "NEW LOBBY NAME", new Vector2(24f, 169f), new Vector2(480f, 22f), 14f);
         var lobbyName = Input(createCard, "Lobby Name", "Mecha Expedition", new Vector2(24f, 200f), new Vector2(488f, 44f));
         var create = Button(createCard, "Create", "CREATE LOBBY", new Vector2(24f, 269f), new Vector2(488f, 48f), Accent);
-        var localHost = Button(createCard, "Local Host", "LOCAL HOST", new Vector2(24f, 341f), new Vector2(236f, 44f));
+        var localHost = Button(createCard, "Local Host", "SOLO HOST", new Vector2(24f, 341f), new Vector2(236f, 44f));
         var localJoin = Button(createCard, "Local Join", "LOCAL JOIN", new Vector2(276f, 341f), new Vector2(236f, 44f));
         Label(createCard, "Help", "Up to 4 pilots. Every pilot must be ready.\n\nD-pad / stick: navigate. Bottom button: select.\nRight button: back. MENU: close.", new Vector2(24f, 404f), new Vector2(488f, 92f), 13f);
         var room = Rect(panel, "Waiting Room", new Vector2(40f, 120f), new Vector2(1200f, 500f));

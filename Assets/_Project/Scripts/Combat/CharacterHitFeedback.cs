@@ -12,6 +12,9 @@ public class CharacterHitFeedback : MonoBehaviour, IHitFeedback
     private void Awake() { renderers = GetComponentsInChildren<Renderer>(); block = new MaterialPropertyBlock(); }
     public void Hit(float damage, Vector3 incomingDirection)
     {
+        // Crates have their own material-specific cue.
+        if (GetComponent<DestructibleProp>() == null)
+            GameAudio.Play(GetComponent<PlayerHealth>() != null ? GameAudioCue.PlayerHit : GameAudioCue.Hit, transform.position, transform);
         Flash(settings.flashColor, settings.flashDuration, true);
         Vector3 position = transform.position + settings.hitOffset;
         // Follow the incoming impulse, away from the attacker.

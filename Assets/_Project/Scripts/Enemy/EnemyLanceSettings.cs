@@ -10,6 +10,7 @@ public sealed class EnemyLanceSettings : ScriptableObject
     public float windup = 0.65f, cooldown = 2.4f, launchHeight = 1.25f;
     public float gravity = 17f, arcHeight = 0.35f, leadTime = 0.25f, maximumLead = 1.8f;
     [Range(1f, 2f)] public float embeddedLifetime = 1.5f;
+    [Min(0.1f)] public float playerImpactLifetime = 0.8f;
     [Min(0f)] public float tipOffset = 1f, embedDepth = 0.18f;
     public float damage = 16f, lifetime = 4f, hitRadius = 0.12f;
     [Header("Planned throw and landing")]

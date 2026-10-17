@@ -1,0 +1,32 @@
+fileFormatVersion: 2
+guid: 9e519939849abbf4e8235b37729591dc
+labels:
+- Placeholder
+AssetOrigin:
+  serializedVersion: 1
+  productId: 275591
+  packageName: Free 8 Sci-fi Tracks
+  packageVersion: 1.0
+  assetPath: Assets/8 Sci fi Tracks/Loops/Sci-Fi 5 Loop.wav
+  uploadId: 640248
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 8
+  defaultSettings:
+    serializedVersion: 2
+    loadType: 2
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.8
+    conversionMode: 0
+    preloadAudioData: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  loadInBackground: 1
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

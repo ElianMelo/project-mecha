@@ -1,11 +1,7 @@
 fileFormatVersion: 2
 guid: 50f5bda7b875be1488f3e2083c831c10
-timeCreated: 1500470974
-licenseType: Store
-DefaultImporter:
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
 AssetOrigin:
   serializedVersion: 1
   productId: 50235
@@ -14,3 +10,8 @@ AssetOrigin:
   assetPath: Assets/Gamemaster Audio - Pro Sound Collection/Pro Sound Collection
     (v1.3) - Sound List.pdf
   uploadId: 190852
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

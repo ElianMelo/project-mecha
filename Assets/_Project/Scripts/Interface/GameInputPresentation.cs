@@ -38,6 +38,7 @@ public sealed class GameInputPresentation : MonoBehaviour
 
     public static string Hint(string action)
     {
+        if (action == "Interact") action = "Attack";
         if (!UsingGamepad)
             return action == "Jump" ? "UP / SPACE" : action == "Attack" ? "Z" : action == "Dash" ? "SHIFT" :
                 action == "Tech" ? "X" : action == "SecondaryFire" ? "C" : action == "SkillA" ? "A" : action == "SkillS" ? "S" : action == "SkillD" ? "D" :
@@ -45,8 +46,8 @@ public sealed class GameInputPresentation : MonoBehaviour
         if (action == "ChatVisibility") return "F2";
         var pad = Instance.gamepad;
         InputControl control = action == "Jump" || action == "Submit" ? pad.buttonSouth : action == "Attack" ? pad.buttonWest :
-            action == "Dash" ? pad.rightShoulder : action == "Tech" ? pad.leftTrigger : action == "SkillA" ? pad.buttonNorth :
-            action == "SkillS" || action == "Cancel" ? pad.buttonEast : action == "SkillD" ? pad.leftShoulder :
+            action == "Dash" ? pad.rightShoulder : action == "Tech" ? pad.buttonNorth : action == "SkillA" || action == "Cancel" ? pad.buttonEast :
+            action == "SkillS" ? pad.leftShoulder : action == "SkillD" ? pad.leftTrigger :
             action == "SecondaryFire" ? pad.rightTrigger : action == "ControlsHelp" ? pad.rightStickButton : action == "Interact" ? pad.leftStickButton : action == "Menu" ? pad.startButton : pad.selectButton;
         return (string.IsNullOrEmpty(control.shortDisplayName) ? control.displayName : control.shortDisplayName).ToUpperInvariant();
     }

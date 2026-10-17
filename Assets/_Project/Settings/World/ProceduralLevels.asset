@@ -59,6 +59,10 @@ MonoBehaviour:
   playerSpawnSpacing: 0.85
   portalInteractionRange: 1.8
   pointerInset: 48
+  portalHoldDuration: 0.9
+  portalProgressSprite: {fileID: 21300000, guid: 0dc474ad125e29144af8f6712af4198a, type: 3}
+  portalProgressSize: {x: 84, y: 84}
+  portalProgressOffset: {x: 0, y: 106}
   enemyPointerColor: {r: 1, g: 0.78, b: 0.16, a: 1}
   portalColor: {r: 0.2, g: 0.95, b: 1, a: 1}
   objectiveArrowSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}

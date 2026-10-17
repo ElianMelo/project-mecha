@@ -5,6 +5,9 @@ public sealed class LevelObjectiveHud : MonoBehaviour
 {
     [SerializeField] private RectTransform arrow;
     [SerializeField] private TMP_Text objective;
+    [SerializeField] private GameObject portalHold;
+    [SerializeField] private UnityEngine.UI.Image portalFill;
+    [SerializeField] private TMP_Text portalButton;
     private PlayerMovement player;
     private Camera view;
     private float nextSearch;
@@ -20,7 +23,7 @@ public sealed class LevelObjectiveHud : MonoBehaviour
                 if (candidate.HasControl) { player = candidate; break; }
         }
         if (levels == null || levels.Layout == null || player == null || view == null)
-        { arrow.gameObject.SetActive(false); objective.text = ""; return; }
+        { arrow.gameObject.SetActive(false); if (portalHold != null) portalHold.SetActive(false); objective.text = ""; return; }
         Vector3 target = levels.Layout.Portal + Vector3.up * 0.9f;
         bool visibleEnemy = false, foundEnemy = false;
         float closest = float.MaxValue;
@@ -37,7 +40,14 @@ public sealed class LevelObjectiveHud : MonoBehaviour
         if (portal) target = levels.Layout.Portal + Vector3.up * 0.9f;
         objective.text = $"ROOM {levels.LevelNumber:00}  /  {levels.Layout.Description}  /  " +
             (portal ? (Vector3.Distance(player.transform.position, levels.Layout.Portal) <= levels.Settings.portalInteractionRange
-                ? GameInputPresentation.Hint("Interact") + "  ·  ENTER PORTAL" : "ROOM CLEAR  ·  FIND THE PORTAL") : $"{levels.Remaining} ENEMIES");
+                ? "HOLD " + GameInputPresentation.Hint("Attack") + "  ·  ENTER PORTAL" : "ROOM CLEAR  ·  FIND THE PORTAL") : $"{levels.Remaining} ENEMIES");
+        var travel = player.GetComponent<PlayerLevelTravel>();
+        if (portalHold != null)
+        {
+            portalHold.SetActive(portal && travel != null && travel.CanUsePortal);
+            portalFill.fillAmount = travel != null ? travel.HoldProgress : 0f;
+            portalButton.text = GameInputPresentation.Hint("Attack");
+        }
         arrow.gameObject.SetActive(portal || foundEnemy && !visibleEnemy);
         if (!arrow.gameObject.activeSelf) return;
         graphic.color = portal ? levels.Settings.portalColor : levels.Settings.enemyPointerColor;

@@ -69,7 +69,9 @@ public sealed class PlayerSecondaryWeapon : NetworkBehaviour
         var instance = Instantiate(settings.projectile, aim.Origin, Quaternion.Euler(0f, 0f, angle));
         if (IsSpawned) Spawn(instance.gameObject);
         instance.GetComponent<SecondaryWeaponProjectile>().Launch(settings, health, Quaternion.Euler(0f, 0f, angle) * Vector3.right);
+        if (IsSpawned) ShotAudio(aim.Origin); else GameAudio.Play(GameAudioCue.Gun, aim.Origin);
     }
+    [ObserversRpc(RunLocally = true)] private void ShotAudio(Vector3 position) => GameAudio.Play(GameAudioCue.Gun, position);
     private float NextShotTime(float scheduled)
     {
         float interval = 1f / Mathf.Max(0.01f, settings.roundsPerSecond);

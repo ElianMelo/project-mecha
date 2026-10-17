@@ -27,6 +27,11 @@ public class PlayerCombatVfx : MonoBehaviour
         => Strike(combat.Get(kind), facing, pulse);
     public void BeginAction(PlayerCombatSettings.ActionData action, int facing)
     {
+        var cue = action.kind == PlayerAttack.ActionKind.MegaSlash ? GameAudioCue.MegaSlash :
+            action.kind == PlayerAttack.ActionKind.SwordFire ? GameAudioCue.SwordFire :
+            action.kind == PlayerAttack.ActionKind.CriticalX ? GameAudioCue.CriticalX :
+            action.kind == PlayerAttack.ActionKind.MagneticPull ? GameAudioCue.MagneticPull : (GameAudioCue?)null;
+        if (cue.HasValue) GameAudio.Play(cue.Value, transform.position, transform);
         if (settings == null) return;
         if (PlayerAttack.IsSkill(action.kind))
             ParticleBurstEmitter.Emit(settings.skillCharge, transform.position + Vector3.up * 0.85f, Vector3.up);
@@ -34,6 +39,18 @@ public class PlayerCombatVfx : MonoBehaviour
     public void Strike(PlayerCombatSettings.ActionData action,int facing,int pulse)
     {
         var kind=action.kind;
+        if (PlayerAttack.IsSkill(kind) && pulse == action.pulses - 1)
+            GameAudio.Play(kind == PlayerAttack.ActionKind.MegaSlash ? GameAudioCue.MegaSlashImpact :
+                kind == PlayerAttack.ActionKind.SwordFire ? GameAudioCue.SwordFireImpact : GameAudioCue.CriticalXImpact, transform.position, transform);
+        var sound = PlayerAttack.IsSkill(kind) ? GameAudioCue.SkillPulse :
+            kind == PlayerAttack.ActionKind.Slash2 ? GameAudioCue.Combo :
+            kind == PlayerAttack.ActionKind.Slash3 ? GameAudioCue.Finisher :
+            kind == PlayerAttack.ActionKind.AirSlash ? GameAudioCue.AirSlash :
+            kind == PlayerAttack.ActionKind.DashSlash ? GameAudioCue.DashSlash :
+            kind == PlayerAttack.ActionKind.RisingSlash ? GameAudioCue.RisingSlash :
+            kind == PlayerAttack.ActionKind.DiveStrike ? GameAudioCue.DiveStrike :
+            kind == PlayerAttack.ActionKind.CriticalStrike ? GameAudioCue.CriticalStrike : GameAudioCue.Slash;
+        if (kind != PlayerAttack.ActionKind.MagneticPull) GameAudio.Play(sound, transform.position, transform);
         Vector3 offset=new Vector3(facing*(action.reach+pulse*action.pulseAdvance),action.height,settings.strikeOffset.z);
         if (kind == PlayerAttack.ActionKind.MagneticPull)
         {
@@ -56,6 +73,7 @@ public class PlayerCombatVfx : MonoBehaviour
     }
     public void Dash(int facing, bool beginning = false)
     {
+        if (beginning) GameAudio.Play(GameAudioCue.Dash, transform.position, transform);
         nextSmoke=Time.time+settings.dashEmissionInterval;
         ParticleBurstEmitter.Emit(settings.dashSmoke,transform.position+settings.dashOffset,new Vector3(-facing,0.25f,0f));
         ParticleBurstEmitter.Emit(settings.dashStreaks,transform.position+settings.strikeOffset.y*Vector3.up,new Vector3(-facing,0.05f,0f));

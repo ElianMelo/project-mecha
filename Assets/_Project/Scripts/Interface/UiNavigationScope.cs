@@ -5,6 +5,7 @@ using UnityEngine;
 // Prefer controls sharing the requested row/column before crossing to another section.
 public sealed class UiNavigationScope : MonoBehaviour
 {
+    [SerializeField] private Transform excludedControls;
     private float nextRefresh;
     private int lastSignature;
     private readonly List<UnityEngine.UI.Selectable> controls = new List<UnityEngine.UI.Selectable>();
@@ -19,7 +20,8 @@ public sealed class UiNavigationScope : MonoBehaviour
     public void Rebuild()
     {
         GetComponentsInChildren(false, controls);
-        controls.RemoveAll(control => !control.IsInteractable() || control.GetComponentInParent<UiNavigationScope>() != this);
+        controls.RemoveAll(control => !control.IsInteractable() || control.GetComponentInParent<UiNavigationScope>() != this ||
+            excludedControls != null && control.transform.IsChildOf(excludedControls));
         rectangles.Clear(); int signature = controls.Count;
         foreach (var control in controls)
         {
@@ -50,9 +52,11 @@ public sealed class UiNavigationScope : MonoBehaviour
             Vector2 delta = rect.center - origin.center;
             float forward = Vector2.Dot(delta, direction);
             float perpendicular = vertical ? Mathf.Abs(delta.x) : Mathf.Abs(delta.y);
-            if (forward < 1f || forward < perpendicular * 0.65f) continue;
             float sideways = vertical ? Mathf.Max(0f, Mathf.Max(origin.xMin - rect.xMax, rect.xMin - origin.xMax)) :
                 Mathf.Max(0f, Mathf.Max(origin.yMin - rect.yMax, rect.yMin - origin.yMax));
+            // Overlapping button spans remain neighbours even when a wide
+            // control's centre does not line up with the narrower row below.
+            if (forward < 1f || sideways > 1f && forward < perpendicular * 0.65f) continue;
             float value = forward + sideways * 5f + (sideways > 1f ? 1000f : 0f);
             if (value < score) { best = controls[i]; score = value; }
         }

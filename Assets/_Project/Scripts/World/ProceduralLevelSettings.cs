@@ -16,6 +16,9 @@ public class ProceduralLevelSettings : ScriptableObject
     public float risingGap = 0.7f, risingStepOffset = 0.18f, minimumEnemySpacing = 2.25f;
     public float playerSpawnSpacing = 0.85f;
     public float portalInteractionRange = 1.8f, pointerInset = 48f;
+    [Min(0.2f)] public float portalHoldDuration = 0.9f;
+    public Sprite portalProgressSprite;
+    public Vector2 portalProgressSize = new Vector2(84f, 84f), portalProgressOffset = new Vector2(0f, 106f);
     public Color enemyPointerColor = new Color(1f, 0.78f, 0.16f), portalColor = new Color(0.2f, 0.95f, 1f);
     [Tooltip("Downward-facing pointer image, rotated by the HUD toward its objective.")]
     public Sprite objectiveArrowSprite;

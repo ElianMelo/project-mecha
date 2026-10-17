@@ -5,12 +5,13 @@ Game ScriptableObjects live under `Assets/_Project/Settings/`. In Unity use **To
 | Folder | What to tune |
 | --- | --- |
 | Guns | SecondarySMG: magazine, cadence, damage, recovery, targeting and aim feedback |
+| Audio | GameAudio: clips, buses, volume defaults, pitch, overlap priorities, playlists and footstep tuning |
 | Skills | MegaSlash, SwordFire, CriticalX and their shared skill presentation |
 | Attacks | Basic/air/dash/rising attacks, magnetic recall, critical strike and PlayerCombat catalogue/global tuning |
 | Combos | Ground/air sequences, selected PlayerCombos loadout and ComboConfigurator |
 | Player | Movement, health, input, body collision and awareness |
 | Enemies | Behavior, crowd spacing, lance throws, prediction, spawning, states, tactics and traversal |
-| Interface | Chat, controller navigation, HUD layout, squad indicators and interface feel |
+| Interface | Chat, controller navigation, HUD layout, squad indicators, interface feel and VideoConfiguration (frame limits/defaults and display confirmation duration) |
 | Network | Lobby and network simulation profiles |
 | World | Arena layout, procedural levels, scenario, platforms and destructible props |
 | Camera | Room framing and zoom |

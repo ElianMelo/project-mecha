@@ -1,8 +1,17 @@
 fileFormatVersion: 2
 guid: 03ef611d9c7fa4d61ad3b5603fb6cdb4
+labels:
+- Placeholder
+AssetOrigin:
+  serializedVersion: 1
+  productId: 113256
+  packageName: Force Field - Sci-Fi Collection
+  packageVersion: 1.0
+  assetPath: Assets/AlpineAudio/Sci-Fi/ForceField/AA_SciFi_ForceField_Impact_Heavy_v1d.wav
+  uploadId: 622068
 AudioImporter:
   externalObjects: {}
-  serializedVersion: 7
+  serializedVersion: 8
   defaultSettings:
     serializedVersion: 2
     loadType: 0
@@ -21,10 +30,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 113256
-  packageName: Force Field - Sci-Fi Collection
-  packageVersion: 1.0
-  assetPath: Assets/AlpineAudio/Sci-Fi/ForceField/AA_SciFi_ForceField_Impact_Heavy_v1d.wav
-  uploadId: 622068

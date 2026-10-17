@@ -21,20 +21,26 @@ public class GameManager : MonoBehaviour
     private GameplayDiagnostics diagnostics;
     private ControllerTextEntry textEntry;
     private MechaGameplayHud hud;
+    private AudioConfigurationMenu audioMenu;
+    private GameOptionsMenu optionsMenu;
     private float resumeInputAt;
     private string localAddress = "127.0.0.1";
     public static GameManager Instance { get; private set; }
-    public bool MenuOpen => lobbyPanel != null && lobbyPanel.IsVisible || diagnostics != null && diagnostics.Visible || textEntry != null && textEntry.IsVisible;
+    public bool MenuOpen => OptionsMenuOpen || audioMenu != null && audioMenu.IsVisible || lobbyPanel != null && lobbyPanel.IsVisible || diagnostics != null && diagnostics.Visible || textEntry != null && textEntry.IsVisible;
     public bool GameplayInputBlocked => MenuOpen || MechaChat.IsTyping || Time.unscaledTime < resumeInputAt;
     public ControllerInterfaceSettings ControllerSettings => controllerSettings;
     public NetworkManager Network => _networkManager;
     public bool LobbyOpen => lobbyPanel != null && lobbyPanel.IsVisible;
+    public bool AudioMenuOpen => audioMenu != null && audioMenu.IsVisible;
+    public bool OptionsMenuOpen => optionsMenu != null && optionsMenu.IsVisible;
     private void Awake()
     {
         Instance = this;
         diagnostics = FindFirstObjectByType<GameplayDiagnostics>();
         textEntry = FindFirstObjectByType<ControllerTextEntry>();
         hud = FindFirstObjectByType<MechaGameplayHud>();
+        audioMenu = FindFirstObjectByType<AudioConfigurationMenu>();
+        optionsMenu = FindFirstObjectByType<GameOptionsMenu>();
         interfaceActions = Instantiate(controllerSettings.actions);
         systemActions = interfaceActions.FindActionMap("System", true);
         systemActions.FindAction("LocalHost").performed += _ => { if (AcceptShortcut()) StartHost(); };
@@ -44,7 +50,7 @@ public class GameManager : MonoBehaviour
         };
         systemActions.FindAction("Back").performed += _ => Back();
         systemActions.FindAction("Diagnostics").performed += _ => {
-            if (AcceptShortcut() && (lobbyPanel == null || !lobbyPanel.IsVisible)) diagnostics?.Toggle();
+            if (!OptionsMenuOpen && AcceptShortcut() && (lobbyPanel == null || !lobbyPanel.IsVisible)) diagnostics?.Toggle();
         };
         systemActions.FindAction("ControlsHelp").performed += _ => { if (AcceptShortcut()) hud?.ToggleControls(); };
         systemActions.FindAction("ChatVisibility").performed += _ => { if (AcceptShortcut()) MechaChat.Instance?.ToggleVisibility(); };
@@ -59,12 +65,27 @@ public class GameManager : MonoBehaviour
     private void ToggleMenu()
     {
         if (MechaChat.IsTyping) return;
-        if (MenuOpen) Back(); else lobbyPanel?.Show();
+        if (optionsMenu != null)
+        {
+            if (textEntry != null && textEntry.IsVisible) textEntry.Cancel();
+            else if (optionsMenu.IsVisible) optionsMenu.Back(); else optionsMenu.Open();
+            return;
+        }
+        if (audioMenu != null)
+        {
+            if (audioMenu.IsVisible) audioMenu.Hide();
+            else if (textEntry != null && textEntry.IsVisible) textEntry.Cancel();
+            else audioMenu.Show();
+        }
+        else if (MenuOpen) Back(); else lobbyPanel?.Show();
     }
+    public void ShowLobby() => lobbyPanel?.Show();
     private void Back()
     {
         if (MechaChat.IsTyping) { MechaChat.Instance.Close(); return; }
-        if (textEntry != null && textEntry.IsVisible) textEntry.Cancel();
+        if (optionsMenu != null && optionsMenu.IsVisible) optionsMenu.Back();
+        else if (audioMenu != null && audioMenu.IsVisible) audioMenu.Hide();
+        else if (textEntry != null && textEntry.IsVisible) textEntry.Cancel();
         else if (diagnostics != null && diagnostics.Visible) diagnostics.Toggle();
         else if (lobbyPanel != null && lobbyPanel.IsVisible) lobbyPanel.Hide();
     }

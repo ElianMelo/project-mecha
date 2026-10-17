@@ -41,9 +41,10 @@ public sealed class MechaLobbyPanel : MonoBehaviour
         panel.SetActive(false);
     }
     private void OnDestroy() { if (service != null) service.Changed -= Refresh; }
-    public void Show() { panel.SetActive(true); service.OpenBrowser(); Refresh(); }
+    public void Show() { if (!IsVisible) GameAudio.Play(GameAudioCue.UiOpen); panel.SetActive(true); service.OpenBrowser(); Refresh(); }
     public void Hide()
     {
+        if (IsVisible) GameAudio.Play(GameAudioCue.UiCancel);
         if (textEntry != null && textEntry.IsVisible) textEntry.Cancel();
         panel.SetActive(false); service.CloseBrowser();
         GameManager.Instance?.SuppressGameplayInput();
@@ -60,7 +61,7 @@ public sealed class MechaLobbyPanel : MonoBehaviour
     private void EnsureSelection()
     {
         var events = UnityEngine.EventSystems.EventSystem.current;
-        if (events == null || MechaChat.IsTyping) return;
+        if (events == null || MechaChat.IsTyping || GameManager.Instance != null && GameManager.Instance.OptionsMenuOpen) return;
         var selected = events.currentSelectedGameObject;
         var selectable = selected != null ? selected.GetComponent<UnityEngine.UI.Selectable>() : null;
         if (selectable != null && selectable.IsActive() && selectable.IsInteractable() && selected.transform.IsChildOf(panel.transform)) return;

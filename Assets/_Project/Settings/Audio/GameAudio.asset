@@ -1,0 +1,610 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab540fde3ea0703468d13e6bbff6f42a, type: 3}
+  m_Name: GameAudio
+  m_EditorClassIdentifier: Assembly-CSharp::GameAudioSettings
+  mixer: {fileID: 24100000, guid: 3942ce018ddf487428c5405c9cba6b8d, type: 2}
+  ui: {fileID: -3094870375811142064, guid: 3942ce018ddf487428c5405c9cba6b8d, type: 2}
+  sfx: {fileID: 8905435129725930443, guid: 3942ce018ddf487428c5405c9cba6b8d, type: 2}
+  ambient: {fileID: 7127427272407270696, guid: 3942ce018ddf487428c5405c9cba6b8d, type: 2}
+  music: {fileID: 2881180368055358103, guid: 3942ce018ddf487428c5405c9cba6b8d, type: 2}
+  cues:
+  - id: 0
+    bus: 1
+    clips:
+    - {fileID: 8300000, guid: c552440b081774d49b22540760112fcc, type: 3}
+    - {fileID: 8300000, guid: 3ea865a2730d2eb478bcd7ca3f8a9363, type: 3}
+    volume: 0.22
+    pitch: {x: 0.94, y: 1.06}
+    priority: 60
+    maxInstances: 2
+    minimumInterval: 0.065
+    protect: 0
+    loop: 0
+    spatialBlend: 0
+  - id: 1
+    bus: 1
+    clips:
+    - {fileID: 8300000, guid: 510f51f2f2b136d40bde92ca41d89e55, type: 3}
+    volume: 0.45
+    pitch: {x: 0.94, y: 1.06}
+    priority: 45
+    maxInstances: 3
+    minimumInterval: 0.065
+    protect: 0
+    loop: 0
+    spatialBlend: 0
+  - id: 2
+    bus: 1
+    clips:
+    - {fileID: 8300000, guid: 094883d45533c884f941a7dab201bcbc, type: 3}
+    volume: 0.35
+    pitch: {x: 0.94, y: 1.06}
+    priority: 45
+    maxInstances: 2
+    minimumInterval: 0.065
+    protect: 0
+    loop: 0
+    spatialBlend: 0
+  - id: 3
+    bus: 1
+    clips:
+    - {fileID: 8300000, guid: 8fb12fbbaf4000445afea50228e1371f, type: 3}
+    volume: 0.32
+    pitch: {x: 1, y: 1}
+    priority: 40
+    maxInstances: 2
+    minimumInterval: 0.065
+    protect: 0
+    loop: 0
+    spatialBlend: 0
+  - id: 4
+    bus: 1
+    clips:
+    - {fileID: 8300000, guid: 51cee6aeebe0afe40af4c0a933a710b6, type: 3}
+    volume: 0.32
+    pitch: {x: 1, y: 1}
+    priority: 40
+    maxInstances: 2
+    minimumInterval: 0.065
+    protect: 0
+    loop: 0
+    spatialBlend: 0
+  - id: 5
+    bus: 1
+    clips:
+    - {fileID: 8300000, guid: 65228e4bd627dad4b844eda200666145, type: 3}
+    volume: 0.35
+    pitch: {x: 0.94, y: 1.06}
+    priority: 40
+    maxInstances: 2
+    minimumInterval: 0.065
+    protect: 0
+    loop: 0
+    spatialBlend: 0
+  - id: 6
+    bus: 1
+    clips:
+    - {fileID: 8300000, guid: 2753e0ec23a74d6448d91f0be83c3551, type: 3}
+    volume: 0.35
+    pitch: {x: 0.94, y: 1.06}
+    priority: 35
+    maxInstances: 2
+    minimumInterval: 0.065
+    protect: 0
+    loop: 0
+    spatialBlend: 0
+  - id: 7
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 3406476b91d07ec409a721a5bc77623e, type: 3}
+    - {fileID: 8300000, guid: e5cfec97f27294b4c8a4191d44a4aa22, type: 3}
+    - {fileID: 8300000, guid: 395c6861940b6504abbef811c40230a8, type: 3}
+    volume: 0.42
+    pitch: {x: 0.94, y: 1.06}
+    priority: 110
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 8
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 3406476b91d07ec409a721a5bc77623e, type: 3}
+    - {fileID: 8300000, guid: e5cfec97f27294b4c8a4191d44a4aa22, type: 3}
+    - {fileID: 8300000, guid: 395c6861940b6504abbef811c40230a8, type: 3}
+    volume: 0.46
+    pitch: {x: 1.03, y: 1.12}
+    priority: 105
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 9
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 271c401bccc81eb40af3f64baf834a45, type: 3}
+    volume: 0.5
+    pitch: {x: 0.85, y: 0.95}
+    priority: 75
+    maxInstances: 4
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 10
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 3406476b91d07ec409a721a5bc77623e, type: 3}
+    - {fileID: 8300000, guid: e5cfec97f27294b4c8a4191d44a4aa22, type: 3}
+    - {fileID: 8300000, guid: 395c6861940b6504abbef811c40230a8, type: 3}
+    volume: 0.4
+    pitch: {x: 0.94, y: 1.06}
+    priority: 110
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 11
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 3406476b91d07ec409a721a5bc77623e, type: 3}
+    - {fileID: 8300000, guid: e5cfec97f27294b4c8a4191d44a4aa22, type: 3}
+    - {fileID: 8300000, guid: 395c6861940b6504abbef811c40230a8, type: 3}
+    volume: 0.47
+    pitch: {x: 0.85, y: 1}
+    priority: 100
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 12
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 45fc9f52ee9fd984081278ef4ddeb0ef, type: 3}
+    volume: 0.5
+    pitch: {x: 0.94, y: 1.06}
+    priority: 85
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 13
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: f499f44888b6246478cab30f73d89ea0, type: 3}
+    volume: 0.48
+    pitch: {x: 0.94, y: 1.06}
+    priority: 85
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 14
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: ff4eff5c824690a4aaa8f1d7515bb6c2, type: 3}
+    volume: 0.52
+    pitch: {x: 0.94, y: 1.06}
+    priority: 70
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 15
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 020e132d9a927478f8187c97d90c8bcc, type: 3}
+    - {fileID: 8300000, guid: 6755bdc920f494522898217783f24875, type: 3}
+    volume: 0.42
+    pitch: {x: 0.94, y: 1.06}
+    priority: 20
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 1
+    loop: 0
+    spatialBlend: 0.8
+  - id: 16
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: a161527766be241efad062d931d302c5, type: 3}
+    volume: 0.8
+    pitch: {x: 0.92, y: 1.02}
+    priority: 10
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 1
+    loop: 0
+    spatialBlend: 0.45
+  - id: 17
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 4cbd9f24a00768b49abfbfcbf77a09f2, type: 3}
+    - {fileID: 8300000, guid: 86728637797b8684cb927c6b587e193a, type: 3}
+    volume: 0.75
+    pitch: {x: 0.85, y: 0.97}
+    priority: 10
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 1
+    loop: 0
+    spatialBlend: 0.45
+  - id: 18
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 9c948aea551b94d95a15c3334ba83cd8, type: 3}
+    - {fileID: 8300000, guid: f0067d383b71647c884d447e609865c4, type: 3}
+    volume: 0.8
+    pitch: {x: 0.94, y: 1.06}
+    priority: 10
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 1
+    loop: 0
+    spatialBlend: 0.45
+  - id: 19
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 1e6d76858bad34edb9eb15b988002366, type: 3}
+    - {fileID: 8300000, guid: e112b3993e3e04e55b7b119f97e3ff37, type: 3}
+    - {fileID: 8300000, guid: 2179b55f8434e4730a6a50b24a747491, type: 3}
+    volume: 0.38
+    pitch: {x: 0.9, y: 1.12}
+    priority: 125
+    maxInstances: 8
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 20
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 9b0ce762b94f28f4e93fe52e50147880, type: 3}
+    - {fileID: 8300000, guid: b107a6645a757144f99dfd0005332109, type: 3}
+    - {fileID: 8300000, guid: a1ec17297d24aec458a6e0d273aaf612, type: 3}
+    - {fileID: 8300000, guid: afba327686afd7a4aaa4ee6860ff12f2, type: 3}
+    volume: 0.42
+    pitch: {x: 0.94, y: 1.06}
+    priority: 115
+    maxInstances: 10
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 21
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 8ac0971a688744c14b0f0b2dd2635782, type: 3}
+    - {fileID: 8300000, guid: 85437f0b017b54f3a9c380c5d27c5c0b, type: 3}
+    volume: 0.52
+    pitch: {x: 0.94, y: 1.06}
+    priority: 65
+    maxInstances: 4
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 22
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 3406476b91d07ec409a721a5bc77623e, type: 3}
+    - {fileID: 8300000, guid: e5cfec97f27294b4c8a4191d44a4aa22, type: 3}
+    - {fileID: 8300000, guid: 395c6861940b6504abbef811c40230a8, type: 3}
+    volume: 0.3
+    pitch: {x: 0.8, y: 0.94}
+    priority: 140
+    maxInstances: 5
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 23
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 5cfaa7a40124eb744917e6ea83cbccb4, type: 3}
+    - {fileID: 8300000, guid: 7e724531e48dd6c45871bcb8ec4c80cd, type: 3}
+    - {fileID: 8300000, guid: caabfd794ef9ce24ba11ddd7e166b693, type: 3}
+    volume: 0.4
+    pitch: {x: 0.94, y: 1.06}
+    priority: 55
+    maxInstances: 8
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 24
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 844597707ac092c43a7be2a2dbbe645b, type: 3}
+    volume: 0.65
+    pitch: {x: 1, y: 1}
+    priority: 15
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 1
+    loop: 0
+    spatialBlend: 0.8
+  - id: 25
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 2d0af22cbb80f3b468374a5a45109fdb, type: 3}
+    - {fileID: 8300000, guid: 15cf4bcd99a4fb144a19db151f394c7d, type: 3}
+    volume: 0.32
+    pitch: {x: 0.95, y: 1.05}
+    priority: 105
+    maxInstances: 8
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 26
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 507c57759ce626849b96cbaf62adfa65, type: 3}
+    - {fileID: 8300000, guid: 194e8626c8e1c2c48adb3d7532086b41, type: 3}
+    - {fileID: 8300000, guid: fd9a8606fd950bf41acb7f370f2e055b, type: 3}
+    volume: 0.23
+    pitch: {x: 0.94, y: 1.06}
+    priority: 150
+    maxInstances: 8
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 27
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 395c6861940b6504abbef811c40230a8, type: 3}
+    - {fileID: 8300000, guid: e5cfec97f27294b4c8a4191d44a4aa22, type: 3}
+    volume: 0.42
+    pitch: {x: 0.72, y: 0.84}
+    priority: 90
+    maxInstances: 5
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 28
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 808a88bd8a83a2649976c4a01bb0759c, type: 3}
+    - {fileID: 8300000, guid: 001c4101b4f15ab45a7c300ee219673b, type: 3}
+    volume: 0.45
+    pitch: {x: 0.94, y: 1.06}
+    priority: 90
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 29
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: cf7d8217942606342849f156c16e385b, type: 3}
+    - {fileID: 8300000, guid: 378643c1a62019d439a122c0080d5b00, type: 3}
+    - {fileID: 8300000, guid: 1a71a631d54bdd8428840f196791236a, type: 3}
+    - {fileID: 8300000, guid: c1c8fb258978ffe4fa3643ab5bc35b88, type: 3}
+    volume: 0.24
+    pitch: {x: 0.9, y: 1.1}
+    priority: 195
+    maxInstances: 5
+    minimumInterval: 0.16
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 30
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: cf7d8217942606342849f156c16e385b, type: 3}
+    - {fileID: 8300000, guid: 378643c1a62019d439a122c0080d5b00, type: 3}
+    - {fileID: 8300000, guid: 1a71a631d54bdd8428840f196791236a, type: 3}
+    - {fileID: 8300000, guid: c1c8fb258978ffe4fa3643ab5bc35b88, type: 3}
+    volume: 0.12
+    pitch: {x: 0.8, y: 0.98}
+    priority: 220
+    maxInstances: 4
+    minimumInterval: 0.16
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 31
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 8f379c533d1de8046ab53c198f02b8b7, type: 3}
+    volume: 0.18
+    pitch: {x: 1.12, y: 1.22}
+    priority: 175
+    maxInstances: 4
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 32
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 8f379c533d1de8046ab53c198f02b8b7, type: 3}
+    - {fileID: 8300000, guid: 886870321e15567458da911f802cce72, type: 3}
+    volume: 0.3
+    pitch: {x: 0.88, y: 1.02}
+    priority: 160
+    maxInstances: 5
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 33
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 4349c961d725b284a82856c6d099e839, type: 3}
+    - {fileID: 8300000, guid: 7096e4f6b891c5f4c8fcce2ff28fae1b, type: 3}
+    volume: 0.3
+    pitch: {x: 0.94, y: 1.06}
+    priority: 95
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 34
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: a44f03969eea50f418b1a95d0c773904, type: 3}
+    - {fileID: 8300000, guid: 4d1402cc718ef924e81483b004891e25, type: 3}
+    - {fileID: 8300000, guid: 7ae397c237deb6b4e839684c2ffec85b, type: 3}
+    volume: 0.4
+    pitch: {x: 0.94, y: 1.06}
+    priority: 145
+    maxInstances: 5
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 35
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 148d4eb759220c9419ae1ed8bd986a28, type: 3}
+    - {fileID: 8300000, guid: c6e085db444d45e4f82a80cc9bbfedfc, type: 3}
+    volume: 0.7
+    pitch: {x: 0.65, y: 0.8}
+    priority: 65
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 36
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: cf3f5b653ff18e648a5b21db4b4d3fd0, type: 3}
+    volume: 0.35
+    pitch: {x: 0.94, y: 1.06}
+    priority: 70
+    maxInstances: 4
+    minimumInterval: 0.025
+    protect: 0
+    loop: 0
+    spatialBlend: 0.8
+  - id: 37
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 205e01bc5558c1d429a254970a150306, type: 3}
+    volume: 0.5
+    pitch: {x: 1, y: 1}
+    priority: 20
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 1
+    loop: 0
+    spatialBlend: 0.8
+  - id: 38
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: d825d8701960042628a66be764ea5597, type: 3}
+    volume: 0.6
+    pitch: {x: 1, y: 1}
+    priority: 5
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 1
+    loop: 0
+    spatialBlend: 0
+  - id: 39
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 2f748d32afaab5846929b469983bf6ac, type: 3}
+    volume: 0.65
+    pitch: {x: 1, y: 1}
+    priority: 5
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 1
+    loop: 0
+    spatialBlend: 0
+  - id: 40
+    bus: 3
+    clips:
+    - {fileID: 8300000, guid: e96a84f66ed7d4eaabbfb352f63add7e, type: 3}
+    volume: 0.22
+    pitch: {x: 1, y: 1}
+    priority: 5
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 1
+    loop: 1
+    spatialBlend: 0.8
+  - id: 41
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 8627f7eddf5303a458b38a4f6c5a3892, type: 3}
+    volume: 0.85
+    pitch: {x: 0.88, y: 1}
+    priority: 8
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 1
+    loop: 0
+    spatialBlend: 0.45
+  - id: 42
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: 917de2391ffefbc409dde687b6ad2898, type: 3}
+    volume: 0.8
+    pitch: {x: 0.88, y: 1}
+    priority: 8
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 1
+    loop: 0
+    spatialBlend: 0.45
+  - id: 43
+    bus: 2
+    clips:
+    - {fileID: 8300000, guid: bcf5bc04615df6b4b8facb0f91c309d9, type: 3}
+    volume: 0.85
+    pitch: {x: 0.88, y: 1}
+    priority: 8
+    maxInstances: 6
+    minimumInterval: 0.025
+    protect: 1
+    loop: 0
+    spatialBlend: 0.45
+  musicPlaylist:
+  - {fileID: 8300000, guid: 1ac731e31c745e4498e61f47f8c18bf0, type: 3}
+  - {fileID: 8300000, guid: d7d3983a4e215ea48b7d7e54d5ab9f20, type: 3}
+  - {fileID: 8300000, guid: 5d2a1483d92c3f84abcaeb8caff5ebe6, type: 3}
+  menuMusic: {fileID: 8300000, guid: e992009f283605849a98c2a858346db5, type: 3}
+  ambientPlaylist:
+  - {fileID: 8300000, guid: 587bd1599bbc37b4dae0a04826439ab5, type: 3}
+  - {fileID: 8300000, guid: 626ee35ca4aa00848a7ab68de8f06f48, type: 3}
+  defaultMaster: 0.8
+  defaultUI: 0.75
+  defaultSfx: 0.8
+  defaultAmbient: 0.45
+  defaultMusic: 0.5
+  musicGain: 0.6
+  ambientGain: 0.3
+  transientVoices: 48
+  releaseVoices: 8
+  releaseSeconds: 0.035
+  crossfadeSeconds: 1.5
+  minimumDistance: 8
+  maximumDistance: 45
+  footstepDistance: 1.7
+  minimumStepInterval: 0.18
+  landingSpeed: 2

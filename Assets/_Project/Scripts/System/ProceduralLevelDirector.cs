@@ -15,6 +15,7 @@ public class ProceduralLevelDirector : NetworkBehaviour
     private LevelPortal portal;
     private float nextRoster;
     private bool changing;
+    private bool hasPresentedRoom;
     public static ProceduralLevelDirector Instance { get; private set; }
     public ProceduralLevelSettings Settings => settings;
     public ProceduralLevelLayout Layout { get; private set; }
@@ -26,9 +27,11 @@ public class ProceduralLevelDirector : NetworkBehaviour
     private void OnDestroy() { if (Instance == this) Instance = null; }
     public override void OnStopServer()
     {
+        hasPresentedRoom = false;
         Layout = null; LevelNumber = 0; placedPlayers.Clear();
         base.OnStopServer();
     }
+    public override void OnStopClient() { hasPresentedRoom = false; base.OnStopClient(); }
     public void BeginRun()
     {
         if (!IsServerInitialized || Layout != null) return;
@@ -49,6 +52,8 @@ public class ProceduralLevelDirector : NetworkBehaviour
     [ObserversRpc(BufferLast = true, RunLocally = true)]
     private void BuildRoom(int number, int seed)
     {
+        if (hasPresentedRoom) GameAudio.Play(GameAudioCue.PortalTravel, Layout != null ? Layout.Portal : transform.position);
+        hasPresentedRoom = true;
         LevelNumber = number; Seed = seed;
         Layout = ProceduralLevelLayout.Generate(settings, seed, number, 16f / 9f);
         GetComponent<ProceduralRoomBuilder>().Build(Layout, settings);

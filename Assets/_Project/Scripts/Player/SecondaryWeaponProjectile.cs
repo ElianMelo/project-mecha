@@ -37,8 +37,11 @@ public sealed class SecondaryWeaponProjectile : NetworkBehaviour
         Vector3 force = body.linearVelocity.normalized * 0.5f;
         if (target != null && !target.IsDead)
             target.TakeDamage(settings.damage, force, 0.04f, shooter);
+        Vector3 position = collision.contactCount > 0 ? collision.GetContact(0).point : transform.position;
+        if (IsSpawned) ImpactAudio(position); else GameAudio.Play(GameAudioCue.BulletImpact, position);
         Finish();
     }
+    [ObserversRpc(RunLocally = true)] private void ImpactAudio(Vector3 position) => GameAudio.Play(GameAudioCue.BulletImpact, position);
     private void Finish()
     {
         if (spent) return;

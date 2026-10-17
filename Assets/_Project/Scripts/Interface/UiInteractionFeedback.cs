@@ -7,27 +7,33 @@ public sealed class UiInteractionFeedback : MonoBehaviour, IPointerEnterHandler,
     ISelectHandler, IDeselectHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, ISubmitHandler
 {
     [SerializeField] private UiFeelSettings settings;
+    [SerializeField] private UnityEngine.UI.Image selectionBorder;
     private Animator view;
     private UnityEngine.UI.Selectable control;
     private bool hovered, selected, disabled;
     private void Awake()
     {
         view = GetComponent<Animator>(); control = GetComponent<UnityEngine.UI.Selectable>();
-        view.enabled = settings.motionEnabled;
+        view.enabled = settings != null && settings.motionEnabled;
     }
     private void OnEnable()
     {
-        if (view == null || !view.enabled) return;
         hovered = false; selected = EventSystem.current != null && EventSystem.current.currentSelectedGameObject == gameObject;
+        RefreshBorder();
+        if (view == null || !view.enabled) return;
         view.Rebind(); view.SetBool("Focused", selected); view.SetBool("Pressed", false);
         disabled = !control.IsInteractable(); view.SetBool("Disabled", disabled);
     }
     private void Update()
     {
+        selected = EventSystem.current != null && EventSystem.current.currentSelectedGameObject == gameObject;
+        RefreshBorder();
         if (view == null || !view.enabled || disabled == !control.IsInteractable()) return;
         disabled = !control.IsInteractable(); view.SetBool("Disabled", disabled);
     }
-    private void Focus() { if (view != null && view.enabled) view.SetBool("Focused", hovered || selected); }
+    private void RefreshBorder() { if (selectionBorder != null) selectionBorder.enabled = control != null && control.IsInteractable() && selected; }
+    private void OnDisable() { if (selectionBorder != null) selectionBorder.enabled = false; }
+    private void Focus() { RefreshBorder(); if (view != null && view.enabled) view.SetBool("Focused", hovered || selected); }
     public void OnPointerEnter(PointerEventData data) { hovered = true; Focus(); }
     public void OnPointerExit(PointerEventData data) { hovered = false; Focus(); }
     public void OnSelect(BaseEventData data) { selected = true; Focus(); }

@@ -4,6 +4,8 @@ public sealed class LevelPortal : MonoBehaviour
 {
     private ProceduralLevelDirector director;
     private LineRenderer ring;
+    private bool wasClear;
+    private int hum;
     public void Configure(ProceduralLevelDirector owner)
     {
         director = owner;
@@ -16,8 +18,17 @@ public sealed class LevelPortal : MonoBehaviour
     private void Update()
     {
         if (ring == null) return;
+        bool audioActive = director.NetworkObject != null && director.IsClear && director.LevelNumber > 0 && (director.IsClientInitialized || director.IsServerInitialized);
+        if (audioActive && !wasClear)
+        {
+            GameAudio.Play(GameAudioCue.PortalOpen, transform.position);
+            hum = GameAudio.Play(GameAudioCue.PortalHum, transform.position, transform);
+        }
+        else if (!audioActive && wasClear) { GameAudio.Stop(hum); hum = 0; }
+        wasClear = audioActive;
         Color color = director.IsClear ? director.Settings.portalColor : new Color(0.24f, 0.3f, 0.4f, 0.65f);
         ring.startColor = ring.endColor = color;
         ring.transform.localScale = Vector3.one * (director.IsClear ? 1f + 0.04f * Mathf.Sin(Time.time * 3f) : 0.8f);
     }
+    private void OnDisable() { GameAudio.Stop(hum); hum = 0; wasClear = false; }
 }

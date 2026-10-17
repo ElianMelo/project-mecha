@@ -26,16 +26,13 @@ public static class MechaControllerSetup
             Bind(player, "Move", "<Gamepad>/dpad", "Gamepad");
             Bind(player, "Jump", "<Gamepad>/dpad/up", "Gamepad");
             Bind(player, "Down", "<Gamepad>/leftStick/down", "Gamepad");
-            Bind(player, "Tech", "<Gamepad>/leftTrigger", "Gamepad");
+            ConfigureCombatBindings(actions);
             var tech = player.FindAction("Tech", true);
             for (int i = tech.bindings.Count - 1; i >= 0; i--)
                 if (tech.bindings[i].path == "<Gamepad>/rightStickPress") tech.ChangeBinding(i).Erase();
-            Bind(player, "Interact", inputSettings.interactBinding, "Keyboard&Mouse");
-            Bind(player, "Interact", inputSettings.alternateInteractBinding, "Keyboard&Mouse");
             var interact = player.FindAction("Interact", true);
             for (int i = interact.bindings.Count - 1; i >= 0; i--)
-                if (interact.bindings[i].path == "<Gamepad>/rightTrigger") interact.ChangeBinding(i).Erase();
-            Bind(player, "Interact", "<Gamepad>/leftStickPress", "Gamepad");
+                interact.ChangeBinding(i).Erase(); // Portals use held Attack, never a stick press.
             Bind(player, "SecondaryFire", "<Keyboard>/c", "Keyboard&Mouse");
             Bind(player, "SecondaryFire", "<Gamepad>/rightTrigger", "Gamepad");
             var system = actions.FindActionMap("System", false) ?? actions.AddActionMap("System");
@@ -84,5 +81,15 @@ public static class MechaControllerSetup
         AssetDatabase.SaveAssets();
         EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
         EditorSceneManager.SaveOpenScenes();
+    }
+    public static void ConfigureCombatBindings(InputActionAsset actions)
+    {
+        foreach (var binding in new[] { ("Attack", "buttonWest"), ("Tech", "buttonNorth"), ("SkillA", "buttonEast"), ("SkillS", "leftShoulder"), ("SkillD", "leftTrigger") })
+        {
+            var action = actions.FindAction("Player/" + binding.Item1, true);
+            for (int i = action.bindings.Count - 1; i >= 0; i--)
+                if (action.bindings[i].path.StartsWith("<Gamepad>/", StringComparison.Ordinal)) action.ChangeBinding(i).Erase();
+            action.AddBinding("<Gamepad>/" + binding.Item2, groups: "Gamepad");
+        }
     }
 }

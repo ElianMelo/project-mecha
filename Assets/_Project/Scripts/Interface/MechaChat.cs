@@ -98,7 +98,7 @@ public sealed class MechaChat : MonoBehaviour
     }
     public void Open()
     {
-        if (Editing || !Available) return;
+        if (Editing || !Available || GameManager.Instance != null && GameManager.Instance.OptionsMenuOpen) return;
         hiddenByPlayer = false; RefreshVisibility();
         previousSelection = EventSystem.current?.currentSelectedGameObject;
         if (previousSelection == input.gameObject) previousSelection = null;
@@ -111,7 +111,7 @@ public sealed class MechaChat : MonoBehaviour
         string message = ChatHistory.Clean(input.text, settings.characterLimit);
         if (message.Length > 0)
         {
-            if (Time.unscaledTime < nextSend) return; // Keep the draft for the next attempt.
+            if (Time.unscaledTime < nextSend) { GameAudio.Play(GameAudioCue.UiError); return; } // Keep the draft for the next attempt.
             nextSend = Time.unscaledTime + settings.sendInterval;
             if (network.ClientManager.Started) network.ClientManager.Broadcast(new ChatRequest { Text = message });
             else Receive(new ChatDelivery { Pilot = PlayerIdentity.LocalName, Text = message }, Channel.Reliable);
@@ -137,5 +137,8 @@ public sealed class MechaChat : MonoBehaviour
         network.ServerManager.Broadcast(new ChatDelivery { Pilot = name, Text = text });
     }
     private void Receive(ChatDelivery delivery, Channel channel)
-        => history.Add(delivery.Pilot, ChatHistory.Clean(delivery.Text, settings.characterLimit), Time.unscaledTime, settings.messageLifetime, settings.visibleMessages);
+    {
+        history.Add(delivery.Pilot, ChatHistory.Clean(delivery.Text, settings.characterLimit), Time.unscaledTime, settings.messageLifetime, settings.visibleMessages);
+        if (Available) GameAudio.Play(GameAudioCue.Notification);
+    }
 }

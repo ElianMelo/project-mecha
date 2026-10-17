@@ -74,6 +74,8 @@ public static class MechaUiFeelSetup
         Reveal(panel.gameObject, style, false);
         var keyboard = panel.Find("Controller Keyboard");
         if (keyboard != null) Reveal(keyboard.gameObject, style, true);
+        var navigation = MechaPresentationSetup.Ensure<UiNavigationScope>(panel.gameObject);
+        Assign(navigation, "excludedControls", keyboard);
         foreach (var button in lobby.GetComponentsInChildren<UnityEngine.UI.Button>(true)) Button(button, style);
         foreach (var field in lobby.GetComponentsInChildren<TMPro.TMP_InputField>(true)) Button(field, style);
     }
@@ -101,7 +103,23 @@ public static class MechaUiFeelSetup
         graphic.sprite = style.frameSprite; graphic.type = UnityEngine.UI.Image.Type.Sliced; graphic.fillCenter = false;
         graphic.color = new Color(style.focusColor.r, style.focusColor.g, style.focusColor.b, 0f); graphic.raycastTarget = false;
         Animator(button.gameObject, style.buttonController);
-        Assign(MechaPresentationSetup.Ensure<UiInteractionFeedback>(button.gameObject), "settings", style);
+        var feedback = MechaPresentationSetup.Ensure<UiInteractionFeedback>(button.gameObject);
+        Assign(feedback, "settings", style);
+        var border = Child(button.transform, "Selection Border");
+        border.anchorMin = Vector2.zero; border.anchorMax = Vector2.one;
+        border.offsetMin = new Vector2(-5f, -5f); border.offsetMax = new Vector2(5f, 5f);
+        var borderImage = MechaPresentationSetup.Ensure<UnityEngine.UI.Image>(border.gameObject);
+        borderImage.sprite = style.frameSprite; borderImage.type = UnityEngine.UI.Image.Type.Sliced;
+        borderImage.fillCenter = false; borderImage.color = style.focusColor;
+        borderImage.raycastTarget = false; borderImage.enabled = false;
+        if (button is UnityEngine.UI.Slider && button.GetComponentInParent<AudioConfigurationMenu>() != null)
+        {
+            // Enclose the label, rail and readout; leave the moving handle unobscured.
+            frame.offsetMin = border.offsetMin = new Vector2(-184f, -10f);
+            frame.offsetMax = border.offsetMax = new Vector2(100f, 10f);
+            border.SetAsFirstSibling();
+        }
+        Assign(feedback, "selectionBorder", borderImage);
     }
     private static void Reveal(GameObject panel, UiFeelSettings style, bool keyboard)
     {

@@ -44,13 +44,17 @@ public class PlayerHealth : NetworkBehaviour
     public void Heal(float amount)
     {
         if (amount <= 0f || defeated || Health <= 0f || NetworkObject.IsSpawned && !IsServerInitialized) return;
+        float previous = Health;
         if (NetworkObject.IsSpawned) health.Value = Mathf.Min(settings.maxHealth, health.Value + amount);
         else soloHealth = Mathf.Min(settings.maxHealth, soloHealth + amount);
+        if (Health > previous) { if (NetworkObject.IsSpawned) HealAudio(); else GameAudio.Play(GameAudioCue.Heal, transform.position); }
     }
+    [ObserversRpc(RunLocally = true)] private void HealAudio() => GameAudio.Play(GameAudioCue.Heal, transform.position);
     [ObserversRpc(RunLocally = true)]
     private void Defeat() => ApplyDefeat();
     private void ApplyDefeat()
     {
+        if (!defeated) GameAudio.Play(GameAudioCue.PlayerDeath, transform.position);
         defeated=true;respawnAt=Time.time+settings.defeatDuration;
         GetComponent<PlayerAttack>().Interrupt();GetComponent<PlayerMovement>().StopDash();
         GetComponent<CharacterAnimator>()?.Death(settings.defeatDuration);
@@ -84,6 +88,7 @@ public class PlayerHealth : NetworkBehaviour
     private void ResetAtSpawn(Vector3 position) => ApplyReset(position);
     private void ApplyReset(Vector3 position)
     {
+        if (defeated) GameAudio.Play(GameAudioCue.Revive, position);
         defeated = false; stunnedUntil = 0f; spawnPosition = position;
         invincibleUntil = Time.time + settings.respawnInvincibility;
         body.position = position; transform.position = position;

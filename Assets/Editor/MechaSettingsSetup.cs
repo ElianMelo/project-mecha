@@ -9,6 +9,7 @@ public static class MechaSettingsSetup
 {
     public static string Category(Type type, string name)
     {
+        if (type == typeof(GameAudioSettings)) return "Audio";
         if (type == typeof(SecondaryWeaponSettings)) return "Guns";
         if (type == typeof(AttackPiece))
             return name == "MegaSlash" || name == "SwordFire" || name == "CriticalX" ? "Skills" : "Attacks";
@@ -22,7 +23,7 @@ public static class MechaSettingsSetup
         if (type == typeof(RoomCameraSettings) || type == typeof(RoomCameraZoomSettings)) return "Camera";
         if (type == typeof(LobbySettings) || type == typeof(NetworkSimulationSettings)) return "Network";
         if (type == typeof(ChatSettings) || type == typeof(ControllerInterfaceSettings) || type == typeof(GameplayHudLayoutSettings)
-            || type == typeof(SquadPresentationSettings) || type == typeof(UiFeelSettings)) return "Interface";
+            || type == typeof(SquadPresentationSettings) || type == typeof(UiFeelSettings) || type == typeof(VideoConfigurationSettings)) return "Interface";
         if (type.Name.StartsWith("Enemy", StringComparison.Ordinal)) return "Enemies";
         if (type.Name.StartsWith("Player", StringComparison.Ordinal)) return "Player";
         return "World";

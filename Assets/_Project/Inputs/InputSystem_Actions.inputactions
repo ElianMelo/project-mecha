@@ -746,17 +746,6 @@
                 },
                 {
                     "name": "",
-                    "id": "99d879e0-b838-4d29-bfeb-95190b21d832",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "dc3d437f-9e01-44da-a5d5-bc49f4487117",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -801,17 +790,6 @@
                 },
                 {
                     "name": "",
-                    "id": "73f8c667-a395-4aef-b1bd-3d3090c46f33",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "SkillA",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8a2de845-6757-4ae2-a231-b836ac5e1c5e",
                     "path": "<Keyboard>/s",
                     "interactions": "",
@@ -823,33 +801,11 @@
                 },
                 {
                     "name": "",
-                    "id": "d6fa9aec-3c63-43f7-bca5-90633f761273",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "SkillS",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4f0058c5-3056-4457-8ed3-9d1d4cbf61d0",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "SkillD",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8fc1f477-76d5-4244-8699-0929c11032df",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
                     "action": "SkillD",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -900,50 +856,6 @@
                 },
                 {
                     "name": "",
-                    "id": "b72d867b-0052-4eba-83e3-b507bf8487b7",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Tech",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b6b94e1d-3941-41dd-9919-a4d05d7025a7",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4031d9e0-5e46-4656-83c7-78c8984b2576",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c8aafd85-52a2-4686-91a2-ff1981e0302e",
-                    "path": "<Gamepad>/leftStickPress",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8aea9fbc-ed0f-4c84-8fae-23a30604fbbf",
                     "path": "<Keyboard>/c",
                     "interactions": "",
@@ -961,6 +873,61 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "SecondaryFire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "04f7377d-de94-49a6-8671-c13bcfdd1060",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "78c9d969-8c59-4634-829e-72cbd0544725",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Tech",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36d48203-17c3-415d-bf3f-879f3dd439f3",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SkillA",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "175cafe3-c4e9-49d6-8226-9c1573853ab3",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SkillS",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7fb1d409-d383-40b1-98cb-89441455008f",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SkillD",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

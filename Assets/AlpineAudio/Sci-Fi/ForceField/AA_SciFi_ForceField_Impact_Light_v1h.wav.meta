@@ -1,8 +1,17 @@
 fileFormatVersion: 2
 guid: 2c3341fb67abd4cbdbb51ae6723bbc22
+labels:
+- Placeholder
+AssetOrigin:
+  serializedVersion: 1
+  productId: 113256
+  packageName: Force Field - Sci-Fi Collection
+  packageVersion: 1.0
+  assetPath: Assets/AlpineAudio/Sci-Fi/ForceField/AA_SciFi_ForceField_Impact_Light_v1h.wav
+  uploadId: 622068
 AudioImporter:
   externalObjects: {}
-  serializedVersion: 7
+  serializedVersion: 8
   defaultSettings:
     serializedVersion: 2
     loadType: 0
@@ -21,10 +30,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 113256
-  packageName: Force Field - Sci-Fi Collection
-  packageVersion: 1.0
-  assetPath: Assets/AlpineAudio/Sci-Fi/ForceField/AA_SciFi_ForceField_Impact_Light_v1h.wav
-  uploadId: 622068

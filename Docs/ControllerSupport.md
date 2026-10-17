@@ -2,6 +2,8 @@
 
 Implemented 2026-10-16 using the installed Unity Input System 1.19.0. MainScene supports gameplay, the lobby browser/waiting room, local host/join, text entry and the combat lab through a standard Gamepad. Button hints use the active device's display names, including PlayStation layouts exposed by Unity. There is one locally controlled player per game instance; this does not add couch co-op.
 
+The 2026-10-17 [configuration and combat layout follow-up](ConfigurationAndCombatLayout.md) supersedes the original button layout and adds the native video configuration screen. Esc/Start opens the options home; audio has no lobby shortcut.
+
 ## Controls
 
 | Action | Xbox-style controls | PlayStation equivalent |
@@ -9,16 +11,16 @@ Implemented 2026-10-16 using the installed Unity Input System 1.19.0. MainScene 
 | Move | Left stick or D-pad | Left stick or D-pad |
 | Jump / launcher branch | A or D-pad Up | Cross or D-pad Up |
 | Descend / Mushidon / dive modifier | Left stick Down or D-pad Down | Same |
-| Attack / combo | X | Square |
+| Light attack / combo | X | Square |
 | Dash / critical branch | RB or double-tap horizontal direction | R1 or double-tap |
-| Magnetic recall | LT | L2 |
-| Mega Slash | Y | Triangle |
-| Sword Fire | B | Circle |
-| Critical X | LB | L1 |
+| Primary weapon heavy attack (existing magnetic branch) | Y | Triangle |
+| Mega Slash / 25 MP | B | Circle |
+| Sword Fire / 40 MP | LB | L1 |
+| Critical X / 60 MP | LT | L2 |
 | Secondary weapon (tap or hold for full auto at weapon cadence) | RT | R2 |
 | Show / hide controls | Right-stick click (keyboard F1) | R3 (keyboard F1) |
 | Show / hide co-op chat | Keyboard F2 | Keyboard F2 |
-| Enter a cleared-room portal | Left-stick click | L3 |
+| Enter a cleared-room portal | Hold X | Hold Square |
 | Open / close menu | Start / Menu | Options |
 | Combat lab | Select / View | Share / Create |
 | UI navigate | Left stick or D-pad | Same |
@@ -29,11 +31,11 @@ Rocket is Dash + Jump within the existing chord window; Down converts Rocket to 
 
 The subsequent [game-adjustment pass](GameAdjustments.md) adds keyboard C / RT SMG fire and Enter chat, moves portal interaction off RT, gives input fields the same focus frame as buttons, and rebuilds native directional navigation for current visible/interactable controls. Earlier validation below describes the original controller pass.
 
-Open the menu to choose **LOCAL HOST**, **LOCAL JOIN**, or an online lobby. The left stick/D-pad navigates native selectable controls. Submit on a text field opens the on-screen keyboard. It supports letters, digits, punctuation, spaces, erasing, case changes, confirmation and cancellation. Confirmation writes to the original TMP field, preserving its character limit and value-change callbacks. Cancellation preserves the original text. Keyboard and mouse text entry remain available.
+Open the menu to choose **SOLO HOST**, **LOCAL JOIN**, or an online lobby. The left stick/D-pad navigates native selectable controls. Submit on a text field opens the on-screen keyboard. It supports letters, digits, punctuation, spaces, erasing, case changes, confirmation and cancellation. Confirmation writes to the original TMP field, preserving its character limit and value-change callbacks. Cancellation preserves the original text. Keyboard and mouse text entry remain available.
 
 ## Implementation
 
-`PlayerInputs` converts the existing Input Action asset into gameplay intentions. Portal interaction now belongs to the paired Player action map, replacing the standalone unpaired keyboard action. The prefab keeps remote PlayerInput components disabled and permits native control-scheme switching for the owner. Held movement is polled after UI closes. Device loss clears held states and tap history. A native `SwitchCurrentControlScheme` fallback resynchronizes the local player's pairing when Unity keeps waiting for a removed controller after keyboard use. Remote replicas never request pairing.
+`PlayerInputs` converts the existing Input Action asset into gameplay intentions. Portal interaction consumes held Light Attack from the paired Player action map, with a circular progress indicator. It has no stick-click binding. The prefab keeps remote PlayerInput components disabled and permits native control-scheme switching for the owner. Held movement is polled after UI closes. Device loss clears held states and tap history. A native `SwitchCurrentControlScheme` fallback resynchronizes the local player's pairing when Unity keeps waiting for a removed controller after keyboard use. Remote replicas never request pairing.
 
 GameManager enables only a private clone of the System action map for menu, back, combat lab and local connection shortcuts. Menu visibility and a short resume delay suppress gameplay intentions, preventing menu submit/back presses from becoming attacks or skills. Existing movement and combat continue their normal simulation; this is not a network pause.
 

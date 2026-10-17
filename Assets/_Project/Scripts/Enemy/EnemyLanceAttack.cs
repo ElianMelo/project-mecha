@@ -71,5 +71,7 @@ public sealed class EnemyLanceAttack : NetworkBehaviour
         projectile.GetComponent<EnemyLanceProjectile>().Launch(settings, end, target.Movement.Support);
         holdingLance.Value = false;
         actor.ServerManager.Spawn(projectile);
+        ThrowAudio(origin);
     }
+    [ObserversRpc(RunLocally = true)] private void ThrowAudio(Vector3 position) => GameAudio.Play(GameAudioCue.Throw, position);
 }

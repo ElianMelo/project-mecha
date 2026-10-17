@@ -8,7 +8,7 @@ public sealed class ActorWorldHud : MonoBehaviour
     [SerializeField] private RectTransform bar;
     [SerializeField] private UnityEngine.UI.Image fill;
     [SerializeField] private TMP_Text pilotName;
-    [SerializeField] private SpriteRenderer ring;
+    [SerializeField] private UnityEngine.UI.Image ring;
     private EnemyController enemy;
     private PlayerIdentity identity;
     private CapsuleCollider body;
@@ -37,9 +37,17 @@ public sealed class ActorWorldHud : MonoBehaviour
         pilotName.enabled = !identity.LocallyControlled;
         pilotName.color = color;
         pilotName.rectTransform.position = transform.position + Vector3.up * (bounds.size.y + settings.nameAboveHead);
-        ring.enabled = !identity.LocallyControlled;
-        ring.color = color;
-        ring.transform.localPosition = Vector3.down * 0.035f;
-        ring.transform.localScale = new Vector3(settings.ringWidth, settings.ringHeight, 1f);
+        if (ring != null)
+        {
+            ring.enabled = !identity.LocallyControlled;
+            ring.color = color;
+            // Unlike the labels, the ring intersects the actor's depth. The default
+            // world-space UI material lets the opaque body occlude its rear arc.
+            var rect = ring.rectTransform;
+            rect.SetPositionAndRotation(new Vector3(bounds.center.x, bounds.min.y + settings.ringAboveFeet, bounds.center.z),
+                Quaternion.Euler(settings.RingTiltDegrees, 0f, 0f));
+            rect.localScale = Vector3.one;
+            rect.sizeDelta = Vector2.one * settings.ringWidth;
+        }
     }
 }

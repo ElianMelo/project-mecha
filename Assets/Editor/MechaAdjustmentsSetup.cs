@@ -60,6 +60,23 @@ public static class MechaAdjustmentsSetup
             }
         }
     }
+    [MenuItem("Tools/Mecha/Refresh Player World Indicators")]
+    public static void PlayerWorldIndicators()
+    {
+        if (EditorApplication.isPlaying) throw new InvalidOperationException("Stop Play Mode before authoring.");
+        const string path = Prefabs + "/MechaPlayer.prefab";
+        var root = PrefabUtility.LoadPrefabContents(path);
+        try
+        {
+            var style = MechaPresentationSetup.Profile<SquadPresentationSettings>("SquadPresentation");
+            var indicators = root.transform.Find("World Indicators");
+            TeammateRing(indicators, style, indicators.GetComponent<ActorWorldHud>());
+            PrefabUtility.SaveAsPrefabAsset(root, path);
+            EditorUtility.SetDirty(style);
+            AssetDatabase.SaveAssetIfDirty(style);
+        }
+        finally { PrefabUtility.UnloadPrefabContents(root); }
+    }
     private static void WorldHud(GameObject actor, SquadPresentationSettings style, bool player)
     {
         var root = Child(actor.transform, "World Indicators");
@@ -81,10 +98,27 @@ public static class MechaAdjustmentsSetup
         {
             var name = Label(canvasRect, "Pilot Name", "PILOT", new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(250f, 30f), 16f);
             name.alignment = TextAlignmentOptions.Center; name.outlineWidth = 0.2f;
-            var ring = MechaPresentationSetup.Ensure<SpriteRenderer>(Child(root.transform, "Teammate Ring"));
-            ring.sprite = style.ringSprite; ring.sortingOrder = 18;
-            Assign(presenter, "pilotName", name); Assign(presenter, "ring", ring);
+            Assign(presenter, "pilotName", name);
+            TeammateRing(root.transform, style, presenter);
         }
+    }
+    private static void TeammateRing(Transform parent, SquadPresentationSettings style, ActorWorldHud presenter)
+    {
+        var ringObject = Child(parent, "Teammate Ring");
+        var oldSprite = ringObject.GetComponent<SpriteRenderer>();
+        if (oldSprite != null) UnityEngine.Object.DestroyImmediate(oldSprite);
+        var ringCanvas = MechaPresentationSetup.Ensure<Canvas>(ringObject);
+        ringCanvas.renderMode = RenderMode.WorldSpace; ringCanvas.sortingOrder = 18;
+        var ringRect = (RectTransform)ringObject.transform;
+        ringRect.anchorMin = ringRect.anchorMax = ringRect.pivot = Vector2.one * 0.5f;
+        ringRect.localScale = Vector3.one;
+        ringRect.localPosition = Vector3.up * style.ringAboveFeet;
+        ringRect.localRotation = Quaternion.Euler(style.RingTiltDegrees, 0f, 0f);
+        ringRect.sizeDelta = Vector2.one * style.ringWidth;
+        var ring = Image(ringRect, style.PilotColor(0));
+        ring.sprite = style.ringSprite; ring.type = UnityEngine.UI.Image.Type.Simple;
+        ring.preserveAspect = true; ring.enabled = false;
+        Assign(presenter, "ring", ring);
     }
     private static void Weapon(GameObject root, SecondaryWeaponSettings settings, SquadPresentationSettings style)
     {

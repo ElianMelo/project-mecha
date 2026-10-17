@@ -1366,6 +1366,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2011006014}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &561830352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 561830354}
+  - component: {fileID: 561830353}
+  m_Layer: 0
+  m_Name: Level Routing Scene Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &561830353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561830352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 043dd1f6a31e0ac49a460fbb69c4b8e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RouteMapMenu
+--- !u!4 &561830354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561830352}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &578129724
 GameObject:
   m_ObjectHideFlags: 0
@@ -5497,6 +5541,7 @@ GameObject:
   - component: {fileID: 2011006015}
   - component: {fileID: 2011006018}
   - component: {fileID: 2011006017}
+  - component: {fileID: 2011006019}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -5635,6 +5680,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b566935ec9b6147915e392f888a539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProceduralRoomBuilder
+--- !u!114 &2011006019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011006013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a28d37432bcf11745be40d0f28a31ce4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelRouteDirector
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 2011006015}
+  _networkObjectCache: {fileID: 0}
+  settings: {fileID: 11400000, guid: 1a8cd0505bebbbd48bc4360a56515e0c, type: 2}
 --- !u!1 &2066435632
 GameObject:
   m_ObjectHideFlags: 0
@@ -6955,3 +7016,4 @@ SceneRoots:
   - {fileID: 2010722646}
   - {fileID: 4344013441829515183}
   - {fileID: 7489814523903071074}
+  - {fileID: 561830354}

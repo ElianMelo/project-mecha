@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1aa628bf664fbb418c3fa7968d05259, type: 3}
+  m_Name: LevelRouting
+  m_EditorClassIdentifier: Assembly-CSharp::LevelRouteSettings
+  openingEncounter: {fileID: 11400000, guid: 74b8fde16666fe440a0cd78ecbca4f34, type: 2}
+  rowWidths: 010000000300000002000000010000000300000001000000
+  softVoteSeconds: 5
+  confirmedVoteSeconds: 3
+  tieRevealSeconds: 1
+  soloConfirmSeconds: 0.3
+  snapshotInterval: 0.15
+  voteRepeatSeconds: 0.15
+  nodeSpacing: {x: 9, y: 5.1}
+  boardPrefab: {fileID: 202564666104612052, guid: d6b79061bdb0954488c880630b95cde1, type: 3}
+  routingScenePath: Assets/Scenes/LevelRouting.unity
+  pathSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  focusSprite: {fileID: 21300000, guid: 0dc474ad125e29144af8f6712af4198a, type: 3}
+  pathMaterial: {fileID: 2100000, guid: 3d836de297f4e5243a172a1f83980c84, type: 2}
+  feel: {fileID: 11400000, guid: 9da1de78216e3d4479286dbd613223fb, type: 2}
+  squad: {fileID: 11400000, guid: 6345f742abc10764fa5a084ef8888e63, type: 2}
+  reachableColor: {r: 0.24, g: 0.92, b: 0.93, a: 1}
+  visitedColor: {r: 0.98, g: 0.7, b: 0.25, a: 1}
+  lockedColor: {r: 0.46, g: 0.55, b: 0.64, a: 1}
+  boardLayer: 30
+  pathDashSpacing: 0.65
+  hapticSeconds: 0.065
+  hapticStrength: 0.13

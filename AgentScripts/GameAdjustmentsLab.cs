@@ -8,6 +8,37 @@ using UnityEngine.InputSystem.LowLevel;
 // Manual live inspection helpers; these mutate disposable Play Mode state only.
 public static class GameAdjustmentsLab
 {
+    public static object PreviewTeammateRing(int direction = 1)
+    {
+        var player = UnityEngine.Object.FindObjectsByType<PlayerIdentity>(FindObjectsSortMode.None).First(p => p.IsSpawned && p.IsOwner);
+        var hud = player.GetComponentInChildren<ActorWorldHud>();
+        var ring = player.GetComponentsInChildren<UnityEngine.UI.Image>(true).Single(r => r.name == "Teammate Ring");
+        bool hiddenForOwner = !ring.enabled;
+        var movement = player.GetComponent<PlayerMovement>();
+        var body = player.GetComponent<Rigidbody>();
+        movement.enabled = false;
+        movement.Face(direction);
+        body.interpolation = RigidbodyInterpolation.None;
+        body.rotation = Quaternion.Euler(0f, 90f * (direction >= 0 ? 1 : -1), 0f);
+        body.linearVelocity = Vector3.zero; body.angularVelocity = Vector3.zero;
+        body.isKinematic = true;
+        Physics.SyncTransforms();
+        hud.SendMessage("LateUpdate");
+        // Disposable visual staging only: expose the owner's existing ring as a
+        // teammate preview without changing ownership, replication or shared assets.
+        hud.enabled = false;
+        ring.enabled = true;
+        foreach (var enemy in EnemyController.ActiveEnemies) { enemy.PracticePassive = true; enemy.CancelAttack(); }
+        foreach (var canvas in UnityEngine.Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None))
+            if (canvas.renderMode == RenderMode.ScreenSpaceOverlay) canvas.enabled = false;
+        var camera = Camera.main;
+        var brain = camera.GetComponent<Unity.Cinemachine.CinemachineBrain>();
+        if (brain != null) brain.enabled = false;
+        var bounds = player.GetComponent<CapsuleCollider>().bounds;
+        camera.transform.SetPositionAndRotation(bounds.center + new Vector3(0f, -0.25f, -10f), Quaternion.identity);
+        camera.orthographic = true; camera.orthographicSize = 1.3f;
+        return new { hiddenForOwner, ring = ring.rectTransform.position.ToString(), tilt = ring.transform.eulerAngles.ToString(), camera = camera.name, frame = Time.frameCount };
+    }
     public static object Snapshot() => new {
         frame = Time.frameCount, time = Time.time, scale = Time.timeScale,
         players = UnityEngine.Object.FindObjectsByType<PlayerIdentity>(FindObjectsSortMode.None).Select(p => new {
@@ -15,7 +46,7 @@ public static class GameAdjustmentsLab
             position = p.transform.position.ToString(), ammo = p.GetComponent<PlayerSecondaryWeapon>().Ammo,
             direction = p.GetComponent<MechaAutoAim>().Direction.ToString(),
             target = p.GetComponent<MechaAutoAim>().Target?.TargetTransform.name,
-            ring = p.GetComponentsInChildren<SpriteRenderer>().FirstOrDefault(r => r.name == "Teammate Ring")?.enabled
+            ring = p.GetComponentsInChildren<UnityEngine.UI.Image>().FirstOrDefault(r => r.name == "Teammate Ring")?.enabled
         }).ToArray(),
         enemies = EnemyController.ActiveEnemies.Where(e => e != null).Select(e => new { e.name, e.Health, e.IsDead, position = e.transform.position.ToString() }).ToArray(),
         chat = MechaChat.Instance?.VisibleMessages, typing = MechaChat.IsTyping

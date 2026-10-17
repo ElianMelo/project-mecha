@@ -1,5 +1,13 @@
 # Project content classification
 
+## Teammate ring depth follow-up — 2026-10-17
+
+This correction changes existing files only: actor indicator Code, squad Authored Data, the player Prefab, editor/manual inspection support and these notes. The ring now uses a native world-space Canvas/Image with the existing HollowRing Sprite; no new artwork, shader, material or dependency was added. Categories, provisional readiness, unverified provenance and the **7,478-file** inventory totals remain unchanged. Ignored Play Mode captures are retained under Logs/TeammateRing.
+
+## Level routing follow-up — 2026-10-17
+
+The inventory now contains **7,478 maintained files**: **274 Code**, **208 Authored Data**, **56 Prefabs**, **8 Scenes**, **4,398 Placeholder**, **22 AI Generated**, and **2,512 Others** rows, including metadata. This pass adds nine runtime routing/encounter/presentation source files, an Editor authoring tool, a manual session-inspection tool, one routing profile, four encounter definitions, six native prefab assemblies, the dedicated LevelRouting scene, two Animator controllers, five animation clips, seven provisional materials, and research/implementation documentation. The later 3D-scene revision removes the two GUI prefabs and adds the world-node prefab plus scene, keeping 79 added inventory rows. Unverified provenance is retained; no AI-image origin is asserted. Rings/dots reuse the existing hollow-ring and Unity built-in Knob sprites. Code/configuration/prefabs/scenes are provisional; primitive miniatures, materials and animation remain unfinished art. MainScene, LevelRouting, native prefabs and build-scene registration are authored through Unity APIs. Captures, logs and the earlier development build remain ignored artifacts outside maintained game content. See [level routing](LevelRouting.md).
+
 ## Current policy — game adjustments, 2026-10-16
 
 The user's classification correction supersedes the historical entries below: **Placeholder applies to unfinished artwork**, including images, models, materials, visual effects, animation and supplied audio. Runtime source is **Code**, reusable assemblies are **Prefabs**, ScriptableObject definitions/profiles and native controller/input/mixer configuration are **Authored Data**, and level compositions are **Scenes**. These four categories have **Provisional** readiness; none implies final approval. **Others** remains for vendor dependencies, maintenance/editor tools, documentation, tests and project configuration. Confirmed generated artwork retains **AI Generated + Placeholder**. Unknown provenance remains unverified.

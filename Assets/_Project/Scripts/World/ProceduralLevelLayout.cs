@@ -16,11 +16,11 @@ public sealed class ProceduralLevelLayout
     public Vector3[] Enemies;
     public string Description;
 
-    public static ProceduralLevelLayout Generate(ProceduralLevelSettings settings, int seed, int number, float aspect)
+    public static ProceduralLevelLayout Generate(ProceduralLevelSettings settings, int seed, int number, float aspect, LevelShape? shape = null)
     {
         var random = new System.Random(seed);
         var room = new ProceduralLevelLayout();
-        room.Shape = number == 1 ? LevelShape.Big : (LevelShape)((number - 2) % 3);
+        room.Shape = number == 1 ? LevelShape.Big : shape ?? (LevelShape)((number - 2) % 3);
         room.Start = number == 1 ? LevelStart.BottomLeft : (LevelStart)random.Next(9);
         float width = number == 1 ? settings.firstRoomWidth : room.Shape == LevelShape.Rising
             ? 2f * settings.cameraSettings.orthographicSize * aspect + 0.1f

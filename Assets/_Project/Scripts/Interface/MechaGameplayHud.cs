@@ -51,6 +51,8 @@ public class MechaGameplayHud : MonoBehaviour
     }
     private void RefreshControlsToggle()
     {
+        bool routing = LevelRouteDirector.Instance != null && LevelRouteDirector.Instance.IsRouting;
+        if (controlsToggle != null) controlsToggle.gameObject.SetActive(!routing);
         if (controlsToggle != null) controlsToggle.interactable = !MechaChat.IsTyping;
         if (controlsToggleLabel != null)
         {

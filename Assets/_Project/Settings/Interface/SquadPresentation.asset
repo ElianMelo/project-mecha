@@ -23,4 +23,5 @@ MonoBehaviour:
   nameAboveHead: 0.25
   ringWidth: 1.1
   ringHeight: 0.28
+  ringAboveFeet: 0.14
   ringSprite: {fileID: 21300000, guid: 0dc474ad125e29144af8f6712af4198a, type: 3}

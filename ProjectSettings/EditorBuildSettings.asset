@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ComboConfigurator.unity
     guid: b27a233ef96232448b92913983290014
+  - enabled: 1
+    path: Assets/Scenes/LevelRouting.unity
+    guid: 2f2199dbf7751a04a98577c270a914e5
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

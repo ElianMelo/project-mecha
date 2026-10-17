@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     private string localAddress = "127.0.0.1";
     public static GameManager Instance { get; private set; }
     public bool MenuOpen => OptionsMenuOpen || audioMenu != null && audioMenu.IsVisible || lobbyPanel != null && lobbyPanel.IsVisible || diagnostics != null && diagnostics.Visible || textEntry != null && textEntry.IsVisible;
-    public bool GameplayInputBlocked => MenuOpen || MechaChat.IsTyping || Time.unscaledTime < resumeInputAt;
+    public bool GameplayInputBlocked => MenuOpen || LevelRouteDirector.Instance != null && LevelRouteDirector.Instance.IsRouting || MechaChat.IsTyping || Time.unscaledTime < resumeInputAt;
     public ControllerInterfaceSettings ControllerSettings => controllerSettings;
     public NetworkManager Network => _networkManager;
     public bool LobbyOpen => lobbyPanel != null && lobbyPanel.IsVisible;
@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
         else if (textEntry != null && textEntry.IsVisible) textEntry.Cancel();
         else if (diagnostics != null && diagnostics.Visible) diagnostics.Toggle();
         else if (lobbyPanel != null && lobbyPanel.IsVisible) lobbyPanel.Hide();
+        else if (LevelRouteDirector.Instance != null && LevelRouteDirector.Instance.IsRouting) LevelRouteDirector.Instance.Withdraw();
     }
     private async void Start()
     {

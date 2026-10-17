@@ -36,7 +36,8 @@ public sealed class MechaChat : MonoBehaviour
     {
         get
         {
-            if (network == null || !network.ClientManager.Started || GameManager.Instance != null && GameManager.Instance.LobbyOpen) return false;
+            if (network == null || !network.ClientManager.Started || GameManager.Instance != null && GameManager.Instance.LobbyOpen ||
+                LevelRouteDirector.Instance != null && LevelRouteDirector.Instance.IsRouting) return false;
             int players = 0;
             foreach (var player in PlayerAttack.ActiveActors) if (player.IsSpawned && ++players > 1) return true;
             return false;

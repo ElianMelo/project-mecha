@@ -107,8 +107,8 @@ public static class MechaNetworkSetup
             // Match the held weapon's world size and retain its imported 3D geometry/materials.
             float scale = source.transform.lossyScale.x;
             visual.transform.localScale = Vector3.one * scale;
-            visual.transform.localRotation = Quaternion.identity;
-            visual.transform.localPosition = -source.sharedMesh.bounds.center * scale;
+            visual.transform.localRotation = Quaternion.Euler(settings.projectileModelEuler);
+            visual.transform.localPosition = -(visual.transform.localRotation * source.sharedMesh.bounds.center) * scale;
             visual.transform.localPosition += Vector3.forward * settings.projectileVisualDepth;
             MechaAdjustmentsSetup.ProjectileForeground(visual.GetComponent<Renderer>());
             Serialize(go); PrefabUtility.SaveAsPrefabAsset(go, path);

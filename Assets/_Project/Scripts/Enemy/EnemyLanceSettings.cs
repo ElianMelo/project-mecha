@@ -19,6 +19,7 @@ public sealed class EnemyLanceSettings : ScriptableObject
     [Min(1f)] public float landingSearchDepth = 35f;
     public LayerMask landingLayers = (1 << 6) | (1 << 7);
     [Header("Readability")]
+    public Vector3 projectileModelEuler = new Vector3(0f, 0f, -14.9061f);
     public float projectileVisualDepth = -1.2f;
     public Vector2 knockback = new Vector2(4f, 3f);
     public LayerMask collisionLayers = (1 << 8) | (1 << 6) | (1 << 7) | 1;

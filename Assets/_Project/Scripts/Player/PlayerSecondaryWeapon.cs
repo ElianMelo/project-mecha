@@ -6,7 +6,7 @@ using UnityEngine;
 public sealed class PlayerSecondaryWeapon : NetworkBehaviour
 {
     [SerializeField] private SecondaryWeaponSettings settings;
-    private readonly SyncVar<float> ammunition = new SyncVar<float>(25f);
+    private readonly SyncVar<float> ammunition = new SyncVar<float>();
     private readonly SyncVar<float> aimAngle = new SyncVar<float>();
     private float soloAmmo, nextLocalShot, nextServerShot, refillAt, nextAimSync, lastAim;
     private PlayerInputs inputs;

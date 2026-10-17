@@ -31,6 +31,10 @@ $rows = foreach ($path in ($paths | Sort-Object -Unique)) {
     } elseif ($basePath -match '^Assets/(TextMesh Pro|TutorialInfo)(/|$)' -or $basePath -eq 'Assets/Readme.asset') {
         $origin = 'Unity package or template'; $kind = 'Package resource, sample or template'
         $evidence = 'Unity/TMP template resources; retain upstream notices.'
+    } elseif ($basePath -match '^Assets/_Project/Animations/Interface/Aim(Scan|Capture|Tracked)\.anim$') {
+        $category = 'Placeholder'; $status = 'Placeholder'; $origin = 'Unverified'
+        $kind = 'Native authored reticle animation'
+        $evidence = 'Docs/GameAdjustments.md; authored through Unity animation APIs, not an imported clip or final-product approval.'
     } elseif ($basePath -match '^Assets/_Project/(Models/|Animations/.+\.anim$)' -or
         $basePath -eq 'Assets/_Project/VFX/Textures/SpeedWind.png') {
         $category = 'Placeholder'; $status = 'Placeholder'; $origin = 'Supplied / imported; upstream AI origin unverified'
@@ -60,6 +64,10 @@ $rows = foreach ($path in ($paths | Sort-Object -Unique)) {
         if ($basePath -like '*.prefab') { $category = 'Prefabs'; $status = 'Provisional'; $kind = 'Imported weapon prefab' }
         if ($basePath -like '*.unity') { $category = 'Scenes'; $status = 'Provisional'; $kind = 'Imported weapon demonstration scene' }
         if ($basePath -match '\.(txt|pdf)$') { $category = 'Others'; $status = 'Support'; $kind = 'Imported package documentation' }
+    } elseif ($basePath -match '^Assets/_Project/Settings(/|$)' -and
+        (Test-Path -LiteralPath (Join-Path $ProjectRoot $basePath) -PathType Container)) {
+        $category = 'Others'; $status = 'Support'; $kind = 'Authored settings category folder'
+        $evidence = 'Docs/SettingsCategories.md; folder organization is not unfinished artwork.'
     } elseif ($basePath -match '^Assets/(_Project|Scenes|Settings)(/|$)') {
         $category = 'Placeholder'; $status = 'Placeholder'; $kind = 'Unfinished visual content'
         $evidence = 'User decision 2026-10-16: current game content exists for testing; no final product.'

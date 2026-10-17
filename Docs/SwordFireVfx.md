@@ -8,7 +8,7 @@ The supplied `unity-vfx-graph` skill was installed in `.agents/skills/unity-vfx-
 
 ## Editing
 
-- `Assets/_Project/Settings/SwordFireVfx.asset`: flame/ember counts, HDR color gradients, overall scale, lifetime, and viewing-distance budget.
+- `Assets/_Project/Settings/Effects/SwordFireVfx.asset`: flame/ember counts, HDR color gradients, overall scale, lifetime, and viewing-distance budget.
 - `Assets/_Project/VFX/Graphs/SwordFire.vfx`: flame initialization, movement/turbulence, size and color over life, and additive output.
 - `Assets/_Project/VFX/Graphs/SwordFireEmbers.vfx`: sparks/embers with gravity and drag.
 - `Assets/_Project/VFX/Textures/SwordFireFlame.asset`: procedurally authored transparent flame shape.

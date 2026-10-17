@@ -14,11 +14,11 @@ The initial gameplay selections preserve the existing attacks: **Ground Original
 
 ## Authored assets
 
-- `Assets/_Project/Settings/AttackPieces/`: nine independent pieces migrated from the previous configured attacks, including each skill. A piece contains startup/impact, duration, cancel time, pulses, hitbox, knockback, damage, mana and cooldown. Its action kind chooses the existing animation/effects style. Different pieces can reuse a style with different tuning.
+- `Assets/_Project/Settings/Attacks/` (basic pieces) and `Assets/_Project/Settings/Skills/` (active skills): nine independent pieces migrated from the previous configured attacks, including each skill. A piece contains startup/impact, duration, cancel time, pulses, hitbox, knockback, damage, mana and cooldown. Its action kind chooses the existing animation/effects style. Different pieces can reuse a style with different tuning.
 - `Assets/_Project/Settings/Combos/`: reusable ordered sequences. The asset Inspector also exposes input window, looping, and ground/air context.
-- `Assets/_Project/Settings/PlayerCombos.asset`: the selected ground and air sequences, dash piece and rising branch used by gameplay.
-- `Assets/_Project/Settings/PlayerCombat.asset`: the registered attack-piece catalogue and global **damage multiplier = 2**. Every player attack pulse, including final pulses and skills, uses this multiplier once on the authoritative damage path.
-- `Assets/_Project/Settings/ComboConfigurator.asset`: available presets and the configurator's preview settings. To introduce a new attack asset, add it to PlayerCombat's piece catalogue; add new sequences to the configurator preset list.
+- `Assets/_Project/Settings/Combos/PlayerCombos.asset`: the selected ground and air sequences, dash piece and rising branch used by gameplay.
+- `Assets/_Project/Settings/Attacks/PlayerCombat.asset`: the registered attack-piece catalogue and global **damage multiplier = 2**. Every player attack pulse, including final pulses and skills, uses this multiplier once on the authoritative damage path.
+- `Assets/_Project/Settings/Combos/ComboConfigurator.asset`: available presets and the configurator's preview settings. To introduce a new attack asset, add it to PlayerCombat's piece catalogue; add new sequences to the configurator preset list.
 
 Combo cursors are per-player runtime state. FishNet sends the registered piece index; the server resolves its own authored timing, costs and damage, and observers use the same piece for presentation. All peers need the matching game build/catalogue. Configuration changes are authored before a multiplayer session; live loadout distribution is not a lobby feature.
 

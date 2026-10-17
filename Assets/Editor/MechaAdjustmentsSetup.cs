@@ -104,9 +104,10 @@ public static class MechaAdjustmentsSetup
             mesh.sharedMaterials = mesh.sharedMaterials.Select(WeaponMaterial).ToArray();
         var oldBolts = root.transform.Find("Yellow SMG Bolts");
         if (oldBolts != null) UnityEngine.Object.DestroyImmediate(oldBolts.gameObject);
-        var reticle = MechaPresentationSetup.Ensure<SpriteRenderer>(Child(root.transform, "SMG Aim Reticle"));
+        var reticle = root.GetComponentsInChildren<SpriteRenderer>(true).FirstOrDefault(r => r.name == "SMG Aim Reticle")
+            ?? MechaPresentationSetup.Ensure<SpriteRenderer>(Child(root.transform, "SMG Aim Reticle"));
         reticle.sprite = style.ringSprite; reticle.color = new Color(1f, 0.85f, 0.2f, 0.8f); reticle.sortingOrder = 22;
-        reticle.transform.localScale = Vector3.one * 0.28f; reticle.enabled = false;
+        ConfigureAimFeedback(root, settings, reticle);
         Assign(view, "gun", gun); Assign(view, "reticle", reticle);
         Assign(MechaPresentationSetup.Ensure<PlayerSecondaryWeapon>(root), "settings", settings);
     }
@@ -154,6 +155,105 @@ public static class MechaAdjustmentsSetup
         }
         finally { if (exists) PrefabUtility.UnloadPrefabContents(root); else UnityEngine.Object.DestroyImmediate(root); }
         settings.projectile = AssetDatabase.LoadAssetAtPath<GameObject>(path).GetComponent<NetworkObject>(); EditorUtility.SetDirty(settings);
+    }
+    [MenuItem("Tools/Mecha/Apply Aim Feedback")]
+    public static void AimFeedback()
+    {
+        if (EditorApplication.isPlaying) throw new InvalidOperationException("Stop Play Mode before authoring.");
+        var settings = MechaPresentationSetup.Profile<SecondaryWeaponSettings>("SecondarySMG");
+        settings.aimSmoothTime = 0.45f; settings.aimDegreesPerSecond = 100f;
+        settings.lockAngle = 12f; settings.captureDegreesPerSecond = 300f;
+        settings.reticleVisualDepth = -2f; EnsureAimController(settings);
+        EditorUtility.SetDirty(settings); AssetDatabase.SaveAssetIfDirty(settings);
+        const string path = Prefabs + "/MechaPlayer.prefab";
+        var root = PrefabUtility.LoadPrefabContents(path);
+        try
+        {
+            ConfigureAimFeedback(root, settings, root.GetComponentsInChildren<SpriteRenderer>(true).First(r => r.name == "SMG Aim Reticle"));
+            Serialize(root); PrefabUtility.SaveAsPrefabAsset(root, path);
+        }
+        finally { PrefabUtility.UnloadPrefabContents(root); }
+        foreach (var view in UnityEngine.Object.FindObjectsByType<SecondaryWeaponPresentation>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            // Connected scene instances inherit the authored hierarchy. Existing
+            // standalone previews need the same native components/references.
+            if (PrefabUtility.IsPartOfPrefabInstance(view.gameObject)) continue;
+            ConfigureAimFeedback(view.gameObject, settings,
+                view.GetComponentsInChildren<SpriteRenderer>(true).First(r => r.name == "SMG Aim Reticle"));
+            EditorSceneManager.MarkSceneDirty(view.gameObject.scene);
+        }
+        AssetDatabase.SaveAssets();
+    }
+    private static void ConfigureAimFeedback(GameObject root, SecondaryWeaponSettings settings, SpriteRenderer reticle)
+    {
+        EnsureAimController(settings);
+        var pivot = Child(root.transform, "Aim Reticle Pivot").transform;
+        reticle.transform.SetParent(pivot, false); reticle.transform.localPosition = Vector3.zero;
+        reticle.transform.localRotation = Quaternion.identity; reticle.transform.localScale = Vector3.one * 0.75f;
+        ProjectileForeground(reticle); reticle.sortingOrder = 30; reticle.enabled = false;
+        var animator = MechaPresentationSetup.Ensure<Animator>(reticle.gameObject);
+        animator.runtimeAnimatorController = settings.reticleController;
+        animator.applyRootMotion = false; animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+        var view = root.GetComponent<SecondaryWeaponPresentation>();
+        Assign(view, "reticlePivot", pivot); Assign(view, "reticleAnimator", animator);
+    }
+    private static void EnsureAimController(SecondaryWeaponSettings settings)
+    {
+        if (settings.reticleController != null) return;
+        const string folder = "Assets/_Project/Animations/Interface/";
+        const string path = folder + "MechaAim.controller";
+        var controller = AssetDatabase.LoadAssetAtPath<UnityEditor.Animations.AnimatorController>(path);
+        if (controller == null)
+        {
+            controller = UnityEditor.Animations.AnimatorController.CreateAnimatorControllerAtPath(path);
+            controller.AddParameter("Locked", AnimatorControllerParameterType.Bool);
+            var machine = controller.layers[0].stateMachine;
+            var scan = machine.AddState("Scan"); scan.writeDefaultValues = false;
+            scan.motion = AimClip("AimScan", true, AimCurve(0f, 0.75f, 0.9f, 0.82f, 1.8f, 0.75f),
+                AimCurve(0f, 0f, 1.8f, 0f), AimCurve(0f, 0f, 1.8f, 0f), AimCurve(0f, 0.5f, 0.9f, 0.7f, 1.8f, 0.5f));
+            var capture = machine.AddState("Capture"); capture.writeDefaultValues = false;
+            capture.motion = AimClip("AimCapture", false,
+                AimCurve(0f, 0.85f, 0.065f, 0.42f, 0.15f, 0.68f, 0.24f, 0.50f, 0.33f, 0.59f, 0.44f, 0.55f),
+                AimCurve(0f, 0.08f, 0.08f, -0.045f, 0.18f, 0.025f, 0.30f, -0.01f, 0.44f, 0f),
+                AimCurve(0f, 0.12f, 0.08f, -0.075f, 0.18f, 0.04f, 0.30f, -0.015f, 0.44f, 0f),
+                AimCurve(0f, 1f, 0.16f, 0.8f, 0.30f, 1f, 0.44f, 0.95f));
+            var tracked = machine.AddState("Track"); tracked.writeDefaultValues = false;
+            tracked.motion = AimClip("AimTracked", true, AimCurve(0f, 0.55f, 0.8f, 0.55f),
+                AimCurve(0f, 0f, 0.8f, 0f), AimCurve(0f, 0f, 0.8f, 0f), AimCurve(0f, 0.95f, 0.8f, 0.95f));
+            machine.defaultState = scan;
+            var acquire = scan.AddTransition(capture); acquire.duration = 0f; acquire.hasExitTime = false;
+            acquire.AddCondition(UnityEditor.Animations.AnimatorConditionMode.If, 0f, "Locked");
+            var settle = capture.AddTransition(tracked); settle.duration = 0f; settle.hasExitTime = true; settle.exitTime = 1f;
+            foreach (var state in new[] { capture, tracked })
+            {
+                var release = state.AddTransition(scan); release.duration = 0.08f; release.hasExitTime = false;
+                release.AddCondition(UnityEditor.Animations.AnimatorConditionMode.IfNot, 0f, "Locked");
+            }
+            AssetDatabase.SetLabels(controller, new[] { "Authored Data" });
+            EditorUtility.SetDirty(controller); AssetDatabase.SaveAssetIfDirty(controller);
+        }
+        settings.reticleController = controller; EditorUtility.SetDirty(settings);
+    }
+    private static AnimationCurve AimCurve(params float[] values)
+    {
+        var keys = new Keyframe[values.Length / 2];
+        for (int i = 0; i < keys.Length; i++) keys[i] = new Keyframe(values[i * 2], values[i * 2 + 1]);
+        return new AnimationCurve(keys);
+    }
+    private static AnimationClip AimClip(string name, bool loop, AnimationCurve scale, AnimationCurve x, AnimationCurve y, AnimationCurve alpha)
+    {
+        string path = "Assets/_Project/Animations/Interface/" + name + ".anim";
+        var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
+        if (clip != null) return clip;
+        clip = new AnimationClip { name = name, frameRate = 60f };
+        foreach (string axis in new[] { "x", "y", "z" })
+            AnimationUtility.SetEditorCurve(clip, EditorCurveBinding.FloatCurve("", typeof(Transform), "m_LocalScale." + axis), scale);
+        AnimationUtility.SetEditorCurve(clip, EditorCurveBinding.FloatCurve("", typeof(Transform), "m_LocalPosition.x"), x);
+        AnimationUtility.SetEditorCurve(clip, EditorCurveBinding.FloatCurve("", typeof(Transform), "m_LocalPosition.y"), y);
+        AnimationUtility.SetEditorCurve(clip, EditorCurveBinding.FloatCurve("", typeof(SpriteRenderer), "m_Color.a"), alpha);
+        var data = AnimationUtility.GetAnimationClipSettings(clip); data.loopTime = loop;
+        AnimationUtility.SetAnimationClipSettings(clip, data); AssetDatabase.CreateAsset(clip, path);
+        AssetDatabase.SetLabels(clip, new[] { "Placeholder" }); return clip;
     }
     public static void ProjectileForeground(Renderer renderer)
     {

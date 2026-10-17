@@ -12,18 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ae2f9df2f987044a00da611462ab8c, type: 3}
   m_Name: SecondarySMG
   m_EditorClassIdentifier: Assembly-CSharp::SecondaryWeaponSettings
-  capacity: 25
-  roundsPerSecond: 10
+  capacity: 24
+  roundsPerSecond: 12
   refillPerSecond: 5
-  refillDelay: 0.65
+  refillDelay: 1.5
   arrivalGrace: 0.025
-  damage: 5
+  damage: 8
   range: 100
-  aimSmoothTime: 0.7
-  aimDegreesPerSecond: 65
+  aimSmoothTime: 0.45
+  aimDegreesPerSecond: 100
   acquisitionDelay: 0.3
+  lockAngle: 12
+  captureDegreesPerSecond: 300
+  lockedAimSmoothTime: 0.08
+  lockedTargetSmoothTime: 0.1
+  lockedDegreesPerSecond: 540
+  reticleController: {fileID: 9100000, guid: 0762a104ab05c8d45a5feac3493cb3ee, type: 2}
+  reticleVisualDepth: -2
   aimSyncInterval: 0.1
   targetScanInterval: 0.12
+  targetSwitchDelay: 0.65
+  targetSwitchDistanceMargin: 0.15
   targetLayers:
     serializedVersion: 2
     m_Bits: 1536

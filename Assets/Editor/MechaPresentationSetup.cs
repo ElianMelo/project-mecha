@@ -8,7 +8,17 @@ using UnityEngine;
 public static class MechaPresentationSetup
 {
     public const string ConfigFolder = "Assets/_Project/Settings";
-    public static T Profile<T>(string name) where T : ScriptableObject => AssetDatabase.LoadAssetAtPath<T>(ConfigFolder+"/"+name+".asset");
+    public static T Profile<T>(string name) where T : ScriptableObject
+    {
+        var asset = AssetDatabase.LoadAssetAtPath<T>(MechaSettingsSetup.PathFor(typeof(T), name));
+        if (asset != null) return asset;
+        // Existing projects can be read before the category migration is applied.
+        var matches = AssetDatabase.FindAssets(name, new[] { ConfigFolder })
+            .Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<T>)
+            .Where(candidate => candidate != null && candidate.name == name).ToArray();
+        if (matches.Length > 1) throw new InvalidOperationException("Duplicate settings profile: " + name);
+        return matches.FirstOrDefault();
+    }
     public static void Folder(string path)
     {
         if(AssetDatabase.IsValidFolder(path)) return;
@@ -21,7 +31,9 @@ public static class MechaPresentationSetup
         var asset=Profile<T>(name);
         if(asset!=null) return asset;
         asset=ScriptableObject.CreateInstance<T>(); asset.name=name;
-        AssetDatabase.CreateAsset(asset,ConfigFolder+"/"+name+".asset"); return asset;
+        string path = MechaSettingsSetup.PathFor(typeof(T), name);
+        Folder(System.IO.Path.GetDirectoryName(path).Replace('\\', '/'));
+        AssetDatabase.CreateAsset(asset,path); return asset;
     }
     public static T Ensure<T>(GameObject go) where T : Component
     {

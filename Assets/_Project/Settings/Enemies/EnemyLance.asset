@@ -25,7 +25,7 @@ MonoBehaviour:
   leadTime: 0.25
   maximumLead: 1.8
   embeddedLifetime: 1.5
-  tipOffset: 1
+  tipOffset: 1.0430819
   embedDepth: 0.18
   damage: 16
   lifetime: 4
@@ -38,6 +38,7 @@ MonoBehaviour:
   landingLayers:
     serializedVersion: 2
     m_Bits: 192
+  projectileModelEuler: {x: 0, y: 0, z: -14.906113}
   projectileVisualDepth: -1.2
   knockback: {x: 4, y: 3}
   collisionLayers:

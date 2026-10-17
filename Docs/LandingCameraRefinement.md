@@ -20,7 +20,7 @@ Official media identifiers: Iris 257286231, Circus 256823067, Intro 256823066, r
 
 RoomCameraRig cancels its vertical adjustment on takeoff and holds the actual output camera height. On the first grounded update, it targets the supporting collider's top, applying the existing feet framing and room limits. Ground-probe and collider-settling offsets no longer shift that target. This support-height policy applies to the current flat platforms.
 
-RoomCameraSettings owns the authored values in `Assets/_Project/Settings/RoomCamera.asset`:
+RoomCameraSettings owns the authored values in `Assets/_Project/Settings/Camera/RoomCamera.asset`:
 
 | Setting | Value / purpose |
 | --- | --- |

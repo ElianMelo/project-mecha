@@ -6,7 +6,7 @@ using UnityEngine;
 public sealed class EnemyLanceProjectile : NetworkBehaviour
 {
     [SerializeField] private EnemyLanceSettings settings;
-    private Vector3 velocity, tipPosition, landingPoint;
+    private Vector3 velocity, flightPosition, landingPoint;
     private float expires, remainingFlight;
     private Rigidbody body;
     private Collider landingSurface;
@@ -28,17 +28,9 @@ public sealed class EnemyLanceProjectile : NetworkBehaviour
     {
         settings = profile; embedded = false; expires = Time.time + settings.lifetime;
         PlanLanding(aimPoint, support);
-        Vector3 origin = body.position;
-        Vector3 direction = (aimPoint - origin).normalized;
-        // Solve from the physical tip, retaining the hand's release position as the
-        // shaft rotates into its ballistic heading. Nothing follows the player later.
-        for (int i = 0; i < 4; i++)
-        {
-            tipPosition = origin + direction * settings.tipOffset;
-            velocity = PlanVelocity(tipPosition, aimPoint);
-            direction = velocity.normalized;
-        }
-        body.position = tipPosition - direction * settings.tipOffset;
+        flightPosition = body.position;
+        velocity = PlanVelocity(flightPosition, aimPoint);
+        Vector3 direction = velocity.normalized;
         body.rotation = Facing(direction);
         transform.SetPositionAndRotation(body.position, body.rotation);
     }
@@ -98,9 +90,11 @@ public sealed class EnemyLanceProjectile : NetworkBehaviour
         Vector3 gravity = Vector3.down * Mathf.Max(0.01f, settings.gravity);
         Vector3 displacement = velocity * step + gravity * (0.5f * step * step);
         Vector3 nextVelocity = velocity + gravity * step;
-        Vector3 direction = nextVelocity.normalized;
-        int count = Physics.SphereCastNonAlloc(tipPosition, settings.hitRadius, displacement.normalized, hits,
-            displacement.magnitude, settings.collisionLayers, QueryTriggerInteraction.Ignore);
+        Vector3 direction = displacement.sqrMagnitude > 0.000001f ? displacement.normalized : velocity.normalized;
+        Vector3 tipPosition = flightPosition + body.rotation * Vector3.right * settings.tipOffset;
+        Vector3 tipTravel = flightPosition + displacement + direction * settings.tipOffset - tipPosition;
+        int count = Physics.SphereCastNonAlloc(tipPosition, settings.hitRadius, tipTravel.normalized, hits,
+            tipTravel.magnitude, settings.collisionLayers, QueryTriggerInteraction.Ignore);
         System.Array.Sort(hits, 0, count, ByDistance);
         for (int i = 0; i < count; i++)
         {
@@ -119,12 +113,14 @@ public sealed class EnemyLanceProjectile : NetworkBehaviour
             }
             Embed(hit.point, hit.normal, direction); return;
         }
-        tipPosition += displacement; velocity = nextVelocity; remainingFlight -= step;
+        flightPosition += displacement; velocity = nextVelocity; remainingFlight -= step;
         // Resolve the final fraction at the captured surface point. This also
         // avoids native sweeps missing a surface when their origin overlaps it.
         if (planned && remainingFlight <= 0.0001f)
         { Embed(landingPoint, Vector3.up, direction); return; }
-        body.MovePosition(tipPosition - direction * settings.tipOffset);
+        // The shaft's center follows the ballistic path. Rotating about the tip
+        // would add sideways center motion, especially around the top of an arc.
+        body.MovePosition(flightPosition);
         body.MoveRotation(Facing(direction));
     }
     private static Quaternion Facing(Vector3 direction) => Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);

@@ -112,9 +112,7 @@ public static class MechaCadenceSetup
     }
     private static AttackPiece EnsurePiece(PlayerCombatSettings combat, PlayerAttack.ActionKind kind, string label)
     {
-        string path = "Assets/_Project/Settings/AttackPieces/" + kind + ".asset";
-        var piece = AssetDatabase.LoadAssetAtPath<AttackPiece>(path);
-        if (piece == null) { piece = ScriptableObject.CreateInstance<AttackPiece>(); AssetDatabase.CreateAsset(piece, path); }
+        var piece = MechaPresentationSetup.Create<AttackPiece>(kind.ToString());
         piece.displayName = label;
         if (!combat.pieces.Contains(piece)) combat.pieces = combat.pieces.Concat(new[] { piece }).ToArray();
         return piece;

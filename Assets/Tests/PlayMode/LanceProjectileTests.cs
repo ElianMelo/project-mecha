@@ -36,7 +36,7 @@ namespace Mecha.Tests
             while (!network.ServerManager.Started && Time.realtimeSinceStartup < deadline) yield return null;
             Assert.That(network.ServerManager.Started, Is.True, "Local regression server did not start.");
 
-            profile = Object.Instantiate(AssetDatabase.LoadAssetAtPath<ScriptableObject>("Assets/_Project/Settings/EnemyLance.asset"));
+            profile = Object.Instantiate(AssetDatabase.LoadAssetAtPath<ScriptableObject>("Assets/_Project/Settings/Enemies/EnemyLance.asset"));
             GameCode.Set(profile, "collisionLayers", (LayerMask)0);
             GameCode.Set(profile, "lifetime", 0.8f);
             GameCode.Set(profile, "gravity", 20f);

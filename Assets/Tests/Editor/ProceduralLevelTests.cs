@@ -13,7 +13,7 @@ namespace Mecha.Tests
         [SetUp]
         public void SetUp()
         {
-            settings = AssetDatabase.LoadAssetAtPath<ScriptableObject>("Assets/_Project/Settings/ProceduralLevels.asset");
+            settings = AssetDatabase.LoadAssetAtPath<ScriptableObject>("Assets/_Project/Settings/World/ProceduralLevels.asset");
             Assert.That(settings, Is.Not.Null, "The actual authored room profile must exist.");
         }
 

@@ -10,21 +10,17 @@ public static class MechaCombatUpgradeSetup
     {
         if (EditorApplication.isPlaying) throw new InvalidOperationException("Stop Play Mode first.");
         var combat = MechaPresentationSetup.Profile<PlayerCombatSettings>("PlayerCombat");
-        const string attackFolder = "Assets/_Project/Settings/AttackPieces";
-        const string comboFolder = "Assets/_Project/Settings/Combos";
-        MechaPresentationSetup.Folder(attackFolder); MechaPresentationSetup.Folder(comboFolder);
         if (combat.pieces == null || combat.pieces.Length == 0)
         {
             combat.pieces = combat.actions.Select(action =>
             {
-                string path = attackFolder + "/" + action.kind + ".asset";
-                var piece = AssetDatabase.LoadAssetAtPath<AttackPiece>(path);
+                var piece = MechaPresentationSetup.Profile<AttackPiece>(action.kind.ToString());
                 if (piece == null)
                 {
-                    piece = ScriptableObject.CreateInstance<AttackPiece>();
+                    piece = MechaPresentationSetup.Create<AttackPiece>(action.kind.ToString());
                     piece.displayName = ObjectNames.NicifyVariableName(action.kind.ToString());
                     piece.action = JsonUtility.FromJson<PlayerCombatSettings.ActionData>(JsonUtility.ToJson(action));
-                    AssetDatabase.CreateAsset(piece, path);
+                    EditorUtility.SetDirty(piece);
                 }
                 return piece;
             }).ToArray();
@@ -33,12 +29,11 @@ public static class MechaCombatUpgradeSetup
         AttackPiece Piece(PlayerAttack.ActionKind kind) => combat.pieces.First(p => p.action.kind == kind);
         ComboDefinition Combo(string name, ComboDomain domain, params PlayerAttack.ActionKind[] actions)
         {
-            string path = comboFolder + "/" + name + ".asset";
-            var combo = AssetDatabase.LoadAssetAtPath<ComboDefinition>(path);
+            var combo = MechaPresentationSetup.Profile<ComboDefinition>(name);
             if (combo != null) return combo;
-            combo = ScriptableObject.CreateInstance<ComboDefinition>(); combo.displayName = ObjectNames.NicifyVariableName(name);
+            combo = MechaPresentationSetup.Create<ComboDefinition>(name); combo.displayName = ObjectNames.NicifyVariableName(name);
             combo.domain = domain; combo.inputWindow = combat.comboWindow; combo.attacks = actions.Select(Piece).ToArray();
-            AssetDatabase.CreateAsset(combo, path); return combo;
+            EditorUtility.SetDirty(combo); return combo;
         }
         var ground = Combo("GroundOriginal", ComboDomain.Ground, PlayerAttack.ActionKind.Slash1, PlayerAttack.ActionKind.Slash2, PlayerAttack.ActionKind.Slash3);
         var heavy = Combo("GroundHeavy", ComboDomain.Ground, PlayerAttack.ActionKind.Slash2, PlayerAttack.ActionKind.Slash3);

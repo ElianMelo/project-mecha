@@ -16,7 +16,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3002
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -27,19 +27,30 @@ Material:
         m_Texture: {fileID: 2800000, guid: 841f4230ff4628a429c65711ebf01939, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _HeatMap:
+        m_Texture: {fileID: 2800000, guid: f0a2152cd9a2dd14d88225cda67676f3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NoiseMap:
-        m_Texture: {fileID: 2800000, guid: a30f59d7774307644998d37a774e7f38, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1579d001c135a0b4dab2cab73ea388af, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CoreStrength: 1.6
-    - _CoreThreshold: 0.32
-    - _Cutoff: 0.14
-    - _FadeErosion: 0.35
-    - _Feather: 0.055
-    - _NoiseStrength: 0.04
+    - _CelBlend: 0.65
+    - _CoreStrength: 0.85
+    - _CoreThreshold: 0.52
+    - _Cutoff: 0.24
+    - _DensityBoost: 2.4
+    - _DensityDetail: 0.22
+    - _EmissionGain: 2
+    - _FadeErosion: 0.26
+    - _Feather: 0.012
+    - _FlowStrength: 0
+    - _NoiseStrength: 0.12
+    - _OpacityPower: 0.7
+    - _ShadowLevel: 0.42
     m_Colors:
-    - _CoreColor: {r: 1.8, g: 1.1, b: 0.34999996, a: 1}
+    - _CoreColor: {r: 1.9, g: 1.45, b: 0.25, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

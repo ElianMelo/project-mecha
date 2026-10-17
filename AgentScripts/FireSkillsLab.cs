@@ -54,9 +54,9 @@ public static class FireSkillsLab
         int firstFrame=Time.frameCount;float started=Time.time;
         attack.HandleSkill(skill);
         string label="ASD"[skill]+(facing<0?"-left":"-right")+(obstruction?"-wall":"")+(moving?"-entry":"");
-        string directory="Logs/FireSkills";Directory.CreateDirectory(directory);
+        string directory="Logs/FireSkills/Feedback07";Directory.CreateDirectory(directory);
         var captures=new System.Collections.Generic.List<object>();
-        foreach(float at in new[]{0.22f,0.32f,0.46f,0.64f,0.92f,1.35f})
+        foreach(float at in new[]{0.12f,0.24f,0.42f,0.70f,1.05f,1.40f,1.80f,2.40f,3.60f})
         {
             float deadline=Time.realtimeSinceStartup+12f;
             while(Time.time-started<at && Time.realtimeSinceStartup<deadline)await Task.Delay(8);
@@ -64,8 +64,28 @@ public static class FireSkillsLab
             string path=directory+"/"+label+"-"+at.ToString("F2",System.Globalization.CultureInfo.InvariantCulture)+".png";
             Capture(path);
             var roots=UnityEngine.Object.FindObjectsByType<FireSkillBurst>(FindObjectsSortMode.None);
+            if(skill==0 && at==0.42f)
+            {
+                var lights=roots.SelectMany(r=>r.GetComponentsInChildren<Light>()).ToArray();
+                var enabled=lights.Select(l=>l.enabled).ToArray();
+                try {foreach(var light in lights)light.enabled=false;Capture(directory+"/A-light-disabled.png");}
+                finally {for(int i=0;i<lights.Length;i++)lights[i].enabled=enabled[i];}
+                var volume=UnityEngine.Object.FindObjectsByType<UnityEngine.Rendering.Volume>(FindObjectsSortMode.None).Single(v=>v.name=="Global Volume");
+                if(volume.profile.TryGet<UnityEngine.Rendering.Universal.Bloom>(out var bloom))
+                {
+                    bool active=bloom.active;
+                    try{bloom.active=false;Capture(directory+"/A-bloom-disabled.png");}
+                    finally{bloom.active=active;}
+                }
+            }
             captures.Add(new{elapsed=Time.time-started,frame=Time.frameCount,path,bursts=roots.Length,
                 particles=roots.Sum(r=>r.GetComponentsInChildren<ParticleSystem>().Sum(p=>p.particleCount)),
+                lights=roots.SelectMany(r=>r.GetComponentsInChildren<Light>()).Select(l=>new{l.enabled,l.intensity,l.range}).ToArray(),
+                preparing=UnityEngine.Object.FindObjectsByType<FireSourceWarmup>(FindObjectsSortMode.None).Length,
+                warmupPositions=UnityEngine.Object.FindObjectsByType<FireSourceWarmup>(FindObjectsSortMode.None).Select(p=>p.transform.position.ToString()).ToArray(),
+                fireParticles=roots.Sum(r=>r.GetComponentsInChildren<ParticleSystem>().Where(p=>p.name.Contains("Flame")).Sum(p=>p.particleCount)),
+                smokeParticles=roots.Sum(r=>r.GetComponentsInChildren<ParticleSystem>().Where(p=>p.name.Contains("Rear")).Sum(p=>p.particleCount)),
+                wakeBounds=roots.SelectMany(r=>r.GetComponentsInChildren<ParticleSystem>()).Where(p=>p.name.StartsWith("Rear Wake")&&p.particleCount>0).Select(p=>new{p.name,center=p.GetComponent<ParticleSystemRenderer>().bounds.center.ToString()}).ToArray(),
                 hand=player.GetComponent<CombatEmissionOrigin>().SkillHand.position.ToString(),
                 receivers=UnityEngine.Object.FindObjectsByType<ComboTrainingTarget>(FindObjectsSortMode.None).Select(t=>new{t.transform.parent.name,t.Hits,t.TotalDamage}).ToArray()});
         }

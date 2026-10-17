@@ -1,45 +1,38 @@
-# A / S / D thermal skills - first review pass
+# A / S / D fire — accepted initial baseline (revision 7)
 
-User brief: rework all three skills with layered fire that bursts and fades; S must start at the player's hand and travel forward. Keep Mega Slash, Sword Fire and Critical X identities. Visual acceptance is pending the user's feedback.
+The latest review corrects preparation to the actual VFX source, asks for a longer D fire fade, and supplies an anime mecha reference for a blend between the earlier graphic treatment and revision 6 texture depth. This pass keeps the existing topology, coverage, cost and damage. The user accepted this as the initial VFX skill baseline; content remains provisional rather than final production art.
 
-## Composition
+## Phase and layer breakdown
 
-| Layer | Onset / lifetime | Source / frame | Purpose |
-| --- | --- | --- | --- |
-| Hand ignition | 0 / 0.055 s | IgnitionMask; world | Compact initial energy, not a screen flash |
-| Hot core | continuous feed for 0.10-0.14 s / 0.19 s | FireCells 2x2; world, travel axis | Pale amber interior advances with the attack |
-| Flame envelope | same feed / 0.22 s | FireCells + ErosionNoise; world | Orange torn fuel/plasma edge, then threshold erosion |
-| Shear streaks | burst / 0.15 s | ThermalStreak; velocity aligned | Technical directional acceleration |
-| Cut residue (A/D) | 0.08 / 0.38 s | ThermalStreak; native anisotropic billboard | Retains the swept/crossed silhouette while fire decays |
-| Cooling soot | 0.055 / up to 0.65 s | SootMask; world | Small dark residual volume, native upward force |
-| Embers | 0.02 / 0.44 s | ThermalStreak; travel frame | Native gravity, world collision, damped bounce |
-| Residual breakup | 0.02 / 0.35 s | SootMask; world | Quieter warm transition into the tail |
-| Final-pulse light | 0 / 0.18 s | Native Light + Animator | Brief unshadowed illumination; one light on the final pulse |
+| Phase / layer | Onset / lifetime | Source and native behavior |
+| --- | --- | --- |
+| Source preparation | Action start to first fire/contact .28 A/D, .30 S | SourceHeatPreparation follows the shared live source; local ignition and distortion particles, no terrain query. S follows the right hand; A/D use the first emitter offsets. |
+| Main fire | .28 A/D, .30 S | FireCells verified 2x2 body/hot pockets; randomized starting cells, HDR heat/color gradient, native noise/rotation/speed curves |
+| Outer volume | Alongside each main stroke; D now lingers up to 1.18 s | VolumeFlame uses graded BillowMask plus flowing/heat detail; no C-shaped atlas or 3x3 flipbook in active dependencies |
+| Early soot wake | Native fire-particle Birth event / .70 | SootMask; world-space subemitter, probability .40, .16 inherited velocity, neutral charcoal tint |
+| Cooling smoke | Native body/outer Death events / .90 / .85 | BillowMask; probabilities .75/.55, slight transparency, restrained growth/drift/buoyancy, rear camera depth and queue 2980 |
+| Contact response | Confirmed damage contact | Independently oriented hit prefab, native fire-born soot/death smoke following its local splash path; incoming sparks remain separate |
 
-A has four narrow angled sweeps, S has three hand-fed forward jets, and D has two opposed diagonal cuts. A/D use eight native systems per burst; S uses seven. Confirmed contacts use a separate four-system prefab: flare, surface flame, incoming sparks and soot. No finished vendor VFX/Graph/prefab is a runtime dependency.
+Warmup is triggered by BeginAction through FireSkillPresentation, follows CombatEmissionOrigin in LateUpdate and ends at first ignition or interruption. FireSourceWarmup replaces FireTerrainWarmup, using native local-space particles at the same source as the main fire rather than a downward ground query. A offset .4, D offset .14 place the charge at their first emission points; S uses its animated hand. Scale is .85 A/D, .70 S. Script, preparation prefab and ignition material were renamed through AssetDatabase with GUIDs preserved. Main onset stays .28/.30 seconds.
 
-The custom ShaderLab/HLSL material fills the concrete native-material gap: a texture-driven hot interior and controllable noise/alpha erosion for a restrained cel-like thermal edge. Native Particle System still owns all emission, motion, flipbook playback, fading, collision and bounce. Shader streams are Position/Color/UV; no custom particle data or compute requirement. The source cells are a verified 2x2 sheet. Main/noise textures have their own project copies; vendor assets/importers are untouched.
+D body/core/outer lifetimes now last 1.05/.78/1.18 seconds (previously .56/.42/.64). Native speed curves preserve the original travel interval, then stop rather than allowing longer life to increase reach. Alpha holds longer and cools gradually. Both arms keep the .22-second sequence. A/S fire duration and all damage windows remain. D root cleanup is 2.8 seconds to accommodate its later death-smoke tail; other roots remain 2.2.
 
-All copied textures are sampled as linear mask data. Fire cells use Clamp; scrolling erosion noise uses Repeat so it continues varying at later gameplay times rather than clamping to one edge.
+Smoke is no longer a delayed static box at the root. Native parent particle birth/death events place it on the fire's actual path, including both sequential cross arms and all S waves. Each child stays in world space and initially inherits .16 of parent motion, with modest later rise. Rear shape offset .72 and queue 2980 keep it behind primary fire while native opaque depth testing preserves scenery occlusion. All systems are cleared/configured before playing only independent systems; event-owned smoke is not manually started. Parent delays are not duplicated on smoke children. Burst cleanup is 2.2 seconds for A/S, 2.8 for D; independent contact remains 1.65 seconds.
 
-## Geometry and integration
+## Material and source contract
 
-`AttackPiece.action` remains the single authored contact definition. `CombatEmissionOrigin` binds the actual right-hand rig transform for S and resolves body-relative origins for A/D. Native capsule queries grow with the visible front, sample the active window and sweep between caster origins, with one hit per receiving IDamageable per pulse. Collider overlap buffers grow when saturated. Obstruction queries prevent damage through solid geometry. Actual source-to-target direction and native collider surface normals feed the separate contact effect.
+The user-supplied Build Burning Gundam image guides broad amber/orange flame masses, yellow-gold inner tongues and pale-hot highlights. CellThermal blends .65 graphic shade/heat bands with the existing finer detail, reduces fire grain and increases gold/amber separation. Smoke retains a zero cel blend and softer density. The original image is documentation only; no image pixels, logo or model geometry enter gameplay.
 
-| Skill | Range / contact window | Cadence / authored duration | Existing damage retained |
-| --- | --- | --- | --- |
-| A / Mega Slash | 2.6 / 0.24 s per pulse | 4 pulses, 0.08 spacing / 0.78 s | 8+8+8+18 before multiplier |
-| S / Sword Fire | 3.5 / 0.28 s per pulse | 3 pulses, 0.11 spacing / 0.85 s | 14 per pulse before multiplier |
-| D / Critical X | 3.2 / 0.24 s per pulse | 2 pulses, 0.16 spacing / 0.88 s | 28 per pulse before multiplier |
+CellThermal remains a focused URP unlit alpha-blended HLSL shader: ZWrite Off, ZTest LEqual, Cull Off. DensityBoost/OpacityPower preserve a dense textured interior and transparent irregular perimeter rather than flattening the source into an opaque cutout. Independent heat/noise sampling adds shaded pockets, hot gradients and per-particle detail offsets. This is texture shading, not physical volumetric self-shadowing. Native light casting and scene bloom remain enabled from revision 5.
 
-Impact begins at 0.18 seconds. Front travel is 0.17 seconds (A/D), 0.21 (S). Mana costs/cooldowns and combat identity are retained. A/D afterimages are visual tails and cannot deal damage after their contact windows. Fuel stop affects rate-emitting layers; delayed one-shot bursts retain native timing. All roots clean up at 1.25 seconds, after their bounded tails.
+Native vertex streams are Position, Color, UV, StableRandomX: UV occupies TEXCOORD0.xy and stable random TEXCOORD0.z. The shader reads that layout explicitly. Atlas starts vary within the verified 2x2 FireCells sheet; single graded volume maps do not use sheet animation. Copied maps remain linear/uncompressed; noise repeats and masks clamp. Source package files/importers remain unchanged. CurlCells, TornCrescent and related old masks/materials are retained as unused historical assets, absent from current effect prefab dependencies. No finished vendor VFX is nested or instantiated. See Docs/VfxEffectOrigins.csv for lineage.
 
-S's old Hit/reaction clip moved its hand through large arcs. A new native Animator clip derived from the existing Idle clip raises/holds the right arm forward and returns to rest. It replaces only the SwordFire state and its animation-settings reference. No runtime bone solver or shared-profile mutation is used. Legacy Graph fields/assets remain for compatibility; the player routes these three actions to the new native particle presentation. Old blue generic charge sticks are skipped for these fire skills.
+## Validation and limits
 
-FishNet retains authoritative damage. One unbuffered server-confirmed observer event carries contact point, source-to-target incoming direction, normal and final-pulse state. Host-local execution uses the existing RunLocally convention; cosmetic particles do not apply damage. Validation uses isolated Play Mode manual receivers and real PlayerAttack; no automated tests, builds or Relay sessions.
+Native authoring and both shaders compile with no diagnostics/errors. Read-only native inspection confirms 8/8/14 Particle Systems for A/S/D, with 3/3/6 native smoke subemitters; contact has 7 systems/3 subemitters. All wake children are world-space, delay zero, queue 2980, inherited velocity .16. Active dependencies contain no retired curl/crescent or vendor package assets. The skill passes its static frontmatter validation.
 
-## Validation and review
+One manual preview per skill sampled .12/.24/.42/.70/1.05/1.40/1.80/2.40/3.60 seconds, advancing 489/555/519 frames. Source preparation is visible at .12/.24 before any fire/contact and gone at first strike. S preparation matches hand X/Y; A/D match authored emission origins. D retains 20 fire particles at 1.05 and 9 at 1.40, with visible luminous fade in the captured scene; fire has ended by 1.80 and smoke then fades. All roots are gone by 3.60. Near hits remain A/S/D 4/3/2 and 84/84/112 damage; far A 1/16, S3/84, D2/112, above/behind untouched. The preview uses an anchored kinematic body, so existing movement calls produce kinematic-velocity warnings; locomotion is not validated here.
 
-Manual capture helpers and evidence are in `AgentScripts/FireSkillsLab.cs` and ignored `Logs/FireSkills/`. The staged actor/receivers are disposable Play Mode objects using real project models and the gameplay camera's 3.485 orthographic size. Records contain advancing frame/time samples, particle counts, hand positions and received hit totals. Static source/authority and dependency review complements the visual captures; a second network client has not been exercised.
+No additional art tuning followed the preview. Shader/native authoring and static checks pass. Changed warmup attachment is observed in the manual frame sequence; opposite-facing, airborne and cover cases were source-reviewed only. No automated tests, extra builds/clients or network sessions were used. The temporary preview was removed by leaving Play Mode; MainScene remains clean. Play Mode is restored to its initial state after authoring.
 
-Initial observed issues were corrected: flat red fire, an unstable S hand pose, an upper D origin colliding with a low platform, and delayed cut bursts being stopped with continuous fuel. The skill/learning record captures these lessons. This is an initial review version, not a claim of final art approval.
+Generated capture images/review sheets were removed after initial-baseline acceptance at the user's request. Runtime JSON reports remain under ignored Logs/FireSkills; the full written history and reusable lessons remain in Docs/VfxIterationNotes.md. User art reference: Docs/References/FireSkills/Feedback07-user-art-direction.png. Historical image paths in the iteration log are intentionally retired.

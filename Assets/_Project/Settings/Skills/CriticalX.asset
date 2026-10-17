@@ -15,11 +15,11 @@ MonoBehaviour:
   displayName: Critical X
   action:
     kind: 7
-    duration: 0.88
-    impact: 0.18
-    cancel: 0.88
+    duration: 1.05
+    impact: 0.28
+    cancel: 1.05
     pulses: 2
-    pulseInterval: 0.16
+    pulseInterval: 0.22
     damage: 28
     finalDamage: 28
     launcher: 1
@@ -42,14 +42,14 @@ MonoBehaviour:
     pull: 0
     diveSpeed: 0
     pullSpeed: 6
-    hitActiveTime: 0.24
-    hitLength: 3.2
-    hitTravelTime: 0.17
-    hitRadius: 0.32
-    hitFirstAngle: -22.5
-    hitAngleStep: 45
-    hitPulseHeight: -1.22
-    hitOrigin: {x: 0.12, y: 1.38}
+    hitActiveTime: 0.42
+    hitLength: 4.7
+    hitTravelTime: 0.3
+    hitRadius: 0.62
+    hitFirstAngle: 22
+    hitAngleStep: -44
+    hitPulseHeight: 1.15
+    hitOrigin: {x: 0.2, y: 0.24}
     hitFromHand: 0
     hitObstructions:
       serializedVersion: 2

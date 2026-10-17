@@ -135,6 +135,7 @@ public static class ApplyAssetClassification
         {
             return JsonConvert.SerializeObject(new[] {
                 ApplyPathPrefix("Assets/_Project/VFX/FireSkills"),
+                ApplyPathPrefix("Assets/_Project/VFX/SceneSupport"),
                 ApplyPathPrefix("Assets/_Project/Scripts/Combat/CombatEmissionOrigin"),
                 ApplyPathPrefix("Assets/_Project/Scripts/Combat/SkillContactWindow") });
         }

@@ -16,7 +16,15 @@ MonoBehaviour:
   attack: {fileID: 11400000, guid: c5ad41fa179c33e47a7d0f7ab69d4944, type: 2}
   burst: {fileID: 8004232219926879446, guid: 736978db997305c42944075242d66c2b, type: 3}
   hit: {fileID: 4976996479445226923, guid: 62aece752b1e6354eacfeb9545d535fb, type: 3}
-  emissionTime: 0.1
-  cleanupTime: 1.25
+  warmup: {fileID: 5088794496416684736, guid: 2f4f183dbf19e004d8d5dff824285aed, type: 3}
+  warmupScale: 0.85
+  warmupOffset: {x: 0.4, y: 0}
+  emissionTime: 0.06
+  cleanupTime: 2.2
   visualDepth: -0.24
-  finalScale: 1.07
+  firstPulseOnly: 1
+  alignToFacing: 1
+  facingAngle: 65
+  motionVariation: 0.18
+  burstOffset: {x: 0.4, y: 0}
+  finalScale: 1.04

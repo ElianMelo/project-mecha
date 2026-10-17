@@ -20,13 +20,17 @@ An explosion example, relative to confirmed impact, is a starting point rather t
 | --- | --- | --- |
 | Ignition flash | 0 / 0.02-0.06 s | Brief compact source-mapped billboard or mesh particle; avoid covering the actor |
 | Core | 0 / 0.08-0.22 s | Strong hot shape, rapid expansion then erosion; distinct from smoke |
-| Directional ejecta | 0.01 / 0.12-0.45 s | Stretched sparks/armor spall aligned to incoming or surface frame |
+| Directional ejecta | 0.01 / 0.12-0.45 s | Irregular hot fragments/armor spall aligned to incoming or surface frame |
 | Pressure front | 0.01-0.04 / 0.08-0.25 s | Supplied ring/arc texture or mesh; quick scale/alpha curve, restrained distortion if justified |
 | Heavy debris | 0.02-0.08 / 0.4-1.2 s | Supplied mesh particles, gravity/drag, native collision and bounce only if visible |
 | Smoke | 0.05-0.16 / 0.6-1.8 s | Darker broken silhouettes, slower expansion/drag, lifetime flipbook/dissolve |
 | Residual heat | 0.1 / 0.25-0.8 s | Sparse cooled embers or short heat shimmer where useful |
 
 Overlap phases so the flash transfers energy to core/ejecta and then into debris/smoke. A root one-shot's duration must not truncate the latest child or detached trail. Inspect actual start delay, duration, last burst, particle lifetime, subemitter and trail tails. Native `IsAlive(true)` can establish particle completion, but also account for non-particle children. Do not put Destroy stop actions on a root that owns later phases. Controlled replay stops/clears child systems before restarting; pause/disable and pooling must not launch stray emissions.
+
+Visible layering requires distinct source masks, depths, alpha curves and motion roles, not just a larger system count. Use separate neutral smoke gradients; multiplying every layer by the same warm gradient destroys the gray tail. For turbulent fire, native Noise, velocity/speed curves, orbital motion and rotation can break a rigid cone without custom particle motors. Preserve gaps with sparse larger shapes and lower-opacity outer layers. Avoid stretched straight-line accents per the current visual contract.
+
+Choose emission topology deliberately: an instant explosion can use native finite bursts distributed across an authored shape volume; a wave attack can use staggered native bursts. Gameplay damage pulse count need not equal the number of visual explosion roots. A sequential cross needs progressive emission/travel and separately delayed opposing arms; revealing both full volumes at once can destroy the requested sequence even with mathematically crossed axes. Keep that presentation policy and offsets in the effect profile, with gameplay authority unchanged.
 
 For burst-and-fade skills, stop rate-emitting fuel layers without cancelling delayed one-shot bursts or cut afterimages. A shared root stop applied before a delayed burst can erase a phase, especially during a slow rendered frame. Keep native finite bursts and continuous-feed stop responsibilities separate.
 
@@ -62,11 +66,13 @@ Only add physical interaction when the requested effect benefits. For a beam hit
 
 ## Lighting and materials
 
-Emission/bloom does not illuminate the room. Use one short native Light animated with Animator where sufficient, or Particle System Lights with a strict ratio and maximum count. Default to brief unshadowed local light; justify shadows per effect. Check URP additional-light limits and the actual toon material's response; an emissive core alone is not proof of receiver lighting. Tune the light in the existing Linear/HDR scene. Do not change global lightsUseLinearIntensity, exposure, quality assets or volumes to reproduce a vendor demo.
+Emission/bloom does not illuminate the room. Use one short native Light animated with Animator where sufficient, or Particle System Lights with a strict ratio and maximum count. Default to brief unshadowed local light; justify shadows per effect. Check native light enable gates, animation curves, position/range and URP additional-light limits. When perceptual illumination is disputed, capture the same frame with only the owned VFX lights temporarily disabled/restored; inspect the actual receiver. A bright particle does not prove receiver lighting. Check the actual toon material's response; an emissive core alone is not proof of receiver lighting. Tune the light in the existing Linear/HDR scene. Do not change global lightsUseLinearIntensity or quality settings to reproduce a vendor demo. The user now explicitly authorizes context-appropriate scene post-processing: use native editable VolumeProfile overrides, HDR/bloom/glow and supporting effects when they enhance the requested VFX, preserving dark toon/mecha readability. Avoid indiscriminate exposure or whole-screen blur.
 
 Select an existing compatible native URP Particles Unlit/Simple Lit material before custom code. Additive works for thin hot accents; alpha/premultiplied treatments suit dense smoke. Validate blend factors against source channel content: RGB masks without alpha, packed single-channel masks and colored flipbooks are different inputs. A black background texture is not automatically an alpha texture.
 
 When a special material needs code, prefer a focused URP ShaderLab/HLSL file under the effect's Shaders folder. Typical justified gaps: controlled stepped erosion, packed-channel masks, technical Fresnel, scrolling distortion or custom per-particle cutoff. Inspect URP 17.3 package includes/native particle implementations before coding. Document texture channel, linear/sRGB choice, wrap/filter, blend/depth/cull, shader keywords and exact custom vertex-stream layout. Per-particle Custom Data and shader TEXCOORD packing must agree; don't copy a vendor UV0.Custom.xy hint literally without checking current renderer streams. Configure via Unity APIs.
+
+For rear smoke, confirm the camera direction and transformed local depth axis. In the current X/Y combat frame, a root constructed with LookRotation(direction, world Z) maps local Y to world Z; do not guess offset signs. Keep every smoke child, including contact smoke, behind the fire by more than its depth noise excursion. Transparent depth tests alone do not order overlapping ZWrite-Off layers: use an appropriate project-owned material queue/sorting treatment as well as true spatial depth, preserving opaque occlusion. Avoid foreground ash when the user asks for a rear residual phase. Sum delay + latest emission + lifetime across repeated pulses; a safe root cleanup time is not a reason to prolong smoke.
 
 Soft particles require depth data; distortion requires the pipeline's camera opaque texture and correct sampling. Existing BiRP GrabPass shaders are not a URP solution. Check current renderer/camera capabilities first; provide a compatible non-distortion/soft-particle-disabled fallback rather than making unrequested global changes. Retain depth testing and verify front/back occlusion against characters and scenery. Orthographic soft-particle handling differs from perspective; inspect the current camera rather than assuming either.
 
@@ -91,3 +97,40 @@ Consult version-appropriate installed docs or official Unity pages when uncertai
 - [Lights](https://docs.unity3d.com/6000.0/Documentation/Manual/PartSysLightsModule.html)
 - [Custom vertex streams](https://docs.unity3d.com/6000.0/Documentation/Manual/PartSysVertexStreams.html)
 - [URP Particles Unlit](https://docs.unity3d.com/6000.0/Documentation/Manual/urp/particles-unlit-shader.html)
+
+
+For variation, configure native TwoGradients, rotation ranges and noise scroll ranges before adding a custom particle motor. A small profile-bounded per-instance noise-frequency adjustment can vary rhythm without moving the authored path. Use visual-only randomness; do not reseed or consume gameplay's shared random stream. Random frequency/seed differences are technical setup evidence; perceived variation still belongs in the user's motion review.
+
+
+## Scene support, preparation and aftermath (feedback revision 5)
+
+Actual light casting and bloom/glow solve separate problems. If relevant ground/platform artwork uses an unlit material, native point lights cannot affect it. Inspect receivers and prefer a compatible native lit material with the correct sprite atlas binding/alpha behavior before custom code. Keep a stable baseline where needed, then verify a same-frame owned-light on/off comparison on both mecha and terrain. Do not convert distant backgrounds/UI simply to increase the glow area.
+
+Scene post-processing is now an allowed tool, not an effect to avoid categorically. Check camera HDR/post-processing, Volume layer masks/overrides, Renderer PostProcessData and active URP support. Prefer an effect-owned editable combat VolumeProfile under Assets/_Project/VFX, preserving existing nonconflicting overrides. Native Bloom plus restrained contrast/saturation and existing tone mapping are useful starts. Compare with bloom alone disabled on an owned runtime profile instance; do not mutate a shared asset in Play Mode. Bloom does not prove illumination. Avoid adding motion blur, depth of field or chromatic aberration without a concrete benefit to combat readability.
+
+For these fire skills include source warmup and a post-effect caused by the burn. Revision 7 corrects the earlier terrain interpretation: preparation must use the same source binding as the main VFX (S follows its actual animated hand), with profile offsets for the first emitter. Use local-space preparation particles while the source moves; release fire and lingering smoke into world space as appropriate. End source preparation at ignition or interruption. A source-local ignition/heat shimmer can use existing opaque/depth sampling, with ignition-only fallback. Terrain queries are appropriate only for an explicitly ground-originating effect; they must not move a hand/source charge to the floor. Avoid rings/sigils/straight bars.
+
+Restore readable smoke rather than reducing it to invisibility. Carry the fire footprint, contact region and delayed second strokes into the smoke timing/placement. Keep it behind the primary fire with controlled alpha, sufficient neutral contrast and a bounded tail; do not restore the old long foreground fog. Review actual fade in the active scene/post-processing, not only particle counts. Root lifetimes must include the restored smoke.
+
+Scale costly skills in both presentation and authoritative coverage when requested. Preserve damage/cost/phase count unless the user asks otherwise. For C/D keep rising then falling cross order while increasing reach/width; widening should not accidentally turn it into another tall eruption or simultaneous blob. Maintain source/target direction and obstruction behavior.
+
+
+### Native scene-support persistence
+
+In Editor authoring, VolumeProfile.Add<T>() creates a component that still needs AssetDatabase.AddObjectToAsset(component, profile) when saved as a new override subasset. Save/inspect components as well as the profile, then verify references survive Play Mode. A transient ColorAdjustments reference failed during the revision-5 preview and was repaired before delivery.
+
+Native URP Simple Lit validation derives _EMISSION from MaterialGlobalIlluminationFlags.AnyEmissive. Setting an emission color/keyword with EmissiveIsBlack or None can be undone by that validator. Configure the native emission flag consistently and inspect the saved keyword before relying on baseline emission. No GI bake is implied or required by the runtime material check, and emission still does not replace a casting Light. Preserve source atlas/alpha and opaque occlusion when adopting a native lit terrain material.
+
+
+## Motion-bound smoke and density (fire feedback revision 6)
+
+Use the fire's simulated path as the smoke anchor when its moving particles represent the burn. Native Birth subemitters provide early trailing soot; Death subemitters leave cooling smoke at actual burnout positions, including separately delayed arms. Configure each child in world space with its own neutral gradient, bounded opacity/lifetime, rear-depth shape offset and sorting queue. A modest native Inherit Velocity module in Initial mode can carry parent motion, followed by weaker drift/buoyancy. In this installed API InheritNothing is a SubEmitterProperties option; velocity is configured through the child's InheritVelocity module, not an invented InheritVelocity enum flag. Inspect current API capabilities when uncertain.
+
+Do not explicitly Play these event-owned smoke children along with the root systems: that emits an unrelated root puff. Stop/clear and initialize all systems first, then start only independent systems; native parent events own subemission. Do not repeat the parent's start delay on its event child. Budget root cleanup for the last parent death plus child lifetime, and include independently spawned contact smoke. Inspect actual path positions and rendered fade; a positive particle count is insufficient.
+
+Density masks must retain their grayscale structure. Keep a dense shaded interior, irregular partially transparent edge and lifetime fade, with independent heat/noise detail rather than thresholding every sample to opaque orange. Randomized atlas starting frames reduce synchronous repetition but cannot rescue an unsuitable dominant silhouette. Per-particle texture variation needs a verified native vertex-stream contract: current Position/Color/UV/StableRandomX packs UV in TEXCOORD0.xy and the stable random in TEXCOORD0.z. Match shader declarations exactly, record the layout and compile/inspect the rendered output; do not assume streams from another material are compatible.
+
+Warmup perception requires actual time before fire/damage, visible source placement and camera-scale contrast. Share the main source context and visible combat depth; follow live source motion until ignition rather than leaving a detached patch. This supersedes the earlier general terrain-warmup guidance. Confirm the preparation-only interval in rendered output, not just scheduled start delays. Keep exact timing/offsets in the effect's authored profiles and implementation notes.
+
+
+For a longer fire fade, extend luminous fire lifetimes and preserve mid-life opacity/color before cooling; extra smoke or a longer root Destroy timer is insufficient. When lifetime changes, re-time native speed/size/Noise/flipbook/alpha curves consciously. Preserve the original travel interval by moving deceleration keys earlier in normalized lifetime, then linger rather than traveling beyond the authored footprint. Include the latest delayed arm, emission burst and death-smoke tail in cleanup. Keep gameplay active windows, coverage and cost unchanged unless requested. A cel/textured blend should change interior color/value grouping while preserving graded alpha; do not reintroduce a binary cutout to make the material more graphic.

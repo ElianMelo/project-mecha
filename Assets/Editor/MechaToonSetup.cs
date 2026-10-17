@@ -47,6 +47,8 @@ public static class MechaToonSetup
         foreach(var volume in UnityEngine.Object.FindObjectsByType<Volume>(FindObjectsSortMode.None))
         {
             var profile=volume.sharedProfile;if(profile==null)continue;
+            // Effect-owned scene profiles retain their authored glow/contrast tuning.
+            if(AssetDatabase.GetAssetPath(profile).StartsWith("Assets/_Project/VFX/",System.StringComparison.Ordinal))continue;
             if(profile.TryGet<MotionBlur>(out var blur))blur.active=false;
             if(profile.TryGet<Bloom>(out var bloom)){bloom.intensity.Override(0.08f);bloom.threshold.Override(1.2f);}
             if(profile.TryGet<Tonemapping>(out var tone))tone.mode.Override(TonemappingMode.Neutral);

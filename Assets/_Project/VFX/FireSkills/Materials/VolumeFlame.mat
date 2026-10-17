@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: VolumeFlame
+  m_Shader: {fileID: 4800000, guid: 856f00ba20ecaa448a0cfddb56a9ff38, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 17564d546e17d0a4dbcf6e8ec168b114, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HeatMap:
+        m_Texture: {fileID: 2800000, guid: f0a2152cd9a2dd14d88225cda67676f3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseMap:
+        m_Texture: {fileID: 2800000, guid: 1579d001c135a0b4dab2cab73ea388af, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _CelBlend: 0.65
+    - _CoreStrength: 0.3
+    - _CoreThreshold: 0.52
+    - _Cutoff: 0.055
+    - _DensityBoost: 2.4
+    - _DensityDetail: 0.22
+    - _EmissionGain: 1.45
+    - _FadeErosion: 0.26
+    - _Feather: 0.012
+    - _FlowStrength: 0.045
+    - _NoiseStrength: 0.18
+    - _OpacityPower: 0.7
+    - _ShadowLevel: 0.42
+    m_Colors:
+    - _CoreColor: {r: 1.9, g: 1.45, b: 0.25, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

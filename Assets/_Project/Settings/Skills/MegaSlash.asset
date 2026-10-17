@@ -15,11 +15,11 @@ MonoBehaviour:
   displayName: Mega Slash
   action:
     kind: 5
-    duration: 0.78
-    impact: 0.18
-    cancel: 0.78
+    duration: 0.95
+    impact: 0.28
+    cancel: 0.95
     pulses: 4
-    pulseInterval: 0.08
+    pulseInterval: 0.045
     damage: 8
     finalDamage: 18
     launcher: 0
@@ -43,13 +43,13 @@ MonoBehaviour:
     diveSpeed: 0
     pullSpeed: 6
     hitActiveTime: 0.24
-    hitLength: 2.6
-    hitTravelTime: 0.17
-    hitRadius: 0.32
-    hitFirstAngle: -24
-    hitAngleStep: 16
+    hitLength: 3
+    hitTravelTime: 0
+    hitRadius: 0.78
+    hitFirstAngle: 35
+    hitAngleStep: 12
     hitPulseHeight: 0
-    hitOrigin: {x: 0.14, y: 0.82}
+    hitOrigin: {x: 0.65, y: 0.28}
     hitFromHand: 0
     hitObstructions:
       serializedVersion: 2

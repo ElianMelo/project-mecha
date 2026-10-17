@@ -37,7 +37,7 @@ public class PlayerCombatVfx : MonoBehaviour
             action.kind == PlayerAttack.ActionKind.MagneticPull ? GameAudioCue.MagneticPull : (GameAudioCue?)null;
         if (cue.HasValue) GameAudio.Play(cue.Value, transform.position, transform);
         if (settings == null) return;
-        if (fireSkills != null && fireSkills.Handles(action.kind)) return;
+        if (fireSkills != null && fireSkills.Handles(action.kind)) { fireSkills.Begin(action, facing); return; }
         if (PlayerAttack.IsSkill(action.kind))
             ParticleBurstEmitter.Emit(settings.skillCharge, transform.position + Vector3.up * 0.85f, Vector3.up);
     }

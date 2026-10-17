@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: 62334a566bbfe3945bc7bd0c02ca1c9e
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 4010
@@ -13,3 +11,8 @@ AssetOrigin:
   assetPath: Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Impacts/CFXR Hit
     Sparks HDR.prefab
   uploadId: 836224
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

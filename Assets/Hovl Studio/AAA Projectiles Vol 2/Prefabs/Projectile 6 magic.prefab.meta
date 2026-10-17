@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: 3e76f78725cd49444b38b8ac7063cc8e
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 144288
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: 2.3
   assetPath: Assets/Hovl Studio/AAA Projectiles Vol 2/Prefabs/Projectile 6 magic.prefab
   uploadId: 952640
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

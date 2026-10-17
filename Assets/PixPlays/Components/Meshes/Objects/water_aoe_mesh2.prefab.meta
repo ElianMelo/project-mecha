@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: 92a71b5d9811eb844bf3a7ff01e7ba74
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 297318
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: 1.0.1
   assetPath: Assets/PixPlays/Components/Meshes/Objects/water_aoe_mesh2.prefab
   uploadId: 840846
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

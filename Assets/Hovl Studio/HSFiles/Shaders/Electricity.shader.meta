@@ -1,12 +1,8 @@
 fileFormatVersion: 2
 guid: 86b3f0465bcb0c941893722f46ef6eeb
-ShaderImporter:
-  externalObjects: {}
-  defaultTextures: []
-  nonModifiableTextures: []
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- VFXSource
 AssetOrigin:
   serializedVersion: 1
   productId: 136847
@@ -14,3 +10,10 @@ AssetOrigin:
   packageVersion: 2.0.0
   assetPath: Assets/Hovl Studio/HSFiles/Shaders/Electricity.shader
   uploadId: 865380
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

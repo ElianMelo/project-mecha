@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: 9f51e8e68cc9b164abbf8473ed186904
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 4010
@@ -13,3 +11,8 @@ AssetOrigin:
   assetPath: Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Explosions/CFXR Firework
     2.prefab
   uploadId: 836224
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

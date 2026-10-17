@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: c25317e8c49ddd5449c7a3dc93377b3b
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 4010
@@ -13,3 +11,8 @@ AssetOrigin:
   assetPath: Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Explosions/Variants/CFXR
     Explosion 1 + Screen Distortion.prefab
   uploadId: 836224
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

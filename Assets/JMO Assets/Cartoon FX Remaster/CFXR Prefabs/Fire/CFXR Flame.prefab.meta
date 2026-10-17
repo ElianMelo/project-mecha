@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: af304c622ca86a045a1280a5154d2bb1
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 4010
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: R 1.5.0
   assetPath: Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Fire/CFXR Flame.prefab
   uploadId: 836224
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

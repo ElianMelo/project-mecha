@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: 12900b9cc657de24896713ff7cc67b77
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 4010
@@ -13,3 +11,8 @@ AssetOrigin:
   assetPath: Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Impacts/Variants/CFXR
     Hit A (Blue).prefab
   uploadId: 836224
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

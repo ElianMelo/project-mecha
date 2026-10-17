@@ -1,5 +1,15 @@
 fileFormatVersion: 2
 guid: f76f4e3a0234d194da27af11ef7f4bdf
+labels:
+- Others
+- Reference
+AssetOrigin:
+  serializedVersion: 1
+  productId: 136847
+  packageName: Magic Circles and Shields Vol.2
+  packageVersion: 2.0.0
+  assetPath: Assets/Hovl Studio/HSFiles/Scripts/Editor/ShaderChanger.cs
+  uploadId: 865380
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +19,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 136847
-  packageName: Magic Circles and Shields Vol.2
-  packageVersion: 2.0.0
-  assetPath: Assets/Hovl Studio/HSFiles/Scripts/Editor/ShaderChanger.cs
-  uploadId: 865380

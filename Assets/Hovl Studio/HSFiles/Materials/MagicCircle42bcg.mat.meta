@@ -1,11 +1,8 @@
 fileFormatVersion: 2
 guid: 2da70c3f760ac044887827abec97b829
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 2100000
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Placeholder
+- VFXSource
 AssetOrigin:
   serializedVersion: 1
   productId: 136847
@@ -13,3 +10,9 @@ AssetOrigin:
   packageVersion: 2.0.0
   assetPath: Assets/Hovl Studio/HSFiles/Materials/MagicCircle42bcg.mat
   uploadId: 865380
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb90a30c873fa04f9ab15503dbc61f0, type: 3}
+  m_Name: SwordFireFire
+  m_EditorClassIdentifier: Assembly-CSharp::FireSkillSettings
+  kind: 6
+  attack: {fileID: 11400000, guid: ea64648e687b5e74ea660e67b64c92e3, type: 2}
+  burst: {fileID: 4207918841309408458, guid: 5220414efacca3848a4a8685eb436bf6, type: 3}
+  hit: {fileID: 4976996479445226923, guid: 62aece752b1e6354eacfeb9545d535fb, type: 3}
+  emissionTime: 0.14
+  cleanupTime: 1.25
+  visualDepth: -0.24
+  finalScale: 1.07

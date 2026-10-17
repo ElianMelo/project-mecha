@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: 321a1ec198a25144dab4bddd87aab92e
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 4010
@@ -13,3 +11,8 @@ AssetOrigin:
   assetPath: Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Electric/Variants/CFXR
     Electric Surface 2 (Contrast).prefab
   uploadId: 836224
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb90a30c873fa04f9ab15503dbc61f0, type: 3}
+  m_Name: MegaSlashFire
+  m_EditorClassIdentifier: Assembly-CSharp::FireSkillSettings
+  kind: 5
+  attack: {fileID: 11400000, guid: c5ad41fa179c33e47a7d0f7ab69d4944, type: 2}
+  burst: {fileID: 8004232219926879446, guid: 736978db997305c42944075242d66c2b, type: 3}
+  hit: {fileID: 4976996479445226923, guid: 62aece752b1e6354eacfeb9545d535fb, type: 3}
+  emissionTime: 0.1
+  cleanupTime: 1.25
+  visualDepth: -0.24
+  finalScale: 1.07

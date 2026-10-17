@@ -6,10 +6,14 @@ public class PlayerCombatVfx : MonoBehaviour
     [SerializeField] private PlayerCombatSettings combat;
     private PlayerMovement movement;
     private CharacterHitFeedback feedback;
+    private FireSkillPresentation fireSkills;
     private float nextSmoke;
     private bool wasGrounded;
     private float previousVerticalSpeed;
-    private void Awake() { movement=GetComponent<PlayerMovement>(); feedback=GetComponent<CharacterHitFeedback>(); }
+    private void Awake() { movement=GetComponent<PlayerMovement>(); feedback=GetComponent<CharacterHitFeedback>(); fireSkills=GetComponent<FireSkillPresentation>(); }
+    public void EndAction() => fireSkills?.StopFeeding();
+    public void SkillContact(PlayerAttack.ActionKind kind, Vector3 point, Vector3 incoming, Vector3 normal, bool final)
+        => fireSkills?.Contact(kind, point, incoming, normal, final);
     private void Update()
     {
         if(movement==null || settings==null) return;
@@ -33,6 +37,7 @@ public class PlayerCombatVfx : MonoBehaviour
             action.kind == PlayerAttack.ActionKind.MagneticPull ? GameAudioCue.MagneticPull : (GameAudioCue?)null;
         if (cue.HasValue) GameAudio.Play(cue.Value, transform.position, transform);
         if (settings == null) return;
+        if (fireSkills != null && fireSkills.Handles(action.kind)) return;
         if (PlayerAttack.IsSkill(action.kind))
             ParticleBurstEmitter.Emit(settings.skillCharge, transform.position + Vector3.up * 0.85f, Vector3.up);
     }
@@ -57,6 +62,7 @@ public class PlayerCombatVfx : MonoBehaviour
             ParticleBurstEmitter.Emit(settings.magneticRecall, transform.position + offset, new Vector3(-facing, 0f, 0f));
             return;
         }
+        if (fireSkills != null && fireSkills.Strike(action, facing, pulse)) return;
         var fire = kind == PlayerAttack.ActionKind.SwordFire ? settings.swordFire
             : kind == PlayerAttack.ActionKind.MegaSlash ? settings.megaSlashFire
             : kind == PlayerAttack.ActionKind.CriticalX ? settings.criticalXFire : null;

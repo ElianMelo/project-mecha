@@ -1,11 +1,8 @@
 fileFormatVersion: 2
 guid: 62830335e9572054aaa7f710085cf18e
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 4890085278179872738
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 136847
@@ -14,3 +11,9 @@ AssetOrigin:
   assetPath: Assets/Hovl Studio/Magic circles Vol 2/Demo scene/Demo magic circles
     2Settings.lighting
   uploadId: 865380
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4890085278179872738
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

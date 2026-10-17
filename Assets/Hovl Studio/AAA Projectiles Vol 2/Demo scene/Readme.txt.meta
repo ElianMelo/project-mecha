@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: e1fe3eb9e3f52e14daa22a61a1c05bb2
-TextScriptImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 144288
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: 2.3
   assetPath: Assets/Hovl Studio/AAA Projectiles Vol 2/Demo scene/Readme.txt
   uploadId: 952640
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

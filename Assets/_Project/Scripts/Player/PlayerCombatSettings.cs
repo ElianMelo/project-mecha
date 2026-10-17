@@ -22,6 +22,15 @@ public class PlayerCombatSettings : ScriptableObject
         public float airLift = 4.5f;
         public bool airOnly, requiresGround, sideSwitch, pull;
         public float diveSpeed, pullSpeed = 6f;
+        [Header("Skill contact envelope (native capsule, once per target per pulse)")]
+        [Min(0f)] public float hitActiveTime;
+        [Min(0f)] public float hitLength;
+        [Min(0f)] public float hitTravelTime;
+        [Min(0.01f)] public float hitRadius = 0.3f;
+        public float hitFirstAngle, hitAngleStep, hitPulseHeight;
+        public Vector2 hitOrigin = new Vector2(0.15f, 0.85f);
+        public bool hitFromHand;
+        public LayerMask hitObstructions = (1 << 6) | (1 << 7);
     }
     [HideInInspector] public ActionData[] actions; // Legacy data retained for migration.
     public AttackPiece[] pieces;

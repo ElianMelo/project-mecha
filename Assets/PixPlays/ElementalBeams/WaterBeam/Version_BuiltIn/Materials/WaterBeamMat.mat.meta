@@ -1,11 +1,8 @@
 fileFormatVersion: 2
 guid: 57c4e69770b78384995cbca498a4e022
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 2100000
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Placeholder
+- VFXSource
 AssetOrigin:
   serializedVersion: 1
   productId: 297318
@@ -13,3 +10,9 @@ AssetOrigin:
   packageVersion: 1.0.1
   assetPath: Assets/PixPlays/ElementalBeams/WaterBeam/Version_BuiltIn/Materials/WaterBeamMat.mat
   uploadId: 840846
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

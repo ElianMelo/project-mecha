@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: ce5e6c05cc9837b4e8e08e6507db9d07
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 297318
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: 1.0.1
   assetPath: Assets/PixPlays/ElementalProjectiles/Fireball/Version_BuiltIn/FireballProjectile/Fireball.prefab
   uploadId: 840846
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

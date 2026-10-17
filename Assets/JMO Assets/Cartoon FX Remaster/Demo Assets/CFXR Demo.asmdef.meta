@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: b16f2517c64fb4c43848850704aba72e
-AssemblyDefinitionImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 4010
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: R 1.5.0
   assetPath: Assets/JMO Assets/Cartoon FX Remaster/Demo Assets/CFXR Demo.asmdef
   uploadId: 836224
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: cf0a9051dc258ef41a4351c462303b86
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 251038
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: 1.5
   assetPath: Assets/GabrielAguiarProductions/Documentation_WeaponFX_v1.pdf
   uploadId: 891846
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -299,6 +299,8 @@ GameObject:
   - component: {fileID: 8976639177702148948}
   - component: {fileID: 5170532791733305702}
   - component: {fileID: 2588281735961851604}
+  - component: {fileID: 6872036491061523600}
+  - component: {fileID: 3445381808701337134}
   m_Layer: 8
   m_Name: MechaPlayer
   m_TagString: Untagged
@@ -767,6 +769,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02de9612a5942644cb59992861bdd319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActorFootstepAudio
+--- !u!114 &6872036491061523600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554257071974495511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c37f98fafdd2a78428c02316b2627918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatEmissionOrigin
+  skillHand: {fileID: 8181702419507887602}
+--- !u!114 &3445381808701337134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554257071974495511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ff35bd13a5d464f846d462cedea753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FireSkillPresentation
+  skills:
+  - {fileID: 11400000, guid: 9b0dc3aa796284542a5c98beca75078a, type: 2}
+  - {fileID: 11400000, guid: e2335dcd6e96fc64da6501b696c70f17, type: 2}
+  - {fileID: 11400000, guid: 72b4c0e014670f343904cced3750adc3, type: 2}
 --- !u!1 &1885827494726923718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,6 +1305,11 @@ Animator:
 --- !u!4 &4278541386832318803 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c0d39581d2ea6434884644a7f6c0ff3d, type: 3}
+  m_PrefabInstance: {fileID: 4389558030087222968}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8181702419507887602 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5575993746550901578, guid: c0d39581d2ea6434884644a7f6c0ff3d, type: 3}
   m_PrefabInstance: {fileID: 4389558030087222968}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6097387348736801798

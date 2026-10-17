@@ -1,5 +1,15 @@
 fileFormatVersion: 2
 guid: a586cf93dc19b28488308d7488b8de20
+labels:
+- Others
+- Reference
+AssetOrigin:
+  serializedVersion: 1
+  productId: 136847
+  packageName: Magic Circles and Shields Vol.2
+  packageVersion: 2.0.0
+  assetPath: Assets/Hovl Studio/HSFiles/Scripts/For demo scenes/HS_CameraHolder.cs
+  uploadId: 865380
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +19,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 136847
-  packageName: Magic Circles and Shields Vol.2
-  packageVersion: 2.0.0
-  assetPath: Assets/Hovl Studio/HSFiles/Scripts/For demo scenes/HS_CameraHolder.cs
-  uploadId: 865380

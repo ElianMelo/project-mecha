@@ -1,11 +1,8 @@
 fileFormatVersion: 2
 guid: 66f2160c871299d41b94b1d00d81bbc9
-timeCreated: 1536001560
-licenseType: Store
-DefaultImporter:
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 136847
@@ -14,3 +11,8 @@ AssetOrigin:
   assetPath: Assets/Hovl Studio/Magic circles Vol 2/Demo scene/Demo magic circles
     2.unity
   uploadId: 865380
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

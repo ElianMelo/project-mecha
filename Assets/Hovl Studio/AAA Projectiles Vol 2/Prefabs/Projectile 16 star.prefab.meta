@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: 9892f921ef3d6654eb088712af505309
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 144288
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: 2.3
   assetPath: Assets/Hovl Studio/AAA Projectiles Vol 2/Prefabs/Projectile 16 star.prefab
   uploadId: 952640
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

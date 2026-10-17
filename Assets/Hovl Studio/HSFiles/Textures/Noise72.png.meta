@@ -1,5 +1,15 @@
 fileFormatVersion: 2
 guid: 74ed93858b3298e4f93e6146b3ef490c
+labels:
+- Placeholder
+- VFXSource
+AssetOrigin:
+  serializedVersion: 1
+  productId: 144288
+  packageName: AAA Projectiles Vol.2
+  packageVersion: 2.3
+  assetPath: Assets/Hovl Studio/HSFiles/Textures/Noise72.png
+  uploadId: 952640
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -154,10 +164,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 144288
-  packageName: AAA Projectiles Vol.2
-  packageVersion: 2.3
-  assetPath: Assets/Hovl Studio/HSFiles/Textures/Noise72.png
-  uploadId: 952640

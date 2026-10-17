@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: a36a0fa7e5258d447b600090ac68de4a
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 144288
@@ -13,3 +11,8 @@ AssetOrigin:
   assetPath: Assets/Hovl Studio/AAA Projectiles Vol 2/Prefabs/Projectile 22 star
     sky.prefab
   uploadId: 952640
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

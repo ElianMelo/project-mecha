@@ -1,7 +1,8 @@
 fileFormatVersion: 2
 guid: c750886f96ff8054a9fed840e76823ed
-DefaultImporter:
-  userData: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 4010
@@ -9,3 +10,8 @@ AssetOrigin:
   packageVersion: R 1.5.0
   assetPath: Assets/JMO Assets/Cartoon FX Remaster/CFXR Demo.unity
   uploadId: 836224
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

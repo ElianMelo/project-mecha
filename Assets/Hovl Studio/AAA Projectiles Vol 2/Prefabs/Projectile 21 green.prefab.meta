@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: 529776e224c260f4dbbf4df29437b708
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 144288
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: 2.3
   assetPath: Assets/Hovl Studio/AAA Projectiles Vol 2/Prefabs/Projectile 21 green.prefab
   uploadId: 952640
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

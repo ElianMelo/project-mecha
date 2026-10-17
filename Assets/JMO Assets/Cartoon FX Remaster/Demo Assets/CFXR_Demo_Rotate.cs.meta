@@ -1,5 +1,15 @@
 fileFormatVersion: 2
 guid: 1529372f6ddbfb0429260b50bc9d1aa8
+labels:
+- Others
+- Reference
+AssetOrigin:
+  serializedVersion: 1
+  productId: 4010
+  packageName: Cartoon FX Remaster
+  packageVersion: R 1.5.0
+  assetPath: Assets/JMO Assets/Cartoon FX Remaster/Demo Assets/CFXR_Demo_Rotate.cs
+  uploadId: 836224
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +19,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 4010
-  packageName: Cartoon FX Remaster
-  packageVersion: R 1.5.0
-  assetPath: Assets/JMO Assets/Cartoon FX Remaster/Demo Assets/CFXR_Demo_Rotate.cs
-  uploadId: 836224

@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: c6f7ece41e2334943a57319d098ed0df
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 4010
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: R 1.5.0
   assetPath: Assets/JMO Assets/Cartoon FX 1 (old legacy effects).unitypackage
   uploadId: 836224
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

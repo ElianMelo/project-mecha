@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: 0223382ba445736468b62dad80aca45d
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 297318
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: 1.0.1
   assetPath: Assets/PixPlays/ElementalBeams/DemoBeamsScene_BuiltIn.unity
   uploadId: 840846
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

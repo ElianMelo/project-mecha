@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: 8ba61049d6d48464d81e1c7030773377
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 297318
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: 1.0.1
   assetPath: Assets/PixPlays/ElementalProjectiles/Windbullet/Version_BuiltIn/WindbulletProjectile/WindBulletProjectile.prefab
   uploadId: 840846
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,11 +1,8 @@
 fileFormatVersion: 2
 guid: 6d48df3604929774e9bf283bd8925383
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 100100000
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 144288
@@ -14,3 +11,8 @@ AssetOrigin:
   assetPath: Assets/Hovl Studio/AAA Projectiles Vol 2/Projectiles with logic/Projectile
     16 star.prefab
   uploadId: 952640
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

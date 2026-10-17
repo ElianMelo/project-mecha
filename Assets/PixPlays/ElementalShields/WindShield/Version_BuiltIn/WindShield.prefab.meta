@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: d3c3ff9bcb24dc94ebe9e2d8f36749e9
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 297318
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: 1.0.1
   assetPath: Assets/PixPlays/ElementalShields/WindShield/Version_BuiltIn/WindShield.prefab
   uploadId: 840846
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

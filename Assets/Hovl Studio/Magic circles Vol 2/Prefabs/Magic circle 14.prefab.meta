@@ -1,11 +1,8 @@
 fileFormatVersion: 2
 guid: 57692b1d836ae3b4098a2a93642ff355
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 100100000
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 136847
@@ -13,3 +10,8 @@ AssetOrigin:
   packageVersion: 2.0.0
   assetPath: Assets/Hovl Studio/Magic circles Vol 2/Prefabs/Magic circle 14.prefab
   uploadId: 865380
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

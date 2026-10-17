@@ -1,12 +1,8 @@
 fileFormatVersion: 2
 guid: b3dab2eb6bcf5df42a6c45d4638e0f46
-ShaderImporter:
-  externalObjects: {}
-  defaultTextures: []
-  nonModifiableTextures: []
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- VFXSource
 AssetOrigin:
   serializedVersion: 1
   productId: 4010
@@ -14,3 +10,8 @@ AssetOrigin:
   packageVersion: R 1.5.0
   assetPath: Assets/JMO Assets/Cartoon FX Remaster/CFXR Assets/Shaders/CFXR.cginc
   uploadId: 836224
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

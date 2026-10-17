@@ -14,13 +14,47 @@ $aiArt = @('CyberpunkCity.png', 'IndustrialPlatforms.png', 'CyberpunkFarSky.png'
     'CyberpunkMiddleSkyline.asset', 'CyberpunkNearRooftops.asset')
 $manifestPath = 'Docs/ProjectFileClassification.csv'
 if ($paths -notcontains $manifestPath) { $paths += $manifestPath }
+$vfxRoles = @{}
+$vfxOrigins = @{}
+$vfxOriginsPath = Join-Path $ProjectRoot 'Docs/VfxEffectOrigins.csv'
+if (Test-Path -LiteralPath $vfxOriginsPath) {
+    foreach ($entry in (Import-Csv -LiteralPath $vfxOriginsPath)) {
+        if ($entry.Role -eq 'VFXSource') { $vfxOrigins[$entry.OutputPath] = $entry.SourcePath }
+    }
+}
+$vfxCatalog = Join-Path $ProjectRoot 'Docs/VfxSourceCatalog.csv'
+if (Test-Path -LiteralPath $vfxCatalog) {
+    foreach ($entry in (Import-Csv -LiteralPath $vfxCatalog)) {
+        if ($entry.Container) { continue } # Archive members are not Unity assets yet.
+        $vfxOwnerPath = $entry.Path -replace '\.meta$', ''
+        $vfxRoles[$vfxOwnerPath] = $entry.Role
+        # Supplied unitypackages are ignored by Git but are explicit local library dependencies.
+        if ($entry.Kind -eq 'unitypackage' -and (Test-Path -LiteralPath (Join-Path $ProjectRoot $entry.Path))) {
+            $paths += $entry.Path
+        }
+    }
+}
 
 $rows = foreach ($path in ($paths | Sort-Object -Unique)) {
     if ($path -ne $manifestPath -and !(Test-Path -LiteralPath (Join-Path $ProjectRoot $path) -PathType Leaf)) { continue }
     $basePath = $path -replace '\.meta$', ''
     $category = 'Others'; $origin = 'Unverified'; $status = 'Support'
     $kind = 'Project support'; $evidence = 'No reliable authorship record; do not infer AI origin.'
-    if ($basePath -like 'Assets/_Project/Art/Environment/*' -and
+    if ($basePath -match '^Assets/(GabrielAguiarProductions|JMO Assets|PixPlays|Hovl Studio)(/|$)') {
+        $origin = 'Supplied / imported; upstream AI origin unverified'
+        $kind = 'VFX reference library support or finished demonstration'
+        $evidence = 'Docs/VfxRefinery.md; Docs/VfxSourceCatalog.csv. Finished effects are study-only; no final-product approval.'
+        if ($vfxRoles[$basePath] -eq 'VFXSource' -and $basePath -match '\.(png|jpe?g|tga|tiff?|psd|exr|hdr|mat|fbx|obj|mesh)$') {
+            $category = 'Placeholder'; $status = 'Placeholder'; $kind = 'Reusable supplied VFX source artwork'
+        }
+    } elseif ($basePath -match '^Assets/_Project/VFX/.+\.cs$') {
+        $category = 'Code'; $status = 'Provisional'; $kind = 'Effect-specific presentation implementation'
+    } elseif ($basePath -match '^Assets/_Project/VFX/.+\.(md|csv|json)$') {
+        $kind = 'VFX authoring record or source lineage'
+    } elseif ($basePath -match '^Assets/_Project/VFX(/|$)' -and
+        (Test-Path -LiteralPath (Join-Path $ProjectRoot $basePath) -PathType Container)) {
+        $kind = 'VFX organization folder'
+    } elseif ($basePath -like 'Assets/_Project/Art/Environment/*' -and
         $aiArt -contains ($basePath.Split('/')[-1])) {
         $category = 'AI Generated'; $origin = 'AI Generated'; $status = 'Placeholder'
         $kind = 'Environment image or derived native Sprite'
@@ -100,6 +134,11 @@ $rows = foreach ($path in ($paths | Sort-Object -Unique)) {
         $kind = 'Workspace / tool configuration'
     }
     $labels = if ($category -eq 'AI Generated') { 'AI Generated;Placeholder' } else { $category }
+    if ($vfxOrigins.ContainsKey($basePath)) {
+        $origin = 'Copied / adapted supplied VFX source; upstream AI origin unverified'
+        $evidence = 'Docs/VfxEffectOrigins.csv; source: ' + $vfxOrigins[$basePath]
+    }
+    if ($vfxRoles.ContainsKey($basePath)) { $labels += ';' + $vfxRoles[$basePath] }
     [pscustomobject]@{
         Path = $path; Category = $category; Status = $status; Origin = $origin
         Kind = if ($path.EndsWith('.meta')) { "Unity metadata for: $kind" } else { $kind }
@@ -108,4 +147,4 @@ $rows = foreach ($path in ($paths | Sort-Object -Unique)) {
 }
 $rows | Export-Csv -LiteralPath (Join-Path $ProjectRoot $manifestPath) -NoTypeInformation -Encoding utf8
 $rows | Group-Object Category, Status | Select-Object Count, Name | Format-Table -AutoSize
-Write-Output "Classified $($rows.Count) maintained files. Regenerate after file additions or deletions."
+Write-Output "Classified $($rows.Count) inventory files (including explicitly indexed local VFX archives). Regenerate after file additions or deletions."

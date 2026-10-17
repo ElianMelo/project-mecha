@@ -1,7 +1,17 @@
 fileFormatVersion: 2
 guid: da6b59c708f896348b885c31f2d1b07f
+labels:
+- Placeholder
+- VFXSource
+AssetOrigin:
+  serializedVersion: 1
+  productId: 144288
+  packageName: AAA Projectiles Vol.2
+  packageVersion: 2.3
+  assetPath: Assets/Hovl Studio/HSFiles/Models/Twist.fbx
+  uploadId: 952640
 ModelImporter:
-  serializedVersion: 22200
+  serializedVersion: 24200
   internalIDToNameTable:
   - first:
       1: 100000
@@ -74,6 +84,9 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -123,10 +136,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 144288
-  packageName: AAA Projectiles Vol.2
-  packageVersion: 2.3
-  assetPath: Assets/Hovl Studio/HSFiles/Models/Twist.fbx
-  uploadId: 952640

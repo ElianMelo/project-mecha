@@ -1,5 +1,15 @@
 fileFormatVersion: 2
 guid: 36121c42b945b624fb938cb9637f28d0
+labels:
+- Others
+- VFXSource
+AssetOrigin:
+  serializedVersion: 1
+  productId: 136847
+  packageName: Magic Circles and Shields Vol.2
+  packageVersion: 2.0.0
+  assetPath: Assets/Hovl Studio/HSFiles/Shaders/Distortion.shader
+  uploadId: 865380
 ShaderImporter:
   externalObjects: {}
   defaultTextures:
@@ -9,10 +19,3 @@ ShaderImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 136847
-  packageName: Magic Circles and Shields Vol.2
-  packageVersion: 2.0.0
-  assetPath: Assets/Hovl Studio/HSFiles/Shaders/Distortion.shader
-  uploadId: 865380

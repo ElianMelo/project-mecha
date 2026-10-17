@@ -1,0 +1,257 @@
+{
+  "importCommits": [
+    "2072054",
+    "a258685"
+  ],
+  "importCommitFullHashes": [
+    "20720549e0d4d6179b3e6c1d61facac469b7cea8",
+    "a25868529b2539e83bb6f0b0e529e25e5757ce1e"
+  ],
+  "introducedFiles": 2446,
+  "introducedFilesOutsideVfxLibraries": [
+    "Packages/manifest.json",
+    "Packages/packages-lock.json"
+  ],
+  "diskFiles": 2453,
+  "localIgnoredFiles": [
+    "Assets/GabrielAguiarProductions/VFXGraph_UltraMegaPackVol1_6.3_HDRP_v1.5.unitypackage",
+    "Assets/GabrielAguiarProductions/VFXGraph_UltraMegaPackVol1_6.3_URP_v1.5.unitypackage",
+    "Assets/JMO Assets/Cartoon FX 1 (old legacy effects).unitypackage",
+    "Assets/PixPlays/ElementalAOE/ElementalAoe_URP.unitypackage",
+    "Assets/PixPlays/ElementalAuras/ElementalAuras_URP.unitypackage",
+    "Assets/PixPlays/ElementalBeams/ElementalBeams_URP.unitypackage",
+    "Assets/PixPlays/ElementalBlastVFX/ElementalBlasts_URP.unitypackage",
+    "Assets/PixPlays/ElementalProjectiles/ElementalProjectiles_URP.unitypackage",
+    "Assets/PixPlays/ElementalShields/ElementalShields_URP.unitypackage"
+  ],
+  "catalogRows": 7149,
+  "archiveAssets": 4696,
+  "rolesOnDisk": {
+    "Reference": 563,
+    "VFXSource": 578
+  },
+  "kindsOnDisk": {
+    "Metadata": 1312,
+    "pdf": 6,
+    "unitypackage": 9,
+    "unity": 9,
+    "lighting": 2,
+    "asset": 14,
+    "png": 224,
+    "exr": 7,
+    "txt": 5,
+    "prefab": 419,
+    "anim": 8,
+    "mat": 295,
+    "fbx": 49,
+    "cs": 42,
+    "shader": 3,
+    "shadergraph": 15,
+    "psd": 3,
+    "asmdef": 5,
+    "cfxrshader": 4,
+    "cginc": 5,
+    "html": 1,
+    "obj": 1,
+    "shadersubgraph": 3,
+    "controller": 3,
+    "playable": 3,
+    "md": 6
+  },
+  "archives": [
+    {
+      "path": "Assets/GabrielAguiarProductions/VFXGraph_UltraMegaPackVol1_6.3_HDRP_v1.5.unitypackage",
+      "members": 7801,
+      "assets": 1670,
+      "unusualMembers": [],
+      "packageManagerManifest": null
+    },
+    {
+      "path": "Assets/GabrielAguiarProductions/VFXGraph_UltraMegaPackVol1_6.3_URP_v1.5.unitypackage",
+      "members": 7775,
+      "assets": 1663,
+      "unusualMembers": [],
+      "packageManagerManifest": null
+    },
+    {
+      "path": "Assets/JMO Assets/Cartoon FX 1 (old legacy effects).unitypackage",
+      "members": 3036,
+      "assets": 636,
+      "unusualMembers": [],
+      "packageManagerManifest": null
+    },
+    {
+      "path": "Assets/PixPlays/ElementalAOE/ElementalAoe_URP.unitypackage",
+      "members": 528,
+      "assets": 125,
+      "unusualMembers": [],
+      "packageManagerManifest": "{\n  \"dependencies\": {\n    \"com.unity.shadergraph\": \"17.3.0\"\n  }\n}"
+    },
+    {
+      "path": "Assets/PixPlays/ElementalAuras/ElementalAuras_URP.unitypackage",
+      "members": 309,
+      "assets": 78,
+      "unusualMembers": [],
+      "packageManagerManifest": "{\n  \"dependencies\": {\n    \"com.unity.shadergraph\": \"17.3.0\"\n  }\n}"
+    },
+    {
+      "path": "Assets/PixPlays/ElementalBeams/ElementalBeams_URP.unitypackage",
+      "members": 509,
+      "assets": 119,
+      "unusualMembers": [],
+      "packageManagerManifest": "{\n  \"dependencies\": {\n    \"com.unity.shadergraph\": \"17.3.0\"\n  }\n}"
+    },
+    {
+      "path": "Assets/PixPlays/ElementalBlastVFX/ElementalBlasts_URP.unitypackage",
+      "members": 552,
+      "assets": 130,
+      "unusualMembers": [],
+      "packageManagerManifest": "{\n  \"dependencies\": {\n    \"com.unity.shadergraph\": \"17.3.0\"\n  }\n}"
+    },
+    {
+      "path": "Assets/PixPlays/ElementalProjectiles/ElementalProjectiles_URP.unitypackage",
+      "members": 627,
+      "assets": 149,
+      "unusualMembers": [],
+      "packageManagerManifest": "{\n  \"dependencies\": {\n    \"com.unity.shadergraph\": \"17.3.0\"\n  }\n}"
+    },
+    {
+      "path": "Assets/PixPlays/ElementalShields/ElementalShields_URP.unitypackage",
+      "members": 534,
+      "assets": 126,
+      "unusualMembers": [],
+      "packageManagerManifest": "{\n  \"dependencies\": {\n    \"com.unity.shadergraph\": \"17.3.0\"\n  }\n}"
+    }
+  ],
+  "guides": [
+    {
+      "path": "Assets/GabrielAguiarProductions/Documentation_GroundSlashes_v1.pdf",
+      "pages": 7,
+      "imageOnlyPages": []
+    },
+    {
+      "path": "Assets/GabrielAguiarProductions/Documentation_LevelUp_v1.pdf",
+      "pages": 7,
+      "imageOnlyPages": []
+    },
+    {
+      "path": "Assets/GabrielAguiarProductions/Documentation_StylizedBeams_v1.pdf",
+      "pages": 8,
+      "imageOnlyPages": []
+    },
+    {
+      "path": "Assets/GabrielAguiarProductions/Documentation_SummonCreatures_v1.pdf",
+      "pages": 8,
+      "imageOnlyPages": []
+    },
+    {
+      "path": "Assets/GabrielAguiarProductions/Documentation_WeaponFX_v1.pdf",
+      "pages": 7,
+      "imageOnlyPages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "Assets/GabrielAguiarProductions/Documentation_v1.pdf",
+      "pages": 6,
+      "imageOnlyPages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  ],
+  "packages": {
+    "Assets/GabrielAguiarProductions": {
+      "Reference": 2
+    },
+    "Assets/GabrielAguiarProductions.meta": {},
+    "Assets/Hovl Studio.meta": {},
+    "Assets/JMO Assets.meta": {},
+    "Assets/PixPlays": {
+      "Reference": 6
+    },
+    "Assets/PixPlays.meta": {},
+    "GabrielAguiarProductions / Ultra Mega Pack": {
+      "Reference": 2048,
+      "VFXSource": 1289
+    },
+    "Hovl Studio/AAA Projectiles Vol 2": {
+      "Reference": 108
+    },
+    "Hovl Studio/AAA Projectiles Vol 2.meta": {},
+    "Hovl Studio/HSFiles": {
+      "Reference": 7,
+      "VFXSource": 265
+    },
+    "Hovl Studio/HSFiles.meta": {},
+    "Hovl Studio/Magic circles Vol 2": {
+      "Reference": 24
+    },
+    "Hovl Studio/Magic circles Vol 2.meta": {},
+    "JMO Assets/Cartoon FX (legacy)": {
+      "Reference": 430,
+      "VFXSource": 206
+    },
+    "JMO Assets/Cartoon FX 1 (old legacy effects).unitypackage": {
+      "Reference": 1
+    },
+    "JMO Assets/Cartoon FX 1 (old legacy effects).unitypackage.meta": {},
+    "JMO Assets/Cartoon FX Easy Editor": {
+      "Reference": 2
+    },
+    "JMO Assets/Cartoon FX Easy Editor.meta": {},
+    "JMO Assets/Cartoon FX Remaster": {
+      "Reference": 299,
+      "VFXSource": 166
+    },
+    "JMO Assets/Cartoon FX Remaster.meta": {},
+    "PixPlays/Components": {
+      "VFXSource": 305,
+      "Reference": 316
+    },
+    "PixPlays/Components.meta": {},
+    "PixPlays/ElementalAOE": {
+      "Reference": 38,
+      "VFXSource": 20
+    },
+    "PixPlays/ElementalAOE.meta": {},
+    "PixPlays/ElementalAuras": {
+      "Reference": 25,
+      "VFXSource": 8
+    },
+    "PixPlays/ElementalAuras.meta": {},
+    "PixPlays/ElementalBeams": {
+      "Reference": 25,
+      "VFXSource": 32
+    },
+    "PixPlays/ElementalBeams.meta": {},
+    "PixPlays/ElementalBlastVFX": {
+      "Reference": 40,
+      "VFXSource": 20
+    },
+    "PixPlays/ElementalBlastVFX.meta": {},
+    "PixPlays/ElementalProjectiles": {
+      "Reference": 62,
+      "VFXSource": 22
+    },
+    "PixPlays/ElementalProjectiles.meta": {},
+    "PixPlays/ElementalShields": {
+      "Reference": 41,
+      "VFXSource": 28
+    },
+    "PixPlays/ElementalShields.meta": {},
+    "Settings/HDRPDefaultResources": {
+      "Reference": 2
+    }
+  }
+}

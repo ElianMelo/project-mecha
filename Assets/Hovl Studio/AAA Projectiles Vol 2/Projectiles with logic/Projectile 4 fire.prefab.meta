@@ -1,11 +1,8 @@
 fileFormatVersion: 2
 guid: ea471fb16b008d44886490483edd9cee
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 100100000
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 144288
@@ -14,3 +11,8 @@ AssetOrigin:
   assetPath: Assets/Hovl Studio/AAA Projectiles Vol 2/Projectiles with logic/Projectile
     4 fire.prefab
   uploadId: 952640
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

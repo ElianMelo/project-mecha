@@ -43,7 +43,7 @@ MonoBehaviour:
   - state: MegaSlash
     clip: {fileID: 7400000, guid: 7638bfaec7dbf614f9f76a982bf4b1cb, type: 2}
   - state: SwordFire
-    clip: {fileID: 7400000, guid: b10783479317fbe40b13891ac5713cb8, type: 2}
+    clip: {fileID: 7400000, guid: 4505c19a4ec049240a0d57f86271a514, type: 2}
   - state: CriticalX
     clip: {fileID: 7400000, guid: de28089b109107e4b9082ec42649139b, type: 2}
   - state: RisingSlash

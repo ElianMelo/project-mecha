@@ -1,0 +1,13 @@
+# A / S / D fire rework - 2026-10-17
+
+The three actions now use original native Particle System prefabs under `Assets/_Project/VFX/FireSkills`, with a common source-map/material library, separate contact presentation and focused hand-follow/lifecycle scripts. See [effect breakdown](../Assets/_Project/VFX/FireSkills/Authoring.md) and [source lineage](VfxEffectOrigins.csv).
+
+S starts at the actual right hand, uses a stable forward casting animation and feeds three forward jets. A retains its four-sweep Mega Slash rhythm; D uses two opposed cuts with residual cross strokes. Fire ignites, develops a hotter core/outer envelope and decays into sparse soot/embers. One native animated light emphasizes the last pulse. Native world collisions stop flame particles and damp/bounce sparks.
+
+One-frame box checks are replaced for these three actions by authored advancing capsule envelopes and short contact windows, swept between caster poses. Targets are deduplicated per pulse, buffers grow on saturation, and solid obstruction queries prevent through-wall hits. Contact effects use the receiving collider's surface and source-to-target incoming direction. Existing damage, mana costs and cooldowns remain; duration/cadence and footprints are authored to match the new presentation. Other attacks retain their previous geometry.
+
+The first manual Play Mode pass confirmed 4/3/2 near-receiver hits (84/84/112 damage at the existing 2x multiplier). S reached both near/far receivers for three hits each, reversed correctly to the left receiver, produced zero hits past a temporary wall, and caught a receiver entering after ignition without duplicate pulse damage. D's adjusted crossing footprint reached near/far receivers for two hits each while excluding behind/above receivers. All cases use real combat with existing ComboTrainingTarget receivers and project models; no automated tests were created or run.
+
+Visual captures at ignition, peak, decay and tail confirm time/frame progression and native particle fade. Evidence is in ignored `Logs/FireSkills/`; user visual acceptance remains pending. This pass does not exercise a second client, Relay or a separate player build. Prior editor/play state is restored after inspection.
+
+The final pass recorded 193/206/208 advancing frames for A/S/D, zero burst particles by the 1.35-second sample, and zero remaining burst/contact roots in a later live inspection. S's repeated wall/late-entry cases remained correct. No new Unity console errors or shader compilation errors were reported. Review the [sampled capture sequence](References/FireSkills/ASD-first-pass.gif) or [peak sheet](References/FireSkills/ASD-first-pass.png); these combine cropped native captures without interpolating motion.

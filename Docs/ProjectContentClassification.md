@@ -1,5 +1,21 @@
 # Project content classification
 
+## A/S/D thermal skills - 2026-10-17
+
+Original native Particle System assemblies, an authored S casting clip and light animation, project-owned source-map copies/materials/HLSL, three read-only skill profiles and focused VFX scripts now live under `Assets/_Project/VFX/FireSkills`. Two shared combat-origin/window source files remain in Combat; gameplay contact tuning remains in the existing AttackPiece assets. New effect assemblies are Prefabs, runtime C# is Code, profiles/controller are Authored Data, maps/materials/shader/animation are Placeholder artwork, and authoring/inspection/source records are Others. Supplied map lineage is recorded in [VfxEffectOrigins.csv](VfxEffectOrigins.csv); upstream AI provenance stays unverified and no final art approval is implied.
+
+The snapshot contains **10,015 inventory files**: 22 AI Generated, 216 Authored Data, 288 Code, 3,895 Others (including the archive-status row), 5,522 Placeholder, 64 Prefabs and 8 Scenes. Two cropped native capture review sheets/sequences under Docs/References are Others, not generated game artwork. The source libraries retain their independent Reference/VFXSource labels. No finished vendor effect is a dependency of these new assemblies; source maps were copied with new GUIDs and original sources/importers preserved. See [effect and validation notes](FireSkillRework.md). No automated tests were added or run.
+
+## VFX Refinery - 2026-10-17
+
+The two latest VFX import commits add 2,444 library files/metadata plus two dependency configuration changes. [VfxSourceCatalog.csv](VfxSourceCatalog.csv) indexes those trees and nine locally supplied, Git-ignored source archives, including 4,696 assets inside the archives. The local archive bytes are explicit inventory exceptions: they are useful supplied dependencies, but the current Git rule will not carry them to another clone. Archive members are catalog entries, not separately imported project files. See [VFX scan and workflow](VfxRefinery.md).
+
+Independent native labels now distinguish **Reference** (finished vendor effects, demos, scripts, guides, archive files and library folders; study only) from **VFXSource** (reusable textures/noise/maps, compatible shaders/materials and isolated models; inspect before reuse). There are 578 source assets and 734 reference files/folders in the 1,312-asset native labeling scope. These roles are not production categories or authorship claims. Source artwork is Placeholder; vendor reference/support is Others; unknown upstream AI origin stays unverified. Finished effects cannot be used, nested or recolored as project effects.
+
+The new project VFX skill, catalog, maintenance and inspection helpers, architecture notes and feedback record are Others support content. Future effect-owned source under `Assets/_Project/VFX` is Code, prefab assemblies Prefabs, ScriptableObject tuning Authored Data, authoring records Others and unfinished art Placeholder. Existing effects were not moved or replaced. The inventory and Unity label tooling preserve these roles on regeneration. No automated tests or gameplay effects were created during this setup.
+
+The refreshed inventory contains **9,943 files**: 22 AI Generated, 208 Authored Data, 274 Code, 3,879 Others (including one archive-status row), 5,496 Placeholder, 56 Prefabs and 8 Scenes. The nine local ignored package files are included in this total; archived members are cataloged separately. Native inspection and saved metadata confirm all 1,312 VFX library roles, unchanged existing GUIDs and retained unrelated labels. Unity also normalized older importer serialization while applying labels; no vendor source files were edited. The earlier totals below are historical snapshots.
+
 ## Teammate ring depth follow-up — 2026-10-17
 
 This correction changes existing files only: actor indicator Code, squad Authored Data, the player Prefab, editor/manual inspection support and these notes. The ring now uses a native world-space Canvas/Image with the existing HollowRing Sprite; no new artwork, shader, material or dependency was added. Categories, provisional readiness, unverified provenance and the **7,478-file** inventory totals remain unchanged. Ignored Play Mode captures are retained under Logs/TeammateRing.

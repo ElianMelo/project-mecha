@@ -1,11 +1,13 @@
 ---
 name: unity-vfx-graph
-description: Unity Visual Effect Graph skill for GPU particle systems, procedural effects, and high-performance visual effects.
+description: Supplemental Unity VFX Graph guidance for demonstrated GPU simulation needs. For every project-mecha VFX request, apply unity-vfx-refinery first; Particle System is the default.
 allowed-tools: Read, Grep, Write, Bash, Edit, Glob, WebFetch
 metadata:
   mcpmarket-version: 1.0.0
 ---
 # Unity VFX Graph Skill
+
+For project-mecha, read [VFX Refinery](../unity-vfx-refinery/SKILL.md) first. It owns art direction, source/reference restrictions, authoring, validation and iteration. Use this Graph guidance only for a concrete need that native Particle System cannot reasonably meet.
 
 Visual Effect Graph development for GPU-accelerated particle systems in Unity.
 

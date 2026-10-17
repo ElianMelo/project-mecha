@@ -1,5 +1,15 @@
 fileFormatVersion: 2
 guid: fb77fcd776bd9c14fad9a07b9ded31c3
+labels:
+- Others
+- VFXSource
+AssetOrigin:
+  serializedVersion: 1
+  productId: 144288
+  packageName: AAA Projectiles Vol.2
+  packageVersion: 2.3
+  assetPath: Assets/Hovl Studio/HSFiles/Shaders/HS_Trail.shadergraph
+  uploadId: 952640
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -8,10 +18,11 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
-AssetOrigin:
-  serializedVersion: 1
-  productId: 144288
-  packageName: AAA Projectiles Vol.2
-  packageVersion: 2.3
-  assetPath: Assets/Hovl Studio/HSFiles/Shaders/HS_Trail.shadergraph
-  uploadId: 952640
+  useAsTemplate: 0
+  exposeTemplateAsShader: 0
+  template:
+    name: 
+    category: 
+    description: 
+    icon: {instanceID: 0}
+    thumbnail: {instanceID: 0}

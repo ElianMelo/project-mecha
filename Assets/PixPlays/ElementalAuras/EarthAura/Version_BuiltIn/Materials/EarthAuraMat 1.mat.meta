@@ -1,11 +1,8 @@
 fileFormatVersion: 2
 guid: 0987301349a03f4469282813a79406e9
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 2100000
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Placeholder
+- VFXSource
 AssetOrigin:
   serializedVersion: 1
   productId: 297318
@@ -14,3 +11,9 @@ AssetOrigin:
   assetPath: Assets/PixPlays/ElementalAuras/EarthAura/Version_BuiltIn/Materials/EarthAuraMat
     1.mat
   uploadId: 840846
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

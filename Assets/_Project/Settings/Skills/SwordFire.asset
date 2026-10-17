@@ -15,11 +15,11 @@ MonoBehaviour:
   displayName: Sword Fire
   action:
     kind: 6
-    duration: 0.62
-    impact: 0.2
-    cancel: 0.62
+    duration: 0.85
+    impact: 0.18
+    cancel: 0.85
     pulses: 3
-    pulseInterval: 0.08
+    pulseInterval: 0.11
     damage: 14
     finalDamage: 14
     launcher: 0
@@ -42,3 +42,15 @@ MonoBehaviour:
     pull: 0
     diveSpeed: 0
     pullSpeed: 6
+    hitActiveTime: 0.28
+    hitLength: 3.5
+    hitTravelTime: 0.21
+    hitRadius: 0.34
+    hitFirstAngle: 0
+    hitAngleStep: 0
+    hitPulseHeight: 0
+    hitOrigin: {x: 0.14, y: 0.82}
+    hitFromHand: 1
+    hitObstructions:
+      serializedVersion: 2
+      m_Bits: 192

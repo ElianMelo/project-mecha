@@ -1,10 +1,8 @@
 fileFormatVersion: 2
 guid: 5131901dde8b7d54eb87b1422c0077ae
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 251038
@@ -12,3 +10,8 @@ AssetOrigin:
   packageVersion: 1.5
   assetPath: Assets/GabrielAguiarProductions/VFXGraph_UltraMegaPackVol1_6.3_HDRP_v1.5.unitypackage
   uploadId: 891846
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,11 +1,8 @@
 fileFormatVersion: 2
 guid: e865b065887ee5742b7282a5ea6554ee
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 100100000
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- Others
+- Reference
 AssetOrigin:
   serializedVersion: 1
   productId: 144288
@@ -14,3 +11,8 @@ AssetOrigin:
   assetPath: Assets/Hovl Studio/AAA Projectiles Vol 2/Projectiles with logic/Projectile
     12 cuts.prefab
   uploadId: 952640
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,5 +1,13 @@
 # Project content classification
 
+The repeated-row-width cap refines existing routing Code, LevelRouting Authored Data and its scene preview. Documentation remains Others. No maintained files, artwork or dependencies were added, and existing inventory categories and provenance remain unchanged.
+
+The four-lane routing/fog revision changes existing Code, editor tooling (Others), the LevelRouting Scene and routing/localization Authored Data. The shared question marker uses the existing localized TMP font and node label; no artwork, package or maintained file was added. Existing classifications and file inventory remain valid; all content stays provisional with provenance unchanged. See [routing rules and manual validation](LevelRouting.md).
+
+## Random route depth and scrolling — 2026-10-18
+
+The routing pass adds RouteMapCamera and Unity metadata as provisional Code, plus a focused editor upgrade helper and metadata as Others. Existing graph/presentation Code, LevelRouting Authored Data and the LevelRouting Scene retain their categories. The table reuses and extends its existing native meshes/dividers; no image, material, model, animation or package was added. Documentation and inventory remain Others; provenance remains unverified. See [routing changes and manual validation](LevelRouting.md).
+
 ## JSON persistence — 2026-10-18
 
 The save-system pass adds GameSave, GameSaveKeys and LegacySettingsMigration with Unity metadata as provisional Code. Existing audio, video and controls Code now writes device-local JSON, and localization Authored Data gains a shared save-failure message. Save documentation and manual inspection tooling remain Others. The refreshed inventory includes the added sources and documentation. Runtime JSON/backup files live outside the repository under Unity's persistent data path and are generated local output. No artwork, new dependency or provenance claim was introduced. See [save system](SaveSystem.md).

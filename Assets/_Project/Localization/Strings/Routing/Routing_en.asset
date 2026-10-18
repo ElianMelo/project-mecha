@@ -210,6 +210,10 @@ MonoBehaviour:
     m_Localized: Clear the encounter to continue.
     m_Metadata:
       m_Items: []
+  - m_Id: 113561168879616
+    m_Localized: '?'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

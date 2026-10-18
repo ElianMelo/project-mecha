@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: LevelRouting
   m_EditorClassIdentifier: Assembly-CSharp::LevelRouteSettings
   openingEncounter: {fileID: 11400000, guid: 74b8fde16666fe440a0cd78ecbca4f34, type: 2}
-  rowWidths: 010000000300000002000000010000000300000001000000
+  stepCount: 10
+  minimumRowWidth: 1
+  maximumRowWidth: 4
+  maximumRowWidthStreak: 2
+  maximumStraightStreak: 2
+  revealedStepsAhead: 3
   softVoteSeconds: 5
   confirmedVoteSeconds: 3
   tieRevealSeconds: 1
@@ -21,6 +26,11 @@ MonoBehaviour:
   snapshotInterval: 0.15
   voteRepeatSeconds: 0.15
   nodeSpacing: {x: 9, y: 5.1}
+  cameraDepthDamping: 0.65
+  cameraFocusViewport: 0.6
+  cameraFarViewport: 0.86
+  cameraFarDepthOffset: 18
+  tableDepthPadding: 3
   boardPrefab: {fileID: 202564666104612052, guid: d6b79061bdb0954488c880630b95cde1, type: 3}
   routingScenePath: Assets/Scenes/LevelRouting.unity
   pathSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 // PhysicsRaycaster selects the same world GameObject that controller navigation selects.
-public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, ISelectHandler, IDeselectHandler, IMoveHandler, ISubmitHandler
+public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPointerMoveHandler, IPointerClickHandler, ISelectHandler, IDeselectHandler, IMoveHandler, ISubmitHandler
 {
     [SerializeField] private SpriteRenderer ring, focusRing;
     [SerializeField] private SpriteRenderer[] votePips;
@@ -13,6 +13,11 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
     private RouteMapMenu menu;
     private LevelRouteDirector route;
     private Animator model;
+    private GameObject miniature;
+    private string encounterLabel;
+    private Vector3 labelPosition;
+    private Vector2 labelSize;
+    private float labelFontSize;
     private sealed class ModelTint
     {
         public MeshRenderer renderer;
@@ -27,11 +32,14 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
     {
         menu = owner; route = director; NodeId = node.id;
         var room = route.Encounter(node.encounterId);
-        label.text = room != null ? node.depth == 0 && room.encounterId == "insertion" ? GameText.Get("Routing", "node.insertion") : GameText.Term("Routing", room.shape).ToUpperInvariant() + " / " + (node.depth + 1).ToString("00") : GameText.Get("Routing", "node.unavailable");
+        encounterLabel = room != null ? node.depth == 0 && room.encounterId == "insertion" ? GameText.Get("Routing", "node.insertion") : GameText.Term("Routing", room.shape).ToUpperInvariant() + " / " + (node.depth + 1).ToString("00") : GameText.Get("Routing", "node.unavailable");
+        labelPosition = label.transform.localPosition;
+        labelSize = label.rectTransform.sizeDelta;
+        labelFontSize = label.fontSize;
         foreach (var text in new[] {label,state,votes}) text.transform.rotation = camera.transform.rotation;
         if (room != null && room.mapModel != null)
         {
-            var miniature = Instantiate(room.mapModel, transform); miniature.transform.localPosition = Vector3.zero;
+            miniature = Instantiate(room.mapModel, transform); miniature.transform.localPosition = Vector3.zero;
             model = miniature.GetComponent<Animator>();
             if (model != null) model.enabled = route.Settings.feel == null || route.Settings.feel.motionEnabled;
             CacheModelColors(miniature);
@@ -40,19 +48,26 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
     }
     public void Refresh(bool focused)
     {
+        bool revealed = route.IsRevealed(NodeId);
+        if (miniature != null) miniature.SetActive(revealed);
+        label.text = revealed ? encounterLabel : GameText.Get("Routing", "node.unknown");
+        label.transform.localPosition = revealed ? labelPosition : new Vector3(labelPosition.x, 2.2f, 0f);
+        label.rectTransform.sizeDelta = revealed ? labelSize : new Vector2(labelSize.x, labelSize.y * 3f);
+        label.fontSize = revealed ? labelFontSize : labelFontSize * 2f;
         bool available = route.IsAvailable(NodeId), visited = route.Visited.Contains(NodeId);
         bool winner = route.Winner == NodeId && route.IsRouting;
         SetModelBrightness(winner || available ? route.Settings.reachableModelBrightness :
             visited ? route.Settings.visitedModelBrightness : route.Settings.lockedModelBrightness);
         ring.color = winner || visited ? route.Settings.visitedColor : available ? route.Settings.reachableColor : route.Settings.lockedColor;
+        ring.enabled = revealed;
         focusRing.enabled = focused; // Persistent even with every Animator disabled.
-        state.text = winner ? GameText.Get("Routing", "node.confirmed") : available ? GameText.Get("Routing", "node.select") : visited ? GameText.Get("Routing", "destination.cleared") : GameText.Get("Routing", "node.scout");
+        state.text = !revealed ? string.Empty : winner ? GameText.Get("Routing", "node.confirmed") : available ? GameText.Get("Routing", "node.select") : visited ? GameText.Get("Routing", "destination.cleared") : GameText.Get("Routing", "node.scout");
         state.color = ring.color;
         var supporters = route.Pilots.Where(x => x.nodeId == NodeId).ToArray();
-        votes.text = string.Join("  ", supporters.Select(x => GameText.Get("Routing", "pilot.prefix") + (System.Array.FindIndex(route.Pilots, p => p.playerId == x.playerId) + 1)));
+        votes.text = !revealed ? string.Empty : string.Join("  ", supporters.Select(x => GameText.Get("Routing", "pilot.prefix") + (System.Array.FindIndex(route.Pilots, p => p.playerId == x.playerId) + 1)));
         for (int i = 0; i < votePips.Length; i++)
         {
-            votePips[i].enabled = i < supporters.Length;
+            votePips[i].enabled = revealed && i < supporters.Length;
             if (i < supporters.Length) votePips[i].color = route.Settings.squad.PilotColor(supporters[i].colorSlot);
         }
         if (model != null && model.enabled) model.SetBool("Focused", focused);
@@ -91,8 +106,13 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
         }
     }
     public void Confirm() { if (model != null && model.enabled) model.SetTrigger("Confirm"); }
-    public void OnPointerEnter(PointerEventData data) { if (menu != null && menu.CanInteract) EventSystem.current?.SetSelectedGameObject(gameObject); }
-    public void OnPointerClick(PointerEventData data) { if (data.button == PointerEventData.InputButton.Left && menu != null && menu.CanInteract) menu.Confirm(NodeId); }
+    public void OnPointerEnter(PointerEventData data) => menu?.PointerFocus(NodeId, data.position, data.delta);
+    public void OnPointerMove(PointerEventData data) => menu?.PointerFocus(NodeId, data.position, data.delta);
+    public void OnPointerClick(PointerEventData data)
+    {
+        if (data.button != PointerEventData.InputButton.Left || menu == null || !menu.CanInteract) return;
+        menu.PointerFocus(NodeId, data.position, data.delta, true); menu.Confirm(NodeId);
+    }
     public void OnSelect(BaseEventData data) { menu?.Focus(NodeId); GameAudio.Play(GameAudioCue.UiMove); }
     public void OnDeselect(BaseEventData data) { if (focusRing != null) focusRing.enabled = false; }
     public void OnMove(AxisEventData data)

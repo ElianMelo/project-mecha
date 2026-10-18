@@ -80,10 +80,11 @@ public static class MechaLevelRoutingSetup
                 var definition = catalogue.First(x=>x.encounterId==node.encounterId);
                 var model = (GameObject)PrefabUtility.InstantiatePrefab(definition.mapModel,scene);
                 model.transform.SetParent(content.transform,false);
-                model.transform.localPosition = new Vector3((node.lane-(node.width-1)*0.5f)*settings.nodeSpacing.x,0.2f,node.depth*settings.nodeSpacing.y);
+                model.transform.localPosition = RouteMapBoard.MapPosition(settings, node);
                 model.name = "Editor Preview / " + definition.displayName;
             }
             foreach (var node in scene.GetRootGameObjects().SelectMany(x=>x.GetComponentsInChildren<Transform>(true))) node.gameObject.layer=settings.boardLayer;
+            MechaRouteDepthSetup.Configure(board, table.transform, terminal.transform, settings);
             EditorSceneManager.SaveScene(scene,settings.routingScenePath);
             AssetDatabase.SetLabels(AssetDatabase.LoadMainAssetAtPath(settings.routingScenePath),new[]{"Scenes"});
         }

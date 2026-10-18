@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Unity.Cinemachine;
 
 // Keeps network/gameplay objects resident; loads only the local 3D routing presentation additively.
 public sealed class RouteMapMenu : MonoBehaviour
@@ -13,6 +14,7 @@ public sealed class RouteMapMenu : MonoBehaviour
     private RouteMapBoard board;
     private LevelRouteNode[] graph;
     private readonly Dictionary<Camera,bool> cameras = new Dictionary<Camera,bool>();
+    private readonly Dictionary<CinemachineBrain,bool> cameraBrains = new Dictionary<CinemachineBrain,bool>();
     private readonly Dictionary<Canvas,bool> canvases = new Dictionary<Canvas,bool>();
     private readonly Dictionary<int,bool> layerCollisions = new Dictionary<int,bool>();
     private int routingLayer;
@@ -25,6 +27,8 @@ public sealed class RouteMapMenu : MonoBehaviour
     private GameObject previousSelection;
     private bool open;
     private string loadedScene;
+    private Vector2 lastPointerPosition;
+    private bool pointerTracked;
     public bool IsVisible => open && board != null;
     public int FocusedNode => focused;
     public bool CanInteract => IsVisible && (GameManager.Instance == null || !GameManager.Instance.MenuOpen) && !MechaChat.IsTyping;
@@ -68,16 +72,20 @@ public sealed class RouteMapMenu : MonoBehaviour
             if (board == null) { Debug.LogError("The routing scene has no RouteMapBoard."); RestoreCollisions(); changingScene = false; yield break; }
             previousSelection = EventSystem.current?.currentSelectedGameObject;
             foreach (var camera in FindObjectsByType<Camera>(FindObjectsSortMode.None))
-                if (camera.gameObject.scene != scene) { cameras[camera] = camera.enabled; camera.enabled = false; }
+                if (camera.gameObject.scene != scene)
+                {
+                    cameras[camera] = camera.enabled; camera.enabled = false;
+                    if (camera.TryGetComponent<CinemachineBrain>(out var brain)) { cameraBrains[brain] = brain.enabled; brain.enabled = false; }
+                }
             foreach (var canvas in FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None))
                 if (canvas.isRootCanvas && canvas.gameObject.scene != scene && canvas.name != "Game Options" && canvas.name != "Audio Configuration" && canvas.name != "Mecha Lobby UI" && canvas.name != "Controller Keyboard")
                 { canvases[canvas] = canvas.enabled; canvas.enabled = false; }
-            open = true; graph = null; round = -1;
+            open = true; graph = null; round = -1; pointerTracked = false;
             Refresh(); if (CanInteract) EnsureFocus(); GameAudio.Play(GameAudioCue.UiOpen);
         }
         else
         {
-            open = false; board = null; graph = null; pendingNode = -1; previousVotes.Clear(); StopHaptic();
+            open = false; board?.SuspendCamera(); board = null; graph = null; pendingNode = -1; previousVotes.Clear(); StopHaptic();
             RestoreGameplay();
             var scene = SceneManager.GetSceneByPath(loadedScene);
             if (scene.isLoaded) yield return SceneManager.UnloadSceneAsync(scene);
@@ -90,8 +98,9 @@ public sealed class RouteMapMenu : MonoBehaviour
     private void RestoreGameplay()
     {
         foreach (var pair in cameras) if (pair.Key != null) pair.Key.enabled = pair.Value;
+        foreach (var pair in cameraBrains) if (pair.Key != null) pair.Key.enabled = pair.Value;
         foreach (var pair in canvases) if (pair.Key != null) pair.Key.enabled = pair.Value;
-        cameras.Clear(); canvases.Clear();
+        cameras.Clear(); cameraBrains.Clear(); canvases.Clear();
     }
     private void RestoreCollisions()
     {
@@ -140,7 +149,18 @@ public sealed class RouteMapMenu : MonoBehaviour
     public void Focus(int node)
     {
         if (board == null) return;
-        focused = node; board.Refresh(focused); board.ShowDetails(focused,pendingNode);
+        focused = node; board.FocusDepth(node); board.Refresh(focused); board.ShowDetails(focused,pendingNode);
+    }
+    public void PointerFocus(int node, Vector2 position, Vector2 delta, bool force = false)
+    {
+        if (!CanInteract) return;
+        // Moving the camera can raycast a different miniature under a stationary cursor.
+        // Require real pointer motion so hovering once cannot scroll through the whole map.
+        if (!force && (delta.sqrMagnitude < 0.01f || pointerTracked && (position - lastPointerPosition).sqrMagnitude < 1f)) return;
+        pointerTracked = true; lastPointerPosition = position;
+        var target = board.Node(node);
+        if (target != null && EventSystem.current?.currentSelectedGameObject != target.gameObject)
+            EventSystem.current?.SetSelectedGameObject(target.gameObject);
     }
     public void Move(int from, MoveDirection direction)
     {
@@ -169,7 +189,7 @@ public sealed class RouteMapMenu : MonoBehaviour
     private void OnDestroy()
     {
         if (route != null) route.Changed -= Refresh;
-        StopHaptic(); RestoreGameplay(); RestoreCollisions();
+        StopHaptic(); board?.SuspendCamera(); RestoreGameplay(); RestoreCollisions();
         if (Application.isPlaying && !string.IsNullOrEmpty(loadedScene))
         { var scene = SceneManager.GetSceneByPath(loadedScene); if (scene.isLoaded) SceneManager.UnloadSceneAsync(scene); }
     }

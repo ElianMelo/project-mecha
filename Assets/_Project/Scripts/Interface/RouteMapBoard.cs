@@ -11,6 +11,10 @@ public sealed class RouteMapBoard : MonoBehaviour
     [SerializeField] private RouteMapNodeView nodePrefab;
     [SerializeField] private TMP_Text title, previewTitle, previewBody, previewState, roster, countdown, help;
     [SerializeField] private Animator countdownAnimator;
+    [SerializeField] private RouteMapCamera depthCamera;
+    [SerializeField] private Transform tableSurface;
+    [SerializeField] private Transform[] tableRails, depthDividers;
+    private readonly List<Transform> dividers = new List<Transform>();
     private int displayedSecond = -1;
     private sealed class Edge { public int from, to; public SpriteRenderer[] dashes; }
     private readonly List<Edge> edges = new List<Edge>();
@@ -21,6 +25,9 @@ public sealed class RouteMapBoard : MonoBehaviour
     public void Build(LevelRouteDirector director, RouteMapMenu owner)
     {
         Clear(); route = director; displayedSecond = -1;
+        int steps = route.Nodes.Length == 0 ? 2 : route.Nodes.Max(node => node.depth) + 1;
+        ConfigureTable(route.Settings, steps);
+        depthCamera.Configure(route.Settings, steps);
         foreach (var node in route.Nodes)
         {
             var control = Instantiate(nodePrefab, content);
@@ -32,7 +39,32 @@ public sealed class RouteMapBoard : MonoBehaviour
         }
         foreach (var child in content.GetComponentsInChildren<Transform>(true)) child.gameObject.layer = route.Settings.boardLayer;
     }
-    public Vector3 Position(LevelRouteNode node) => new Vector3((node.lane - (node.width - 1) * 0.5f) * route.Settings.nodeSpacing.x, 0.2f, node.depth * route.Settings.nodeSpacing.y);
+    public void ConfigureTable(LevelRouteSettings settings, int steps)
+    {
+        float span = (steps - 1) * settings.nodeSpacing.y;
+        foreach (var part in new[] { tableSurface }.Concat(tableRails))
+        {
+            var position = part.localPosition; position.z = span * 0.5f; part.localPosition = position;
+            var scale = part.localScale; scale.z = span + settings.tableDepthPadding * 2f; part.localScale = scale;
+        }
+        if (dividers.Count == 0) dividers.AddRange(depthDividers);
+        for (int depth = 0; depth < steps; depth++)
+        {
+            if (depth >= dividers.Count) { var extra = Instantiate(dividers[0], dividers[0].parent); extra.name = "Depth Divider"; dividers.Add(extra); }
+            var line = dividers[depth]; line.gameObject.SetActive(true);
+            var position = line.localPosition; position.z = depth * settings.nodeSpacing.y - settings.tableDepthPadding * 0.6f; line.localPosition = position;
+        }
+        for (int depth = steps; depth < dividers.Count; depth++) dividers[depth].gameObject.SetActive(false);
+    }
+    public void FocusDepth(int node) { if (node >= 0 && node < route.Nodes.Length) depthCamera.Focus(route.Nodes[node]); }
+    public void SuspendCamera() => depthCamera.Suspend();
+    public Vector3 Position(LevelRouteNode node) => MapPosition(route.Settings, node);
+    public static Vector3 MapPosition(LevelRouteSettings settings, LevelRouteNode node)
+    {
+        // Four lanes share the existing three-lane footprint and camera framing.
+        float spacing = settings.nodeSpacing.x * Mathf.Min(1f, 2f / Mathf.Max(1, node.width - 1));
+        return new Vector3((node.lane - (node.width - 1) * 0.5f) * spacing, 0.2f, node.depth * settings.nodeSpacing.y);
+    }
     private void CreateEdge(int from, int to)
     {
         Vector3 a = Position(route.Nodes[from]), b = Position(route.Nodes[to]); a.y = b.y = 0.12f;
@@ -52,19 +84,15 @@ public sealed class RouteMapBoard : MonoBehaviour
     public int Neighbour(int id, Vector2 direction)
     {
         var origin = Node(id); if (origin == null) return id;
-        Vector2 point = view.WorldToViewportPoint(origin.transform.position);
-        int best = id; float score = float.MaxValue;
-        foreach (var node in nodes)
-        {
-            if (node.NodeId == id || !node.gameObject.activeInHierarchy) continue;
-            Vector2 delta = (Vector2)view.WorldToViewportPoint(node.transform.position) - point;
-            float forward = Vector2.Dot(delta, direction);
-            float side = Mathf.Abs(Vector2.Dot(delta, new Vector2(-direction.y, direction.x)));
-            if (forward <= 0.005f || forward < side * 0.6f) continue;
-            float value = forward + side * 3f;
-            if (value < score) { score = value; best = node.NodeId; }
-        }
-        return best;
+        int depth = route.Nodes[id].depth;
+        float x = origin.transform.localPosition.x;
+        bool vertical = Mathf.Abs(direction.y) > Mathf.Abs(direction.x);
+        int targetDepth = depth + (vertical ? direction.y > 0f ? 1 : -1 : 0);
+        // Navigate one row at a time, even when earlier rows are outside the camera.
+        // Screen projection would invert neighbours once a long map extends behind the view.
+        var candidates = nodes.Where(node => node.NodeId != id && node.gameObject.activeInHierarchy && route.Nodes[node.NodeId].depth == targetDepth &&
+            (vertical || (node.transform.localPosition.x - x) * direction.x > 0f));
+        return candidates.OrderBy(node => Mathf.Abs(node.transform.localPosition.x - x)).ThenBy(node => node.NodeId).FirstOrDefault()?.NodeId ?? id;
     }
     public void Refresh(int focused)
     {
@@ -85,6 +113,14 @@ public sealed class RouteMapBoard : MonoBehaviour
         var node = route.Nodes[id]; var room = route.Encounter(node.encounterId);
         if (room == null) return;
         title.text = GameText.Get("Routing", "expedition.heading") + route.Sector.ToString("00");
+        if (!route.IsRevealed(id))
+        {
+            previewTitle.text = GameText.Get("Routing", "node.unknown");
+            previewBody.text = string.Empty;
+            previewState.text = string.Empty;
+            roster.text = string.Empty;
+            return;
+        }
         previewTitle.text = GameText.Get(room.displayNameLocalized).ToUpperInvariant();
         previewBody.text = GameText.Get("Routing", "encounter.heading") + (node.depth + 1).ToString("00") + " / " + GameText.Term("Routing", room.shape).ToUpperInvariant() + "\n\n" + GameText.Get(room.descriptionLocalized) + "\n\n" + GameText.Get(room.rewardPreviewLocalized);
         bool voted = route.Pilots.Any(x => x.playerId == route.ClientManager.Connection.ClientId && x.nodeId == id);

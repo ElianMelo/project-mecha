@@ -4,8 +4,16 @@ using UnityEngine;
 public sealed class LevelRouteSettings : ScriptableObject
 {
     public RouteEncounterDefinition openingEncounter;
-    [Tooltip("One entry per depth. 1 creates a forced corridor or merge; larger values create branches.")]
-    public int[] rowWidths = { 1, 3, 2, 1, 3, 1 };
+    [Tooltip("Total steps, including the single starting node. Later rows are randomized for each sector.")]
+    [Range(2, 30)] public int stepCount = 10;
+    [Range(1, 4)] public int minimumRowWidth = 1;
+    [Range(2, 4)] public int maximumRowWidth = 4;
+    [Tooltip("Maximum consecutive rows with the same node count. The width range must permit at least two different counts for longer routes.")]
+    [Range(1, 2)] public int maximumRowWidthStreak = 2;
+    [Tooltip("Maximum consecutive nodes with only one outgoing choice along any path.")]
+    [Range(1, 2)] public int maximumStraightStreak = 2;
+    [Tooltip("Visible path length starting at each available choice, inclusive. Three reveals the available node and two connected steps beyond it.")]
+    [Min(1)] public int revealedStepsAhead = 3;
     [Min(0.1f)] public float softVoteSeconds = 5f;
     [Min(1f)] public float confirmedVoteSeconds = 3f;
     [Min(0.1f)] public float tieRevealSeconds = 1f;
@@ -13,6 +21,14 @@ public sealed class LevelRouteSettings : ScriptableObject
     [Min(0.05f)] public float snapshotInterval = 0.15f;
     [Min(0.05f)] public float voteRepeatSeconds = 0.15f;
     public Vector2 nodeSpacing = new Vector2(9f, 5.1f);
+    [Header("Map depth scrolling")]
+    [Tooltip("SmoothDamp time in seconds for camera depth scouting. Applies independently of decorative UI motion.")]
+    [Min(0.05f)] public float cameraDepthDamping = 0.65f;
+    [Range(0.2f, 0.8f)] public float cameraFocusViewport = 0.6f;
+    [Range(0.6f, 0.95f)] public float cameraFarViewport = 0.86f;
+    [Tooltip("Extra forward camera travel beyond the far viewport limit, in board units. Lets distant nodes reach the focus viewport.")]
+    [Min(0f)] public float cameraFarDepthOffset = 18f;
+    [Min(0.1f)] public float tableDepthPadding = 3f;
     public GameObject boardPrefab;
     public string routingScenePath = "Assets/Scenes/LevelRouting.unity";
     public Sprite pathSprite;

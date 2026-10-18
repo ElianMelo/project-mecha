@@ -195,6 +195,10 @@ MonoBehaviour:
     m_Key: encounter.reward
     m_Metadata:
       m_Items: []
+  - m_Id: 113561168879616
+    m_Key: node.unknown
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -63,6 +63,21 @@ public sealed class LevelRouteDirector : NetworkBehaviour
         if (id < 0 || id >= Nodes.Length) return false;
         return CurrentNode < 0 ? id == 0 : Nodes[CurrentNode].next.Contains(id);
     }
+    public bool IsRevealed(int id)
+    {
+        if (id < 0 || id >= Nodes.Length) return false;
+        if (Visited.Contains(id) || id == CurrentNode) return true;
+        int ahead = Mathf.Max(1, settings.revealedStepsAhead) - 1;
+        if (CurrentNode < 0) return IsWithinReveal(0, id, ahead);
+        if (CurrentNode >= Nodes.Length) return false;
+        return Nodes[CurrentNode].next.Any(choice => IsWithinReveal(choice, id, ahead));
+    }
+    private bool IsWithinReveal(int from, int id, int ahead)
+    {
+        if (from < 0 || from >= Nodes.Length || Nodes[from].depth > Nodes[id].depth) return false;
+        if (from == id) return true;
+        return ahead > 0 && Nodes[from].next.Any(next => IsWithinReveal(next, id, ahead - 1));
+    }
     public void BeginRun(bool skipOpeningChoice = false)
     {
         if (!IsServerInitialized || ballot != null || settings == null) return;

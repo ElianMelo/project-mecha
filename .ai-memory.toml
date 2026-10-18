@@ -1,0 +1,3 @@
+# Shared scope for Codex and other coding agents in this checkout.
+workspace = "default"
+project = "elianmelo-project-mecha"

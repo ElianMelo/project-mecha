@@ -1,5 +1,9 @@
 # Project content classification
 
+## Coding-agent memory — 2026-10-18
+
+The ai-memory integration adds the repository scope marker `.ai-memory.toml` and [installation/use documentation](AiMemory.md), and updates the canonical agent and architecture instructions. These files are **Others / Support**; no game artwork, runtime code or Unity assets are added. The third-party executable, global Codex connection/hooks/skills, local memory wiki/index and private credentials live outside the repository and are not maintained game content. Installation inspection artifacts remain under ignored `Temp/AiMemoryInstall`. The maintained file inventory includes the repository additions; existing classifications and provenance are preserved.
+
 ## Zero foot contact correction — 2026-10-18
 
 The adjusted idle/run native animation assets remain provisional **Placeholder** with their existing provenance. The updated retarget authoring helper and operator-invoked grounding inspection helper are **Others**; no new runtime system or artwork was introduced. Existing asset labels remain applicable and the maintained file inventory is refreshed.

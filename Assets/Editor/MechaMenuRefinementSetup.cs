@@ -31,6 +31,50 @@ public static class MechaMenuRefinementSetup
         font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset");
         BuildOptions(); AudioNavigation(); LobbyNavigation(); Input(); Finish();
     }
+    [MenuItem("Tools/Mecha/Refine Configuration Submenus")]
+    public static void RefineConfiguration()
+    {
+        if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Stop Play Mode before authoring the interface.");
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().path != "Assets/Scenes/MainScene.unity") throw new InvalidOperationException("Open MainScene first.");
+        frame = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+        font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset");
+        BuildOptions(); AudioNavigation(); LobbyNavigation();
+        foreach (var collection in UnityEditor.Localization.LocalizationEditorSettings.GetStringTableCollections())
+        {
+            foreach (var table in collection.StringTables)
+                foreach (var entry in table.Values)
+                {
+                    string value = entry.LocalizedValue;
+                    if (value == "BACK TO OPTIONS") entry.Value = "BACK";
+                    else if (value == "LOBBY / SQUAD") entry.Value = "LOBBY";
+                    else if (value.StartsWith("Refresh rate applies to exclusive fullscreen.")) entry.Value = "V-sync uses the display rate. Texture quality controls texture resolution.\nD-pad / stick: select   •   Bottom button: open / confirm   •   Right button / Esc: back";
+                    else continue;
+                    EditorUtility.SetDirty(table);
+                }
+        }
+        var lobby = UnityEngine.Object.FindFirstObjectByType<MechaLobbyPanel>();
+        var close = (UnityEngine.UI.Button)new SerializedObject(lobby).FindProperty("close").objectReferenceValue;
+        close.GetComponentInChildren<TMP_Text>(true).GetComponent<UnityEngine.Localization.Components.LocalizeStringEvent>().StringReference = MechaLocalizationAuthoring.Capture("Lobby", "navigation.back", "BACK");
+        CaptureVideoText();
+        foreach (var binding in UnityEngine.Object.FindObjectsByType<UnityEngine.Localization.Components.LocalizeStringEvent>(FindObjectsInactive.Include, FindObjectsSortMode.None)) binding.RefreshString();
+        EditorUtility.SetDirty(MechaPresentationSetup.Profile<VideoConfigurationSettings>("VideoConfiguration"));
+        MechaLocalizationAuthoring.LocalizeScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
+        Finish();
+    }
+    private static void CaptureVideoText()
+    {
+        MechaLocalizationAuthoring.Capture("Settings", "antialiasing.off", "OFF");
+        MechaLocalizationAuthoring.Capture("Settings", "antialiasing.fxaa", "FXAA");
+        MechaLocalizationAuthoring.Capture("Settings", "antialiasing.smaa", "SMAA");
+        MechaLocalizationAuthoring.Capture("Settings", "antialiasing.msaa2", "MSAA 2×");
+        MechaLocalizationAuthoring.Capture("Settings", "antialiasing.msaa4", "MSAA 4×");
+        MechaLocalizationAuthoring.Capture("Settings", "antialiasing.msaa8", "MSAA 8×");
+        MechaLocalizationAuthoring.Capture("Settings", "texture.full", "FULL");
+        MechaLocalizationAuthoring.Capture("Settings", "texture.half", "HALF");
+        MechaLocalizationAuthoring.Capture("Settings", "texture.quarter", "QUARTER");
+        MechaLocalizationAuthoring.Capture("Settings", "texture.eighth", "EIGHTH");
+        MechaLocalizationAuthoring.Capture("Settings", "language.english", "English");
+    }
     private static void Finish()
     {
         var style = MechaPresentationSetup.Profile<UiFeelSettings>("UiFeel");
@@ -46,7 +90,7 @@ public static class MechaMenuRefinementSetup
         AssetDatabase.SaveAssets();
         var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
         EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene);
-        Debug.Log("Controller-first options/audio/video, lobby navigation, held-attack portal and stronger audio authored.");
+        Debug.Log("Controller-first configuration submenus and lobby navigation saved.");
     }
     private static void BuildOptions()
     {
@@ -56,21 +100,33 @@ public static class MechaMenuRefinementSetup
         scaler.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize; scaler.referenceResolution = new Vector2(1280f, 720f); scaler.matchWidthOrHeight = 0.5f;
         MechaPresentationSetup.Ensure<UnityEngine.UI.GraphicRaycaster>(root);
         var menu = MechaPresentationSetup.Ensure<GameOptionsMenu>(root);
-        var home = Overlay(root.transform, "Options Home"); var homeCard = Card(home, "Options", new Vector2(580f, 556f));
+        var home = Overlay(root.transform, "Options Home"); var homeCard = Card(home, "Options", new Vector2(580f, 644f));
         Label(homeCard, "Title", "CONFIGURATION", new Vector2(40f, 28f), new Vector2(500f, 46f), 30f);
         Label(homeCard, "Subtitle", "CHOOSE A SCREEN", new Vector2(40f, 82f), new Vector2(500f, 28f), 16f);
         var resume = Button(homeCard, "Resume", "RESUME GAME", new Vector2(40f, 132f), new Vector2(500f, 64f));
-        var lobby = Button(homeCard, "Lobby", "LOBBY / SQUAD", new Vector2(40f, 214f), new Vector2(500f, 64f));
+        var lobby = Button(homeCard, "Lobby", "LOBBY", new Vector2(40f, 214f), new Vector2(500f, 64f));
         var audio = Button(homeCard, "Audio", "AUDIO", new Vector2(40f, 296f), new Vector2(500f, 64f));
         var video = Button(homeCard, "Video", "VIDEO", new Vector2(40f, 378f), new Vector2(500f, 64f));
-        Chain(new UnityEngine.UI.Selectable[] { resume, lobby, audio, video });
-        Label(homeCard, "Help", "D-pad / stick: select   •   Bottom button: confirm\nRight button / Esc: back", new Vector2(40f, 478f), new Vector2(500f, 48f), 14f);
+        var general = Button(homeCard, "General", "GENERAL", new Vector2(40f, 460f), new Vector2(500f, 64f));
+        Chain(new UnityEngine.UI.Selectable[] { resume, lobby, audio, video, general });
+        Label(homeCard, "Help", "D-pad / stick: select   •   Bottom button: confirm\nRight button / Esc: back", new Vector2(40f, 566f), new Vector2(500f, 48f), 14f);
         var videoPanel = Overlay(root.transform, "Video Settings");
         var videoSettings = MechaVideoSetup.Build(videoPanel);
         var back = videoPanel.GetComponentsInChildren<UnityEngine.UI.Button>(true).First(b => b.name == "Back");
         Assign(menu, "home", home.gameObject); Assign(menu, "video", videoPanel.gameObject);
         Assign(menu, "audio", UnityEngine.Object.FindFirstObjectByType<AudioConfigurationMenu>()); Assign(menu, "videoSettings", videoSettings);
         Assign(menu, "resume", resume); Assign(menu, "lobby", lobby); Assign(menu, "audioButton", audio); Assign(menu, "videoButton", video); Assign(menu, "videoBack", back);
+        Assign(menu, "lobbyPanel", UnityEngine.Object.FindFirstObjectByType<MechaLobbyPanel>());
+        var generalPanel = Overlay(root.transform, "General Settings");
+        var generalCard = Card(generalPanel, "General", new Vector2(900f, 330f));
+        Label(generalCard, "Title", "GENERAL", new Vector2(40f, 22f), new Vector2(820f, 44f), 30f);
+        var language = MechaVideoSetup.Dropdown(generalCard, "Language", "LANGUAGE", 112f);
+        var generalBack = Button(generalCard, "Back", "BACK", new Vector2(40f, 240f), new Vector2(820f, 48f));
+        var generalMenu = MechaPresentationSetup.Ensure<GeneralConfigurationMenu>(generalPanel.gameObject);
+        Assign(generalMenu, "language", language); Assign(generalMenu, "back", generalBack);
+        Assign(menu, "general", generalPanel.gameObject); Assign(menu, "generalSettings", generalMenu);
+        Assign(menu, "generalButton", general); Assign(menu, "generalBack", generalBack);
+        generalPanel.gameObject.SetActive(false);
         home.gameObject.SetActive(false); videoPanel.gameObject.SetActive(false);
     }
     private static void AudioNavigation()
@@ -91,7 +147,7 @@ public static class MechaMenuRefinementSetup
         }
         Rect(defaults.transform.parent, "Defaults", new Vector2(44f, 542f), new Vector2(300f, 44f));
         Rect(close.transform.parent, "Close", new Vector2(366f, 542f), new Vector2(350f, 44f));
-        close.GetComponentInChildren<TMP_Text>(true).text = "BACK TO OPTIONS";
+        close.GetComponentInChildren<TMP_Text>(true).text = "BACK";
         var help = audio.GetComponentsInChildren<TMP_Text>(true).First(t => t.name == "Help");
         help.text = "0% mutes a layer. SFX includes combat, movement and destruction.\nUp / Down: select   •   Left / Right: adjust   •   Right button / Esc: back";
     }
@@ -101,6 +157,8 @@ public static class MechaMenuRefinementSetup
         var lobbyData = new SerializedObject(lobby);
         var host = (UnityEngine.UI.Button)lobbyData.FindProperty("localHost").objectReferenceValue;
         host.GetComponentInChildren<TMP_Text>(true).text = "SOLO HOST";
+        var close = (UnityEngine.UI.Button)lobbyData.FindProperty("close").objectReferenceValue;
+        close.GetComponentInChildren<TMP_Text>(true).text = "BACK";
         var panel = (GameObject)lobbyData.FindProperty("panel").objectReferenceValue;
         var scope = MechaPresentationSetup.Ensure<UiNavigationScope>(panel);
         Assign(scope, "excludedControls", panel.transform.Find("Controller Keyboard"));

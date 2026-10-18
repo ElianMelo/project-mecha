@@ -26,7 +26,7 @@ public sealed class MechaLobbyPanel : MonoBehaviour
         create.onClick.AddListener(() => { _ = service.CreateAsync(lobbyName.text, playerName.text); });
         join.onClick.AddListener(() => { if (!string.IsNullOrWhiteSpace(joinCode.text)) _ = service.JoinAsync(joinCode.text, playerName.text, true); });
         ready.onClick.AddListener(() => { _ = service.ToggleReadyAsync(); });
-        leave.onClick.AddListener(() => { _ = service.LeaveAsync(); }); close.onClick.AddListener(Hide);
+        leave.onClick.AddListener(() => { _ = service.LeaveAsync(); }); close.onClick.AddListener(() => GameOptionsMenu.Instance.Back());
         localHost.onClick.AddListener(() => GameManager.Instance.StartHost());
         localJoin.onClick.AddListener(() => GameManager.Instance.StartClient());
         search.onValueChanged.AddListener(value => { service.Search = value; page = 0; });
@@ -50,18 +50,23 @@ public sealed class MechaLobbyPanel : MonoBehaviour
         GameManager.Instance?.SuppressGameplayInput();
         UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(null);
     }
+    public bool ConsumeBack()
+    {
+        if (textEntry == null || !textEntry.IsVisible) return false;
+        textEntry.Cancel(); return true;
+    }
     private void Update()
     {
         bool inGame = service.InGame;
-        if (inGame && !wasInGame) Hide();
-        if (!inGame && wasInGame && service.Session == null) Show();
+        if (inGame && !wasInGame) GameOptionsMenu.Instance.Close();
+        if (!inGame && wasInGame && service.Session == null) GameOptionsMenu.Instance.OpenLobby();
         wasInGame = inGame;
         if (IsVisible) EnsureSelection();
     }
     private void EnsureSelection()
     {
         var events = UnityEngine.EventSystems.EventSystem.current;
-        if (events == null || MechaChat.IsTyping || GameManager.Instance != null && GameManager.Instance.OptionsMenuOpen) return;
+        if (events == null || MechaChat.IsTyping || textEntry != null && textEntry.IsVisible) return;
         var selected = events.currentSelectedGameObject;
         var selectable = selected != null ? selected.GetComponent<UnityEngine.UI.Selectable>() : null;
         if (selectable != null && selectable.IsActive() && selectable.IsInteractable() && selected.transform.IsChildOf(panel.transform)) return;

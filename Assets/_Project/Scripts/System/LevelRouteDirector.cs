@@ -63,12 +63,14 @@ public sealed class LevelRouteDirector : NetworkBehaviour
         if (id < 0 || id >= Nodes.Length) return false;
         return CurrentNode < 0 ? id == 0 : Nodes[CurrentNode].next.Contains(id);
     }
-    public void BeginRun()
+    public void BeginRun(bool skipOpeningChoice = false)
     {
         if (!IsServerInitialized || ballot != null || settings == null) return;
         random = new System.Random(unchecked(Environment.TickCount * 397 ^ GetInstanceID()));
         ballot = new RouteBallot(settings); sector = 0; visited.Clear();
-        NewSector(true); OpenChoice();
+        NewSector(true);
+        if (skipOpeningChoice) { ballot.StartEncounter(0); EnterEncounter(); }
+        else OpenChoice();
     }
     private void NewSector(bool opening)
     {
@@ -123,11 +125,15 @@ public sealed class LevelRouteDirector : NetworkBehaviour
         ballot.Tick(now, random);
         if (ballot.Phase == RouteVotePhase.Encounter)
         {
-            current = ballot.Winner; visited.Add(current); Publish();
-            var node = Nodes[current];
-            rooms.EnterRouteEncounter(Encounter(node.encounterId), node.seed);
+            EnterEncounter();
         }
         else Publish();
+    }
+    private void EnterEncounter()
+    {
+        current = ballot.Winner; visited.Add(current); Publish();
+        var node = Nodes[current];
+        rooms.EnterRouteEncounter(Encounter(node.encounterId), node.seed);
     }
     private void Publish()
     {

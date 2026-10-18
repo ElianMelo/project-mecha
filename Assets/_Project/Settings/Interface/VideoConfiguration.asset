@@ -16,3 +16,5 @@ MonoBehaviour:
   displayConfirmationSeconds: 15
   defaultFrameLimit: 60
   defaultVSync: 1
+  defaultAntialiasing: 2
+  defaultTextureLimit: 0

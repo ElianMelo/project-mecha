@@ -1,5 +1,7 @@
 # Project content classification
 
+The 2026-10-18 configuration revision adds GeneralConfigurationMenu and VideoQualityRuntime as provisional **Code**, with Unity metadata. Existing menu/lobby prefabs remain **Prefabs**, MainScene remains **Scenes**, and localization tables/video defaults remain **Authored Data**. Editor authoring and documentation remain **Others**. Native TMP dropdowns and existing Sprite graphics are reused; no artwork, locale or external dependency is added. The file inventory includes the new source paths; provenance stays Unverified. See [configuration behavior](ConfigurationAndCombatLayout.md).
+
 The 2026-10-18 localization key refactor changes wording identifiers and existing references, preserving entry IDs, English text, fonts, and locale scope. Existing table/data, Code, Prefabs, Scenes and Others classifications remain unchanged. No artwork or language was added.
 
 ## English localization — 2026-10-17

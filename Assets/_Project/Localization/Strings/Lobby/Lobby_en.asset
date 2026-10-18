@@ -407,7 +407,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 759519354880
-    m_Localized: LOBBY / SQUAD
+    m_Localized: LOBBY
     m_Metadata:
       m_Items: []
   - m_Id: 762568613888
@@ -673,7 +673,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 765584318464
-    m_Localized: LOBBY / SQUAD
+    m_Localized: LOBBY
     m_Metadata:
       m_Items: []
   - m_Id: 768088317952
@@ -690,6 +690,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1478838296576
     m_Localized: Pilot {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76287005794304
+    m_Localized: BACK
     m_Metadata:
       m_Items: []
   references:

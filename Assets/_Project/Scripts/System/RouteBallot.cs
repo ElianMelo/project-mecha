@@ -21,6 +21,11 @@ public sealed class RouteBallot
         Votes.Clear(); roster = players; Winner = -1; Candidates = Array.Empty<int>();
         softDeadline = Deadline = 0; Phase = RouteVotePhase.Choosing;
     }
+    public void StartEncounter(int node)
+    {
+        Votes.Clear(); Candidates = new[] { node }; Winner = node;
+        softDeadline = Deadline = 0; Phase = RouteVotePhase.Encounter;
+    }
     public bool SetRoster(int[] players, double now)
     {
         if (roster.SequenceEqual(players)) return false;

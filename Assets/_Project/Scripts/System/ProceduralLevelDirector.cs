@@ -39,7 +39,8 @@ public class ProceduralLevelDirector : NetworkBehaviour
     public void BeginRun()
     {
         if (!IsServerInitialized || Layout != null) return;
-        if (routing != null) { routing.BeginRun(); return; }
+        bool skipOpeningChoice = GameManager.Instance != null && GameManager.Instance.ConsumeQuickHostOpening();
+        if (routing != null) { routing.BeginRun(skipOpeningChoice); return; }
         ChangeLevel(1, settings.firstRoomSeed);
     }
     public void EnterRouteEncounter(RouteEncounterDefinition encounter, int seed)

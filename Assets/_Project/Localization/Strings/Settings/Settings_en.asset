@@ -140,7 +140,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 758399475713
-    m_Localized: BACK TO OPTIONS
+    m_Localized: BACK
     m_Metadata:
       m_Items: []
   - m_Id: 758424641536
@@ -177,7 +177,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 758437224448
-    m_Localized: BACK TO OPTIONS
+    m_Localized: BACK
     m_Metadata:
       m_Items: []
   - m_Id: 758437224449
@@ -205,9 +205,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 758454001664
-    m_Localized: "Refresh rate applies to exclusive fullscreen. V-sync uses the display
-      rate.\nD-pad / stick: select   \u2022   Bottom button: open / confirm   \u2022  
-      Right button / Esc: back"
+    m_Localized: "V-sync uses the display rate. Texture quality controls texture
+      resolution.\nD-pad / stick: select   \u2022   Bottom button: open / confirm  
+      \u2022   Right button / Esc: back"
     m_Metadata:
       m_Items: []
   - m_Id: 758454001665
@@ -265,7 +265,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 763763990528
-    m_Localized: BACK TO OPTIONS
+    m_Localized: BACK
     m_Metadata:
       m_Items: []
   - m_Id: 764493799424
@@ -302,7 +302,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 764502188032
-    m_Localized: BACK TO OPTIONS
+    m_Localized: BACK
     m_Metadata:
       m_Items: []
   - m_Id: 764502188033
@@ -330,9 +330,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 764510576640
-    m_Localized: "Refresh rate applies to exclusive fullscreen. V-sync uses the display
-      rate.\nD-pad / stick: select   \u2022   Bottom button: open / confirm   \u2022  
-      Right button / Esc: back"
+    m_Localized: "V-sync uses the display rate. Texture quality controls texture
+      resolution.\nD-pad / stick: select   \u2022   Bottom button: open / confirm  
+      \u2022   Right button / Esc: back"
     m_Metadata:
       m_Items: []
   - m_Id: 764510576641
@@ -349,6 +349,74 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 764510576644
     m_Localized: REVERT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285944635392
+    m_Localized: OFF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412608
+    m_Localized: FXAA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412609
+    m_Localized: SMAA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412610
+    m_Localized: "MSAA 2\xD7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412611
+    m_Localized: "MSAA 4\xD7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412612
+    m_Localized: "MSAA 8\xD7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412613
+    m_Localized: FULL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412614
+    m_Localized: HALF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412615
+    m_Localized: QUARTER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412616
+    m_Localized: EIGHTH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412617
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76286078853120
+    m_Localized: GENERAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76286078853121
+    m_Localized: ANTI-ALIASING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76286083047424
+    m_Localized: TEXTURE QUALITY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76286083047425
+    m_Localized: GENERAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76286083047426
+    m_Localized: LANGUAGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76286087241728
+    m_Localized: BACK
     m_Metadata:
       m_Items: []
   references:

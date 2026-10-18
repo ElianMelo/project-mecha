@@ -1,4 +1,24 @@
-# Configuration and combat layout — 2026-10-17
+# Configuration and combat layout
+
+## Current configuration flow — 2026-10-18
+
+Esc/Start opens Resume, Lobby, Audio, Video and General. Lobby now belongs to the same GameOptionsMenu flow as the settings sections. Its former Close button is labeled Back. Back, Esc and controller Cancel return from any submenu to Configuration and restore focus to its originating button. An open native dropdown or controller keyboard consumes the first Back action. Returning from Lobby closes browsing without leaving an existing session. All former Back to Options labels now read Back.
+
+Video provides display mode, resolution, anti-aliasing, texture quality, VSync and frame limit. Refresh rate and quality preset controls were removed, and their old saved preferences no longer apply. Display refresh follows the desktop. Anti-aliasing offers Off, FXAA, SMAA and MSAA 2×/4×/8× through native URP settings; Off disables both camera post AA and pipeline MSAA. A disposable URP copy keeps authored render profiles read-only and applies the selected mode to newly loaded route cameras. Texture quality uses Unity's global mipmap limit for Full/Half/Quarter/Eighth resolution, subject to each texture's native mip behavior. Draft/Apply, timed display Keep/Revert, disabled-field navigation, persistent focus borders and footer navigation are retained. Revert restores AA and texture settings along with display/frame pacing. VideoConfigurationSettings owns defaults, including SMAA/full texture resolution; device preferences persist through PlayerPrefs.
+
+General has a native Language dropdown containing English, the only approved locale. Unity Localization owns locale selection and all labels/fonts. No new locale is created.
+
+Keyboard 1 uses the existing local FishNet/UnityTransport self-host path and enters opening encounter node 0 immediately. The request is consumed once at run startup. Solo Host from the lobby and normal lobby deployment retain opening route selection; later cleared-room route choices remain unchanged.
+
+The focused authoring action is Tools > Mecha > Refine Configuration Submenus. It updates the existing native UI, category tables, menu prefabs and MainScene through Unity APIs, retaining controller feedback and localized font bindings.
+
+Manual Play Mode inspection on 2026-10-18 confirmed advancing frames; home/General/Video layouts; lobby button/Esc/controller Back returning to Configuration with Lobby focus; Audio returning with Audio focus; and controller confirm opening Language, first Back closing the dropdown, and second Back returning with General focus. Applying MSAA 8× and quarter textures changed the disposable URP/native texture settings. A staged Off/full-texture display change focused Revert, and Esc restored MSAA 8×/quarter textures while retaining Video. SMAA/full textures and the user's original PlayerPrefs were restored afterward. Pressing keyboard 1 started one local server/client, entered level 1 at route node 0 in Encounter phase and kept the route screen hidden. No extra player, Relay session or automated test was created or run. Authoring assets retained their original MSAA/camera settings after validation. Actual operating-system display switching remains a standalone-build check.
+
+Final compilation passed. The read-only localization audit covered 600 table entries and 444 text labels/fonts with no missing entries or invalid bindings; English remained the sole locale. The maintained inventory gained exactly four paths (two source files and metadata), and native classification updated exactly two source assets to Code. Temporary input devices and screenshot assets were removed; Play Mode was restored to its original playing state after the final asset inspection.
+
+## Historical implementation and validation — 2026-10-17
+
+The following records the earlier revision; the current behavior above supersedes its menu wording, video fields and keyboard-1 flow.
 
 Esc/Start opens Resume, Lobby/Squad, Audio and Video. The audio section now contains only Defaults and Back to Options; lobby access stays on the home screen. Its persistent Sprite focus outline surrounds the full label/slider/value row, independent of optional motion. Native Slider handles stretch to the rail height rather than adding their own height to it. Canonical authoring preserves both changes.
 

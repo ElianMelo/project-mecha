@@ -335,6 +335,74 @@ MonoBehaviour:
     m_Key: display.revert.prefab
     m_Metadata:
       m_Items: []
+  - m_Id: 76285944635392
+    m_Key: antialiasing.off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412608
+    m_Key: antialiasing.fxaa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412609
+    m_Key: antialiasing.smaa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412610
+    m_Key: antialiasing.msaa2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412611
+    m_Key: antialiasing.msaa4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412612
+    m_Key: antialiasing.msaa8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412613
+    m_Key: texture.full
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412614
+    m_Key: texture.half
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412615
+    m_Key: texture.quarter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412616
+    m_Key: texture.eighth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76285961412617
+    m_Key: language.english
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76286078853120
+    m_Key: options.options.general
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76286078853121
+    m_Key: video.anti.aliasing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76286083047424
+    m_Key: video.texture.quality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76286083047425
+    m_Key: general.general.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76286083047426
+    m_Key: general.general.language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76286087241728
+    m_Key: general.general.back
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

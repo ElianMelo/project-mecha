@@ -20,7 +20,7 @@ public sealed class AudioConfigurationMenu : MonoBehaviour
             int index = i;
             sliders[i].onValueChanged.AddListener(value => Change(index, value));
         }
-        close.onClick.AddListener(() => { Hide(); GameOptionsMenu.Instance?.ShowHome(); }); defaults.onClick.AddListener(ResetVolumes);
+        close.onClick.AddListener(() => GameOptionsMenu.Instance?.Back()); defaults.onClick.AddListener(ResetVolumes);
     }
     public void Show()
     {

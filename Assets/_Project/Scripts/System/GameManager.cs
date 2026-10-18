@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     private AudioConfigurationMenu audioMenu;
     private GameOptionsMenu optionsMenu;
     private float resumeInputAt;
+    private bool quickHostOpening;
     private string localAddress = "127.0.0.1";
     public static GameManager Instance { get; private set; }
     public bool MenuOpen => OptionsMenuOpen || audioMenu != null && audioMenu.IsVisible || lobbyPanel != null && lobbyPanel.IsVisible || diagnostics != null && diagnostics.Visible || textEntry != null && textEntry.IsVisible;
@@ -43,7 +44,7 @@ public class GameManager : MonoBehaviour
         optionsMenu = FindFirstObjectByType<GameOptionsMenu>();
         interfaceActions = Instantiate(controllerSettings.actions);
         systemActions = interfaceActions.FindActionMap("System", true);
-        systemActions.FindAction("LocalHost").performed += _ => { if (AcceptShortcut()) StartHost(); };
+        systemActions.FindAction("LocalHost").performed += _ => { if (AcceptShortcut()) StartQuickHost(); };
         systemActions.FindAction("LocalJoin").performed += _ => { if (AcceptShortcut()) StartClient(); };
         systemActions.FindAction("Menu").performed += context => {
             if (MenuOpen || context.control.device is Gamepad || AcceptShortcut()) ToggleMenu();
@@ -79,15 +80,15 @@ public class GameManager : MonoBehaviour
         }
         else if (MenuOpen) Back(); else lobbyPanel?.Show();
     }
-    public void ShowLobby() => lobbyPanel?.Show();
+    public void ShowLobby() => optionsMenu.OpenLobby();
     private void Back()
     {
         if (MechaChat.IsTyping) { MechaChat.Instance.Close(); return; }
-        if (optionsMenu != null && optionsMenu.IsVisible) optionsMenu.Back();
+        if (textEntry != null && textEntry.IsVisible) textEntry.Cancel();
+        else if (optionsMenu != null && optionsMenu.IsVisible) optionsMenu.Back();
         else if (audioMenu != null && audioMenu.IsVisible) audioMenu.Hide();
-        else if (textEntry != null && textEntry.IsVisible) textEntry.Cancel();
         else if (diagnostics != null && diagnostics.Visible) diagnostics.Toggle();
-        else if (lobbyPanel != null && lobbyPanel.IsVisible) lobbyPanel.Hide();
+        else if (lobbyPanel != null && lobbyPanel.IsVisible) optionsMenu.ShowHome();
         else if (LevelRouteDirector.Instance != null && LevelRouteDirector.Instance.IsRouting) LevelRouteDirector.Instance.Withdraw();
     }
     private async void Start()
@@ -97,7 +98,7 @@ public class GameManager : MonoBehaviour
         int join = System.Array.IndexOf(args, "--mecha-join-lobby");
         if (join >= 0 && join + 1 < args.Length)
         {
-            var service = FindFirstObjectByType<MechaLobbyService>(); lobbyPanel?.Show();
+            var service = FindFirstObjectByType<MechaLobbyService>(); ShowLobby();
             await service.JoinAsync(args[join + 1], "Remote Pilot", true);
             if (service.Session != null && System.Array.IndexOf(args, "--mecha-ready") >= 0) await service.ToggleReadyAsync();
         }
@@ -105,20 +106,28 @@ public class GameManager : MonoBehaviour
     }
     private void OnDisable() => systemActions?.Disable();
     private void OnDestroy() { if (interfaceActions != null) Destroy(interfaceActions); if (Instance == this) Instance = null; }
-    public void StartHost()
+    public void StartHost() => StartHost(false);
+    public void StartQuickHost() => StartHost(true);
+    public bool ConsumeQuickHostOpening()
+    {
+        bool requested = quickHostOpening; quickHostOpening = false; return requested;
+    }
+    private void StartHost(bool skipOpeningChoice)
     {
         if (_networkManager.ServerManager.Started || _networkManager.ClientManager.Started) return;
         if (FindFirstObjectByType<MechaLobbyService>()?.Session != null) return;
         _networkManager.TransportManager.GetTransport<UnityTransport>().SetConnectionData("127.0.0.1", lobbySettings != null ? lobbySettings.localPort : (ushort)7777, "0.0.0.0");
-        lobbyPanel?.Hide();
+        quickHostOpening = skipOpeningChoice;
+        optionsMenu.Close();
         if (_networkManager.ServerManager.StartConnection()) _networkManager.ClientManager.StartConnection();
+        else quickHostOpening = false;
     }
     public void StartServer() => _networkManager.ServerManager.StartConnection();
     public void StartClient()
     {
         if (_networkManager.ClientManager.Started || _networkManager.ServerManager.Started || FindFirstObjectByType<MechaLobbyService>()?.Session != null) return;
         _networkManager.TransportManager.GetTransport<UnityTransport>().SetConnectionData(localAddress, lobbySettings != null ? lobbySettings.localPort : (ushort)7777);
-        lobbyPanel?.Hide(); _networkManager.ClientManager.StartConnection();
+        optionsMenu.Close(); _networkManager.ClientManager.StartConnection();
     }
     public void SetIPAddress(string text) { localAddress = text; _networkManager.TransportManager.Transport.SetClientAddress(text); }
     // Kept for the existing manual Relay-code UI, using the same authentication service.

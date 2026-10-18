@@ -1,6 +1,6 @@
 # Game localization
 
-English (`en`) is the sole approved locale. Adding any other language requires the user's explicit request and direct approval. Do not add regional variants, pseudo-locales, translations, automatic system-language selection, or a language selector without that approval. The build guard enforces the currently approved English-only configuration.
+English (`en`) is the sole approved locale. Adding any other language requires the user's explicit request and direct approval. Do not add regional variants, pseudo-locales, translations or automatic system-language selection without that approval. The user approved a language dropdown in Configuration > General on 2026-10-18; it lists English only and uses Unity Localization's selected locale. This does not approve additional locales. The build guard enforces the currently approved English-only configuration.
 
 Unity Localization 1.5.13 is installed through the Package Manager API, with its Addressables dependency. The package settings and all game localization assets live under `Assets/_Project/Localization`. English is both the project locale and the specific startup locale. String tables preload for the selected locale. Unity's package owns locale selection, table loading, formatting, and localized asset loading.
 

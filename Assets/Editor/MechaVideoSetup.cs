@@ -17,21 +17,21 @@ public static class MechaVideoSetup
         Image(card, new Color(0.025f, 0.05f, 0.085f));
         var group = MechaPresentationSetup.Ensure<CanvasGroup>(card.gameObject);
         group.interactable = group.blocksRaycasts = true;
-        // Old controls are buttons. Replace only these three with native dropdown controls.
-        foreach (string oldName in new[] { "Quality", "Display", "Sync" })
+        // Remove obsolete controls and their labels; preserve the existing native dropdowns.
+        foreach (string oldName in new[] { "Quality", "Display", "Sync", "Refresh Rate", "Refresh Rate Label", "Quality Preset", "Quality Preset Label" })
         { var old = card.Find(oldName); if (old != null) Object.DestroyImmediate(old.gameObject); }
         Label(card, "Title", "VIDEO CONFIGURATION", new Vector2(40f, 22f), new Vector2(820f, 44f), 30f);
         Label(card, "Subtitle", "Select an option to open its list. Changes are staged until Apply.", new Vector2(40f, 68f), new Vector2(820f, 26f), 16f);
         var display = Dropdown(card, "Display Mode", "DISPLAY MODE", 112f);
         var resolution = Dropdown(card, "Resolution", "RESOLUTION", 174f);
-        var rate = Dropdown(card, "Refresh Rate", "REFRESH RATE", 236f);
-        var quality = Dropdown(card, "Quality Preset", "QUALITY PRESET", 298f);
+        var antialiasing = Dropdown(card, "Anti-aliasing", "ANTI-ALIASING", 236f);
+        var textures = Dropdown(card, "Texture Quality", "TEXTURE QUALITY", 298f);
         var sync = Dropdown(card, "Vertical Sync", "V-SYNC", 360f);
         var limit = Dropdown(card, "Frame Limit", "FRAME LIMIT", 422f);
-        Label(card, "Help", "Refresh rate applies to exclusive fullscreen. V-sync uses the display rate.\nD-pad / stick: select   •   Bottom button: open / confirm   •   Right button / Esc: back", new Vector2(40f, 480f), new Vector2(820f, 48f), 14f);
+        Label(card, "Help", "V-sync uses the display rate. Texture quality controls texture resolution.\nD-pad / stick: select   •   Bottom button: open / confirm   •   Right button / Esc: back", new Vector2(40f, 480f), new Vector2(820f, 48f), 14f);
         var apply = Button(card, "Apply", "APPLY", new Vector2(40f, 546f), new Vector2(250f, 48f));
         var defaults = Button(card, "Defaults", "DEFAULTS", new Vector2(310f, 546f), new Vector2(250f, 48f));
-        var back = Button(card, "Back", "BACK TO OPTIONS", new Vector2(580f, 546f), new Vector2(280f, 48f));
+        var back = Button(card, "Back", "BACK", new Vector2(580f, 546f), new Vector2(280f, 48f));
         var status = Label(card, "Status", "Changes take effect when you choose Apply.", new Vector2(40f, 606f), new Vector2(820f, 26f), 14f);
         var confirmation = Rect(panel, "Display Confirmation", Vector2.zero, Vector2.zero);
         Stretch(confirmation); Image(confirmation, new Color(0.005f, 0.012f, 0.023f, 0.97f), true); confirmation.SetAsLastSibling();
@@ -49,15 +49,17 @@ public static class MechaVideoSetup
         var menu = MechaPresentationSetup.Ensure<VideoConfigurationMenu>(panel.gameObject);
         var settings = MechaPresentationSetup.Create<VideoConfigurationSettings>("VideoConfiguration");
         Assign(menu, "settings", settings); Assign(menu, "controls", group);
-        Assign(menu, "display", display); Assign(menu, "resolution", resolution); Assign(menu, "refreshRate", rate);
-        Assign(menu, "quality", quality); Assign(menu, "sync", sync); Assign(menu, "frameLimit", limit);
+        Assign(menu, "display", display); Assign(menu, "resolution", resolution); Assign(menu, "antialiasing", antialiasing);
+        Assign(menu, "textureQuality", textures); Assign(menu, "sync", sync); Assign(menu, "frameLimit", limit);
         Assign(menu, "apply", apply); Assign(menu, "defaults", defaults); Assign(menu, "back", back);
         Assign(menu, "confirmation", confirmation.gameObject); Assign(menu, "confirmationText", message); Assign(menu, "status", status);
         Assign(menu, "keep", keep); Assign(menu, "revert", revert);
         return menu;
     }
-    private static TMP_Dropdown Dropdown(Transform card, string name, string title, float y)
+    public static TMP_Dropdown Dropdown(Transform card, string name, string title, float y)
     {
+        frame = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+        font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset");
         Label(card, name + " Label", title, new Vector2(40f, y), new Vector2(230f, 44f), 18f);
         var existing = card.Find(name);
         GameObject root;

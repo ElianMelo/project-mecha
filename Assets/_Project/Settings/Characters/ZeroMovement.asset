@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f11058c80bdeefe49b4d231e6c927f95, type: 3}
+  m_Name: ZeroMovement
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementSettings
+  style: 1
+  runByDefault: 1
+  directionalDash: 1
+  variableJump: 1
+  jumpCutGravity: 68
+  walkSpeed: 7.225
+  runSpeed: 7.225
+  jumpSpeed: 11.4
+  dashSpeed: 10.5
+  dashDuration: 0.2
+  dashCooldown: 0.12
+  dashBuffer: 0.083333336
+  dashNetworkGrace: 0.08
+  risingGravity: 24
+  fallingGravity: 44
+  apexGravity: 14
+  terminalVelocity: 20
+  coyoteTime: 0.12
+  jumpBuffer: 0.15
+  apexSpeed: 1.5
+  groundAcceleration: 125
+  airAcceleration: 85
+  airAttackAcceleration: 20
+  rocketMomentum: 0.28
+  dropSpeed: 4
+  fastFallSpeed: 6
+  rocketSpeed: 14
+  rocketRiseSpeed: 7.8
+  rocketDuration: 0.25
+  mushidonSpeed: 18.5
+  mushidonDuration: 0.36666667
+  mushidonFallSpeed: 12
+  chordWindow: 0.083333336
+  mushidonWindow: 0.25
+  brakeLock: 0.06666667
+  impulseEndRatio: 0.52
+  slideDrag: 100
+  attackDrag: 35
+  groundProbe: 0.15
+  groundProbeInset: 0.08
+  vaultHeight: 0.28
+  vaultReach: 0.3
+  vaultMaxRiseSpeed: 2
+  vaultCooldown: 0.2
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 192
+  capsuleHeight: 1.75
+  capsuleRadius: 0.27
+  capsuleCenter: {x: 0, y: 0.875, z: 0}

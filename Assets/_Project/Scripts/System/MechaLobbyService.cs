@@ -86,6 +86,7 @@ public sealed class MechaLobbyService : MonoBehaviour
     }
     public Task CreateAsync(string lobbyName, string playerName) => Operation(async () =>
     {
+        if (CharacterSelectionMenu.Instance != null && !await CharacterSelectionMenu.Instance.EnsureConfirmedAsync()) return;
         await InitializeAsync();
         if (Session != null || InGame) throw new InvalidOperationException(GameText.Get("Lobby", "session.leaveFirst"));
         var options = new SessionOptions {Name = Clean(lobbyName, GameText.Get(settings.defaultLobbyNameLocalized)), MaxPlayers = settings.maxPlayers,
@@ -98,6 +99,7 @@ public sealed class MechaLobbyService : MonoBehaviour
     });
     public Task JoinAsync(string id, string playerName, bool byCode = false) => Operation(async () =>
     {
+        if (CharacterSelectionMenu.Instance != null && !await CharacterSelectionMenu.Instance.EnsureConfirmedAsync()) return;
         await InitializeAsync();
         if (Session != null || InGame) throw new InvalidOperationException(GameText.Get("Lobby", "session.leaveFirst"));
         var options = new JoinSessionOptions {Type = settings.sessionType, PlayerProperties = PlayerData(playerName)};
@@ -219,7 +221,8 @@ public sealed class MechaLobbyService : MonoBehaviour
         finally { Busy = false; if (!destroyed) { Changed?.Invoke(); _ = CheckReadyAsync(); } }
     }
     private Dictionary<string, PlayerProperty> PlayerData(string playerName) => new Dictionary<string, PlayerProperty> {
-        {"name", new PlayerProperty(Clean(playerName, GameText.Get(settings.defaultPlayerNameLocalized)))}, {"ready", new PlayerProperty("0")}};
+        {"name", new PlayerProperty(Clean(playerName, GameText.Get(settings.defaultPlayerNameLocalized)))}, {"ready", new PlayerProperty("0")},
+        {"character", new PlayerProperty(CharacterSelectionMenu.SelectedId)}};
     public static string Read(IReadOnlyPlayer player, string key) => player != null && player.Properties.TryGetValue(key, out var value) ? value.Value : "";
     private static string Clean(string value, string fallback) => string.IsNullOrWhiteSpace(value) ? fallback : value.Trim().Substring(0, Mathf.Min(28, value.Trim().Length));
     private static string Friendly(Exception error) => error.Message.Contains("429")

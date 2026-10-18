@@ -1,0 +1,401 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ab7101670f23a41b7a67b3892b9533, type: 3}
+  m_Name: ZeroCombat
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombatSettings
+  actions:
+  - kind: 0
+    duration: 0.48
+    impact: 0.18
+    cancel: 0.32
+    pulses: 1
+    pulseInterval: 0.13
+    damage: 9
+    finalDamage: 9
+    launcher: 0
+    finalPulseLaunch: 0
+    hitHalfSize: {x: 0.65, y: 0.7, z: 0.7}
+    reach: 0.7
+    pulseAdvance: 0
+    height: 0.85
+    push: 1.6
+    lift: 1
+    stun: 0.25
+    manaCost: 0
+    cooldown: 0
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
+    hitActiveTime: 0
+    hitLength: 0
+    hitTravelTime: 0
+    hitRadius: 0.3
+    hitFirstAngle: 0
+    hitAngleStep: 0
+    hitPulseHeight: 0
+    hitOrigin: {x: 0.15, y: 0.85}
+    hitFromHand: 0
+    hitObstructions:
+      serializedVersion: 2
+      m_Bits: 192
+  - kind: 1
+    duration: 0.52
+    impact: 0.2
+    cancel: 0.35
+    pulses: 1
+    pulseInterval: 0.13
+    damage: 11
+    finalDamage: 11
+    launcher: 0
+    finalPulseLaunch: 0
+    hitHalfSize: {x: 0.65, y: 0.7, z: 0.7}
+    reach: 0.7
+    pulseAdvance: 0
+    height: 0.85
+    push: 1.6
+    lift: 1
+    stun: 0.25
+    manaCost: 0
+    cooldown: 0
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
+    hitActiveTime: 0
+    hitLength: 0
+    hitTravelTime: 0
+    hitRadius: 0.3
+    hitFirstAngle: 0
+    hitAngleStep: 0
+    hitPulseHeight: 0
+    hitOrigin: {x: 0.15, y: 0.85}
+    hitFromHand: 0
+    hitObstructions:
+      serializedVersion: 2
+      m_Bits: 192
+  - kind: 2
+    duration: 0.65
+    impact: 0.26
+    cancel: 0.48
+    pulses: 1
+    pulseInterval: 0.13
+    damage: 15
+    finalDamage: 15
+    launcher: 1
+    finalPulseLaunch: 0
+    hitHalfSize: {x: 0.65, y: 0.7, z: 0.7}
+    reach: 0.7
+    pulseAdvance: 0
+    height: 0.85
+    push: 4
+    lift: 7
+    stun: 0.55
+    manaCost: 0
+    cooldown: 0
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
+    hitActiveTime: 0
+    hitLength: 0
+    hitTravelTime: 0
+    hitRadius: 0.3
+    hitFirstAngle: 0
+    hitAngleStep: 0
+    hitPulseHeight: 0
+    hitOrigin: {x: 0.15, y: 0.85}
+    hitFromHand: 0
+    hitObstructions:
+      serializedVersion: 2
+      m_Bits: 192
+  - kind: 3
+    duration: 0.46
+    impact: 0.16
+    cancel: 0.31
+    pulses: 1
+    pulseInterval: 0.13
+    damage: 10
+    finalDamage: 10
+    launcher: 0
+    finalPulseLaunch: 0
+    hitHalfSize: {x: 0.65, y: 0.7, z: 0.7}
+    reach: 0.7
+    pulseAdvance: 0
+    height: 0.85
+    push: 1.6
+    lift: 1
+    stun: 0.25
+    manaCost: 0
+    cooldown: 0
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
+    hitActiveTime: 0
+    hitLength: 0
+    hitTravelTime: 0
+    hitRadius: 0.3
+    hitFirstAngle: 0
+    hitAngleStep: 0
+    hitPulseHeight: 0
+    hitOrigin: {x: 0.15, y: 0.85}
+    hitFromHand: 0
+    hitObstructions:
+      serializedVersion: 2
+      m_Bits: 192
+  - kind: 4
+    duration: 0.48
+    impact: 0.16
+    cancel: 0.32
+    pulses: 1
+    pulseInterval: 0.13
+    damage: 12
+    finalDamage: 12
+    launcher: 0
+    finalPulseLaunch: 0
+    hitHalfSize: {x: 0.65, y: 0.7, z: 0.7}
+    reach: 0.7
+    pulseAdvance: 0
+    height: 0.85
+    push: 1.6
+    lift: 1
+    stun: 0.25
+    manaCost: 0
+    cooldown: 0
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
+    hitActiveTime: 0
+    hitLength: 0
+    hitTravelTime: 0
+    hitRadius: 0.3
+    hitFirstAngle: 0
+    hitAngleStep: 0
+    hitPulseHeight: 0
+    hitOrigin: {x: 0.15, y: 0.85}
+    hitFromHand: 0
+    hitObstructions:
+      serializedVersion: 2
+      m_Bits: 192
+  - kind: 5
+    duration: 0.8
+    impact: 0.12
+    cancel: 0.62
+    pulses: 4
+    pulseInterval: 0.13
+    damage: 8
+    finalDamage: 18
+    launcher: 0
+    finalPulseLaunch: 1
+    hitHalfSize: {x: 0.65, y: 0.7, z: 0.7}
+    reach: 0.7
+    pulseAdvance: 0
+    height: 0.85
+    push: 1.6
+    lift: 7
+    stun: 0.25
+    manaCost: 25
+    cooldown: 3
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
+    hitActiveTime: 0
+    hitLength: 0
+    hitTravelTime: 0
+    hitRadius: 0.3
+    hitFirstAngle: 0
+    hitAngleStep: 0
+    hitPulseHeight: 0
+    hitOrigin: {x: 0.15, y: 0.85}
+    hitFromHand: 0
+    hitObstructions:
+      serializedVersion: 2
+      m_Bits: 192
+  - kind: 6
+    duration: 0.85
+    impact: 0.24
+    cancel: 0.62
+    pulses: 3
+    pulseInterval: 0.12
+    damage: 14
+    finalDamage: 14
+    launcher: 0
+    finalPulseLaunch: 0
+    hitHalfSize: {x: 0.65, y: 0.7, z: 0.7}
+    reach: 1.7
+    pulseAdvance: 0.7
+    height: 0.85
+    push: 1.6
+    lift: 1
+    stun: 0.25
+    manaCost: 40
+    cooldown: 5
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
+    hitActiveTime: 0
+    hitLength: 0
+    hitTravelTime: 0
+    hitRadius: 0.3
+    hitFirstAngle: 0
+    hitAngleStep: 0
+    hitPulseHeight: 0
+    hitOrigin: {x: 0.15, y: 0.85}
+    hitFromHand: 0
+    hitObstructions:
+      serializedVersion: 2
+      m_Bits: 192
+  - kind: 7
+    duration: 1.05
+    impact: 0.25
+    cancel: 0.62
+    pulses: 2
+    pulseInterval: 0.2
+    damage: 28
+    finalDamage: 28
+    launcher: 1
+    finalPulseLaunch: 0
+    hitHalfSize: {x: 1.55, y: 1.5, z: 0.75}
+    reach: 0.7
+    pulseAdvance: 0
+    height: 0.85
+    push: 4
+    lift: 7
+    stun: 0.55
+    manaCost: 60
+    cooldown: 7
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
+    hitActiveTime: 0
+    hitLength: 0
+    hitTravelTime: 0
+    hitRadius: 0.3
+    hitFirstAngle: 0
+    hitAngleStep: 0
+    hitPulseHeight: 0
+    hitOrigin: {x: 0.15, y: 0.85}
+    hitFromHand: 0
+    hitObstructions:
+      serializedVersion: 2
+      m_Bits: 192
+  - kind: 8
+    duration: 0.55
+    impact: 0.2
+    cancel: 0.38
+    pulses: 1
+    pulseInterval: 0.13
+    damage: 13
+    finalDamage: 13
+    launcher: 1
+    finalPulseLaunch: 0
+    hitHalfSize: {x: 0.65, y: 0.7, z: 0.7}
+    reach: 0.7
+    pulseAdvance: 0
+    height: 0.85
+    push: 4
+    lift: 7
+    stun: 0.55
+    manaCost: 0
+    cooldown: 0
+    stepSpeed: 2.8
+    stepDuration: 0.09
+    airLift: 4.5
+    airOnly: 0
+    requiresGround: 0
+    sideSwitch: 0
+    pull: 0
+    diveSpeed: 0
+    pullSpeed: 6
+    hitActiveTime: 0
+    hitLength: 0
+    hitTravelTime: 0
+    hitRadius: 0.3
+    hitFirstAngle: 0
+    hitAngleStep: 0
+    hitPulseHeight: 0
+    hitOrigin: {x: 0.15, y: 0.85}
+    hitFromHand: 0
+    hitObstructions:
+      serializedVersion: 2
+      m_Bits: 192
+  pieces:
+  - {fileID: 11400000, guid: 00ce543397741e94a9bc2196095771cb, type: 2}
+  - {fileID: 11400000, guid: c7b9ad3be08069846b10b702da2a8131, type: 2}
+  - {fileID: 11400000, guid: 024a51c43fc3b514aab872de4106071f, type: 2}
+  - {fileID: 11400000, guid: 2ef7c3de22225e84694ebbe49c6306ba, type: 2}
+  - {fileID: 11400000, guid: 47c51f316cd8d4a48bd1935460e382ec, type: 2}
+  - {fileID: 11400000, guid: 61bd62af9b8e2ad46ba1d389408f5b18, type: 2}
+  - {fileID: 11400000, guid: a739d5ccee7e47a41bc0f43b92210b6d, type: 2}
+  - {fileID: 11400000, guid: f1fe9fb0e01e38042ae36e470bfdd4af, type: 2}
+  - {fileID: 11400000, guid: f6b6fa8ede36381458b3a822c082dda5, type: 2}
+  - {fileID: 11400000, guid: c5bcbe9639521d74d9ad7db050ccae74, type: 2}
+  - {fileID: 11400000, guid: 9493b75a6ca764e478807fbf753b2104, type: 2}
+  - {fileID: 11400000, guid: d8e13a696b0c76c4ea708ed3e08f0195, type: 2}
+  combos: {fileID: 11400000, guid: ceda6f78c6a37ec44823afae75c3e659, type: 2}
+  damageMultiplier: 2
+  maxMana: 100
+  manaRegen: 7
+  hitMana: 4
+  attackBuffer: 0.28
+  skillBuffer: 0.3
+  networkRecoveryGrace: 0.04
+  comboWindow: 0.9
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 1536
+  comboDisplayWindow: 1.25

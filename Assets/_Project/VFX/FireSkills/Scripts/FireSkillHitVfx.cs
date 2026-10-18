@@ -3,6 +3,7 @@ using UnityEngine;
 // Contact presentation only. Damage has already been confirmed by combat authority.
 public sealed class FireSkillHitVfx : MonoBehaviour
 {
+    private void Awake() => CombatVfxRendering.Apply(gameObject);
     public void Play(Vector3 point, Vector3 incoming, Vector3 normal, bool final, float depth)
     {
         if (normal.sqrMagnitude < 0.01f) normal = -incoming;

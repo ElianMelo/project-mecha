@@ -643,6 +643,10 @@ MonoBehaviour:
     m_Key: control.dpad
     m_Metadata:
       m_Items: []
+  - m_Id: 252935927865344
+    m_Key: zero.traversal
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

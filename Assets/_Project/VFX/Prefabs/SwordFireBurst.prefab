@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7208134160555089802}
   - component: {fileID: 600529381086774038}
   - component: {fileID: 8290406279178773426}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Embers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 2049955646848460761}
   - component: {fileID: 205866525439677841}
   - component: {fileID: 1494646581182938052}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: SwordFireBurst
   m_TagString: Untagged
   m_Icon: {fileID: 0}

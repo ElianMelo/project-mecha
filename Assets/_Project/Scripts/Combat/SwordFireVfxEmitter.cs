@@ -12,6 +12,7 @@ public static class SwordFireVfxEmitter
         var rotation = Quaternion.Euler(0f, facing < 0 ? 180f : 0f, 0f)
             * Quaternion.AngleAxis(settings.firstPulseAngle + pulse * settings.pulseAngleStep, Vector3.forward);
         var instance = Object.Instantiate(settings.prefab, position, rotation);
+        CombatVfxRendering.Apply(instance);
         instance.name = settings.prefab.name; instance.transform.localScale = settings.scale;
         foreach (var effect in instance.GetComponentsInChildren<VisualEffect>(true))
         {

@@ -9,6 +9,7 @@ public sealed class SecondaryWeaponPresentation : MonoBehaviour
     [SerializeField] private Transform reticlePivot;
     [SerializeField] private Animator reticleAnimator;
     private MechaAutoAim aim;
+    public void Bind(Transform arm, Transform weapon) { leftArm = arm; gun = weapon; }
     private PlayerIdentity identity;
     private ITargetable previousTarget;
     private void Awake() { aim = GetComponent<MechaAutoAim>(); identity = GetComponent<PlayerIdentity>(); }

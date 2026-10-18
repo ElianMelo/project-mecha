@@ -16,12 +16,19 @@ public class CharacterAnimator : MonoBehaviour
     private bool dead;
     private Vector3 previousPosition;
     public Animator Animator => animator;
+    public void Configure(CharacterAnimationSettings profile, Animator view)
+    {
+        settings = profile; animator = view; current = null; lockedUntil = 0f;
+        animator.runtimeAnimatorController = profile.controller; animator.applyRootMotion = false;
+        if (networkAnimator != null) networkAnimator.SetAnimator(animator);
+    }
     private bool DrivesAnimator => networkAnimator == null || !networkAnimator.IsSpawned ||
         (networkAnimator.ClientAuthoritative ? networkAnimator.IsOwner ||
             !networkAnimator.Owner.IsValid && networkAnimator.IsServerInitialized : networkAnimator.IsServerInitialized);
     private void Awake()
     {
-        animator = GetComponentInChildren<Animator>(); player = GetComponent<PlayerMovement>(); enemy = GetComponent<EnemyController>(); body = GetComponent<Rigidbody>();
+        networkAnimator = GetComponent<NetworkAnimator>();
+        animator = networkAnimator != null ? networkAnimator.Animator : GetComponentInChildren<Animator>(); player = GetComponent<PlayerMovement>(); enemy = GetComponent<EnemyController>(); body = GetComponent<Rigidbody>();
         attack = GetComponent<PlayerAttack>();
         networkAnimator = GetComponent<NetworkAnimator>();
         if (animator != null && settings != null) { animator.runtimeAnimatorController = settings.controller; animator.applyRootMotion = false; }

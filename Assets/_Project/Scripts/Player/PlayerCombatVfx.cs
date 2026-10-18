@@ -7,10 +7,12 @@ public class PlayerCombatVfx : MonoBehaviour
     private PlayerMovement movement;
     private CharacterHitFeedback feedback;
     private FireSkillPresentation fireSkills;
+    private CharacterSkills characterSkills;
+    public void Configure(PlayerCombatSettings profile) => combat = profile;
     private float nextSmoke;
     private bool wasGrounded;
     private float previousVerticalSpeed;
-    private void Awake() { movement=GetComponent<PlayerMovement>(); feedback=GetComponent<CharacterHitFeedback>(); fireSkills=GetComponent<FireSkillPresentation>(); }
+    private void Awake() { movement=GetComponent<PlayerMovement>(); feedback=GetComponent<CharacterHitFeedback>(); fireSkills=GetComponent<FireSkillPresentation>(); characterSkills=GetComponent<CharacterSkills>(); }
     public void EndAction() => fireSkills?.StopFeeding();
     public void SkillContact(PlayerAttack.ActionKind kind, Vector3 point, Vector3 incoming, Vector3 normal, bool final)
         => fireSkills?.Contact(kind, point, incoming, normal, final);
@@ -31,6 +33,7 @@ public class PlayerCombatVfx : MonoBehaviour
         => Strike(combat.Get(kind), facing, pulse);
     public void BeginAction(PlayerCombatSettings.ActionData action, int facing)
     {
+        if (characterSkills != null && characterSkills.Begin(action, facing)) { GameAudio.Play(GameAudioCue.SkillPulse, transform.position, transform); return; }
         var cue = action.kind == PlayerAttack.ActionKind.MegaSlash ? GameAudioCue.MegaSlash :
             action.kind == PlayerAttack.ActionKind.SwordFire ? GameAudioCue.SwordFire :
             action.kind == PlayerAttack.ActionKind.CriticalX ? GameAudioCue.CriticalX :
@@ -43,6 +46,7 @@ public class PlayerCombatVfx : MonoBehaviour
     }
     public void Strike(PlayerCombatSettings.ActionData action,int facing,int pulse)
     {
+        if (characterSkills != null && characterSkills.PresentPulse(action, facing, pulse)) { GameAudio.Play(GameAudioCue.SkillPulse, transform.position, transform); return; }
         var kind=action.kind;
         if (PlayerAttack.IsSkill(kind) && pulse == action.pulses - 1)
             GameAudio.Play(kind == PlayerAttack.ActionKind.MegaSlash ? GameAudioCue.MegaSlashImpact :

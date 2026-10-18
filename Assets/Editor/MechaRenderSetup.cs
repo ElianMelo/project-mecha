@@ -25,5 +25,33 @@ public static class MechaRenderSetup
         data.antialiasingQuality = settings.antialiasingQuality;
         data.renderPostProcessing = settings.postProcessing;
         EditorUtility.SetDirty(data);
+        ConfigureWorldEffects(camera);
     }
+
+    public static void ConfigureWorldEffects(Camera camera)
+    {
+        var data = camera.GetUniversalAdditionalCameraData();
+        if (data.renderType != CameraRenderType.Base) return;
+        camera.cullingMask |= 1 << CombatVfxRendering.Layer;
+        var child = camera.transform.Find("Foreground VFX");
+        if (child != null)
+        {
+            var overlay = child.GetComponent<Camera>();
+            if (overlay != null) data.cameraStack.Remove(overlay);
+            Object.DestroyImmediate(child.gameObject);
+        }
+        EditorUtility.SetDirty(camera);
+        EditorUtility.SetDirty(data);
+    }
+
+    public static void ConfigureSurfaceDepth(GameObject effect)
+    {
+        var profile = AssetDatabase.LoadAssetAtPath<VfxSurfaceDepthSettings>(
+            "Assets/_Project/VFX/Rendering/Profiles/SurfaceDepth.asset");
+        if (profile == null) return;
+        var placement = effect.GetComponent<VfxSurfaceDepth>();
+        if (placement == null) placement = effect.AddComponent<VfxSurfaceDepth>();
+        MechaPresentationSetup.Assign(placement, "settings", profile);
+    }
+
 }

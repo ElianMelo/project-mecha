@@ -5,11 +5,13 @@ using UnityEngine;
 public sealed class FireSkillBurst : MonoBehaviour
 {
     private static readonly System.Random VisualRandom = new System.Random();
+    private void Awake() => CombatVfxRendering.Apply(gameObject);
     public void Play(FireSkillSettings settings, Vector3 origin, Vector3 direction, bool final, Transform hand)
     {
         transform.SetPositionAndRotation(origin + Vector3.forward * settings.visualDepth,
             Quaternion.LookRotation(direction, Vector3.forward));
         transform.localScale = Vector3.one * (final ? settings.finalScale : 1f);
+        GetComponent<VfxSurfaceDepth>()?.Place();
         // Keep the first stroke rising when the facing frame reverses its local X axis.
         if (settings.kind == PlayerAttack.ActionKind.CriticalX && direction.x < 0f)
             foreach (Transform arm in transform)

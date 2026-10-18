@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1681799939132333753}
   - component: {fileID: 6244696079535938444}
   - component: {fileID: 4563443478503063215}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Embers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 8771723996264895103}
   - component: {fileID: 1425560439476524796}
   - component: {fileID: 1343395448941538122}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: CriticalXFireBurst
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -112,11 +112,16 @@ public sealed class MechaLobbyPanel : MonoBehaviour
             if (isReady) readyCount++;
             if (slotIndex < playerCards.Length)
                 playerCards[slotIndex++].Present(player.Id, MechaLobbyService.Read(player, "name"),
-                    player.Id == service.Session.Host ? GameText.Get("Lobby", "role.host") : GameText.Get("Lobby", "role.pilot"), isReady);
+                    (player.Id == service.Session.Host ? GameText.Get("Lobby", "role.host") : GameText.Get("Lobby", "role.pilot")) + " / " + CharacterLabel(MechaLobbyService.Read(player, "character")), isReady);
         }
         for (; slotIndex < playerCards.Length; slotIndex++) playerCards[slotIndex].Present(null, null, null, false);
         readiness.text = service.Starting ? GameText.Get("Lobby", "deployment.starting") : GameText.Get("Lobby", "pilots.ready", (readyCount), (service.Session.Players.Count));
         readiness.color = service.Starting || readyCount == service.Session.Players.Count ? service.Settings.readyColor : service.Settings.waitingColor;
         members.text = service.Starting ? GameText.Get("Lobby", "deployment.confirmed") : GameText.Get("Lobby", "ready.instructions");
+    }
+    private string CharacterLabel(string id)
+    {
+        var catalog = CharacterSelectionMenu.Instance?.Catalog;
+        return catalog != null ? catalog.At(catalog.IndexOf(id)).Label : "";
     }
 }

@@ -151,6 +151,7 @@ public static class AuthorFireSkills
             light.range = 4.5f; light.intensity = 0f; light.shadows = LightShadows.None;light.renderMode=LightRenderMode.ForcePixel;
             root.AddComponent<Animator>().runtimeAnimatorController = lightController;
             string path = Root + "/Prefabs/" + settings.kind + "ThermalBurst.prefab";
+            MechaRenderSetup.ConfigureSurfaceDepth(root);
             return PrefabUtility.SaveAsPrefabAsset(root, path).GetComponent<FireSkillBurst>();
         }
         finally { UnityEngine.Object.DestroyImmediate(root); }
@@ -203,6 +204,7 @@ public static class AuthorFireSkills
             lightObject.transform.localPosition=Vector3.forward*(cross?2f:0.6f)+Vector3.up*-0.9f;
             var light=lightObject.AddComponent<Light>();light.type=LightType.Point;light.color=new Color(1,0.42f,0.10f);light.range=4.5f;light.intensity=0;light.shadows=LightShadows.None;light.renderMode=LightRenderMode.ForcePixel;
             root.AddComponent<Animator>().runtimeAnimatorController=lightController;
+            MechaRenderSetup.ConfigureSurfaceDepth(root);
             return PrefabUtility.SaveAsPrefabAsset(root,Root+"/Prefabs/"+settings.kind+"ThermalBurst.prefab").GetComponent<FireSkillBurst>();
         }
         finally {UnityEngine.Object.DestroyImmediate(root);}
@@ -241,6 +243,7 @@ public static class AuthorFireSkills
             var color=glow.colorOverLifetime;color.color=charge;
             foreach(var ps in root.GetComponentsInChildren<ParticleSystem>())
             {var main=ps.main;main.simulationSpace=ParticleSystemSimulationSpace.Local;}
+            MechaRenderSetup.ConfigureSurfaceDepth(root);
             return PrefabUtility.SaveAsPrefabAsset(root,Root+"/Prefabs/SourceHeatPreparation.prefab").GetComponent<FireSourceWarmup>();
         }
         finally {UnityEngine.Object.DestroyImmediate(root);}
@@ -261,6 +264,7 @@ public static class AuthorFireSkills
             var coals=Layer(root,"Incoming Sparks",ember,0.75f,3.8f,0.065f,new Color(1.4f,0.50f,0.055f),0,7);
             Cone(coals,35,0.06f);WorldCollision(coals,true);Turbulence(coals,0.18f,3,0.1f);Growth(coals,1,0.2f);
             BuildWake(flameHit,rolling);
+            MechaRenderSetup.ConfigureSurfaceDepth(root);
             return PrefabUtility.SaveAsPrefabAsset(root, Root + "/Prefabs/ThermalArmorContact.prefab").GetComponent<FireSkillHitVfx>();
         }
         finally { UnityEngine.Object.DestroyImmediate(root); }
@@ -269,6 +273,7 @@ public static class AuthorFireSkills
     private static ParticleSystem Layer(GameObject root, string name, Material material, float life, float speed, float size, Color tint, float rate, int count, float delay = 0f)
     {
         var go = new GameObject(name); go.transform.SetParent(root.transform, false);
+        go.layer = CombatVfxRendering.Layer;
         var ps = go.AddComponent<ParticleSystem>(); ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         var main = ps.main; main.loop = false; main.playOnAwake = false; main.duration = 0.30f;
         main.startLifetime = new ParticleSystem.MinMaxCurve(life * 0.82f, life); main.startDelay = delay;

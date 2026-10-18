@@ -12,6 +12,7 @@ public class PlayerInputs : NetworkBehaviour
     public bool JumpHeld { get; private set; }
     public bool DownHeld { get; private set; }
     public bool HasControl => (!NetworkObject.IsSpawned || IsOwner) && !GameInputPresentation.Disconnected && !MechaChat.IsTyping &&
+        (GetComponent<CharacterRuntime>() == null || GetComponent<CharacterRuntime>().Ready) &&
         !(GameManager.Instance != null && GameManager.Instance.GameplayInputBlocked);
     public event Action OnJumpInput;
     public event Action OnDownInput;
@@ -144,7 +145,7 @@ public class PlayerInputs : NetworkBehaviour
         {
             OnCommand?.Invoke(direction > 0 ? ">" : "<");
             float previous = direction > 0 ? lastRight : lastLeft;
-            if (Time.time - previous <= settings.doubleTapWindow)
+            if (Time.time - previous <= settings.doubleTapWindow && GetComponent<PlayerMovement>().Settings.style == PlayerMovementSettings.MovementStyle.Dasher)
             {
                 OnCommand?.Invoke(GameText.Get("Input", "command.direction.dash", direction > 0 ? ">>" : "<<")); OnDashInput?.Invoke(direction);
                 if (direction > 0) lastRight = -10f; else lastLeft = -10f;
@@ -177,6 +178,7 @@ public class PlayerInputs : NetworkBehaviour
     {
         if (!HasControl || typing || !value.isPressed) return;
         Vector2 move = moveAction != null ? moveAction.ReadValue<Vector2>() : MoveInput;
+        MoveInput = move;
         OnCommand?.Invoke(GameText.Get("Input", "command.dash"));
         OnDashInput?.Invoke(Mathf.Abs(move.x) < settings.movementDeadzone ? 0 : (move.x > 0f ? 1 : -1));
     }

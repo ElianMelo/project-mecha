@@ -73,13 +73,13 @@ public class MechaGameplayHud : MonoBehaviour
         {
             promptRevision = GameInputPresentation.Revision + GameText.Revision;
             for (int i = 0; i < skillNames.Length; i++) skillNames[i] = GameInputPresentation.Hint(SkillActions[i]) + "  " + SkillTitles[i];
-            if (controls != null) controls.text = ControlTutorialText.Build();
+            if (controls != null) controls.text = ControlTutorialText.Build(player != null ? player.GetComponent<CharacterRuntime>()?.Definition : null);
         }
         if (player == null && Time.unscaledTime >= nextSearch)
         {
             nextSearch = Time.unscaledTime + 0.5f;
             foreach (var candidate in FindObjectsByType<PlayerAttack>(FindObjectsSortMode.None))
-                if (!candidate.NetworkObject.IsSpawned || candidate.IsOwner) { player = candidate; health = candidate.GetComponent<PlayerHealth>(); movement = candidate.GetComponent<PlayerMovement>(); secondary = candidate.GetComponent<PlayerSecondaryWeapon>(); break; }
+                if (!candidate.NetworkObject.IsSpawned || candidate.IsOwner) { player = candidate; health = candidate.GetComponent<PlayerHealth>(); movement = candidate.GetComponent<PlayerMovement>(); secondary = candidate.GetComponent<PlayerSecondaryWeapon>(); promptRevision = -1; break; }
         }
         if (player == null)
         {
@@ -89,7 +89,9 @@ public class MechaGameplayHud : MonoBehaviour
             if (link != null) link.text = GameText.Get("HUD", "link.none") + GameInputPresentation.Hint("Diagnostics") + GameText.Get("HUD", "link.diagnostics");
             return;
         }
-        status.text = GameText.Get("HUD", "pilot.title");
+        var character = player.GetComponent<CharacterRuntime>();
+        status.text = character != null && character.Definition != null ? character.Definition.Label : GameText.Get("HUD", "pilot.title");
+        for (int i = 0; i < skillNames.Length; i++) skillNames[i] = GameInputPresentation.Hint(SkillActions[i]) + "  " + player.SkillTitle(i);
         if (ammunition != null) ammunition.text = secondary != null ? GameText.Get("HUD", "ammo.summary", (GameInputPresentation.Hint("SecondaryFire")), (secondary.Ammo), (secondary.Capacity)) : "";
         if (healthValue != null) healthValue.text = GameText.Get("HUD", "resources.armor", (health.Health), (health.MaxHealth));
         if (energyValue != null) energyValue.text = GameText.Get("HUD", "resources.energy", (player.Mana), (player.MaxMana));
@@ -108,6 +110,7 @@ public class MechaGameplayHud : MonoBehaviour
             float cooldown = player.Cooldown(i);
             feedback?.Skill(i, cooldown, player.Mana >= player.Cost(i));
             skills[i].text = skillNames[i] + "\n" + (cooldown > 0f ? GameText.Get("HUD", "skill.cooldown", (cooldown)) : player.Mana < player.Cost(i) ? GameText.Get("HUD", "skill.lowEnergy") : GameText.Get("HUD", "skill.ready")) + GameText.Get("HUD", "skill.cost", (player.Cost(i)));
+            if (player.SkillStatus(i) > 0f) skills[i].text = skillNames[i] + "\n" + GameText.Get("Combat", "mode.remaining", player.SkillStatus(i));
             skills[i].color = cooldown > 0f || player.Mana < player.Cost(i) ? new Color(0.44f, 0.51f, 0.55f) : settings != null ? settings.textColor : Color.white;
         }
     }

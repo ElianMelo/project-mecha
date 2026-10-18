@@ -74,6 +74,11 @@ $rows = foreach ($path in ($paths | Sort-Object -Unique)) {
     } elseif ($basePath -match '^Assets/(TextMesh Pro|TutorialInfo)(/|$)' -or $basePath -eq 'Assets/Readme.asset') {
         $origin = 'Unity package or template'; $kind = 'Package resource, sample or template'
         $evidence = 'Unity/TMP template resources; retain upstream notices.'
+    } elseif ($basePath -match '^Assets/_Project/Art/Characters/(Dasher|Zero)Portrait\.png$') {
+        $category = 'Placeholder'; $status = 'Placeholder'
+        $origin = 'Native render of imported game artwork; upstream AI origin unverified'
+        $kind = 'Character-selection model screenshot'
+        $evidence = 'Docs/CharacterSelection.md; Docs/MechaModelSources.md; captured from actual Tallgeese/Wing Zero rigs, not AI-generated image pixels.'
     } elseif ($basePath -match '^Assets/_Project/Animations/Interface/Aim(Scan|Capture|Tracked)\.anim$') {
         $category = 'Placeholder'; $status = 'Placeholder'; $origin = 'Unverified'
         $kind = 'Native authored reticle animation'

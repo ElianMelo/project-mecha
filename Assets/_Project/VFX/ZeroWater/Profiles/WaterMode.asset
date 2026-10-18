@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a4afea7742f2043a8d3e7532bd5e52, type: 3}
+  m_Name: WaterMode
+  m_EditorClassIdentifier: Assembly-CSharp::WaterModeSkill
+  displayName:
+    m_TableReference:
+      m_TableCollectionName: Combat
+    m_TableEntryReference:
+      m_KeyId: 250009373220864
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  action: {fileID: 11400000, guid: f1fe9fb0e01e38042ae36e470bfdd4af, type: 2}
+  aura: {fileID: 2665828986667548642, guid: 8c4cb18e6a509bf44bc6a2d7eb2d9e92, type: 3}
+  duration: 8
+  moveMultiplier: 1.3
+  attackMultiplier: 1.4
+  references:
+    version: 2
+    RefIds: []

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607349d16880a46489d772c2f6014efc, type: 3}
+  m_Name: Dasher
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterDefinition
+  id: dasher
+  displayName:
+    m_TableReference:
+      m_TableCollectionName: Combat
+    m_TableEntryReference:
+      m_KeyId: 250004876926976
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: Combat
+    m_TableEntryReference:
+      m_KeyId: 250004906287104
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  portrait: {fileID: 21300000, guid: 491badffcde420b44bba4519085b4650, type: 3}
+  visualPrefab: {fileID: 8915030654768370698, guid: 7b047e0aa1ae38849b5c2a34915ddd8c, type: 3}
+  visualScale: 0.65
+  movement: {fileID: 11400000, guid: 52289c9f332ec3b4eaf52617d96e42a5, type: 2}
+  combat: {fileID: 11400000, guid: 9e0ab38bb0d5058408f943b05271c8d7, type: 2}
+  animation: {fileID: 11400000, guid: 9bd913b26598f0a40b4b95a4589b5e6f, type: 2}
+  skills:
+  - {fileID: 11400000, guid: a28fb1bc8afc69c44b98c661b8b50ef0, type: 2}
+  - {fileID: 11400000, guid: 76904fb84927ea346830f5ad05e2de9c, type: 2}
+  - {fileID: 11400000, guid: 8365aa51a3a172241937cbc194184518, type: 2}
+  capabilities: 7
+  references:
+    version: 2
+    RefIds: []

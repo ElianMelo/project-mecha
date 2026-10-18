@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607349d16880a46489d772c2f6014efc, type: 3}
+  m_Name: Zero
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterDefinition
+  id: zero
+  displayName:
+    m_TableReference:
+      m_TableCollectionName: Combat
+    m_TableEntryReference:
+      m_KeyId: 250004906287105
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: Combat
+    m_TableEntryReference:
+      m_KeyId: 250004906287106
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  portrait: {fileID: 21300000, guid: 159f5b54b8b43db49acc16026bee81c1, type: 3}
+  visualPrefab: {fileID: 1455709972304585033, guid: 57d50f0032f8e0d45863c13ffa4f44c4, type: 3}
+  visualScale: 0.5
+  movement: {fileID: 11400000, guid: 051a8d314a77a5740b9657c0b056dfe2, type: 2}
+  combat: {fileID: 11400000, guid: 8e216f3ade2c8c64bb0669ffdcc14512, type: 2}
+  animation: {fileID: 11400000, guid: 5d91f427575955d4a875a1dee4444384, type: 2}
+  skills:
+  - {fileID: 11400000, guid: 802ee58a52dedee40900b45316b74d76, type: 2}
+  - {fileID: 11400000, guid: 1dc933f8a56e44f49aa70b14b3bdec51, type: 2}
+  - {fileID: 11400000, guid: b68238a842b162c4c9e4518884f8bd6d, type: 2}
+  capabilities: 7
+  references:
+    version: 2
+    RefIds: []

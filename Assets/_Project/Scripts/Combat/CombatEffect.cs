@@ -9,6 +9,7 @@ public class CombatEffect : MonoBehaviour
     public static void DamageNumber(Vector3 position,float damage,CombatVfxSettings settings)
     {
         var go=new GameObject("Damage number"); go.transform.position=position;
+        go.layer=CombatVfxRendering.Layer;
         var effect=go.AddComponent<CombatEffect>(); effect.settings=settings; effect.expires=Time.time+settings.damageNumberLifetime;
         effect.label=go.AddComponent<TMPro.TextMeshPro>(); GameText.BindFont(effect.label); effect.label.text=Mathf.RoundToInt(damage).ToString();
         effect.label.fontSize=settings.damageNumberSize; effect.label.alignment=TMPro.TextAlignmentOptions.Center;

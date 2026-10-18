@@ -3,6 +3,7 @@ using UnityEngine;
 // Source preparation follows the same live emission binding as the main fire.
 public sealed class FireSourceWarmup : MonoBehaviour
 {
+    private void Awake() => CombatVfxRendering.Apply(gameObject);
     private FireSkillSettings settings;
     private CombatEmissionOrigin source;
     private PlayerCombatSettings.ActionData action;

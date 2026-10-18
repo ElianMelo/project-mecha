@@ -17,6 +17,13 @@ public static class WingZeroPlaceholder
     const string Player = "Assets/_Project/Prefabs/MechaPlayer.prefab";
     const float Unit = .01f;
     static readonly Vector3 Origin = new Vector3(0, 16.3f, -12);
+    static WingZeroRigSettings RigSettings()
+    {
+        const string path="Assets/_Project/Settings/Characters/ZeroRig.asset";
+        var settings=AssetDatabase.LoadAssetAtPath<WingZeroRigSettings>(path);
+        if(settings==null){FolderAt("Assets/_Project/Settings/Characters");settings=ScriptableObject.CreateInstance<WingZeroRigSettings>();AssetDatabase.CreateAsset(settings,path);}
+        return settings;
+    }
     static void FolderAt(string path) { if(AssetDatabase.IsValidFolder(path)) return; FolderAt(Path.GetDirectoryName(path).Replace('\\','/')); AssetDatabase.CreateFolder(Path.GetDirectoryName(path).Replace('\\','/'),Path.GetFileName(path)); }
     static T Save<T>(T value,string path) where T:UnityEngine.Object
     {
@@ -87,7 +94,7 @@ public static class WingZeroPlaceholder
     {
         string side=p.x<0?"L ":"R ";
         // Wings and their articulated struts stay rigid on the back, never on an arm.
-        if(p.z < -65 || (Mathf.Abs(p.x)>120 && p.z<35) || (max.y>205 && max.x-min.x>100))return "Bip001 Spine3";
+        if(IsWing(p,min,max))return "Bip001 Spine3";
         if(p.y>174 && Mathf.Abs(p.x)<25 && p.z>-15)return "Bip001 Head";
         if(p.y>170 && Mathf.Abs(p.x)>25 && p.z>-15)return "Bip001 "+side+"Clavicle";
         if(Mathf.Abs(p.x)>65 && p.z>35 && p.y<95)return "Bip001 "+side+"Hand"; // Twin buster rifles, rigid at the hands.
@@ -100,6 +107,8 @@ public static class WingZeroPlaceholder
         if(p.y<139)return "Bip001 Pelvis";
         return "Bip001 Spine3";
     }
+    static bool IsWing(Vector3 p,Vector3 min,Vector3 max)
+        => p.z < -65 || (Mathf.Abs(p.x)>120 && p.z<35) || (max.y>205 && max.x-min.x>100);
     public static object BuildRig()
     {
         if(EditorApplication.isPlaying)throw new InvalidOperationException("Stop Play Mode before authoring.");
@@ -121,17 +130,23 @@ public static class WingZeroPlaceholder
             var obj=AssetDatabase.FindAssets("t:Model",new[]{Folder}).Select(AssetDatabase.GUIDToAssetPath).Single();
             var filter=AssetDatabase.LoadAssetAtPath<GameObject>(obj).GetComponentsInChildren<MeshFilter>().Single(f=>f.name=="Mesh01");
             var mesh=UnityEngine.Object.Instantiate(filter.sharedMesh);mesh.name="WingZeroEW_Rigged";
-            var raw=mesh.vertices;mesh.vertices=raw.Select(p=>(p+Origin)*Unit).ToArray();
+            var raw=mesh.vertices;var vertices=raw.Select(p=>(p+Origin)*Unit).ToArray();
+            var rigSettings=RigSettings();
             var components=ReadComponents(raw,mesh.triangles);
             var ordered=bones.Values.ToArray();var weights=new BoneWeight[raw.Length];var assignments=new List<string>();
             foreach(var group in components)
             {
                 var pts=group.Select(i=>raw[i]).ToArray();var c=pts.Aggregate(Vector3.zero,(a,b)=>a+b)/pts.Length;
                 string bone=Part(c,pts.Aggregate(Vector3.Min),pts.Aggregate(Vector3.Max));int index=Array.FindIndex(ordered,t=>t.name==bone);
+                if(IsWing(c,pts.Aggregate(Vector3.Min),pts.Aggregate(Vector3.Max)))
+                {
+                    var attachment=(new Vector3(c.x<0?-15:15,164,-12)+Origin)*Unit;
+                    foreach(int i in group)vertices[i]=attachment+(vertices[i]-attachment)*rigSettings.wingScale;
+                }
                 foreach(int i in group)weights[i]=new BoneWeight{boneIndex0=index,weight0=1};
                 assignments.Add($"{group[0]},{group.Length},{bone},{c.x:F3},{c.y:F3},{c.z:F3}");
             }
-            mesh.boneWeights=weights;mesh.bindposes=ordered.Select(t=>t.worldToLocalMatrix).ToArray();mesh.RecalculateBounds();
+            mesh.vertices=vertices;mesh.boneWeights=weights;mesh.bindposes=ordered.Select(t=>t.worldToLocalMatrix).ToArray();mesh.RecalculateBounds();
             mesh=Save(mesh,Folder+"/WingZeroRigged.asset");
             var material=new Material(AssetDatabase.LoadAssetAtPath<Material>("Assets/_Project/Materials/MechaArmor.mat"));material.name="WingZeroArmor";
             var texture=AssetDatabase.LoadAssetAtPath<Texture2D>(Folder+"/Gundam Memories - XXXG-00W0 Wing Gundam Zero (EW) - Ren.png");
@@ -163,23 +178,33 @@ public static class WingZeroPlaceholder
     }
     public static object Retarget()
     {
+        if(EditorApplication.isPlaying)throw new InvalidOperationException("Retarget in Edit Mode.");
         var source=SourceAtBind();var target=UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Visual));
         try
         {
             var sb=Bones(source);var tb=Bones(target);
             var localPositions=tb.ToDictionary(x=>x.Key,x=>x.Value.localPosition);
-            Vector3 offset=tb["Bip001"].position-sb["Bip001"].position;
-            offset.x=offset.z=0;
+            var sourceBind=sb.ToDictionary(x=>x.Key,x=>x.Value.position);
+            var targetBind=tb.ToDictionary(x=>x.Key,x=>x.Value.position);
+            var rotationOffsets=tb.ToDictionary(x=>x.Key,x=>Quaternion.Inverse(sb[x.Key].rotation)*x.Value.rotation);
             var sourceSkin=source.GetComponentInChildren<SkinnedMeshRenderer>();var targetSkin=target.GetComponentInChildren<SkinnedMeshRenderer>();
             var sourceFootIndices=new Dictionary<string,int[]>();var targetFootPoints=new Dictionary<string,Vector3[]>();
             foreach(string side in new[]{"L","R"})
             {
                 sourceFootIndices[side]=sourceSkin.sharedMesh.boneWeights.Select((w,i)=>new{w,i}).Where(x=>sourceSkin.bones[x.w.boneIndex0].name.StartsWith("Bip001 "+side+" Foot")||sourceSkin.bones[x.w.boneIndex0].name.StartsWith("Bip001 "+side+" Toe")).Select(x=>x.i).ToArray();
                 var verts=targetSkin.sharedMesh.vertices;var weights=targetSkin.sharedMesh.boneWeights;
-                targetFootPoints[side]=Enumerable.Range(0,verts.Length).Where(i=>targetSkin.bones[weights[i].boneIndex0].name=="Bip001 "+side+" Foot").Select(i=>tb["Bip001 "+side+" Foot"].InverseTransformPoint(verts[i])).ToArray();
+                targetFootPoints[side]=Enumerable.Range(0,verts.Length).Where(i=>targetSkin.bones[weights[i].boneIndex0].name=="Bip001 "+side+" Foot").Select(i=>tb["Bip001 "+side+" Foot"].InverseTransformPoint(targetSkin.transform.TransformPoint(verts[i]))).ToArray();
             }
             var sampledMesh=new Mesh();
             var profile=AssetDatabase.LoadAssetAtPath<CharacterAnimationSettings>("Assets/_Project/Settings/Animation/PlayerAnimation.asset");
+            // BakeMesh(true) yields renderer-local vertices. The old default bake
+            // already included the 100x import scale; TransformPoint applied it again.
+            profile.Clip("Idle").SampleAnimation(source,0f);sourceSkin.BakeMesh(sampledMesh,true);
+            var referenceRoot=sb["Bip001"].position;
+            var referenceVertices=sampledMesh.vertices;
+            float referenceFloor=sourceFootIndices.Values.SelectMany(i=>i).Min(i=>sourceSkin.transform.TransformPoint(referenceVertices[i]).y);
+            float LegLength(Dictionary<string,Vector3> pose,string side)=>Vector3.Distance(pose["Bip001 "+side+" Thigh"],pose["Bip001 "+side+" Calf"])+Vector3.Distance(pose["Bip001 "+side+" Calf"],pose["Bip001 "+side+" Foot"]);
+            float legScale=(LegLength(targetBind,"L")+LegLength(targetBind,"R"))/(LegLength(sourceBind,"L")+LegLength(sourceBind,"R"));
             var clips=profile.controller.animationClips.Concat(profile.clips.Select(x=>x.clip)).Where(c=>c!=null).Distinct().ToArray();
             var newClips=new Dictionary<AnimationClip,AnimationClip>();
             var order=tb.Keys.OrderBy(k=>AnimationUtility.CalculateTransformPath(tb[k],target.transform).Count(c=>c=='/')).ToArray();
@@ -193,20 +218,47 @@ public static class WingZeroPlaceholder
                     foreach(string n in order)
                     {
                         tb[n].localPosition=localPositions[n];
-                        // BuildRig aligns each joint's child axis to the source's local
-                        // bone axis. Copy absolute anatomical orientation, retaining the
-                        // target segment lengths, rather than adding the exported A-pose.
-                        tb[n].rotation=sb[n].rotation;
-                        if(n=="Bip001")tb[n].position=sb[n].position+offset;
+                        // Preserve anatomical bind offsets rather than assigning the
+                        // source's absolute joint orientations to different geometry.
+                        tb[n].rotation=sb[n].rotation*rotationOffsets[n];
+                        if(n=="Bip001")tb[n].position=targetBind[n]+(sb[n].position-referenceRoot)*legScale;
                     }
-                    sourceSkin.BakeMesh(sampledMesh);var sourceVertices=sampledMesh.vertices;
+                    sourceSkin.BakeMesh(sampledMesh,true);var sourceVertices=sampledMesh.vertices;
+                    var footGoals=new Dictionary<string,Vector3>();var footRotations=new Dictionary<string,Quaternion>();
+                    float lowestFloor=float.MaxValue;
                     foreach(string side in new[]{"L","R"})
                     {
-                        string prefix="Bip001 "+side+" ";var foot=tb[prefix+"Foot"];var goal=sb[prefix+"Foot"].position;
-                        float floor=sourceFootIndices[side].Min(i=>sourceSkin.transform.TransformPoint(sourceVertices[i]).y);
-                        float underside=targetFootPoints[side].Min(p=>(foot.rotation*p).y);
+                        string prefix="Bip001 "+side+" ";var foot=tb[prefix+"Foot"];
+                        // The OBJ bind is an airborne pose with both feet behind the
+                        // hips. Carrying that offset into a planted source stance
+                        // drives one foot outside the leg's reachable radius.
+                        var goal=tb["Bip001"].position+(sb[prefix+"Foot"].position-sb["Bip001"].position)*legScale;
+                        float floor=(sourceFootIndices[side].Min(i=>sourceSkin.transform.TransformPoint(sourceVertices[i]).y)-referenceFloor)*legScale;
+                        float underside=targetFootPoints[side].Min(p=>foot.TransformVector(p).y);
                         goal.y=floor-underside;
-                        SolveLeg(tb[prefix+"Thigh"],tb[prefix+"Calf"],foot,goal,sb[prefix+"Calf"].position,sb[prefix+"Foot"].rotation);
+                        footGoals[side]=goal;footRotations[side]=foot.rotation;lowestFloor=Mathf.Min(lowestFloor,floor);
+                    }
+                    // Generic source clips use physics-owned root travel. Keep the new
+                    // visual soles above that root's foot plane, including airborne poses.
+                    float raise=Mathf.Max(0f,-lowestFloor);tb["Bip001"].position+=Vector3.up*raise;
+                    foreach(string side in new[]{"L","R"})footGoals[side]+=Vector3.up*raise;
+                    // Different proportions need pelvis compensation before both legs
+                    // are solved. Clamping an unreachable IK goal alone leaves floating feet.
+                    float lower=0f;
+                    foreach(string side in new[]{"L","R"})
+                    {
+                        string prefix="Bip001 "+side+" ";var hip=tb[prefix+"Thigh"];var knee=tb[prefix+"Calf"];var foot=tb[prefix+"Foot"];
+                        float reach=Vector3.Distance(hip.position,knee.position)+Vector3.Distance(knee.position,foot.position)-.001f;
+                        var delta=footGoals[side]-hip.position;float horizontal=delta.x*delta.x+delta.z*delta.z;
+                        float vertical=Mathf.Sqrt(Mathf.Max(0f,reach*reach-horizontal));
+                        lower=Mathf.Max(lower,hip.position.y-footGoals[side].y-vertical);
+                    }
+                    tb["Bip001"].position-=Vector3.up*lower;
+                    foreach(string side in new[]{"L","R"})
+                    {
+                        string prefix="Bip001 "+side+" ";
+                        var hint=tb[prefix+"Thigh"].position+(sb[prefix+"Calf"].position-sb[prefix+"Thigh"].position)*legScale;
+                        SolveLeg(tb[prefix+"Thigh"],tb[prefix+"Calf"],tb[prefix+"Foot"],footGoals[side],hint,footRotations[side]);
                     }
                     foreach(string n in order)
                     {
@@ -237,12 +289,44 @@ public static class WingZeroPlaceholder
             foreach(var layer in controller.layers)ReplaceClips(layer.stateMachine,newClips);
             EditorUtility.SetDirty(controller);AssetDatabase.SaveAssetIfDirty(controller);
             var newProfile=UnityEngine.Object.Instantiate(profile);newProfile.name="WingZeroAnimation";newProfile.controller=controller;
+            var character=AssetDatabase.LoadAssetAtPath<CharacterDefinition>("Assets/_Project/Settings/Characters/Zero.asset");
+            if(character!=null&&character.movement!=null)newProfile.runReferenceSpeed=character.movement.runSpeed;
             for(int i=0;i<newProfile.clips.Length;i++){var entry=newProfile.clips[i];if(entry.clip!=null&&newClips.TryGetValue(entry.clip,out var replacement))entry.clip=replacement;newProfile.clips[i]=entry;}
             Save(newProfile,Profile);
             var contents=PrefabUtility.LoadPrefabContents(Visual);try{contents.GetComponent<Animator>().runtimeAnimatorController=controller;PrefabUtility.SaveAsPrefabAsset(contents,Visual);}finally{PrefabUtility.UnloadPrefabContents(contents);}
             return new {clips=newClips.Count,controller=controllerPath,profile=Profile};
         }
         finally{UnityEngine.Object.DestroyImmediate(source);UnityEngine.Object.DestroyImmediate(target);}
+    }
+    public static string InspectLegMapping()
+    {
+        var source=SourceAtBind();var target=UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Visual));var text="";
+        try
+        {
+            foreach(var pair in new[]{(source,"Source"),(target,"Target")})
+            {
+                var bones=Bones(pair.Item1);
+                foreach(string pose in new[]{"Bind","Idle_V2"})
+                {
+                    if(pose!="Bind")AssetDatabase.LoadAssetAtPath<AnimationClip>((pair.Item2=="Source"?"Assets/_Project/Animations/Player":Animations)+"/Idle_V2.anim").SampleAnimation(pair.Item1,.3f);
+                    text+=pair.Item2+" "+pose+"\n";
+                    foreach(string n in new[]{"Bip001","Bip001 L Thigh","Bip001 L Calf","Bip001 L Foot","Bip001 L Toe0","Bip001 R Thigh","Bip001 R Calf","Bip001 R Foot"})text+=n+" "+bones[n].position+" rot="+bones[n].rotation.eulerAngles+"\n";
+                }
+            }
+            return text;
+        }
+        finally{UnityEngine.Object.DestroyImmediate(source);UnityEngine.Object.DestroyImmediate(target);}
+    }
+    public static string InspectLegGeometry()
+    {
+        var path=AssetDatabase.FindAssets("t:Model",new[]{Folder}).Select(AssetDatabase.GUIDToAssetPath).Single();
+        var mesh=AssetDatabase.LoadAssetAtPath<GameObject>(path).GetComponentsInChildren<MeshFilter>().Single(f=>f.name=="Mesh01").sharedMesh;var raw=mesh.vertices;var text="";
+        foreach(var group in ReadComponents(raw,mesh.triangles))
+        {
+            var p=group.Select(i=>raw[i]).ToArray();var c=p.Aggregate(Vector3.zero,(a,b)=>a+b)/p.Length;var min=p.Aggregate(Vector3.Min);var max=p.Aggregate(Vector3.Max);string bone=Part(c,min,max);
+            if(c.x>0&&c.y<125&&Mathf.Abs(c.x)<50)text+=bone+" center="+c+" min="+min+" max="+max+" vertices="+p.Length+"\n";
+        }
+        return text;
     }
     static void ReplaceClips(AnimatorStateMachine machine,Dictionary<AnimationClip,AnimationClip> clips)
     {

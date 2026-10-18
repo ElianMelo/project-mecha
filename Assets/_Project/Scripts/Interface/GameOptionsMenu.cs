@@ -61,6 +61,14 @@ public sealed class GameOptionsMenu : MonoBehaviour
     }
     public void OpenLobby()
     {
+        if (CharacterSelectionMenu.Instance != null && !GameManager.Instance.Network.ClientManager.Started && FindFirstObjectByType<MechaLobbyService>()?.Session == null)
+        {
+            Close(); CharacterSelectionMenu.Instance.Open(OpenLobbySelected); return;
+        }
+        OpenLobbySelected();
+    }
+    private void OpenLobbySelected()
+    {
         if (!IsVisible) previousSelection = EventSystem.current?.currentSelectedGameObject;
         returnSelection = lobby;
         controls.Hide(); audio.Hide(); video.SetActive(false); general.SetActive(false); home.SetActive(false);

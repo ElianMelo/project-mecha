@@ -7,6 +7,7 @@ public sealed class MechaAutoAim : MonoBehaviour
 {
     [SerializeField] private SecondaryWeaponSettings settings;
     [SerializeField] private Transform leftArm;
+    public void Bind(Transform arm) => leftArm = arm;
     private PlayerMovement movement;
     private PlayerIdentity identity;
     private ITargetable target;

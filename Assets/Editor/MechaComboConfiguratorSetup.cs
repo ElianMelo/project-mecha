@@ -73,6 +73,7 @@ public static class MechaComboConfiguratorSetup
             camera.orthographic = true; camera.orthographicSize = 4.8f; camera.backgroundColor = new Color(0.025f, 0.035f, 0.055f);
             camera.clearFlags = CameraClearFlags.SolidColor; camera.transform.position = new Vector3(0f, 1.65f, -20f);
             camera.transform.rotation = Quaternion.identity; MechaPresentationSetup.Ensure<AudioListener>(cameraObject);
+            MechaRenderSetup.ConfigureWorldEffects(camera);
             var lightObject = Find(scene, "Key Light") ?? new GameObject("Key Light");
             var light = MechaPresentationSetup.Ensure<Light>(lightObject); light.type = LightType.Directional; light.intensity = 1.4f;
             lightObject.transform.rotation = Quaternion.Euler(45f, -30f, 0f);

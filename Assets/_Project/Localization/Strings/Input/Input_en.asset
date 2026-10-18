@@ -669,6 +669,11 @@ MonoBehaviour:
     m_Localized: D-pad
     m_Metadata:
       m_Items: []
+  - m_Id: 252935927865344
+    m_Localized: "{0} + direction: directional dash   \u2022   Tap {1}: short hop
+      / hold: full jump"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

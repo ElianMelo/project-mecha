@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     private int lastBackFrame = -1;
     private string localAddress = "127.0.0.1";
     public static GameManager Instance { get; private set; }
-    public bool MenuOpen => OptionsMenuOpen || audioMenu != null && audioMenu.IsVisible || lobbyPanel != null && lobbyPanel.IsVisible || diagnostics != null && diagnostics.Visible || textEntry != null && textEntry.IsVisible;
+    public bool MenuOpen => CharacterSelectionMenu.Instance != null && CharacterSelectionMenu.Instance.IsVisible || OptionsMenuOpen || audioMenu != null && audioMenu.IsVisible || lobbyPanel != null && lobbyPanel.IsVisible || diagnostics != null && diagnostics.Visible || textEntry != null && textEntry.IsVisible;
     public bool GameplayInputBlocked => MenuOpen || LevelRouteDirector.Instance != null && LevelRouteDirector.Instance.IsRouting || MechaChat.IsTyping || Time.unscaledTime < resumeInputAt;
     public ControllerInterfaceSettings ControllerSettings => controllerSettings;
     public NetworkManager Network => _networkManager;
@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     }
     private bool AcceptShortcut()
     {
+        if (CharacterSelectionMenu.Instance != null && CharacterSelectionMenu.Instance.IsVisible) return false;
         if (GameControlBindings.Capturing) return false;
         var selected = UnityEngine.EventSystems.EventSystem.current?.currentSelectedGameObject;
         return selected == null || selected.GetComponent<TMPro.TMP_InputField>() == null;
@@ -75,6 +76,7 @@ public class GameManager : MonoBehaviour
     public void SuppressGameplayInput() => resumeInputAt = Time.unscaledTime + controllerSettings.menuResumeDelay;
     private void ToggleMenu()
     {
+        if (CharacterSelectionMenu.Instance != null && CharacterSelectionMenu.Instance.IsVisible) { CharacterSelectionMenu.Instance.Cancel(); return; }
         if (MechaChat.IsTyping) return;
         if (optionsMenu != null)
         {
@@ -96,6 +98,7 @@ public class GameManager : MonoBehaviour
         if (GameControlBindings.Capturing) return;
         if (lastBackFrame == Time.frameCount) return;
         lastBackFrame = Time.frameCount;
+        if (CharacterSelectionMenu.Instance != null && CharacterSelectionMenu.Instance.IsVisible) { CharacterSelectionMenu.Instance.Cancel(); return; }
         if (MechaChat.IsTyping) { MechaChat.Instance.Close(); return; }
         if (textEntry != null && textEntry.IsVisible) textEntry.Cancel();
         else if (optionsMenu != null && optionsMenu.IsVisible) optionsMenu.Back();
@@ -112,10 +115,12 @@ public class GameManager : MonoBehaviour
         if (join >= 0 && join + 1 < args.Length)
         {
             var service = FindFirstObjectByType<MechaLobbyService>(); ShowLobby();
+            CharacterSelectionMenu.Instance.ConfirmLaunchArgument();
+            if (!await CharacterSelectionMenu.Instance.EnsureConfirmedAsync()) return;
             await service.JoinAsync(args[join + 1], "Remote Pilot", true);
             if (service.Session != null && System.Array.IndexOf(args, "--mecha-ready") >= 0) await service.ToggleReadyAsync();
         }
-        else if (System.Array.IndexOf(args, "--mecha-local-client") >= 0) StartClient();
+        else if (System.Array.IndexOf(args, "--mecha-local-client") >= 0) { StartClient(); CharacterSelectionMenu.Instance.ConfirmLaunchArgument(); }
     }
     private void OnDisable() => systemActions?.Disable();
     private void OnDestroy() { GameControlBindings.Unregister(interfaceActions); if (interfaceActions != null) Destroy(interfaceActions); if (Instance == this) Instance = null; }
@@ -127,6 +132,13 @@ public class GameManager : MonoBehaviour
     }
     private void StartHost(bool skipOpeningChoice)
     {
+        if (MenuOpen && CharacterSelectionMenu.Instance != null && CharacterSelectionMenu.Instance.IsVisible) return;
+        if (_networkManager.ServerManager.Started || _networkManager.ClientManager.Started || FindFirstObjectByType<MechaLobbyService>()?.Session != null) return;
+        optionsMenu.Close();
+        CharacterSelectionMenu.Instance.Open(() => StartHostSelected(skipOpeningChoice));
+    }
+    private void StartHostSelected(bool skipOpeningChoice)
+    {
         if (_networkManager.ServerManager.Started || _networkManager.ClientManager.Started) return;
         if (FindFirstObjectByType<MechaLobbyService>()?.Session != null) return;
         _networkManager.TransportManager.GetTransport<UnityTransport>().SetConnectionData("127.0.0.1", lobbySettings != null ? lobbySettings.localPort : (ushort)7777, "0.0.0.0");
@@ -137,6 +149,12 @@ public class GameManager : MonoBehaviour
     }
     public void StartServer() => _networkManager.ServerManager.StartConnection();
     public void StartClient()
+    {
+        if (_networkManager.ClientManager.Started || _networkManager.ServerManager.Started || FindFirstObjectByType<MechaLobbyService>()?.Session != null) return;
+        optionsMenu.Close();
+        CharacterSelectionMenu.Instance.Open(StartClientSelected);
+    }
+    private void StartClientSelected()
     {
         if (_networkManager.ClientManager.Started || _networkManager.ServerManager.Started || FindFirstObjectByType<MechaLobbyService>()?.Session != null) return;
         _networkManager.TransportManager.GetTransport<UnityTransport>().SetConnectionData(localAddress, lobbySettings != null ? lobbySettings.localPort : (ushort)7777);

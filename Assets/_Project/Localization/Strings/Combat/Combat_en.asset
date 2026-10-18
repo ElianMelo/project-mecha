@@ -339,6 +339,95 @@ MonoBehaviour:
     m_Localized: X
     m_Metadata:
       m_Items: []
+  - m_Id: 250004876926976
+    m_Localized: Dasher
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250004906287104
+    m_Localized: 'DASHER  /  IMPULSE FRAME
+
+
+      Walk, dash-run and chained air
+      dashes.
+
+      Rocket and Mushidon impulse techniques.
+
+
+      A  Thermal Burst
+
+      S 
+      Sword Fire
+
+      D  Critical Cross
+
+
+      Shared light / heavy melee combos
+      and ranged fire.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250004906287105
+    m_Localized: Zero
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250004906287106
+    m_Localized: 'ZERO  /  HYDRAULIC FRAME
+
+
+      Run by default. Responsive air
+      control.
+
+      RB / Shift + direction: eight-direction dash.
+
+      Tap jump
+      for a short hop; hold for full height.
+
+
+      A  Bubble Burst  /  pressurized
+      water detonation
+
+      S  Rising Fountain  /  surrounding water pillars
+
+      D 
+      Water Mode  /  faster movement and attacks
+
+
+      Shared light / heavy melee
+      combos and ranged fire.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250006646923264
+    m_Localized: Bubble Burst
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250007993294848
+    m_Localized: Rising Fountain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250009373220864
+    m_Localized: Water Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250020567818240
+    m_Localized: SELECT YOUR MECHA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250020584595456
+    m_Localized: Choose a frame, then confirm deployment.  /  Back returns to the
+      menu.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250020618149888
+    m_Localized: DEPLOY SELECTED MECHA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250020622344192
+    m_Localized: BACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 252936418598912
+    m_Localized: ACTIVE  /  {0:0.0}s
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

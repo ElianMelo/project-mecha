@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e080e8703f4ab7740a7327b41ff090ff, type: 3}
+  m_Name: BubbleBurst
+  m_EditorClassIdentifier: Assembly-CSharp::WaterBubbleSkill
+  displayName:
+    m_TableReference:
+      m_TableCollectionName: Combat
+    m_TableEntryReference:
+      m_KeyId: 250006646923264
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  action: {fileID: 11400000, guid: 61bd62af9b8e2ad46ba1d389408f5b18, type: 2}
+  bubble: {fileID: 175570504086822548, guid: a63fca1331d4ef34282dd5cf42833d5f, type: 3}
+  explosion: {fileID: 1754343763848105419, guid: 7cb1c03a5577558408223b4c47f85ec1, type: 3}
+  visualLifetime: 1.5
+  references:
+    version: 2
+    RefIds: []

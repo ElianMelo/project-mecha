@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: bc313802d60bede40aef23538a0a77bf
+labels:
+- Placeholder
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7768145702060170307}
   - component: {fileID: 850443073037584910}
   - component: {fileID: 1309378375377353395}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Rear Wake Death
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5020,7 +5020,7 @@ GameObject:
   - component: {fileID: 9105661321663778663}
   - component: {fileID: 150165246085422265}
   - component: {fileID: 8520800381824072922}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Cooling Coals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9932,7 +9932,7 @@ GameObject:
   - component: {fileID: 3916770154923112636}
   - component: {fileID: 8434121399227208799}
   - component: {fileID: 7353474719501045993}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Flame Rolling Tongues
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14921,7 +14921,7 @@ GameObject:
   - component: {fileID: 7289868262668028368}
   - component: {fileID: 7026905222002520637}
   - component: {fileID: 635327932446711264}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Rear Wake Birth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19833,7 +19833,7 @@ GameObject:
   - component: {fileID: 8396655702677359060}
   - component: {fileID: 2869019067938017095}
   - component: {fileID: 9029525119833308693}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Flame Hot Pockets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24821,7 +24821,7 @@ GameObject:
   - component: {fileID: 4820680018698073446}
   - component: {fileID: 109407628669843634}
   - component: {fileID: 7743231514082921796}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Hand Ignition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29733,7 +29733,7 @@ GameObject:
   - component: {fileID: 8278403846972456871}
   - component: {fileID: 5343420380914968091}
   - component: {fileID: 9106621937788831755}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Flame Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34729,6 +34729,7 @@ GameObject:
   - component: {fileID: 4207918841309408458}
   - component: {fileID: 1296335168309483150}
   - component: {fileID: 3900750390524725282}
+  - component: {fileID: 512438892697803961}
   m_Layer: 0
   m_Name: SwordFireThermalBurst
   m_TagString: Untagged
@@ -34803,6 +34804,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &512438892697803961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7058885633542849321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fb2868f947aea4458f3444859d1610a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VfxSurfaceDepth
+  settings: {fileID: 11400000, guid: 55910d87cdaccc444bcc4d411528790f, type: 2}
 --- !u!1 &8197389576262107246
 GameObject:
   m_ObjectHideFlags: 0
@@ -34814,7 +34828,7 @@ GameObject:
   - component: {fileID: 6393203469222170798}
   - component: {fileID: 6467086422045592383}
   - component: {fileID: 2606099162153533546}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Rear Wake Death
   m_TagString: Untagged
   m_Icon: {fileID: 0}

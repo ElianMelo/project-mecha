@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7619375787073927152}
   - component: {fileID: 2603706499809788022}
   - component: {fileID: 4474854244614143870}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Flame Explosion Pockets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4941,6 +4941,7 @@ GameObject:
   - component: {fileID: 8042048011188193915}
   - component: {fileID: 8004232219926879446}
   - component: {fileID: 1087189122334337716}
+  - component: {fileID: 4416439674889071174}
   m_Layer: 0
   m_Name: MegaSlashThermalBurst
   m_TagString: Untagged
@@ -5001,6 +5002,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4416439674889071174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2213976234512883369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fb2868f947aea4458f3444859d1610a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VfxSurfaceDepth
+  settings: {fileID: 11400000, guid: 55910d87cdaccc444bcc4d411528790f, type: 2}
 --- !u!1 &2838645322456708656
 GameObject:
   m_ObjectHideFlags: 0
@@ -5012,7 +5026,7 @@ GameObject:
   - component: {fileID: 3930564293151488703}
   - component: {fileID: 5540373356233627948}
   - component: {fileID: 5357250533833193484}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Rear Wake Death
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9924,7 +9938,7 @@ GameObject:
   - component: {fileID: 1529887954863704641}
   - component: {fileID: 2471297846209421053}
   - component: {fileID: 9147809853240303557}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Rear Wake Birth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14836,7 +14850,7 @@ GameObject:
   - component: {fileID: 3536401628096622552}
   - component: {fileID: 7753471191152606616}
   - component: {fileID: 6001098205848120219}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Flame Explosion Curls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19767,7 +19781,7 @@ GameObject:
   - component: {fileID: 3442848431109603704}
   - component: {fileID: 5931340856157300461}
   - component: {fileID: 5905413256312300054}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Blast Ignition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24810,7 +24824,7 @@ GameObject:
   - component: {fileID: 4071870094956798418}
   - component: {fileID: 3313558743448434835}
   - component: {fileID: 3173683588935873802}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Flame Explosion Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29747,7 +29761,7 @@ GameObject:
   - component: {fileID: 590813951197561372}
   - component: {fileID: 6897437336203267949}
   - component: {fileID: 1420291286150916654}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Rear Wake Death
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34659,7 +34673,7 @@ GameObject:
   - component: {fileID: 5468579804899495823}
   - component: {fileID: 7968561592075271467}
   - component: {fileID: 1412055137560723937}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Burst Coals
   m_TagString: Untagged
   m_Icon: {fileID: 0}

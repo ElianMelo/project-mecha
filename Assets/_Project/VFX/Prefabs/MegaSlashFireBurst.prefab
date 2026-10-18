@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3213909959385874374}
   - component: {fileID: 1463428795838287403}
   - component: {fileID: 446474036260521994}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: MegaSlashFireBurst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 1926322387344382276}
   - component: {fileID: 5378191829176784562}
   - component: {fileID: 27551459527547353}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Embers
   m_TagString: Untagged
   m_Icon: {fileID: 0}

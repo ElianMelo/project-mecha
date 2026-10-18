@@ -1,5 +1,17 @@
 # Project content classification
 
+## World VFX interaction clarification — 2026-10-18
+
+The blanket foreground camera was removed through Unity APIs. VfxSurfaceDepth is provisional **Code**; its profile/type are **Authored Data**/**Code**. Existing water/fire **Prefabs** gain an optional placement reference, while scene camera changes remain **Scenes**. The obsolete foreground camera script/metadata are removed. Existing artwork/material/clip classifications and provenance are unchanged. Native labels/file inventory are refreshed. Authoring/manual observation helpers and updated policy/feedback records remain **Others**; no new artwork, shader, vendor dependency or automated test was added.
+
+## Zero visual correction and foreground VFX — 2026-10-18
+
+Per-character scaling, WingZeroRigSettings and focused foreground-camera/render-routing sources are provisional **Code**. ZeroRig is **Authored Data**. The revised derived skin, ten baked clips and refreshed actual-model portraits remain **Placeholder**, with unchanged imported-game provenance and unverified upstream AI origin. Existing VFX assemblies remain **Prefabs**; the three scene camera stacks remain **Scenes**. Authoring/inspection helpers, the VFX rendering authoring note and feedback records are **Others**. No source artwork, finished vendor effect, package or automated test was added. Native labels and the file inventory are refreshed; visual approval remains pending user review.
+
+## Character selection and Zero water skills — 2026-10-18
+
+Character composition, rig binding, selection flow, modular skills and runtime modifiers are provisional **Code**. Roster/character/movement/combat/skill profiles, input bindings and English localization additions are **Authored Data**. Five new native water assemblies are **Prefabs**, and their shader/material artwork is **Placeholder**. Model screenshots for Dasher and Zero are **Placeholder**, captured from the actual imported character rigs; upstream AI provenance remains unverified and no AI-generated image pixels were introduced. Source textures remain unchanged, with independent VFXSource roles and lineage in VfxEffectOrigins.csv. No finished vendor effect is a dependency. MainScene is **Scenes**; authoring/manual-preview helpers and written records are **Others**. The native Addressables build link data remains package tooling. The maintained file inventory and native asset labels are refreshed for this pass; all visual approval remains pending user review. See [character behavior and validation](CharacterSelection.md).
+
 ## Wing Zero placeholder — 2026-10-18
 
 The second mecha's imported OBJ/texture/material and derived native skin/baked animation clips are **Placeholder**. WingZeroVisual and the preserved TallgeeseVisual are **Prefabs**; the copied Animator controller and animation profile are **Authored Data**. The editor-only rigging/retargeting helper, source archive and documentation remain **Others**. The original mesh name identifies Tallgeese III and both models' Models Resource listings credit ZRen; imported-game origin is recorded separately from upstream AI provenance, which remains unverified. No final-art approval or AI-generated artwork is implied. The refreshed file inventory includes these additions. See [model sources and validation](MechaModelSources.md).

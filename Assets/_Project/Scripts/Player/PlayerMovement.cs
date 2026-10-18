@@ -13,6 +13,11 @@ public class PlayerMovement : NetworkBehaviour
     private PlayerAttack attack;
     private PlayerHealth health;
     private PlayerLedgeAssist ledgeAssist;
+    private CharacterModifiers modifiers;
+    private Vector2 dashVector;
+    private bool directionalDashMotion;
+    public PlayerMovementSettings Settings => settings;
+    public void Configure(PlayerMovementSettings profile) { StopDash(); settings = profile; }
     private readonly RaycastHit[] groundHits = new RaycastHit[12];
     private float jumpRequested = -10f, lastGrounded = -10f, dashUntil, nextDash;
     private int dashDirection = 1;
@@ -55,6 +60,7 @@ public class PlayerMovement : NetworkBehaviour
         body = GetComponent<Rigidbody>(); capsule = GetComponent<CapsuleCollider>();
         inputs = GetComponent<PlayerInputs>(); attack = GetComponent<PlayerAttack>(); health = GetComponent<PlayerHealth>();
         ledgeAssist = GetComponent<PlayerLedgeAssist>();
+        modifiers = GetComponent<CharacterModifiers>();
         body.useGravity = false; body.linearDamping = 0f;
         body.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
         body.interpolation = RigidbodyInterpolation.Interpolate;
@@ -83,6 +89,8 @@ public class PlayerMovement : NetworkBehaviour
             return;
         }
         bool wasGrounded = IsGrounded;
+        if (directionalDashMotion && !IsDashing)
+        { body.linearVelocity = new Vector3(body.linearVelocity.x, 0f, 0f); directionalDashMotion = false; }
         if ((health == null || !health.IsStunned) && (attack == null || !attack.IsBusy)) ledgeAssist?.TryAssist(settings, inputs);
         CheckGround();
         if (IsServerInitialized) observedGrounded.Value = IsGrounded;
@@ -96,9 +104,10 @@ public class PlayerMovement : NetworkBehaviour
         // Evaluate held input again after support changes and recovery windows open.
         if (inputs.DownHeld && (attack == null || !attack.IsBusy) && !IsDashing) ApplyDescent();
         if (Time.time <= dashRequestedUntil) TryStartDash(requestedDashDirection);
-        if (Time.time - jumpRequested <= settings.jumpBuffer && Time.time - lastGrounded <= settings.coyoteTime && TryCancel())
+        if (!(settings.directionalDash && IsDashing) && Time.time - jumpRequested <= settings.jumpBuffer && Time.time - lastGrounded <= settings.coyoteTime && TryCancel())
         {
-            bool rocket = IsDashing && impulse == ImpulseKind.Dash && Time.time - impulseStart <= settings.chordWindow;
+            bool rocket = settings.style == PlayerMovementSettings.MovementStyle.Dasher && IsDashing && impulse == ImpulseKind.Dash && Time.time - impulseStart <= settings.chordWindow;
+            if (settings.directionalDash) StopDash();
             body.linearVelocity = new Vector3(body.linearVelocity.x, settings.jumpSpeed, 0f);
             jumpRequested = lastGrounded = -10f; IsGrounded = false; Support = null;
             attack?.BeginAirCombo();
@@ -111,7 +120,7 @@ public class PlayerMovement : NetworkBehaviour
             {
                 float elapsed = Time.time - impulseStart;
                 // The first few frames commit to the impulse; braking opens afterward.
-                if (elapsed >= settings.brakeLock && direction == -dashDirection)
+                if (!settings.directionalDash && elapsed >= settings.brakeLock && direction == -dashDirection)
                 {
                     StopDash(); Face((int)direction);
                     if (NetworkObject.IsSpawned) RequestBrake();
@@ -120,14 +129,15 @@ public class PlayerMovement : NetworkBehaviour
                 {
                     float speed = Mathf.Lerp(impulseSpeed, impulseSpeed * settings.impulseEndRatio,
                         Mathf.Clamp01(elapsed / Mathf.Max(0.01f, impulseDuration)));
-                    body.linearVelocity = new Vector3(dashDirection * speed, body.linearVelocity.y, 0f);
+                    body.linearVelocity = settings.directionalDash ? (Vector3)(dashVector * impulseSpeed) : new Vector3(dashDirection * speed, body.linearVelocity.y, 0f);
                 }
             }
             else
             {
                 if (direction != 0f) Face((int)direction);
                 if (direction == 0f || direction != dashDirection) running = false;
-                float target = direction * (running ? settings.runSpeed : settings.walkSpeed);
+                running = settings.runByDefault ? direction != 0f : running;
+                float target = direction * (running ? settings.runSpeed : settings.walkSpeed) * (modifiers != null ? modifiers.MoveSpeed : 1f);
                 float acceleration = IsGrounded ? settings.groundAcceleration : settings.airAcceleration;
                 if (Mathf.Abs(body.linearVelocity.x) > Mathf.Abs(target) && direction == Mathf.Sign(body.linearVelocity.x))
                     acceleration = settings.slideDrag;
@@ -146,12 +156,13 @@ public class PlayerMovement : NetworkBehaviour
                 body.linearVelocity = new Vector3(Mathf.MoveTowards(body.linearVelocity.x, target, settings.attackDrag * Time.fixedDeltaTime), body.linearVelocity.y, 0f);
             if (attack.IsSkillActive) { body.linearVelocity = Vector3.zero; return; }
         }
-        ApplyGravity();
+        if (!(settings.directionalDash && IsDashing)) ApplyGravity();
     }
     private void ApplyGravity()
     {
         float y = body.linearVelocity.y;
         float gravity = y < -0.4f ? settings.fallingGravity : Mathf.Abs(y) < settings.apexSpeed ? settings.apexGravity : settings.risingGravity;
+        if (settings.variableJump && y > 0f && !inputs.JumpHeld) gravity = settings.jumpCutGravity;
         body.linearVelocity = new Vector3(body.linearVelocity.x, Mathf.Max(y - gravity * Time.fixedDeltaTime, -settings.terminalVelocity), 0f);
     }
     private void CheckGround()
@@ -188,7 +199,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!HasControl || (health != null && health.IsStunned)) return;
         if (attack != null && attack.TryRisingBranch()) return;
-        if (IsDashing && Time.time - impulseStart <= settings.chordWindow && impulse == ImpulseKind.Dash)
+        if (settings.style == PlayerMovementSettings.MovementStyle.Dasher && IsDashing && Time.time - impulseStart <= settings.chordWindow && impulse == ImpulseKind.Dash)
         { BeginRocket(); return; }
         jumpRequested = Time.time;
     }
@@ -212,18 +223,28 @@ public class PlayerMovement : NetworkBehaviour
         if (attack != null && attack.IsBusy) return;
         dashRequestedUntil = -10f;
         dashDirection = direction == 0 ? Facing : direction; Face(dashDirection);
+        dashVector = settings.directionalDash ? ResolveDashVector(inputs.MoveInput, Facing) : new Vector2(dashDirection, 0f);
+        directionalDashMotion = settings.directionalDash;
         if (!IsGrounded) airDashUsed = true;
         impulse = ImpulseKind.Dash; impulseStart = Time.time;
-        impulseSpeed = settings.dashSpeed; impulseDuration = settings.dashDuration;
+        impulseSpeed = settings.dashSpeed * (modifiers != null ? modifiers.MoveSpeed : 1f); impulseDuration = settings.dashDuration;
         dashUntil = Time.time + impulseDuration; nextDash = dashUntil + settings.dashCooldown; running = true;
-        body.linearVelocity = new Vector3(dashDirection * settings.dashSpeed, body.linearVelocity.y, 0f);
+        body.linearVelocity = settings.directionalDash ? (Vector3)(dashVector * impulseSpeed) : new Vector3(dashDirection * impulseSpeed, body.linearVelocity.y, 0f);
         GetComponent<PlayerCombatVfx>()?.Dash(Facing, true);
-        if (NetworkObject.IsSpawned) RequestDash(dashDirection);
-        if (Time.time - inputs.LastJumpPressed <= settings.chordWindow) BeginRocket();
+        if (NetworkObject.IsSpawned) RequestDash(dashDirection, dashVector);
+        if (settings.style == PlayerMovementSettings.MovementStyle.Dasher && Time.time - inputs.LastJumpPressed <= settings.chordWindow) BeginRocket();
+    }
+    private static Vector2 ResolveDashVector(Vector2 input, int facing)
+    {
+        if (input.sqrMagnitude < 0.16f) return new Vector2(facing, 0f);
+        // Eight consistent directions; diagonals retain the same total travel distance.
+        float angle = Mathf.Round(Mathf.Atan2(input.y, input.x) / (Mathf.PI / 4f)) * (Mathf.PI / 4f);
+        return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
     }
     [ServerRpc]
-    private void RequestDash(int direction)
+    private void RequestDash(int direction, Vector2 vector)
     {
+        if (!float.IsFinite(vector.x) || !float.IsFinite(vector.y) || Mathf.Abs(vector.sqrMagnitude - 1f) > 0.02f) { RejectDash(Owner); return; }
         if ((direction != -1 && direction != 1) || (health != null && health.IsStunned) || attack != null && attack.ServerBusy) { RejectDash(Owner); return; }
         bool airTransition = !IsGrounded && !serverAirDashUsed;
         if ((!airTransition && Time.time + settings.dashNetworkGrace < serverNextDash) || (!IsGrounded && serverAirDashUsed))
@@ -232,14 +253,14 @@ public class PlayerMovement : NetworkBehaviour
         serverAirDashUsed = !IsGrounded;
         serverDashUntil = Time.time + settings.dashDuration;
         serverNextDash = serverDashUntil + settings.dashCooldown;
-        ShowDash(direction);
+        ShowDash(direction, vector);
     }
     [TargetRpc]
     private void RejectDash(FishNet.Connection.NetworkConnection connection) => StopDash();
     [ObserversRpc(ExcludeOwner = true)]
-    private void ShowDash(int direction)
+    private void ShowDash(int direction, Vector2 vector)
     {
-        dashUntil = Time.time + settings.dashDuration; dashDirection = direction;
+        dashUntil = Time.time + settings.dashDuration; dashDirection = direction; dashVector = vector;
         GetComponent<PlayerCombatVfx>()?.Dash(direction, true);
     }
     private void BeginRocket()
@@ -255,7 +276,7 @@ public class PlayerMovement : NetworkBehaviour
     public void HandleDown()
     {
         if (!HasControl || (health != null && health.IsStunned) || attack != null && attack.IsBusy) return;
-        if (IsDashing && impulse == ImpulseKind.Rocket && Time.time - rocketStarted <= settings.mushidonWindow)
+        if (settings.style == PlayerMovementSettings.MovementStyle.Dasher && IsDashing && impulse == ImpulseKind.Rocket && Time.time - rocketStarted <= settings.mushidonWindow)
         {
             impulse = ImpulseKind.Mushidon; impulseStart = Time.time;
             impulseSpeed = settings.mushidonSpeed; impulseDuration = settings.mushidonDuration;
@@ -281,6 +302,7 @@ public class PlayerMovement : NetworkBehaviour
     [ServerRpc]
     private void RequestAdvancedImpulse(ImpulseKind kind)
     {
+        if (settings.style != PlayerMovementSettings.MovementStyle.Dasher) return;
         if (health != null && health.IsStunned || attack != null && attack.ServerBusy) return;
         if (kind == ImpulseKind.Rocket)
         {
@@ -315,6 +337,8 @@ public class PlayerMovement : NetworkBehaviour
     private void ShowBrake() => dashUntil = 0f;
     public void StopDash()
     {
+        if (directionalDashMotion && body != null && HasControl) body.linearVelocity = new Vector3(body.linearVelocity.x, 0f, 0f);
+        directionalDashMotion = false;
         dashUntil = serverDashUntil = 0f; dashRequestedUntil = -10f; running = false;
     }
     public void BeginAttackMotion(PlayerCombatSettings.ActionData action, int direction)

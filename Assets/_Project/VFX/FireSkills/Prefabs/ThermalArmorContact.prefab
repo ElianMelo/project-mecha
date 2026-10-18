@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7981712012548535444}
   - component: {fileID: 2703821956905214569}
   - component: {fileID: 5068069054098006393}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Flame Contact Curls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4924,7 +4924,7 @@ GameObject:
   - component: {fileID: 3110448746927720354}
   - component: {fileID: 3964404938492306500}
   - component: {fileID: 8625424934464762244}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Rear Wake Birth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9836,7 +9836,7 @@ GameObject:
   - component: {fileID: 8442805011971261422}
   - component: {fileID: 7686379046076410959}
   - component: {fileID: 691749875955385398}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Contact Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14747,6 +14747,7 @@ GameObject:
   m_Component:
   - component: {fileID: 414148116566054077}
   - component: {fileID: 4976996479445226923}
+  - component: {fileID: 6110697490034004676}
   m_Layer: 0
   m_Name: ThermalArmorContact
   m_TagString: Untagged
@@ -14785,6 +14786,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced6ac24c2013624d9ea9134f240eb5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireSkillHitVfx
+--- !u!114 &6110697490034004676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5157135049604225116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fb2868f947aea4458f3444859d1610a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VfxSurfaceDepth
+  settings: {fileID: 11400000, guid: 55910d87cdaccc444bcc4d411528790f, type: 2}
 --- !u!1 &5993088316696257911
 GameObject:
   m_ObjectHideFlags: 0
@@ -14796,7 +14810,7 @@ GameObject:
   - component: {fileID: 3076555193230661606}
   - component: {fileID: 7930938805640075450}
   - component: {fileID: 6878392566558130999}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Rear Wake Death
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19708,7 +19722,7 @@ GameObject:
   - component: {fileID: 5373370391276932703}
   - component: {fileID: 4908607831264492328}
   - component: {fileID: 1634688407423708110}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Rear Wake Death
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24620,7 +24634,7 @@ GameObject:
   - component: {fileID: 7200346443821902855}
   - component: {fileID: 6673218983556018056}
   - component: {fileID: 3058346373404003535}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Incoming Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29532,7 +29546,7 @@ GameObject:
   - component: {fileID: 1978812824760737003}
   - component: {fileID: 411363763044302848}
   - component: {fileID: 1430738337236494587}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Flame Surface Break
   m_TagString: Untagged
   m_Icon: {fileID: 0}

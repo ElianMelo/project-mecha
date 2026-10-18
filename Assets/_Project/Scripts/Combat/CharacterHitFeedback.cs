@@ -9,7 +9,7 @@ public class CharacterHitFeedback : MonoBehaviour, IHitFeedback
     private Color tint;
     private bool emissiveFlash;
     private bool applied;
-    private void Awake() { renderers = GetComponentsInChildren<Renderer>(); block = new MaterialPropertyBlock(); }
+    private void Awake() { renderers = GetComponentsInChildren<Renderer>(true); block = new MaterialPropertyBlock(); }
     public void Hit(float damage, Vector3 incomingDirection)
     {
         // Crates have their own material-specific cue.

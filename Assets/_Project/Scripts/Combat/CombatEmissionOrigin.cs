@@ -5,6 +5,7 @@ public sealed class CombatEmissionOrigin : MonoBehaviour
 {
     [SerializeField] private Transform skillHand;
     public Transform SkillHand => skillHand;
+    public void Bind(Transform hand) => skillHand = hand;
 
     public Vector3 Resolve(PlayerCombatSettings.ActionData action, int facing, int pulse)
     {

@@ -56,6 +56,7 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (!defeated) GameAudio.Play(GameAudioCue.PlayerDeath, transform.position);
         defeated=true;respawnAt=Time.time+settings.defeatDuration;
+        GetComponent<CharacterSkills>()?.ClearModifier();
         GetComponent<PlayerAttack>().Interrupt();GetComponent<PlayerMovement>().StopDash();
         GetComponent<CharacterAnimator>()?.Death(settings.defeatDuration);
         if(!NetworkObject.IsSpawned || IsOwner)body.linearVelocity=Vector3.zero;

@@ -23,7 +23,7 @@ public sealed class PlayerSecondaryWeapon : NetworkBehaviour
     private void OnEnable() => inputs.OnSecondaryFireInput += FirePressed;
     private void OnDisable() => inputs.OnSecondaryFireInput -= FirePressed;
     public override void OnStartServer() { base.OnStartServer(); ammunition.Value = settings.capacity; }
-    private bool CanFire => health != null && health.Health > 0f && !health.IsStunned && !attack.IsBusy && !attack.ServerBusy;
+    private bool CanFire => (GetComponent<CharacterRuntime>() == null || GetComponent<CharacterRuntime>().Ready && GetComponent<CharacterRuntime>().Allows(CombatCapabilities.Ranged)) && health != null && health.Health > 0f && !health.IsStunned && !attack.IsBusy && !attack.ServerBusy;
     private void Update()
     {
         if ((!IsSpawned || IsServerInitialized) && Time.time >= refillAt)

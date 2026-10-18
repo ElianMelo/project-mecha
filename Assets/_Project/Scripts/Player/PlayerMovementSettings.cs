@@ -3,6 +3,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Mecha/Player/Movement")]
 public class PlayerMovementSettings : ScriptableObject
 {
+    public enum MovementStyle { Dasher, Agile }
+    public MovementStyle style;
+    [Header("Agile traversal")]
+    public bool runByDefault, directionalDash, variableJump;
+    public float jumpCutGravity = 65f;
     public float walkSpeed = 4.5f, runSpeed = 7f, jumpSpeed = 10f;
     public float dashSpeed = 11.5f, dashDuration = 0.18f, dashCooldown = 0.12f, dashBuffer = 0.14f;
     public float dashNetworkGrace = 0.08f;

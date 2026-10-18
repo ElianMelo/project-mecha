@@ -7,6 +7,7 @@ public static class ParticleBurstEmitter
     {
         if (settings == null || settings.material == null) return null;
         var go = new GameObject(settings.name);
+        go.layer = CombatVfxRendering.Layer;
         go.transform.position = position; go.transform.localScale = settings.localScale;
         var ps = go.AddComponent<ParticleSystem>();
         ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);

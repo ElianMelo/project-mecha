@@ -6,6 +6,7 @@ public static class GameSaveKeys
     public const string ControlsOverrides = "Mecha.Controls.Overrides";
     public const string VideoPrefix = "Mecha.Video.";
     public const string LegacyMigration = "Mecha.Migration.PlayerPrefs";
+    public const string SelectedCharacter = "Mecha.Character.Selected";
 
     public static string AudioVolume(GameAudioBus bus)
     {

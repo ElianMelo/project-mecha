@@ -26,7 +26,7 @@ public class MechaGameplayHud : MonoBehaviour
     private bool controlsVisible;
     private bool refreshControlsLayout;
     private readonly string[] skillNames = new string[3];
-    private static string[] SkillTitles => new[] { GameText.Get("HUD", "skill.megaSlash"), GameText.Get("HUD", "skill.swordFire"), GameText.Get("HUD", "skill.criticalX") };
+    private static string[] SkillTitles => new[] { GameText.Get("Combat", "skill.megaSlash"), GameText.Get("Combat", "skill.swordFire"), GameText.Get("Combat", "skill.criticalX") };
     private static readonly string[] SkillActions = { "SkillA", "SkillS", "SkillD" };
     private void Awake()
     {
@@ -73,8 +73,7 @@ public class MechaGameplayHud : MonoBehaviour
         {
             promptRevision = GameInputPresentation.Revision + GameText.Revision;
             for (int i = 0; i < skillNames.Length; i++) skillNames[i] = GameInputPresentation.Hint(SkillActions[i]) + "  " + SkillTitles[i];
-            if (controls != null) controls.text = GameInputPresentation.UsingGamepad && GameManager.Instance != null
-                ? GameInputPresentation.ControllerHelp(GameManager.Instance.ControllerSettings) : GameText.Get(settings.tutorialTextLocalized);
+            if (controls != null) controls.text = ControlTutorialText.Build();
         }
         if (player == null && Time.unscaledTime >= nextSearch)
         {
@@ -86,7 +85,7 @@ public class MechaGameplayHud : MonoBehaviour
         {
             feedback?.Combo(false, 0);
             status.text = GameText.Get("HUD", "status.standby");
-            if (motion != null) motion.text = GameInputPresentation.UsingGamepad ? GameInputPresentation.Hint("Menu") + GameText.Get("HUD", "standby.gamepad") : GameText.Get("HUD", "standby.keyboard");
+            if (motion != null) motion.text = GameText.Get("Input", "tutorial.standby", GameInputPresentation.Hint("Menu"), GameControlBindings.Title("System/Menu"), GameInputPresentation.Hint("LocalHost"), GameControlBindings.Title("System/LocalHost"), GameInputPresentation.Hint("LocalJoin"), GameControlBindings.Title("System/LocalJoin"));
             if (link != null) link.text = GameText.Get("HUD", "link.none") + GameInputPresentation.Hint("Diagnostics") + GameText.Get("HUD", "link.diagnostics");
             return;
         }

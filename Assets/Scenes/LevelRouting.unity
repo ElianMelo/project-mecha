@@ -1960,9 +1960,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: HUD
+      m_TableCollectionName: Routing
     m_TableEntryReference:
-      m_KeyId: 747850801152
+      m_KeyId: 463577092
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -2910,9 +2910,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: HUD
+      m_TableCollectionName: Routing
     m_TableEntryReference:
-      m_KeyId: 747846606851
+      m_KeyId: 459382790
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -3298,9 +3298,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: HUD
+      m_TableCollectionName: Routing
     m_TableEntryReference:
-      m_KeyId: 747846606850
+      m_KeyId: 459382787
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

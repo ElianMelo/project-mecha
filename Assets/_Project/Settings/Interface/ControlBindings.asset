@@ -1,0 +1,480 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2932d0cf4b4d9d8448aa4166c835fe2d, type: 3}
+  m_Name: ControlBindings
+  m_EditorClassIdentifier: Assembly-CSharp::ControlBindingSettings
+  actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  captureTimeout: 10
+  descriptions:
+  - action: Player/Move
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513492463616
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513526018048
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 1
+  - action: Player/Jump
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513526018049
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513526018050
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 1
+  - action: Player/Down
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513534406667
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513526018052
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 1
+  - action: Player/Attack
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513526018053
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212352
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 1
+  - action: Player/Tech
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212353
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212354
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 1
+  - action: Player/Dash
+    title:
+      m_TableReference:
+        m_TableCollectionName: Combat
+      m_TableEntryReference:
+        m_KeyId: 690430779403
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212356
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 1
+  - action: Player/SecondaryFire
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212357
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212358
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 1
+  - action: Player/SkillA
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212359
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212360
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 1
+  - action: Player/SkillS
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212361
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212362
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 1
+  - action: Player/SkillD
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212363
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212364
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 1
+  - action: System/Menu
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212365
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212366
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 1
+  - action: System/ControlsHelp
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212367
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212368
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 0
+  - action: System/ChatVisibility
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212369
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212370
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 0
+  - action: System/Chat
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212371
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212372
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 0
+  - action: System/Diagnostics
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212373
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212374
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 0
+  - action: System/LocalHost
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212375
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212376
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 0
+  - action: System/LocalJoin
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212377
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212378
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 0
+  - action: UI/Navigate
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212379
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212380
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 0
+  - action: UI/Submit
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212381
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513530212382
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 0
+  - action: UI/Cancel
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513534406656
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513534406657
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 0
+  - action: UI/Click
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513534406658
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513534406659
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 0
+  - action: UI/RightClick
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513534406660
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513534406661
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 0
+  - action: UI/MiddleClick
+    title:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513534406662
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    description:
+      m_TableReference:
+        m_TableCollectionName: Input
+      m_TableEntryReference:
+        m_KeyId: 87513534406663
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    tutorial: 0
+  references:
+    version: 2
+    RefIds: []

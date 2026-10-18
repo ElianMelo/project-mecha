@@ -493,7 +493,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Chat
     m_TableEntryReference:
-      m_KeyId: 773268283392
+      m_KeyId: 768537108480
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

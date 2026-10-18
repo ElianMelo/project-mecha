@@ -79,20 +79,15 @@ public sealed class MechaChat : MonoBehaviour
     private void Update()
     {
         messages.text = history.Render(Time.unscaledTime);
-        hint.text = Editing ? GameText.Get("Chat", "controls.editing") : GameText.Get("Chat", "controls.idle");
+        hint.text = Editing ? GameText.Get("Chat", "controls.editing") : GameText.Get("Chat", "controls.idle", GameInputPresentation.Hint("Chat"), GameInputPresentation.Hint("ChatVisibility"));
         RefreshVisibility();
-        if (!Available) return;
+        if (!Available || GameControlBindings.Capturing) return;
         if (changedFrame == Time.frameCount) return;
         var keyboard = Keyboard.current;
         if (Editing && keyboard != null && keyboard.escapeKey.wasPressedThisFrame) { Close(); return; }
         if (keyboard != null && (keyboard.enterKey.wasPressedThisFrame || keyboard.numpadEnterKey.wasPressedThisFrame))
         {
             if (Editing) Submit();
-            else
-            {
-                var selected = EventSystem.current?.currentSelectedGameObject;
-                if (selected == null || selected.GetComponent<TMP_InputField>() == null) Open();
-            }
         }
         // Clicking the input is also a supported entry path.
         if (!Editing && input.isFocused) Open();

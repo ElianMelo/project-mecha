@@ -8,10 +8,10 @@ public sealed class PlayerIdentity : NetworkBehaviour
     private readonly SyncVar<string> pilotName = new SyncVar<string>("");
     private readonly SyncVar<int> colorSlot = new SyncVar<int>();
     private bool named;
-    public string PilotName => string.IsNullOrEmpty(pilotName.Value) ? GameText.Get("Lobby", "pilot.default") : pilotName.Value;
+    public string PilotName => string.IsNullOrEmpty(pilotName.Value) ? GameText.Get("Lobby", "default.pilot") : pilotName.Value;
     public int ColorSlot => colorSlot.Value;
     public bool LocallyControlled => !IsSpawned || IsOwner;
-    public static string LocalName => Object.FindFirstObjectByType<MechaLobbyPanel>()?.PilotName ?? GameText.Get("Lobby", "pilot.default");
+    public static string LocalName => Object.FindFirstObjectByType<MechaLobbyPanel>()?.PilotName ?? GameText.Get("Lobby", "default.pilot");
     public override void OnStartServer()
     {
         base.OnStartServer();

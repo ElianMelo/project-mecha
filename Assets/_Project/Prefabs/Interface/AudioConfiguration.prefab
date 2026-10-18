@@ -849,7 +849,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Settings
     m_TableEntryReference:
-      m_KeyId: 763755601922
+      m_KeyId: 758395281409
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1140,7 +1140,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Settings
     m_TableEntryReference:
-      m_KeyId: 763763990528
+      m_KeyId: 87511277871104
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1215,7 +1215,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Settings
     m_TableEntryReference:
-      m_KeyId: 758399475713
+      m_KeyId: 87511277871104
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1711,7 +1711,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Settings
     m_TableEntryReference:
-      m_KeyId: 763751407616
+      m_KeyId: 758378504192
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -2077,7 +2077,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Settings
     m_TableEntryReference:
-      m_KeyId: 763755601921
+      m_KeyId: 758395281408
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -2950,7 +2950,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Settings
     m_TableEntryReference:
-      m_KeyId: 763751407617
+      m_KeyId: 758391087104
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -3424,7 +3424,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Settings
     m_TableEntryReference:
-      m_KeyId: 763751407618
+      m_KeyId: 758391087105
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -3715,7 +3715,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Settings
     m_TableEntryReference:
-      m_KeyId: 763759796226
+      m_KeyId: 88485736325120
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -3790,7 +3790,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Settings
     m_TableEntryReference:
-      m_KeyId: 758399475712
+      m_KeyId: 88485736325120
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -4009,9 +4009,9 @@ GameObject:
   - component: {fileID: 3034417872768016695}
   - component: {fileID: 6623210227211237074}
   - component: {fileID: 2352233856952581525}
-  - component: {fileID: 4845177314224619725}
   - component: {fileID: 5913820741714726972}
   - component: {fileID: 3257321489389409978}
+  - component: {fileID: 6882840867832071834}
   m_Layer: 0
   m_Name: Help
   m_TagString: Untagged
@@ -4174,46 +4174,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
---- !u!114 &4845177314224619725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3504542925830541671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: Settings
-    m_TableEntryReference:
-      m_KeyId: 763759796225
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6623210227211237074}
-        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-        m_MethodName: set_text
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-  references:
-    version: 2
-    RefIds: []
 --- !u!114 &5913820741714726972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4286,6 +4246,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &6882840867832071834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3504542925830541671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b067ad550fe332747ad8eb29229f5b97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControlNavigationHint
+  text: {fileID: 6623210227211237074}
+  introduction:
+    m_TableReference:
+      m_TableCollectionName: HUD
+    m_TableEntryReference:
+      m_KeyId: 87512867512320
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   references:
     version: 2
     RefIds: []
@@ -4961,7 +4946,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Settings
     m_TableEntryReference:
-      m_KeyId: 763759796224
+      m_KeyId: 758395281410
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -7737,7 +7722,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Settings
     m_TableEntryReference:
-      m_KeyId: 763755601920
+      m_KeyId: 758391087106
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

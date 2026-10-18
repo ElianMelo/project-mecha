@@ -46,7 +46,7 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
             visited ? route.Settings.visitedModelBrightness : route.Settings.lockedModelBrightness);
         ring.color = winner || visited ? route.Settings.visitedColor : available ? route.Settings.reachableColor : route.Settings.lockedColor;
         focusRing.enabled = focused; // Persistent even with every Animator disabled.
-        state.text = winner ? GameText.Get("Routing", "node.confirmed") : available ? GameText.Get("Routing", "node.select") : visited ? GameText.Get("Routing", "node.cleared") : GameText.Get("Routing", "node.scout");
+        state.text = winner ? GameText.Get("Routing", "node.confirmed") : available ? GameText.Get("Routing", "node.select") : visited ? GameText.Get("Routing", "destination.cleared") : GameText.Get("Routing", "node.scout");
         state.color = ring.color;
         var supporters = route.Pilots.Where(x => x.nodeId == NodeId).ToArray();
         votes.text = string.Join("  ", supporters.Select(x => GameText.Get("Routing", "pilot.prefix") + (System.Array.FindIndex(route.Pilots, p => p.playerId == x.playerId) + 1)));

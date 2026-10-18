@@ -23,7 +23,7 @@ public static class MechaSettingsSetup
         if (type == typeof(RoomCameraSettings) || type == typeof(RoomCameraZoomSettings)) return "Camera";
         if (type == typeof(LobbySettings) || type == typeof(NetworkSimulationSettings)) return "Network";
         if (type == typeof(ChatSettings) || type == typeof(ControllerInterfaceSettings) || type == typeof(GameplayHudLayoutSettings)
-            || type == typeof(SquadPresentationSettings) || type == typeof(UiFeelSettings) || type == typeof(VideoConfigurationSettings)) return "Interface";
+            || type == typeof(SquadPresentationSettings) || type == typeof(UiFeelSettings) || type == typeof(VideoConfigurationSettings) || type == typeof(ControlBindingSettings)) return "Interface";
         if (type.Name.StartsWith("Enemy", StringComparison.Ordinal)) return "Enemies";
         if (type.Name.StartsWith("Player", StringComparison.Ordinal)) return "Player";
         return "World";

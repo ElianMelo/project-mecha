@@ -38,18 +38,6 @@ MonoBehaviour:
     m_Localized: '{0} ENEMIES'
     m_Metadata:
       m_Items: []
-  - m_Id: 958504960
-    m_Localized: MEGA SLASH
-    m_Metadata:
-      m_Items: []
-  - m_Id: 958504961
-    m_Localized: SWORD FIRE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 958504962
-    m_Localized: CRITICAL X
-    m_Metadata:
-      m_Items: []
   - m_Id: 962699264
     m_Localized: '  HIDE CONTROLS'
     m_Metadata:
@@ -153,18 +141,6 @@ MonoBehaviour:
     m_Localized: Hover or select a miniature to inspect the encounter.
     m_Metadata:
       m_Items: []
-  - m_Id: 747846606850
-    m_Localized: AVAILABLE / CONFIRM TO SELECT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 747846606851
-    m_Localized: SQUAD INTENT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 747850801152
-    m_Localized: SELECT NEXT ENCOUNTER
-    m_Metadata:
-      m_Items: []
   - m_Id: 747850801153
     m_Localized: 'D-PAD / STICK / ARROWS  Scout
 
@@ -175,12 +151,6 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 759800373248
-    m_Localized: 'PROJECT MECHA  /  COMBAT SYSTEMS
-
-      MK-01    //    FIELD OPERATIONS'
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762019160064
     m_Localized: 'PROJECT MECHA  /  COMBAT SYSTEMS
 
       MK-01    //    FIELD OPERATIONS'
@@ -199,6 +169,10 @@ MonoBehaviour:
 
       F1
       Controls / F2 Chat visibility'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87512867512320
+    m_Localized: 0% mutes a layer. SFX includes combat, movement and destruction.
     m_Metadata:
       m_Items: []
   references:

@@ -108,7 +108,7 @@ public sealed class RouteMapBoard : MonoBehaviour
         displayedSecond = seconds;
         countdown.color = route.Phase == RouteVotePhase.Locked || route.Phase == RouteVotePhase.TieReveal ? route.Settings.visitedColor : route.Settings.reachableColor;
         help.text = GameText.Get("Routing", "controls.scout") + GameInputPresentation.Hint("Submit") + GameText.Get("Routing", "controls.select") +
-            (GameInputPresentation.UsingGamepad ? GameInputPresentation.Hint("Cancel") + GameText.Get("Routing", "controls.withdraw") : "") + GameText.Get("Routing", "controls.options");
+            (GameInputPresentation.UsingGamepad ? GameInputPresentation.Hint("Cancel") + GameText.Get("Routing", "controls.withdraw") : "") + GameText.Get("Routing", "controls.options", GameInputPresentation.Hint("Menu"));
     }
     public void Confirm(int node) => Node(node)?.Confirm();
     public void Clear()

@@ -274,7 +274,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744193368067
+      m_KeyId: 90133711921152
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -638,7 +638,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744168202241
+      m_KeyId: 90133523177472
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1088,7 +1088,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744184979457
+      m_KeyId: 90133711921152
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1452,7 +1452,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744189173760
+      m_KeyId: 90133758058496
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1666,7 +1666,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744176590850
+      m_KeyId: 90133657395200
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -2744,7 +2744,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744151425025
+      m_KeyId: 90133711921152
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -2958,7 +2958,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744193368065
+      m_KeyId: 90133607063552
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -3172,7 +3172,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744180785154
+      m_KeyId: 90133607063552
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -3386,7 +3386,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744172396545
+      m_KeyId: 90133711921152
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -3600,7 +3600,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744168202240
+      m_KeyId: 90133758058496
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -3975,7 +3975,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744159813632
+      m_KeyId: 90133711921152
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -4840,7 +4840,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744176590848
+      m_KeyId: 90133523177472
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -5129,7 +5129,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744143036416
+      m_KeyId: 90133523177472
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -6118,7 +6118,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744143036417
+      m_KeyId: 90133607063552
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -6839,7 +6839,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744176590851
+      m_KeyId: 90133711921152
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -7525,7 +7525,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744147230720
+      m_KeyId: 90133758058496
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -8189,7 +8189,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744180785153
+      m_KeyId: 90133523177472
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -11174,7 +11174,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744151425026
+      m_KeyId: 90133758058496
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -11542,7 +11542,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744172396544
+      m_KeyId: 90133657395200
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -11797,7 +11797,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744180785152
+      m_KeyId: 90133758058496
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -12172,7 +12172,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744155619330
+      m_KeyId: 90133657395200
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -12386,7 +12386,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744164007938
+      m_KeyId: 90133711921152
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -12675,7 +12675,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744193368066
+      m_KeyId: 90133657395200
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -14849,7 +14849,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744143036419
+      m_KeyId: 90133711921152
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -15481,7 +15481,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744159813634
+      m_KeyId: 90133523177472
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -16220,7 +16220,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744159813633
+      m_KeyId: 90133758058496
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -18225,7 +18225,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744184979456
+      m_KeyId: 90133657395200
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -18439,7 +18439,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744176590849
+      m_KeyId: 90133607063552
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -18878,7 +18878,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744155619328
+      m_KeyId: 90133523177472
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -19283,7 +19283,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744147230722
+      m_KeyId: 90133607063552
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -22451,7 +22451,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744168202242
+      m_KeyId: 90133607063552
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -23362,7 +23362,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744172396546
+      m_KeyId: 90133758058496
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -23826,7 +23826,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744164007936
+      m_KeyId: 90133607063552
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -24115,7 +24115,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744151425024
+      m_KeyId: 90133657395200
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -25264,7 +25264,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744155619329
+      m_KeyId: 90133607063552
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -27917,7 +27917,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744164007937
+      m_KeyId: 90133657395200
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -28840,7 +28840,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744147230721
+      m_KeyId: 90133523177472
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -29526,7 +29526,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744193368064
+      m_KeyId: 90133523177472
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -29815,7 +29815,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744143036418
+      m_KeyId: 90133657395200
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -30029,7 +30029,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Combat
     m_TableEntryReference:
-      m_KeyId: 744197562368
+      m_KeyId: 90133758058496
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

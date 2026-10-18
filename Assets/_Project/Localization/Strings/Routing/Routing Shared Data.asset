@@ -111,10 +111,6 @@ MonoBehaviour:
     m_Key: node.select
     m_Metadata:
       m_Items: []
-  - m_Id: 480354306
-    m_Key: node.cleared
-    m_Metadata:
-      m_Items: []
   - m_Id: 480354307
     m_Key: node.scout
     m_Metadata:
@@ -171,20 +167,12 @@ MonoBehaviour:
     m_Key: big.description
     m_Metadata:
       m_Items: []
-  - m_Id: 767681470465
-    m_Key: big.reward
-    m_Metadata:
-      m_Items: []
   - m_Id: 767681470466
     m_Key: insertion.name
     m_Metadata:
       m_Items: []
   - m_Id: 767681470467
     m_Key: insertion.description
-    m_Metadata:
-      m_Items: []
-  - m_Id: 767681470468
-    m_Key: insertion.reward
     m_Metadata:
       m_Items: []
   - m_Id: 767685664768
@@ -195,10 +183,6 @@ MonoBehaviour:
     m_Key: long.description
     m_Metadata:
       m_Items: []
-  - m_Id: 767685664770
-    m_Key: long.reward
-    m_Metadata:
-      m_Items: []
   - m_Id: 767689859072
     m_Key: rising.name
     m_Metadata:
@@ -207,8 +191,8 @@ MonoBehaviour:
     m_Key: rising.description
     m_Metadata:
       m_Items: []
-  - m_Id: 767689859074
-    m_Key: rising.reward
+  - m_Id: 88972468527104
+    m_Key: encounter.reward
     m_Metadata:
       m_Items: []
   m_Metadata:

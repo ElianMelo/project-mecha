@@ -27,10 +27,6 @@ MonoBehaviour:
     m_Key: mode.borderless
     m_Metadata:
       m_Items: []
-  - m_Id: 971087874
-    m_Key: sync.off
-    m_Metadata:
-      m_Items: []
   - m_Id: 971087875
     m_Key: sync.on
     m_Metadata:
@@ -127,14 +123,6 @@ MonoBehaviour:
     m_Key: audio.help.scene
     m_Metadata:
       m_Items: []
-  - m_Id: 758399475712
-    m_Key: audio.defaults.scene
-    m_Metadata:
-      m_Items: []
-  - m_Id: 758399475713
-    m_Key: audio.back.scene
-    m_Metadata:
-      m_Items: []
   - m_Id: 758424641536
     m_Key: options.title.scene
     m_Metadata:
@@ -165,10 +153,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 758433030146
     m_Key: video.subtitle.scene
-    m_Metadata:
-      m_Items: []
-  - m_Id: 758437224448
-    m_Key: video.back.scene
     m_Metadata:
       m_Items: []
   - m_Id: 758437224449
@@ -203,140 +187,12 @@ MonoBehaviour:
     m_Key: video.apply.scene
     m_Metadata:
       m_Items: []
-  - m_Id: 758454001666
-    m_Key: video.defaults.scene
-    m_Metadata:
-      m_Items: []
   - m_Id: 758458195968
     m_Key: display.keep.scene
     m_Metadata:
       m_Items: []
   - m_Id: 758458195969
     m_Key: display.revert.scene
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763751407616
-    m_Key: audio.title.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763751407617
-    m_Key: audio.subtitle.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763751407618
-    m_Key: audio.master.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763755601920
-    m_Key: audio.ui.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763755601921
-    m_Key: audio.sfx.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763755601922
-    m_Key: audio.ambient.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763759796224
-    m_Key: audio.music.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763759796225
-    m_Key: audio.help.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763759796226
-    m_Key: audio.defaults.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763763990528
-    m_Key: audio.back.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764493799424
-    m_Key: options.title.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764493799425
-    m_Key: options.subtitle.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764493799426
-    m_Key: options.resume.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764493799427
-    m_Key: options.audio.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764493799428
-    m_Key: options.video.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764497993728
-    m_Key: options.help.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764497993729
-    m_Key: video.title.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764497993730
-    m_Key: video.subtitle.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764502188032
-    m_Key: video.back.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764502188033
-    m_Key: video.mode.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764502188034
-    m_Key: video.resolution.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764506382336
-    m_Key: video.refresh.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764506382337
-    m_Key: video.quality.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764506382338
-    m_Key: video.vsync.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764506382339
-    m_Key: video.frameLimit.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764510576640
-    m_Key: video.help.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764510576641
-    m_Key: video.apply.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764510576642
-    m_Key: video.defaults.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764510576643
-    m_Key: display.keep.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764510576644
-    m_Key: display.revert.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 76285944635392
-    m_Key: antialiasing.off
     m_Metadata:
       m_Items: []
   - m_Id: 76285961412608
@@ -391,16 +247,28 @@ MonoBehaviour:
     m_Key: video.texture.quality
     m_Metadata:
       m_Items: []
-  - m_Id: 76286083047425
-    m_Key: general.general.title
-    m_Metadata:
-      m_Items: []
   - m_Id: 76286083047426
     m_Key: general.general.language
     m_Metadata:
       m_Items: []
-  - m_Id: 76286087241728
-    m_Key: general.general.back
+  - m_Id: 87511277871104
+    m_Key: navigation.back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87511344979968
+    m_Key: navigation.introduction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88485736325120
+    m_Key: navigation.defaults
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88972011347968
+    m_Key: option.off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96033029857280
+    m_Key: save.failed
     m_Metadata:
       m_Items: []
   m_Metadata:

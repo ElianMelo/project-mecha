@@ -267,7 +267,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762602168320
+      m_KeyId: 759406108674
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -558,7 +558,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762614751236
+      m_KeyId: 759418691588
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1347,7 +1347,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762597974016
+      m_KeyId: 759401914368
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -2072,7 +2072,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762585391105
+      m_KeyId: 768088317953
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -2147,7 +2147,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 759393525760
+      m_KeyId: 768088317953
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -2363,7 +2363,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762610556928
+      m_KeyId: 759414497281
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -3452,7 +3452,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762623139842
+      m_KeyId: 759427080196
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -3743,7 +3743,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762614751235
+      m_KeyId: 759418691587
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -4109,7 +4109,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762614751232
+      m_KeyId: 759418691584
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -4759,7 +4759,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762627334145
+      m_KeyId: 759431274499
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -5399,7 +5399,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762585391104
+      m_KeyId: 759389331459
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -5864,7 +5864,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762610556929
+      m_KeyId: 759414497282
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -6155,7 +6155,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762572808193
+      m_KeyId: 759380942848
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -7975,7 +7975,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762614751237
+      m_KeyId: 759418691589
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -8411,9 +8411,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: Lobby
+      m_TableCollectionName: Settings
     m_TableEntryReference:
-      m_KeyId: 76287005794304
+      m_KeyId: 87511277871104
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -9202,7 +9202,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762585391107
+      m_KeyId: 768088317952
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -9277,7 +9277,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 759393525762
+      m_KeyId: 768088317952
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -9817,7 +9817,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762568613889
+      m_KeyId: 759372554240
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -10183,7 +10183,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762627334146
+      m_KeyId: 759431274500
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -10474,7 +10474,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762606362626
+      m_KeyId: 759410302979
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -12306,7 +12306,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762618945538
+      m_KeyId: 759422885890
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -13687,7 +13687,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762602168321
+      m_KeyId: 759406108675
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -16724,7 +16724,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762577002496
+      m_KeyId: 759380942850
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -17015,7 +17015,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762631528448
+      m_KeyId: 759435468801
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -18447,7 +18447,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762635722754
+      m_KeyId: 759439663104
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -19745,7 +19745,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762577002498
+      m_KeyId: 759389331456
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -20036,7 +20036,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762627334144
+      m_KeyId: 759431274498
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -20402,7 +20402,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762585391106
+      m_KeyId: 759393525761
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -21550,7 +21550,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762618945536
+      m_KeyId: 759422885888
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -22050,7 +22050,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762577002497
+      m_KeyId: 759385137152
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -22436,7 +22436,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762589585409
+      m_KeyId: 759397720064
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -22727,7 +22727,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762618945541
+      m_KeyId: 759427080192
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -23218,9 +23218,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: Lobby
+      m_TableCollectionName: Input
     m_TableEntryReference:
-      m_KeyId: 762635722753
+      m_KeyId: 87513794453504
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -23293,9 +23293,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: Lobby
+      m_TableCollectionName: Input
     m_TableEntryReference:
-      m_KeyId: 759435468805
+      m_KeyId: 87513794453504
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -24044,7 +24044,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762610556932
+      m_KeyId: 759414497285
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -25515,7 +25515,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762589585410
+      m_KeyId: 759397720065
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -26318,7 +26318,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762568613888
+      m_KeyId: 759359971328
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -26759,7 +26759,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762581196801
+      m_KeyId: 759389331458
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -27125,7 +27125,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762606362625
+      m_KeyId: 759410302978
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -28084,7 +28084,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762618945540
+      m_KeyId: 759422885892
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -28450,7 +28450,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762602168323
+      m_KeyId: 759410302976
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -29224,7 +29224,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762589585408
+      m_KeyId: 759393525764
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -30024,7 +30024,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762572808194
+      m_KeyId: 759380942849
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -30955,7 +30955,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762597974018
+      m_KeyId: 759406108673
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -31420,7 +31420,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762618945539
+      m_KeyId: 759422885891
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -32341,9 +32341,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: Lobby
+      m_TableCollectionName: Input
     m_TableEntryReference:
-      m_KeyId: 762635722752
+      m_KeyId: 430022657
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -32416,9 +32416,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: Lobby
+      m_TableCollectionName: Input
     m_TableEntryReference:
-      m_KeyId: 759435468804
+      m_KeyId: 430022657
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -33277,7 +33277,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762631528449
+      m_KeyId: 759435468802
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -34350,7 +34350,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762614751234
+      m_KeyId: 759418691586
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -34716,7 +34716,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762623139841
+      m_KeyId: 759427080195
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -35800,7 +35800,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762631528450
+      m_KeyId: 759435468803
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -36166,7 +36166,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762602168322
+      m_KeyId: 759406108676
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -37413,7 +37413,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762610556931
+      m_KeyId: 759414497284
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -38475,7 +38475,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762623139843
+      m_KeyId: 759427080197
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -39311,7 +39311,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762610556930
+      m_KeyId: 759414497283
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -40060,7 +40060,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762606362624
+      m_KeyId: 759410302977
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -41342,7 +41342,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762614751233
+      m_KeyId: 759418691585
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -41633,7 +41633,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762597974017
+      m_KeyId: 759406108672
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -42150,7 +42150,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762623139845
+      m_KeyId: 759431274497
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -42516,7 +42516,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762581196800
+      m_KeyId: 759389331457
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -43798,7 +43798,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762606362627
+      m_KeyId: 759410302980
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -44263,7 +44263,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762623139844
+      m_KeyId: 759431274496
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -44554,7 +44554,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762606362628
+      m_KeyId: 759414497280
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -45070,7 +45070,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762627334147
+      m_KeyId: 759435468800
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -45361,7 +45361,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762618945542
+      m_KeyId: 759427080193
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -46437,7 +46437,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762623139840
+      m_KeyId: 759427080194
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -47327,7 +47327,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762585391108
+      m_KeyId: 759393525763
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -47792,7 +47792,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Lobby
     m_TableEntryReference:
-      m_KeyId: 762618945537
+      m_KeyId: 759422885889
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

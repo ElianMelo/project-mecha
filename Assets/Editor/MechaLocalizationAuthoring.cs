@@ -74,6 +74,15 @@ public static class MechaLocalizationAuthoring
         if (value.Contains("audio") || value.Contains("video") || value.Contains("options")) return "Settings";
         return "HUD";
     }
+    // Automatic static-label capture reuses existing wording within its category.
+    // Explicit Capture calls retain their requested keys for runtime lookup contracts.
+    private static LocalizedString CaptureStatic(string category, string hint, string english)
+    {
+        var collection = LocalizationEditorSettings.GetStringTableCollection(category);
+        var table = collection?.StringTables.Single(t => t.LocaleIdentifier.Code == "en");
+        var match = table?.Values.FirstOrDefault(e => e.LocalizedValue == english);
+        return match != null ? new LocalizedString(category, match.KeyId) : Capture(category, NewKey(category, hint), english);
+    }
     // Keep new keys readable: at most three meaningful words, with a short number
     // on collisions. Full hierarchies, sentences and format tokens never become keys.
     public static string NewKey(string category, string hint)
@@ -128,7 +137,7 @@ public static class MechaLocalizationAuthoring
             if (dynamic.Contains(text) || string.IsNullOrWhiteSpace(text.text) || text.GetComponent<LocalizeStringEvent>() != null) continue;
             var binding = text.gameObject.AddComponent<LocalizeStringEvent>();
             string category = Category(path);
-            binding.StringReference = Capture(category, NewKey(category, path), text.text);
+            binding.StringReference = CaptureStatic(category, path, text.text);
             var setText = (UnityAction<string>)Delegate.CreateDelegate(typeof(UnityAction<string>), text, "set_text");
             UnityEventTools.AddPersistentListener(binding.OnUpdateString, setText);
             binding.OnUpdateString.SetPersistentListenerState(0, UnityEventCallState.EditorAndRuntime);

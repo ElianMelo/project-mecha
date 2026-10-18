@@ -362,6 +362,313 @@ MonoBehaviour:
     m_Localized: SHARE
     m_Metadata:
       m_Items: []
+  - m_Id: 87513492463616
+    m_Localized: Move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513526018048
+    m_Localized: Walk left or right. Double-tap a direction to dash.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513526018049
+    m_Localized: Jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513526018050
+    m_Localized: Jump; hold to control your ascent.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513526018052
+    m_Localized: Crouch, drop through platforms, or modify an aerial attack.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513526018053
+    m_Localized: Light attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212352
+    m_Localized: Chain light attacks. Hold near an unlocked portal to travel.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212353
+    m_Localized: Heavy attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212354
+    m_Localized: Use the heavy branch of your equipped combo.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212356
+    m_Localized: Dash in your movement direction; combine with Jump for Rocket.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212357
+    m_Localized: Secondary fire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212358
+    m_Localized: Fire one round from your secondary weapon.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212359
+    m_Localized: "Skill 1 \xB7 25 MP"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212360
+    m_Localized: Use the first equipped skill (25 MP).
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212361
+    m_Localized: "Skill 2 \xB7 40 MP"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212362
+    m_Localized: Use the second equipped skill (40 MP).
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212363
+    m_Localized: "Skill 3 \xB7 60 MP"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212364
+    m_Localized: Use the third equipped skill (60 MP).
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212365
+    m_Localized: Configuration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212366
+    m_Localized: Open Configuration or return to the previous screen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212367
+    m_Localized: Controls tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212368
+    m_Localized: Show or hide the combat controls tutorial.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212369
+    m_Localized: Chat visibility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212370
+    m_Localized: Show or hide chat during co-op gameplay.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212371
+    m_Localized: Open chat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212372
+    m_Localized: Start typing a message during co-op gameplay.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212373
+    m_Localized: Combat lab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212374
+    m_Localized: Open or close the combat diagnostics panel.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212375
+    m_Localized: Solo host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212376
+    m_Localized: Start a local solo session.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212377
+    m_Localized: Local join
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212378
+    m_Localized: Join a local host at the configured address.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212379
+    m_Localized: Navigate menus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212380
+    m_Localized: Move the selection between visible menu controls.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212381
+    m_Localized: Confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212382
+    m_Localized: Activate the selected button or confirm a choice.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406656
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406657
+    m_Localized: Close the current list or return to the previous screen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406658
+    m_Localized: Pointer click
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406659
+    m_Localized: Activate the control under the pointer.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406660
+    m_Localized: Pointer secondary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406661
+    m_Localized: Send a secondary pointer click to the interface.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406662
+    m_Localized: Pointer middle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406663
+    m_Localized: Send a middle pointer click to the interface.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406664
+    m_Localized: UNBOUND
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406665
+    m_Localized: "{0} \xB7 {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406666
+    m_Localized: Up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406667
+    m_Localized: Down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406668
+    m_Localized: Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406669
+    m_Localized: Right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406670
+    m_Localized: Changes are saved automatically. Select a binding to remap it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406671
+    m_Localized: 'Press a new input.
+
+      Escape or click Cancel to stop.
+
+      Returning
+      in {0} seconds.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406672
+    m_Localized: Already used by {0}. Choose another input; your previous binding
+      is kept.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406673
+    m_Localized: Remapping cancelled. Your previous binding is kept.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406674
+    m_Localized: Default bindings restored for this tab.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406675
+    m_Localized: '{0}  {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406676
+    m_Localized: '{0} + {1}: {2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406677
+    m_Localized: 'Hold {0}: {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406678
+    m_Localized: '{0}, then {1}: {2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406680
+    m_Localized: Dive attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406681
+    m_Localized: Enter portal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406683
+    m_Localized: "{0}: {1}   \u2022   {2}: {3}   \u2022   {4}: {5}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406684
+    m_Localized: "{0}: {1}   \u2022   {2}: {3}   \u2022   {4}: {5}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513542795264
+    m_Localized: CONTROLS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513685401600
+    m_Localized: CONTROLLER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513697984512
+    m_Localized: KEYBOARD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513731538944
+    m_Localized: CLEAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513739927552
+    m_Localized: RESET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513769287680
+    m_Localized: RESTORE TAB DEFAULTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513794453504
+    m_Localized: CANCEL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88956291096576
+    m_Localized: 'Tap a new input to assign it.
+
+      Hold {1} to cancel.
+
+      Returning
+      in {0} seconds.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90563544195072
+    m_Localized: Left stick
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90563619692544
+    m_Localized: Right stick
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90563670024192
+    m_Localized: D-pad
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

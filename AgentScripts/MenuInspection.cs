@@ -44,30 +44,39 @@ public static class MenuInspection
         var dropdown = Object.FindObjectsByType<TMP_Dropdown>(FindObjectsSortMode.None).Single(d => d.name == name);
         dropdown.value = value; return name + " = " + dropdown.captionText.text;
     }
-    private static readonly string[] VideoKeys = { "QualityName", "Quality", "VSync", "FrameLimit", "Width", "Height", "Mode", "Windowed", "RefreshNumerator", "RefreshDenominator" };
+    private static readonly string[] SaveFiles = { "Primary", "Backup" };
     public static string SnapshotVideoPreferences()
     {
-        foreach (var key in VideoKeys)
+        foreach (var name in SaveFiles)
         {
-            string full = "Mecha.Video." + key, cache = "Mecha.ManualPrefs." + key;
-            SessionState.SetBool(cache + ".Exists", PlayerPrefs.HasKey(full));
-            if (key == "QualityName") SessionState.SetString(cache, PlayerPrefs.GetString(full));
-            else SessionState.SetInt(cache, PlayerPrefs.GetInt(full));
+            string path = name == "Primary" ? GameSave.SavePath : GameSave.BackupPath;
+            string cache = "Mecha.ManualPrefs." + name;
+            SessionState.SetBool(cache + ".Exists", System.IO.File.Exists(path));
+            if (System.IO.File.Exists(path)) SessionState.SetString(cache, System.Convert.ToBase64String(System.IO.File.ReadAllBytes(path)));
         }
-        return "Video preference snapshot retained for restoration";
+        SessionState.SetBool("Mecha.ManualPrefs.Snapshot", true);
+        return "Shared settings JSON and backup retained for restoration; do not change unrelated settings during this manual inspection";
     }
     public static string RestoreVideoPreferences()
     {
-        foreach (var key in VideoKeys)
+        if (Application.isPlaying) throw new System.InvalidOperationException("Stop Play Mode before restoring saved files.");
+        if (!SessionState.GetBool("Mecha.ManualPrefs.Snapshot", false)) throw new System.InvalidOperationException("No saved-file snapshot exists.");
+        foreach (var name in SaveFiles)
         {
-            string full = "Mecha.Video." + key, cache = "Mecha.ManualPrefs." + key;
-            if (!SessionState.GetBool(cache + ".Exists", false)) PlayerPrefs.DeleteKey(full);
-            else if (key == "QualityName") PlayerPrefs.SetString(full, SessionState.GetString(cache, ""));
-            else PlayerPrefs.SetInt(full, SessionState.GetInt(cache, 0));
+            string path = name == "Primary" ? GameSave.SavePath : GameSave.BackupPath;
+            string cache = "Mecha.ManualPrefs." + name;
+            if (!SessionState.GetBool(cache + ".Exists", false)) { if (System.IO.File.Exists(path)) System.IO.File.Delete(path); }
+            else
+            {
+                System.IO.Directory.CreateDirectory(Application.persistentDataPath);
+                System.IO.File.WriteAllBytes(path, System.Convert.FromBase64String(SessionState.GetString(cache, "")));
+            }
             SessionState.EraseBool(cache + ".Exists");
-            if (key == "QualityName") SessionState.EraseString(cache); else SessionState.EraseInt(cache);
+            SessionState.EraseString(cache);
         }
-        PlayerPrefs.Save(); return "Original video preferences restored";
+        SessionState.EraseBool("Mecha.ManualPrefs.Snapshot");
+        typeof(GameSave).GetMethod("Reset", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static).Invoke(null, null);
+        return "Original shared settings JSON and backup restored";
     }
     public static string Cleanup()
     {

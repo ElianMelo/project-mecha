@@ -103,7 +103,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 467771395
-    m_Localized: START / ESC  Options
+    m_Localized: '{0}  Configuration'
     m_Metadata:
       m_Items: []
   - m_Id: 476160000
@@ -120,10 +120,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 480354305
     m_Localized: SELECT ROUTE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 480354306
-    m_Localized: CLEARED
     m_Metadata:
       m_Items: []
   - m_Id: 480354307
@@ -183,10 +179,6 @@ MonoBehaviour:
       elevations, and several approaches to the enemy patrol.
     m_Metadata:
       m_Items: []
-  - m_Id: 767681470465
-    m_Localized: Clear the encounter to continue.
-    m_Metadata:
-      m_Items: []
   - m_Id: 767681470466
     m_Localized: Insertion
     m_Metadata:
@@ -194,10 +186,6 @@ MonoBehaviour:
   - m_Id: 767681470467
     m_Localized: A fixed staging arena with broad platforms. Eliminate the patrol
       to unlock your first route choice.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 767681470468
-    m_Localized: Clear the encounter to continue.
     m_Metadata:
       m_Items: []
   - m_Id: 767685664768
@@ -209,10 +197,6 @@ MonoBehaviour:
       room to dash, and enemy pressure from the flanks.
     m_Metadata:
       m_Items: []
-  - m_Id: 767685664770
-    m_Localized: Clear the encounter to continue.
-    m_Metadata:
-      m_Items: []
   - m_Id: 767689859072
     m_Localized: Vertical assault
     m_Metadata:
@@ -222,7 +206,7 @@ MonoBehaviour:
       above and below you, with vertical approaches between platforms.
     m_Metadata:
       m_Items: []
-  - m_Id: 767689859074
+  - m_Id: 88972468527104
     m_Localized: Clear the encounter to continue.
     m_Metadata:
       m_Items: []

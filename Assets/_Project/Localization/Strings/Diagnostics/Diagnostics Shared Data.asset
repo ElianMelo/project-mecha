@@ -151,10 +151,6 @@ MonoBehaviour:
     m_Key: meter.help.scene
     m_Metadata:
       m_Items: []
-  - m_Id: 760265940994
-    m_Key: button.reset.scene
-    m_Metadata:
-      m_Items: []
   - m_Id: 760270135296
     m_Key: button.copy.scene
     m_Metadata:
@@ -169,38 +165,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 760270135299
     m_Key: button.holdAI.scene
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762484727808
-    m_Key: panel.title.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762484727809
-    m_Key: phases.legend.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762484727810
-    m_Key: meter.help.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762484727811
-    m_Key: button.reset.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762488922112
-    m_Key: button.copy.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762488922113
-    m_Key: button.refill.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762488922114
-    m_Key: button.hitboxes.prefab
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762488922115
-    m_Key: button.holdAI.prefab
     m_Metadata:
       m_Items: []
   m_Metadata:

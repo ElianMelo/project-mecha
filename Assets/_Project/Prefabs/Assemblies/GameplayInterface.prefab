@@ -446,7 +446,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Diagnostics
     m_TableEntryReference:
-      m_KeyId: 762484727808
+      m_KeyId: 760253358080
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1060,7 +1060,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: HUD
     m_TableEntryReference:
-      m_KeyId: 762019160064
+      m_KeyId: 759800373248
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -3434,7 +3434,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Diagnostics
     m_TableEntryReference:
-      m_KeyId: 762488922113
+      m_KeyId: 760270135297
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -8136,7 +8136,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Diagnostics
     m_TableEntryReference:
-      m_KeyId: 762488922114
+      m_KeyId: 760270135298
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -9394,7 +9394,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Diagnostics
     m_TableEntryReference:
-      m_KeyId: 762488922115
+      m_KeyId: 760270135299
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -11259,7 +11259,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Diagnostics
     m_TableEntryReference:
-      m_KeyId: 762484727810
+      m_KeyId: 760265940993
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -13043,7 +13043,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Diagnostics
     m_TableEntryReference:
-      m_KeyId: 762484727809
+      m_KeyId: 760265940992
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -13578,9 +13578,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: Diagnostics
+      m_TableCollectionName: Input
     m_TableEntryReference:
-      m_KeyId: 762484727811
+      m_KeyId: 87513739927552
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -13975,7 +13975,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: Diagnostics
     m_TableEntryReference:
-      m_KeyId: 762488922112
+      m_KeyId: 760270135296
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

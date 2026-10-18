@@ -347,6 +347,302 @@ MonoBehaviour:
     m_Key: playstation.select
     m_Metadata:
       m_Items: []
+  - m_Id: 87513492463616
+    m_Key: action.move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513526018048
+    m_Key: help.move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513526018049
+    m_Key: action.jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513526018050
+    m_Key: help.jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513526018052
+    m_Key: help.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513526018053
+    m_Key: action.attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212352
+    m_Key: help.attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212353
+    m_Key: action.heavy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212354
+    m_Key: help.heavy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212356
+    m_Key: help.dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212357
+    m_Key: action.fire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212358
+    m_Key: help.fire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212359
+    m_Key: action.skill.one
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212360
+    m_Key: help.skill.one
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212361
+    m_Key: action.skill.two
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212362
+    m_Key: help.skill.two
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212363
+    m_Key: action.skill.three
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212364
+    m_Key: help.skill.three
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212365
+    m_Key: action.menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212366
+    m_Key: help.menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212367
+    m_Key: action.help
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212368
+    m_Key: help.help
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212369
+    m_Key: action.chat.visibility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212370
+    m_Key: help.chat.visibility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212371
+    m_Key: action.chat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212372
+    m_Key: help.chat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212373
+    m_Key: action.diagnostics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212374
+    m_Key: help.diagnostics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212375
+    m_Key: action.host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212376
+    m_Key: help.host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212377
+    m_Key: action.join
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212378
+    m_Key: help.join
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212379
+    m_Key: action.navigate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212380
+    m_Key: help.navigate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212381
+    m_Key: action.confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513530212382
+    m_Key: help.confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406656
+    m_Key: action.back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406657
+    m_Key: help.back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406658
+    m_Key: action.click
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406659
+    m_Key: help.click
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406660
+    m_Key: action.right.click
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406661
+    m_Key: help.right.click
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406662
+    m_Key: action.middle.click
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406663
+    m_Key: help.middle.click
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406664
+    m_Key: binding.unbound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406665
+    m_Key: binding.direction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406666
+    m_Key: direction.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406667
+    m_Key: direction.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406668
+    m_Key: direction.left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406669
+    m_Key: direction.right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406670
+    m_Key: binding.saved
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406671
+    m_Key: binding.listen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406672
+    m_Key: binding.conflict
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406673
+    m_Key: binding.cancelled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406674
+    m_Key: binding.restored
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406675
+    m_Key: tutorial.action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406676
+    m_Key: tutorial.chord
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406677
+    m_Key: tutorial.hold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406678
+    m_Key: tutorial.then
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406680
+    m_Key: action.dive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406681
+    m_Key: action.portal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406683
+    m_Key: navigation.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513534406684
+    m_Key: tutorial.standby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513542795264
+    m_Key: controls.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513685401600
+    m_Key: tab.controller
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513697984512
+    m_Key: tab.keyboard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513731538944
+    m_Key: binding.clear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513739927552
+    m_Key: binding.reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513769287680
+    m_Key: binding.defaults
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87513794453504
+    m_Key: binding.cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88956291096576
+    m_Key: binding.listen.controller
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90563544195072
+    m_Key: control.leftStick
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90563619692544
+    m_Key: control.rightStick
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90563670024192
+    m_Key: control.dpad
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

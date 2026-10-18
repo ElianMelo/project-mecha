@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LobbySettings lobbySettings;
     [SerializeField] private MechaLobbyPanel lobbyPanel;
     [SerializeField] private ControllerInterfaceSettings controllerSettings;
+    [SerializeField] private ControlBindingSettings controlBindings;
     private InputActionAsset interfaceActions;
     private InputActionMap systemActions;
     private GameplayDiagnostics diagnostics;
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     private GameOptionsMenu optionsMenu;
     private float resumeInputAt;
     private bool quickHostOpening;
+    private int lastBackFrame = -1;
     private string localAddress = "127.0.0.1";
     public static GameManager Instance { get; private set; }
     public bool MenuOpen => OptionsMenuOpen || audioMenu != null && audioMenu.IsVisible || lobbyPanel != null && lobbyPanel.IsVisible || diagnostics != null && diagnostics.Visible || textEntry != null && textEntry.IsVisible;
@@ -42,12 +44,18 @@ public class GameManager : MonoBehaviour
         hud = FindFirstObjectByType<MechaGameplayHud>();
         audioMenu = FindFirstObjectByType<AudioConfigurationMenu>();
         optionsMenu = FindFirstObjectByType<GameOptionsMenu>();
+        GameControlBindings.Initialize(controlBindings);
         interfaceActions = Instantiate(controllerSettings.actions);
+        GameControlBindings.Register(interfaceActions);
+        var uiModule = UnityEngine.EventSystems.EventSystem.current?.GetComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
+        if (uiModule != null) uiModule.actionsAsset = interfaceActions;
         systemActions = interfaceActions.FindActionMap("System", true);
         systemActions.FindAction("LocalHost").performed += _ => { if (AcceptShortcut()) StartQuickHost(); };
         systemActions.FindAction("LocalJoin").performed += _ => { if (AcceptShortcut()) StartClient(); };
         systemActions.FindAction("Menu").performed += context => {
-            if (MenuOpen || context.control.device is Gamepad || AcceptShortcut()) ToggleMenu();
+            if (GameControlBindings.Capturing) return;
+            if ((MenuOpen || context.control.device is Gamepad || AcceptShortcut()) && lastBackFrame != Time.frameCount)
+            { lastBackFrame = Time.frameCount; ToggleMenu(); }
         };
         systemActions.FindAction("Back").performed += _ => Back();
         systemActions.FindAction("Diagnostics").performed += _ => {
@@ -55,9 +63,11 @@ public class GameManager : MonoBehaviour
         };
         systemActions.FindAction("ControlsHelp").performed += _ => { if (AcceptShortcut()) hud?.ToggleControls(); };
         systemActions.FindAction("ChatVisibility").performed += _ => { if (AcceptShortcut()) MechaChat.Instance?.ToggleVisibility(); };
+        systemActions.FindAction("Chat").performed += _ => { if (AcceptShortcut() && !OptionsMenuOpen) MechaChat.Instance?.Open(); };
     }
     private bool AcceptShortcut()
     {
+        if (GameControlBindings.Capturing) return false;
         var selected = UnityEngine.EventSystems.EventSystem.current?.currentSelectedGameObject;
         return selected == null || selected.GetComponent<TMPro.TMP_InputField>() == null;
     }
@@ -83,6 +93,9 @@ public class GameManager : MonoBehaviour
     public void ShowLobby() => optionsMenu.OpenLobby();
     private void Back()
     {
+        if (GameControlBindings.Capturing) return;
+        if (lastBackFrame == Time.frameCount) return;
+        lastBackFrame = Time.frameCount;
         if (MechaChat.IsTyping) { MechaChat.Instance.Close(); return; }
         if (textEntry != null && textEntry.IsVisible) textEntry.Cancel();
         else if (optionsMenu != null && optionsMenu.IsVisible) optionsMenu.Back();
@@ -105,7 +118,7 @@ public class GameManager : MonoBehaviour
         else if (System.Array.IndexOf(args, "--mecha-local-client") >= 0) StartClient();
     }
     private void OnDisable() => systemActions?.Disable();
-    private void OnDestroy() { if (interfaceActions != null) Destroy(interfaceActions); if (Instance == this) Instance = null; }
+    private void OnDestroy() { GameControlBindings.Unregister(interfaceActions); if (interfaceActions != null) Destroy(interfaceActions); if (Instance == this) Instance = null; }
     public void StartHost() => StartHost(false);
     public void StartQuickHost() => StartHost(true);
     public bool ConsumeQuickHostOpening()

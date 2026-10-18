@@ -1,5 +1,13 @@
 # Project content classification
 
+## JSON persistence — 2026-10-18
+
+The save-system pass adds GameSave, GameSaveKeys and LegacySettingsMigration with Unity metadata as provisional Code. Existing audio, video and controls Code now writes device-local JSON, and localization Authored Data gains a shared save-failure message. Save documentation and manual inspection tooling remain Others. The refreshed inventory includes the added sources and documentation. Runtime JSON/backup files live outside the repository under Unity's persistent data path and are generated local output. No artwork, new dependency or provenance claim was introduced. See [save system](SaveSystem.md).
+
+## Controls and localization consolidation — 2026-10-18
+
+The Controls screen adds six runtime sources (Code), an editor authoring tool and localization migration helper (Others), and the `ControlBindings` ScriptableObject (Authored Data), with their Unity metadata. Existing interface Prefabs, scene composition, Input Action data and localization tables retain their current provisional categories. Documentation and localization consolidation/review CSVs are Others. Native uGUI graphics and the existing focus-border Sprite are reused; no artwork or dependency was added. Unknown provenance remains unverified. The refreshed file inventory includes these maintained files. See [controls configuration](ControlsConfiguration.md).
+
 The 2026-10-18 configuration revision adds GeneralConfigurationMenu and VideoQualityRuntime as provisional **Code**, with Unity metadata. Existing menu/lobby prefabs remain **Prefabs**, MainScene remains **Scenes**, and localization tables/video defaults remain **Authored Data**. Editor authoring and documentation remain **Others**. Native TMP dropdowns and existing Sprite graphics are reused; no artwork, locale or external dependency is added. The file inventory includes the new source paths; provenance stays Unverified. See [configuration behavior](ConfigurationAndCombatLayout.md).
 
 The 2026-10-18 localization key refactor changes wording identifiers and existing references, preserving entry IDs, English text, fonts, and locale scope. Existing table/data, Code, Prefabs, Scenes and Others classifications remain unchanged. No artwork or language was added.

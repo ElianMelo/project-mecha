@@ -1,5 +1,7 @@
 # Configuration and combat layout
 
+The 2026-10-18 JSON persistence revision supersedes the PlayerPrefs storage described below: confirmed video settings, audio levels and control remaps now use GameSave at `Application.persistentDataPath/Settings.json`. Existing preferences migrate once. Save paths use PascalCase words, including `Mecha.Video.Vsync` and `Mecha.Controls.Overrides`. See [save system](SaveSystem.md).
+
 ## Current configuration flow — 2026-10-18
 
 Esc/Start opens Resume, Lobby, Audio, Video and General. Lobby now belongs to the same GameOptionsMenu flow as the settings sections. Its former Close button is labeled Back. Back, Esc and controller Cancel return from any submenu to Configuration and restore focus to its originating button. An open native dropdown or controller keyboard consumes the first Back action. Returning from Lobby closes browsing without leaving an existing session. All former Back to Options labels now read Back.

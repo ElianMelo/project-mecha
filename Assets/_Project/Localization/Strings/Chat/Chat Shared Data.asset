@@ -15,10 +15,6 @@ MonoBehaviour:
   m_TableCollectionName: Chat
   m_TableCollectionNameGuidString: 7282c23297bf3c8438e7ae5cc008dddc
   m_Entries:
-  - m_Id: 1474404352
-    m_Key: pilot.fallback
-    m_Metadata:
-      m_Items: []
   - m_Id: 9581993984
     m_Key: controls.editing
     m_Metadata:
@@ -33,10 +29,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 768537108480
     m_Key: message.placeholder.scene
-    m_Metadata:
-      m_Items: []
-  - m_Id: 773268283392
-    m_Key: message.placeholder.prefab
     m_Metadata:
       m_Items: []
   m_Metadata:

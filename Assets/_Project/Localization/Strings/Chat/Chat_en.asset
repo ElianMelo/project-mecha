@@ -18,16 +18,12 @@ MonoBehaviour:
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 1474404352
-    m_Localized: Pilot
-    m_Metadata:
-      m_Items: []
   - m_Id: 9581993984
     m_Localized: ENTER Send  /  ESC Cancel
     m_Metadata:
       m_Items: []
   - m_Id: 9581993985
-    m_Localized: SQUAD  /  ENTER Chat  /  F2 Hide
+    m_Localized: SQUAD  /  {0} Chat  /  {1} Hide
     m_Metadata:
       m_Items: []
   - m_Id: 9586188288
@@ -35,10 +31,6 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 768537108480
-    m_Localized: "Message your squad\u2026"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 773268283392
     m_Localized: "Message your squad\u2026"
     m_Metadata:
       m_Items: []

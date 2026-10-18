@@ -10,10 +10,12 @@ public sealed class GameOptionsMenu : MonoBehaviour
     [SerializeField] private GeneralConfigurationMenu generalSettings;
     [SerializeField] private AudioConfigurationMenu audio;
     [SerializeField] private VideoConfigurationMenu videoSettings;
+    [SerializeField] private ControlsConfigurationMenu controls;
+    [SerializeField] private UnityEngine.UI.Button controlsButton;
     [SerializeField] private UnityEngine.UI.Button resume, lobby, audioButton, videoButton, videoBack, generalButton, generalBack;
     private GameObject previousSelection;
     private UnityEngine.UI.Selectable returnSelection;
-    public bool IsVisible => home.activeSelf || video.activeSelf || general.activeSelf || audio.IsVisible || lobbyPanel.IsVisible;
+    public bool IsVisible => home.activeSelf || video.activeSelf || general.activeSelf || audio.IsVisible || lobbyPanel.IsVisible || controls != null && controls.IsVisible;
     private void Awake()
     {
         Instance = this;
@@ -25,6 +27,7 @@ public sealed class GameOptionsMenu : MonoBehaviour
         videoBack.onClick.AddListener(Back);
         generalButton.onClick.AddListener(() => { returnSelection = generalButton; home.SetActive(false); general.SetActive(true); generalSettings.Refresh(); });
         generalBack.onClick.AddListener(Back);
+        controlsButton.onClick.AddListener(() => { returnSelection = controlsButton; home.SetActive(false); controls.Show(); });
     }
     public void Open()
     {
@@ -35,21 +38,22 @@ public sealed class GameOptionsMenu : MonoBehaviour
     }
     public void ShowHome()
     {
-        audio.Hide(); video.SetActive(false); general.SetActive(false); lobbyPanel.Hide(); home.SetActive(true);
+        controls.Hide(); audio.Hide(); video.SetActive(false); general.SetActive(false); lobbyPanel.Hide(); home.SetActive(true);
         EventSystem.current?.SetSelectedGameObject((returnSelection != null ? returnSelection : resume).gameObject);
     }
     public void Back()
     {
+        if (controls.IsVisible && controls.ConsumeBack()) return;
         if (video.activeSelf && videoSettings.ConsumeBack()) return;
         if (general.activeSelf && generalSettings.ConsumeBack()) return;
         if (lobbyPanel.IsVisible && lobbyPanel.ConsumeBack()) return;
-        if (audio.IsVisible || video.activeSelf || general.activeSelf || lobbyPanel.IsVisible) { ShowHome(); GameAudio.Play(GameAudioCue.UiCancel); }
+        if (controls.IsVisible || audio.IsVisible || video.activeSelf || general.activeSelf || lobbyPanel.IsVisible) { ShowHome(); GameAudio.Play(GameAudioCue.UiCancel); }
         else Close();
     }
     public void Close()
     {
         bool visible = IsVisible;
-        audio.Hide(); video.SetActive(false); general.SetActive(false); lobbyPanel.Hide(); home.SetActive(false);
+        controls.Hide(); audio.Hide(); video.SetActive(false); general.SetActive(false); lobbyPanel.Hide(); home.SetActive(false);
         if (!visible) return;
         GameManager.Instance?.SuppressGameplayInput();
         EventSystem.current?.SetSelectedGameObject(previousSelection != null && previousSelection.activeInHierarchy ? previousSelection : null);
@@ -59,7 +63,7 @@ public sealed class GameOptionsMenu : MonoBehaviour
     {
         if (!IsVisible) previousSelection = EventSystem.current?.currentSelectedGameObject;
         returnSelection = lobby;
-        audio.Hide(); video.SetActive(false); general.SetActive(false); home.SetActive(false);
+        controls.Hide(); audio.Hide(); video.SetActive(false); general.SetActive(false); home.SetActive(false);
         lobbyPanel.Show();
     }
     private void OnDestroy() { if (Instance == this) Instance = null; }

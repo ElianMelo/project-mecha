@@ -35,18 +35,6 @@ MonoBehaviour:
     m_Key: room.enemies
     m_Metadata:
       m_Items: []
-  - m_Id: 958504960
-    m_Key: skill.megaSlash
-    m_Metadata:
-      m_Items: []
-  - m_Id: 958504961
-    m_Key: skill.swordFire
-    m_Metadata:
-      m_Items: []
-  - m_Id: 958504962
-    m_Key: skill.criticalX
-    m_Metadata:
-      m_Items: []
   - m_Id: 962699264
     m_Key: controls.hide
     m_Metadata:
@@ -147,18 +135,6 @@ MonoBehaviour:
     m_Key: briefing.description
     m_Metadata:
       m_Items: []
-  - m_Id: 747846606850
-    m_Key: briefing.state
-    m_Metadata:
-      m_Items: []
-  - m_Id: 747846606851
-    m_Key: briefing.roster
-    m_Metadata:
-      m_Items: []
-  - m_Id: 747850801152
-    m_Key: briefing.countdown
-    m_Metadata:
-      m_Items: []
   - m_Id: 747850801153
     m_Key: briefing.controls
     m_Metadata:
@@ -167,12 +143,12 @@ MonoBehaviour:
     m_Key: brand.scene
     m_Metadata:
       m_Items: []
-  - m_Id: 762019160064
-    m_Key: brand.prefab
-    m_Metadata:
-      m_Items: []
   - m_Id: 768532914176
     m_Key: controls.keyboardHelp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87512867512320
+    m_Key: navigation.introduction
     m_Metadata:
       m_Items: []
   m_Metadata:

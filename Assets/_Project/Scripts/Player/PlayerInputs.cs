@@ -28,12 +28,18 @@ public class PlayerInputs : NetworkBehaviour
     private float lastLeft = -10f, lastRight = -10f;
     private int previousDirection;
     private PlayerInput input;
+    private InputActionAsset ownedActions;
     private InputActionAsset cachedActions;
     private InputAction jumpAction, downAction, moveAction, fireAction, attackAction;
     private bool typing;
     private void Awake()
     {
         input = GetComponent<PlayerInput>();
+        if (input != null)
+        {
+            ownedActions = Instantiate(input.actions); input.actions = ownedActions;
+            GameControlBindings.Register(ownedActions);
+        }
     }
     public void OnTech(InputValue value) { if (HasControl && !typing && value.isPressed) { OnCommand?.Invoke(GameText.Get("Input", "command.heavy", GameInputPresentation.Hint("Tech"))); OnTechInput?.Invoke(); } }
     public void OnInteract(InputValue value)
@@ -116,7 +122,8 @@ public class PlayerInputs : NetworkBehaviour
     }
     private void OnDisable() => ResetInput();
     public void OnDeviceLost(PlayerInput playerInput) => ResetInput();
-    public void OnControlsChanged(PlayerInput playerInput) => ResetInput();
+    public void OnControlsChanged(PlayerInput playerInput) { GameControlBindings.Register(playerInput.actions); ResetInput(); }
+    private void OnDestroy() { GameControlBindings.Unregister(ownedActions); if (ownedActions != null) Destroy(ownedActions); }
     private void ResetInput() { MoveInput = Vector2.zero; AttackHeld = FireHeld = JumpHeld = DownHeld = false; previousDirection = 0; lastLeft = lastRight = LastJumpPressed = -10f; }
     public void OnSecondaryFire(InputValue value)
     {

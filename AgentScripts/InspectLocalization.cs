@@ -43,6 +43,7 @@ public static class InspectLocalization
         foreach (string file in Directory.GetFiles("Assets/_Project/Scripts", "*.cs", SearchOption.AllDirectories))
             foreach (Match match in Regex.Matches(File.ReadAllText(file), "GameText.Get\\(\\s*\"([^\"]+)\"\\s*,\\s*\"([^\"]+)\""))
             {
+                if (match.Groups[2].Value.EndsWith(".", StringComparison.Ordinal)) continue; // Runtime key prefix, inspected through its concrete catalog entries.
                 var collection = collections.FirstOrDefault(c => c.TableCollectionName == match.Groups[1].Value);
                 if (collection == null || collection.SharedData.GetEntry(match.Groups[2].Value) == null) gaps.Add(file + " => " + match.Value);
             }

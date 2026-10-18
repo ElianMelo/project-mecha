@@ -30,10 +30,6 @@ MonoBehaviour:
     m_Localized: FULLSCREEN (BORDERLESS)
     m_Metadata:
       m_Items: []
-  - m_Id: 971087874
-    m_Localized: OFF
-    m_Metadata:
-      m_Items: []
   - m_Id: 971087875
     m_Localized: ON
     m_Metadata:
@@ -135,14 +131,6 @@ MonoBehaviour:
       back"
     m_Metadata:
       m_Items: []
-  - m_Id: 758399475712
-    m_Localized: DEFAULTS
-    m_Metadata:
-      m_Items: []
-  - m_Id: 758399475713
-    m_Localized: BACK
-    m_Metadata:
-      m_Items: []
   - m_Id: 758424641536
     m_Localized: CONFIGURATION
     m_Metadata:
@@ -174,10 +162,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 758433030146
     m_Localized: Select an option to open its list. Changes are staged until Apply.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 758437224448
-    m_Localized: BACK
     m_Metadata:
       m_Items: []
   - m_Id: 758437224449
@@ -214,145 +198,12 @@ MonoBehaviour:
     m_Localized: APPLY
     m_Metadata:
       m_Items: []
-  - m_Id: 758454001666
-    m_Localized: DEFAULTS
-    m_Metadata:
-      m_Items: []
   - m_Id: 758458195968
     m_Localized: KEEP
     m_Metadata:
       m_Items: []
   - m_Id: 758458195969
     m_Localized: REVERT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763751407616
-    m_Localized: AUDIO CONFIGURATION
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763751407617
-    m_Localized: Balance your cockpit. Changes are saved automatically.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763751407618
-    m_Localized: MASTER
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763755601920
-    m_Localized: UI
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763755601921
-    m_Localized: SFX
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763755601922
-    m_Localized: AMBIENT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763759796224
-    m_Localized: MUSIC
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763759796225
-    m_Localized: "0% mutes a layer. SFX includes combat, movement and destruction.\nUp
-      / Down: select   \u2022   Left / Right: adjust   \u2022   Right button / Esc:
-      back"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763759796226
-    m_Localized: DEFAULTS
-    m_Metadata:
-      m_Items: []
-  - m_Id: 763763990528
-    m_Localized: BACK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764493799424
-    m_Localized: CONFIGURATION
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764493799425
-    m_Localized: CHOOSE A SCREEN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764493799426
-    m_Localized: RESUME GAME
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764493799427
-    m_Localized: AUDIO
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764493799428
-    m_Localized: VIDEO
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764497993728
-    m_Localized: "D-pad / stick: select   \u2022   Bottom button: confirm\nRight
-      button / Esc: back"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764497993729
-    m_Localized: VIDEO CONFIGURATION
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764497993730
-    m_Localized: Select an option to open its list. Changes are staged until Apply.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764502188032
-    m_Localized: BACK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764502188033
-    m_Localized: DISPLAY MODE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764502188034
-    m_Localized: RESOLUTION
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764506382336
-    m_Localized: REFRESH RATE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764506382337
-    m_Localized: QUALITY PRESET
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764506382338
-    m_Localized: V-SYNC
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764506382339
-    m_Localized: FRAME LIMIT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764510576640
-    m_Localized: "V-sync uses the display rate. Texture quality controls texture
-      resolution.\nD-pad / stick: select   \u2022   Bottom button: open / confirm  
-      \u2022   Right button / Esc: back"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764510576641
-    m_Localized: APPLY
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764510576642
-    m_Localized: DEFAULTS
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764510576643
-    m_Localized: KEEP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 764510576644
-    m_Localized: REVERT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 76285944635392
-    m_Localized: OFF
     m_Metadata:
       m_Items: []
   - m_Id: 76285961412608
@@ -407,16 +258,28 @@ MonoBehaviour:
     m_Localized: TEXTURE QUALITY
     m_Metadata:
       m_Items: []
-  - m_Id: 76286083047425
-    m_Localized: GENERAL
-    m_Metadata:
-      m_Items: []
   - m_Id: 76286083047426
     m_Localized: LANGUAGE
     m_Metadata:
       m_Items: []
-  - m_Id: 76286087241728
+  - m_Id: 87511277871104
     m_Localized: BACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 87511344979968
+    m_Localized: V-sync uses the display rate. Texture quality controls texture resolution.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88485736325120
+    m_Localized: DEFAULTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 88972011347968
+    m_Localized: OFF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96033029857280
+    m_Localized: Your changes apply for this session, but could not be saved to disk.
     m_Metadata:
       m_Items: []
   references:

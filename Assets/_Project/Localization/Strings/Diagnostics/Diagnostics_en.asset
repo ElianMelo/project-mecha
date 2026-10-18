@@ -159,10 +159,6 @@ MonoBehaviour:
       telemetry
     m_Metadata:
       m_Items: []
-  - m_Id: 760265940994
-    m_Localized: RESET
-    m_Metadata:
-      m_Items: []
   - m_Id: 760270135296
     m_Localized: COPY DATA
     m_Metadata:
@@ -176,39 +172,6 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 760270135299
-    m_Localized: HOLD AI
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762484727808
-    m_Localized: F3  //  COMBAT LAB
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762484727809
-    m_Localized: BLUE Startup    RED Active    GREEN Recovery
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762484727810
-    m_Localized: 60 Hz display samples  /  wraps left to right  /  rendered-frame
-      telemetry
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762484727811
-    m_Localized: RESET
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762488922112
-    m_Localized: COPY DATA
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762488922113
-    m_Localized: REFILL
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762488922114
-    m_Localized: HITBOXES
-    m_Metadata:
-      m_Items: []
-  - m_Id: 762488922115
     m_Localized: HOLD AI
     m_Metadata:
       m_Items: []

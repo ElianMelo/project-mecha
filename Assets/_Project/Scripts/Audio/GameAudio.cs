@@ -48,7 +48,7 @@ public sealed class GameAudio : MonoBehaviour
         Instance = this;
         if (settings == null) { enabled = false; return; }
         foreach (var cue in settings.cues) if (cue != null) cues[cue.id] = cue;
-        for (int i = 0; i < volumes.Length; i++) volumes[i] = Mathf.Clamp01(PlayerPrefs.GetFloat("Mecha.Audio." + (GameAudioBus)i, settings.DefaultVolume((GameAudioBus)i)));
+        for (int i = 0; i < volumes.Length; i++) volumes[i] = Mathf.Clamp01(GameSave.GetFloat(GameSaveKeys.AudioVolume((GameAudioBus)i), settings.DefaultVolume((GameAudioBus)i)));
         for (int i = 0; i < settings.transientVoices + settings.releaseVoices; i++) transients.Add(NewVoice("Transient " + i));
         for (int i = 0; i < 16; i++) protectedVoices.Add(NewVoice("Protected " + i));
         musicSources = Beds("Music", GameAudioBus.Music); ambientSources = Beds("Ambient", GameAudioBus.Ambient);
@@ -79,10 +79,10 @@ public sealed class GameAudio : MonoBehaviour
     public float Volume(GameAudioBus bus) => volumes[(int)bus];
     public void SetVolume(GameAudioBus bus, float value)
     {
-        volumes[(int)bus] = Mathf.Clamp01(value); PlayerPrefs.SetFloat("Mecha.Audio." + bus, volumes[(int)bus]);
+        volumes[(int)bus] = Mathf.Clamp01(value); GameSave.SetFloat(GameSaveKeys.AudioVolume(bus), volumes[(int)bus]);
         if (ready) ApplyVolumes();
     }
-    public void SaveVolumes() => PlayerPrefs.Save();
+    public void SaveVolumes() => GameSave.Save();
     public void RestoreDefaults()
     {
         for (int i = 0; i < volumes.Length; i++) SetVolume((GameAudioBus)i, settings.DefaultVolume((GameAudioBus)i));

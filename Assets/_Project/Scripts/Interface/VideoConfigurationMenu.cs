@@ -28,7 +28,7 @@ public sealed class VideoConfigurationMenu : MonoBehaviour
     private float confirmationDeadline;
     private TMP_Dropdown[] selectors;
     private VideoQualityRuntime nativeQuality;
-    private const string Prefix = "Mecha.Video.";
+    private const string Prefix = GameSaveKeys.VideoPrefix;
 
     public void Initialize()
     {
@@ -41,20 +41,20 @@ public sealed class VideoConfigurationMenu : MonoBehaviour
         modes.Add(FullScreenMode.FullScreenWindow); modes.Add(FullScreenMode.Windowed);
         if ((Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) && Screen.resolutions.Length > 0)
             modes.Add(FullScreenMode.ExclusiveFullScreen);
-        current.antialiasing = (VideoAntialiasing)Mathf.Clamp(PlayerPrefs.GetInt(Prefix + "Antialiasing", (int)settings.defaultAntialiasing), 0, 5);
-        current.textureLimit = Mathf.Clamp(PlayerPrefs.GetInt(Prefix + "TextureLimit", settings.defaultTextureLimit), 0, 3);
-        current.vsync = Mathf.Clamp(PlayerPrefs.GetInt(Prefix + "VSync", settings.defaultVSync ? 1 : 0), 0, 1);
-        current.limit = PlayerPrefs.GetInt(Prefix + "FrameLimit", settings.defaultFrameLimit);
+        current.antialiasing = (VideoAntialiasing)Mathf.Clamp(GameSave.GetInt(Prefix + "Antialiasing", (int)settings.defaultAntialiasing), 0, 5);
+        current.textureLimit = Mathf.Clamp(GameSave.GetInt(Prefix + "TextureLimit", settings.defaultTextureLimit), 0, 3);
+        current.vsync = Mathf.Clamp(GameSave.GetInt(Prefix + "Vsync", settings.defaultVSync ? 1 : 0), 0, 1);
+        current.limit = GameSave.GetInt(Prefix + "FrameLimit", settings.defaultFrameLimit);
         if (!settings.frameLimits.Contains(current.limit)) current.limit = settings.defaultFrameLimit;
         // Migrate the previous Windowed preference; unavailable display modes fall back to borderless.
-        int oldMode = PlayerPrefs.GetInt(Prefix + "Windowed", current.mode == FullScreenMode.Windowed ? 1 : 0) == 1 ? (int)FullScreenMode.Windowed : (int)FullScreenMode.FullScreenWindow;
-        current.mode = (FullScreenMode)PlayerPrefs.GetInt(Prefix + "Mode", oldMode);
+        int oldMode = GameSave.GetInt(Prefix + "Windowed", current.mode == FullScreenMode.Windowed ? 1 : 0) == 1 ? (int)FullScreenMode.Windowed : (int)FullScreenMode.FullScreenWindow;
+        current.mode = (FullScreenMode)GameSave.GetInt(Prefix + "Mode", oldMode);
         if (!modes.Contains(current.mode)) current.mode = FullScreenMode.FullScreenWindow;
-        int width = PlayerPrefs.GetInt(Prefix + "Width", current.width), height = PlayerPrefs.GetInt(Prefix + "Height", current.height);
+        int width = GameSave.GetInt(Prefix + "Width", current.width), height = GameSave.GetInt(Prefix + "Height", current.height);
         if (Screen.resolutions.Any(r => r.width == width && r.height == height) || current.mode == FullScreenMode.Windowed && width > 0 && height > 0)
         { current.width = width; current.height = height; }
         draft = current; BuildModes(); current = draft;
-        ApplyNative(current, PlayerPrefs.HasKey(Prefix + "Width") || PlayerPrefs.HasKey(Prefix + "Windowed") || PlayerPrefs.HasKey(Prefix + "Mode"));
+        ApplyNative(current, GameSave.HasKey(Prefix + "Width") || GameSave.HasKey(Prefix + "Windowed") || GameSave.HasKey(Prefix + "Mode"));
         display.onValueChanged.AddListener(i => { draft.mode = modes[i]; BuildModes(); ShowValues(); });
         resolution.onValueChanged.AddListener(i => { draft.width = sizes[i].x; draft.height = sizes[i].y; ShowValues(); });
         antialiasing.onValueChanged.AddListener(i => { draft.antialiasing = (VideoAntialiasing)i; ShowValues(); });
@@ -77,10 +77,10 @@ public sealed class VideoConfigurationMenu : MonoBehaviour
         if (!sizes.Contains(size)) { draft.width = sizes[sizes.Count - 1].x; draft.height = sizes[sizes.Count - 1].y; }
         SetOptions(resolution, sizes.Select(s => s.x + " × " + s.y));
         SetOptions(display, modes.Select(m => m == FullScreenMode.Windowed ? GameText.Get("Settings", "mode.windowed") : m == FullScreenMode.ExclusiveFullScreen ? GameText.Get("Settings", "mode.exclusive") : GameText.Get("Settings", "mode.borderless")));
-        SetOptions(antialiasing, new[] { GameText.Get("Settings", "antialiasing.off"), GameText.Get("Settings", "antialiasing.fxaa"), GameText.Get("Settings", "antialiasing.smaa"),
+        SetOptions(antialiasing, new[] { GameText.Get("Settings", "option.off"), GameText.Get("Settings", "antialiasing.fxaa"), GameText.Get("Settings", "antialiasing.smaa"),
             GameText.Get("Settings", "antialiasing.msaa2"), GameText.Get("Settings", "antialiasing.msaa4"), GameText.Get("Settings", "antialiasing.msaa8") });
         SetOptions(textureQuality, new[] { GameText.Get("Settings", "texture.full"), GameText.Get("Settings", "texture.half"), GameText.Get("Settings", "texture.quarter"), GameText.Get("Settings", "texture.eighth") });
-        SetOptions(sync, new[] { GameText.Get("Settings", "sync.off"), GameText.Get("Settings", "sync.on") });
+        SetOptions(sync, new[] { GameText.Get("Settings", "option.off"), GameText.Get("Settings", "sync.on") });
         SetOptions(frameLimit, settings.frameLimits.Select(n => n < 0 ? GameText.Get("Settings", "frames.unlimited") : n + GameText.Get("Settings", "units.fps")));
     }
     private static void SetOptions(TMP_Dropdown dropdown, IEnumerable<string> values)
@@ -143,7 +143,7 @@ public sealed class VideoConfigurationMenu : MonoBehaviour
         if (confirming) return;
         bool changed = DisplayChanged(draft, current);
         ApplyNative(draft, changed);
-        if (!changed) { current = draft; Save(); status.text = GameText.Get("Settings", "video.saved"); return; }
+        if (!changed) { current = draft; status.text = GameText.Get("Settings", Save() ? "video.saved" : "save.failed"); return; }
         confirming = true; confirmationDeadline = Time.realtimeSinceStartup + settings.displayConfirmationSeconds;
         controls.interactable = controls.blocksRaycasts = false; confirmation.SetActive(true);
         EventSystem.current?.SetSelectedGameObject(revert.gameObject); UpdateConfirmation();
@@ -155,7 +155,7 @@ public sealed class VideoConfigurationMenu : MonoBehaviour
         if (!confirming) return;
         current = draft;
         if (!Application.isEditor) { var actual = Capture(); current.width = actual.width; current.height = actual.height; current.mode = actual.mode; current.rate = actual.rate; }
-        Save(); FinishConfirmation(); status.text = GameText.Get("Settings", "video.saved");
+        bool saved = Save(); FinishConfirmation(); status.text = GameText.Get("Settings", saved ? "video.saved" : "save.failed");
     }
     private void Revert()
     {
@@ -173,13 +173,13 @@ public sealed class VideoConfigurationMenu : MonoBehaviour
         if (!confirming) return false;
         Revert(); return true;
     }
-    private void Save()
+    private bool Save()
     {
-        PlayerPrefs.SetInt(Prefix + "Antialiasing", (int)current.antialiasing); PlayerPrefs.SetInt(Prefix + "TextureLimit", current.textureLimit);
-        PlayerPrefs.SetInt(Prefix + "VSync", current.vsync); PlayerPrefs.SetInt(Prefix + "FrameLimit", current.limit);
-        PlayerPrefs.SetInt(Prefix + "Width", current.width); PlayerPrefs.SetInt(Prefix + "Height", current.height); PlayerPrefs.SetInt(Prefix + "Mode", (int)current.mode);
-        PlayerPrefs.SetInt(Prefix + "Windowed", current.mode == FullScreenMode.Windowed ? 1 : 0);
-        PlayerPrefs.Save();
+        GameSave.SetInt(Prefix + "Antialiasing", (int)current.antialiasing); GameSave.SetInt(Prefix + "TextureLimit", current.textureLimit);
+        GameSave.SetInt(Prefix + "Vsync", current.vsync); GameSave.SetInt(Prefix + "FrameLimit", current.limit);
+        GameSave.SetInt(Prefix + "Width", current.width); GameSave.SetInt(Prefix + "Height", current.height); GameSave.SetInt(Prefix + "Mode", (int)current.mode);
+        GameSave.SetInt(Prefix + "Windowed", current.mode == FullScreenMode.Windowed ? 1 : 0);
+        return GameSave.Save();
     }
     private void OnDisable() { if (!initialized) return; foreach (var selector in selectors) if (selector != null) selector.Hide(); Revert(); }
     private void OnDestroy()

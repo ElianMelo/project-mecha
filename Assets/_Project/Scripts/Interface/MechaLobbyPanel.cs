@@ -4,6 +4,10 @@ using UnityEngine;
 public sealed class MechaLobbyPanel : MonoBehaviour
 {
     [SerializeField] private MechaLobbyService service;
+    [SerializeField] private bool pvp;
+    [SerializeField] private UnityEngine.UI.Button mode, blueTeam, redTeam, roomMode, roomBlueTeam, roomRedTeam;
+    [SerializeField] private TMP_Text[] ruleLabels;
+    public bool IsPvp => pvp;
     [SerializeField] private GameObject panel, browser, room;
     [SerializeField] private TMP_InputField playerName, lobbyName, search, joinCode;
     [SerializeField] private TMP_Text status, roomTitle, members, readyText, pageText;
@@ -21,14 +25,22 @@ public sealed class MechaLobbyPanel : MonoBehaviour
     private void Awake()
     {
         textEntry = GetComponent<ControllerTextEntry>();
+        if (pvp)
+        {
+            mode.onClick.AddListener(ChangeMode); roomMode.onClick.AddListener(ChangeMode);
+            blueTeam.onClick.AddListener(() => { _ = service.SelectTeamAsync(PvpTeam.Blue); });
+            redTeam.onClick.AddListener(() => { _ = service.SelectTeamAsync(PvpTeam.Red); });
+            roomBlueTeam.onClick.AddListener(() => { _ = service.SelectTeamAsync(PvpTeam.Blue); });
+            roomRedTeam.onClick.AddListener(() => { _ = service.SelectTeamAsync(PvpTeam.Red); });
+        }
         rowIds = new string[lobbyRows.Length];
-        playerName.text = GameText.Get(service.Settings.defaultPlayerNameLocalized); lobbyName.text = GameText.Get(service.Settings.defaultLobbyNameLocalized);
+        playerName.text = GameText.Get(service.Settings.defaultPlayerNameLocalized); lobbyName.text = pvp ? GameText.Get("Lobby", "pvp.defaultName") : GameText.Get(service.Settings.defaultLobbyNameLocalized);
         create.onClick.AddListener(() => { _ = service.CreateAsync(lobbyName.text, playerName.text); });
         join.onClick.AddListener(() => { if (!string.IsNullOrWhiteSpace(joinCode.text)) _ = service.JoinAsync(joinCode.text, playerName.text, true); });
         ready.onClick.AddListener(() => { _ = service.ToggleReadyAsync(); });
         leave.onClick.AddListener(() => { _ = service.LeaveAsync(); }); close.onClick.AddListener(() => GameOptionsMenu.Instance.Back());
-        localHost.onClick.AddListener(() => GameManager.Instance.StartHost());
-        localJoin.onClick.AddListener(() => GameManager.Instance.StartClient());
+        localHost.onClick.AddListener(() => { service.PilotName = PilotName; GameManager.Instance.StartHost(); });
+        localJoin.onClick.AddListener(() => { service.PilotName = PilotName; GameManager.Instance.StartClient(); });
         search.onValueChanged.AddListener(value => { service.Search = value; page = 0; });
         previous.onClick.AddListener(() => { page = Mathf.Max(0, page - 1); Refresh(); });
         next.onClick.AddListener(() => { page++; Refresh(); });
@@ -41,7 +53,8 @@ public sealed class MechaLobbyPanel : MonoBehaviour
         panel.SetActive(false);
     }
     private void OnDestroy() { if (service != null) service.Changed -= Refresh; }
-    public void Show() { if (!IsVisible) GameAudio.Play(GameAudioCue.UiOpen); panel.SetActive(true); service.OpenBrowser(); Refresh(); }
+    public void Show() { if (!IsVisible) GameAudio.Play(GameAudioCue.UiOpen); panel.SetActive(true); service.Search = search.text; service.OpenBrowser(pvp ? MechaMatchMode.FreeForAll : MechaMatchMode.Cooperative); Refresh(); }
+    private void ChangeMode() { _ = service.SelectModeAsync(service.SelectedMode == MechaMatchMode.Team ? MechaMatchMode.FreeForAll : MechaMatchMode.Team); }
     public void Hide()
     {
         if (IsVisible) GameAudio.Play(GameAudioCue.UiCancel);
@@ -58,8 +71,11 @@ public sealed class MechaLobbyPanel : MonoBehaviour
     private void Update()
     {
         bool inGame = service.InGame;
-        if (inGame && !wasInGame) GameOptionsMenu.Instance.Close();
-        if (!inGame && wasInGame && service.Session == null) GameOptionsMenu.Instance.OpenLobby();
+        if (service.PvpLobby == pvp)
+        {
+            if (inGame && !wasInGame) GameOptionsMenu.Instance.Close();
+            if (!inGame && wasInGame && service.Session == null) { if (pvp) GameOptionsMenu.Instance.OpenPvpLobby(); else GameOptionsMenu.Instance.OpenLobby(); }
+        }
         wasInGame = inGame;
         if (IsVisible) EnsureSelection();
     }
@@ -78,6 +94,23 @@ public sealed class MechaLobbyPanel : MonoBehaviour
     {
         if (status == null) return;
         bool joined = service.Session != null;
+        if (pvp)
+        {
+            bool editable = !service.Busy && !service.Starting && !service.InGame && (!joined || !service.Session.IsLocked);
+            foreach (var button in new[] {mode, roomMode})
+            {
+                button.interactable = editable && (!joined || service.Session.IsHost);
+                button.GetComponentInChildren<TMP_Text>(true).text = GameText.Get("Lobby", service.SelectedMode == MechaMatchMode.Team ? "pvp.team" : "pvp.free");
+            }
+            foreach (var button in new[] {blueTeam, redTeam, roomBlueTeam, roomRedTeam})
+            {
+                bool blue = button == blueTeam || button == roomBlueTeam;
+                button.gameObject.SetActive(service.SelectedMode == MechaMatchMode.Team);
+                button.interactable = editable;
+                string teamLabel = GameText.Get("Lobby", blue ? "team.blue" : "team.red");
+                button.GetComponentInChildren<TMP_Text>(true).text = service.SelectedTeam == (blue ? PvpTeam.Blue : PvpTeam.Red) ? GameText.Get("Lobby", "team.selected", teamLabel) : teamLabel;
+            }
+        }
         if (joined && textEntry != null && textEntry.IsVisible) textEntry.Cancel();
         browser.SetActive(!joined); room.SetActive(joined);
         status.text = service.Status;
@@ -108,16 +141,17 @@ public sealed class MechaLobbyPanel : MonoBehaviour
         int slotIndex = 0, readyCount = 0;
         foreach (var player in service.Session.Players)
         {
-            bool isReady = MechaLobbyService.Read(player, "ready") == "1";
+            bool isReady = service.PlayerReady(player);
             if (isReady) readyCount++;
             if (slotIndex < playerCards.Length)
                 playerCards[slotIndex++].Present(player.Id, MechaLobbyService.Read(player, "name"),
-                    (player.Id == service.Session.Host ? GameText.Get("Lobby", "role.host") : GameText.Get("Lobby", "role.pilot")) + " / " + CharacterLabel(MechaLobbyService.Read(player, "character")), isReady);
+                    (pvp && service.SelectedMode == MechaMatchMode.Team ? GameText.Get("Lobby", MechaLobbyService.Read(player, "team") == "Red" ? "team.red" : "team.blue") :
+                    player.Id == service.Session.Host ? GameText.Get("Lobby", "role.host") : GameText.Get("Lobby", "role.pilot")) + " / " + CharacterLabel(MechaLobbyService.Read(player, "character")), isReady);
         }
         for (; slotIndex < playerCards.Length; slotIndex++) playerCards[slotIndex].Present(null, null, null, false);
         readiness.text = service.Starting ? GameText.Get("Lobby", "deployment.starting") : GameText.Get("Lobby", "pilots.ready", (readyCount), (service.Session.Players.Count));
         readiness.color = service.Starting || readyCount == service.Session.Players.Count ? service.Settings.readyColor : service.Settings.waitingColor;
-        members.text = service.Starting ? GameText.Get("Lobby", "deployment.confirmed") : GameText.Get("Lobby", "ready.instructions");
+        members.text = service.Starting ? GameText.Get("Lobby", "deployment.confirmed") : GameText.Get("Lobby", pvp ? "pvp.instructions" : "ready.instructions");
     }
     private string CharacterLabel(string id)
     {

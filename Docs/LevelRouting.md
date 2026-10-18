@@ -1,5 +1,19 @@
 # Level routing — first iteration, 2026-10-17
 
+## Fifteen encounters in three planning batches — 2026-10-18
+
+The current profile has **15 encounter depths**, including Insertion, and **five paths per planning batch** (`stepCount = 15`, `pathsPerBatch = 5`). The squad plans depths 1–5 before combat, plays those five encounters, plans depths 6–10, plays them, then plans and plays depths 11–15. Each row can still offer several alternative nodes; 15 is the length of a chosen route, not the total number of miniatures. Quick Host follows the same initial planning flow. The final cleared portal retains the existing next-sector behavior.
+
+Each vote selects a direct outgoing connection from the last planned node. All active spawned pilots must vote for the same destination before it locks; partial votes, split votes and majority-only votes remain editable without a timeout or random tie resolution. Selecting your current vote again withdraws it; selecting another available node replaces it. Controller Back also withdraws an unlocked vote. Existing solo/co-op confirmation delays remain. Departures remove their votes and reevaluate agreement; new active pilots must participate before an unresolved choice can complete.
+
+The server stores a separate planned sequence and playback cursor. Confirming the first four choices opens another vote without creating a room; the fifth starts the first planned encounter. Cleared portals advance through the stored sequence without reopening the board. After the fifth cleared encounter they begin another planning batch. The batch target is capped to the remaining route length for profiles whose depth is not divisible by five. Shared profiles are not mutated during gameplay.
+
+Buffered observer snapshots include the planned sequence and planning target alongside the existing round, votes and gameplay position. Authority still validates the injected sender, active roster, round, connectivity, phase and vote rate. The 3D board shows localized path progress, amber planned nodes/connections, persistent controller focus and mouse/controller vote removal. Fog advances from the planning frontier while confirmed nodes remain visible. Scouting does not change eligibility. Options preserve their existing modal scope and restore selection; input stays blocked throughout planning.
+
+Validation: Unity compilation and a Windows development build succeeded. Manual local Play Mode inspection confirmed a 15-depth graph, rounds 1–5 with no room created before the fifth choice, playback of `[0, 2, 4, 8, 9]` as rooms 1–5 without intervening votes, and round 6 reopening with an empty plan after the fifth clear. A second run connected one ordinary local Player after two choices, staged a split ballot on the host using the existing inspection helper, removed the host vote through the menu's normal withdrawal RPC, and advanced only after agreement. The fifth choice was submitted through the EventSystem submit handler and started the opening encounter with both pilots present. The connected Player reported no runtime errors. Guest votes were staged on the host: guest device input and its vote RPC were not exercised. The remaining batch repetition, disconnect/roster reevaluation and controller modal/navigation paths were source-reviewed. Relay/Internet conditions and three/four-player sessions were not repeated.
+
+The first sandboxed extra-player launch could not resolve `Application.persistentDataPath`, so its existing save initialization blocked character confirmation; a normal-profile launch connected successfully. One Editor inspection request timed out during Play Mode startup, before scene initialization completed; readiness inspection then recovered the connection. No game runtime errors appeared during the connected check. Captures, build and player logs remain under ignored Logs/RouteBatch and Builds/RouteBatch. The extra player was stopped and stopped, clean MainScene restored. No automated tests were created, modified or run.
+
 ## Four lanes, bounded straight paths and fog of war — 2026-10-18
 
 Repeated row widths are also capped at two. `maximumRowWidthStreak` defaults to 2 (supported range 1–2), independently of `maximumStraightStreak`. A width cannot be selected again after reaching that cap, whether it is 1, 2, 3 or 4. The fixed starting row counts toward a repeated single-width run. Each later width is chosen uniformly from the remaining legal values, without retries. Authoring a width range with no legal alternative raises a configuration error rather than violating the limit. Longer routes therefore need at least two allowed width values. The two-node forced-path limit remains enforced separately.
@@ -54,7 +68,7 @@ Options retain their existing modal UI; world selection is blocked while they ar
 
 Validation of this revision used compilation and manual Editor Play Mode inspection: the dedicated scene loaded with 11 world nodes and zero Canvases/RawImages; controller confirmation and an actual collider-based mouse click both entered the fixed opening encounter and unloaded routing with the Main Camera restored. After clearance, the scene reopened for branching choices. Directional controller movement, collider-based hover, modal blocking and selection restoration were inspected. A motion-disabled runtime profile left one persistent focus ring visible with zero enabled scene Animators. The selection layer's combat-collision exclusion was observed during routing and its original collision state restored after travel. Original input settings and stopped, clean MainScene were restored. No automated tests, extra Player builds or repeated co-op/Relay sessions were run for this presentation-only revision. The earlier build/network notes below describe the initial iteration.
 
-Solo Host and the existing ready-to-start co-op flow now enter a 3D expedition table before combat. The only available opening node is Insertion; confirming it launches the existing fixed opening arena. Clearing an encounter and using its exit returns the squad to the table. Only direct outgoing connections are selectable destinations; other visible nodes can be focused to scout their encounter previews.
+Solo Host and the existing ready-to-start co-op flow enter a 3D expedition table before combat. The only available opening node is Insertion; confirming it advances to the second of five planning votes. The fifth confirmation launches the fixed opening arena. Cleared exits follow the planned sequence and return to the table at batch boundaries. Only direct outgoing connections from the planning frontier are selectable; other visible nodes can be focused to scout their encounter previews.
 
 ## Research and foundation
 
@@ -75,7 +89,7 @@ The installed systems already supply FishNet replication, deterministic procedur
 
 ## Route graph and data
 
-`LevelRouteSettings` owns the adjustable step count, random width range, opening encounter, timings, board references, palette, camera scrolling and haptics. The current default is ten encounters per route, with a single opening row and random 1–3-node rows afterward. Forward-only, ordered edges give every node an entrance and exit, except the opening and terminal rows respectively. Set both width limits to one for a strict route. Up to three lanes are supported.
+`LevelRouteSettings` owns the adjustable step count, batch size, random width range, opening encounter, timings, board references, palette, camera scrolling and haptics. The current default is fifteen encounters per route, planned five at a time, with a single opening row and random 1–4-node rows afterward. Forward-only, ordered edges give every node an entrance and exit, except the opening and terminal rows respectively. Width and forced-path repetition limits still apply; up to four lanes are supported.
 
 Only the server generates the graph and encounter seeds. It sends the complete node/edge description; peers do not independently roll routes. The first room seed remains fixed. Later seeds vary between runs. The final cleared encounter's portal starts another sector using the same catalogue; there is no newly invented boss, reward economy or victory screen.
 
@@ -93,15 +107,13 @@ A new chest still needs its actual collection/reward implementation. Automatic r
 
 | Situation | Behavior |
 | --- | --- |
-| Solo | Confirm the available destination; a short 0.3-second reaction precedes travel. |
-| First co-op vote with no majority | Begin the soft **5-second** deadline. Players can change or withdraw votes; changing a vote does not restart the timer. |
-| Strict majority of active spawned pilots | Lock the winning destination and count **3 → 2 → 1**, then travel. |
-| Everyone voted, without a majority | Lock immediately. A unique plurality wins; tied leading destinations are eligible for a server roll. |
-| Soft deadline expires | Lock using submitted votes, then run the same **3-second** countdown. Nonvoters abstain. |
-| Two pilots choose different destinations | Count **3 → 2 → 1**, roll uniformly between the tied choices on the host, show the winner for **1 second**, then travel. |
-| Roster changes before resolution | Remove departed voters and reevaluate the active roster. A committed tie result retains its one-second reveal. |
+| Solo | Confirm the destination; a short 0.3-second reaction precedes the next vote or deployment. |
+| Partial, majority-only or split co-op votes | Wait for agreement without a timeout. All submitted votes remain editable. |
+| All active pilots choose the same destination | Lock it and count **3 → 2 → 1**, then open the next vote or deploy after the fifth choice. |
+| Select your existing vote again | Withdraw it. Selecting another available destination replaces it. |
+| Roster changes before resolution | Remove departed voters and reevaluate agreement; newly active pilots must vote. |
 
-Requests carry the route round and destination. The server validates round, direct connectivity, sender eligibility, phase and repeat rate. Duplicate votes do not increase vote counts. Once locked, votes cannot change. A player leaving during gameplay follows the existing network transport's disconnect detection interval. Host departure retains the existing session shutdown behavior; host migration is not added.
+Requests carry the route round and destination. The server validates round, direct connectivity, sender eligibility, phase and repeat rate. A repeated selection toggles the sender's vote off; it never adds a second vote. Once agreement locks a destination, votes cannot change. A player leaving during gameplay follows the existing network transport's disconnect detection interval. Host departure retains the existing session shutdown behavior; host migration is not added.
 
 The buffered graph and ballot snapshot support a joining observer's current route view. Frequent snapshots are sent only while choosing/counting down. Countdown display interpolates locally; the server clock alone advances phases and rooms.
 
@@ -115,7 +127,7 @@ The second research pass revisited [Xbox UI focus handling](https://learn.micros
 
 - Persistent white focus borders independent of motion, brighter future-path dots and explicit state labels.
 - Numbered votes, colored vote pips and named squad intentions; destination confirmation is distinct from local focus.
-- Immediate sent-vote feedback followed by authoritative acknowledgement; duplicate clicks do not replay route submission.
+- Immediate sent-vote feedback followed by authoritative acknowledgement; selecting the same node again withdraws an unlocked vote.
 - Distinct invalid-choice audio, vote-arrival cues, locked countdown beats and a winner reveal.
 - Frame the 3D board independently of Canvas scaling; pad first/last nodes away from screen edges and allow all four squad entries in the preview card.
 - Respect the existing motion setting for miniature/countdown motion and haptics; stop rumble on close/disable.

@@ -40,7 +40,7 @@ public sealed class RouteMapMenu : MonoBehaviour
             if (route != null) route.Changed += Refresh;
         }
         if (hapticPad != null && Time.unscaledTime >= hapticUntil) StopHaptic();
-        if (pendingNode >= 0 && Time.unscaledTime >= pendingUntil) pendingNode = -1;
+        if (pendingNode != -1 && Time.unscaledTime >= pendingUntil) pendingNode = -1;
         bool wanted = route != null && route.IsRouting && route.IsClientInitialized;
         if (!changingScene && wanted != open) { changingScene = true; StartCoroutine(ChangeScene(wanted)); }
         if (!IsVisible) return;
@@ -124,7 +124,7 @@ public sealed class RouteMapMenu : MonoBehaviour
             previousVotes[pilot.playerId] = pilot.nodeId;
         }
         int localId = route.ClientManager.Connection.ClientId;
-        if (route.Pilots.Any(x => x.playerId == localId && x.nodeId == pendingNode)) pendingNode = -1;
+        if (route.Pilots.Any(x => x.playerId == localId && (pendingNode == -2 ? x.nodeId < 0 : x.nodeId == pendingNode))) pendingNode = -1;
         board.Refresh(focused); board.ShowDetails(focused,pendingNode);
         if (lastPhase != route.Phase)
         {
@@ -173,10 +173,13 @@ public sealed class RouteMapMenu : MonoBehaviour
     {
         if (!CanInteract || !route.CanVote || !route.IsAvailable(node)) { GameAudio.Play(GameAudioCue.UiError); return; }
         int localId = route.ClientManager.Connection.ClientId;
-        if (pendingNode == node || route.Pilots.Any(x => x.playerId == localId && x.nodeId == node)) return;
-        pendingNode = node; pendingUntil = Time.unscaledTime + 1.5f;
+        if (pendingNode != -1) return;
+        bool withdraw = route.Pilots.Any(x => x.playerId == localId && x.nodeId == node);
+        pendingNode = withdraw ? -2 : node; pendingUntil = Time.unscaledTime + 1.5f;
         board.ShowDetails(node,pendingNode); GameAudio.Play(GameAudioCue.UiConfirm);
-        route.Select(node); board.Confirm(node); Pulse();
+        if (withdraw) route.Withdraw();
+        else { route.Select(node); board.Confirm(node); }
+        Pulse();
     }
     private void Pulse()
     {

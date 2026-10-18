@@ -17,11 +17,16 @@ public sealed class MechaLobbyService : MonoBehaviour
     public ISession Session { get; private set; }
     public IReadOnlyList<ISessionInfo> Lobbies { get; private set; } = Array.Empty<ISessionInfo>();
     public bool Busy { get; private set; }
+    public MechaMatchMode SelectedMode { get; private set; }
+    public PvpTeam SelectedTeam { get; private set; } = PvpTeam.Blue;
+    public string PilotName { get; set; }
+    public bool PvpLobby => SelectedMode != MechaMatchMode.Cooperative;
+    private string SessionType => PvpLobby ? settings.sessionType + "-pvp" : settings.sessionType;
     public bool Browsing { get; private set; }
     public bool InGame => network != null && network.ClientManager.Started;
     public string Status { get; private set; } = "";
     public string Search { get; set; } = "";
-    public bool IsReady => Session != null && Read(Session.CurrentPlayer, "ready") == "1";
+    public bool IsReady => Session != null && PlayerReady(Session.CurrentPlayer);
     public bool Starting => starting || Session != null && Session.Properties.TryGetValue("phase", out var phase) && phase.Value == "starting" && !InGame;
     private bool querying, refreshing, starting, destroyed, leaving;
     private float nextQuery, nextRoster;
@@ -30,11 +35,37 @@ public sealed class MechaLobbyService : MonoBehaviour
     private FishNetSessionNetworkHandler handler;
     public LobbySettings Settings => settings;
     private void Awake() { handler = new FishNetSessionNetworkHandler(network, settings); Status = GameText.Get("Lobby", "browser.welcome"); }
-    public void OpenBrowser()
+    public void PrepareLocal(MechaMatchMode mode, PvpTeam team = PvpTeam.Blue)
     {
+        if (Session != null || InGame || Busy) return;
+        SelectedMode = mode; SelectedTeam = team; Browsing = false;
+    }
+    public void OpenBrowser(MechaMatchMode mode = MechaMatchMode.Cooperative)
+    {
+        if (Session == null && !InGame && !Busy) { SelectedMode = mode; Lobbies = Array.Empty<ISessionInfo>(); }
         Browsing = Session == null && !InGame; nextQuery = 0f;
         Changed?.Invoke();
     }
+    public Task SelectModeAsync(MechaMatchMode mode) => Operation(async () =>
+    {
+        if (!PvpLobby || mode != MechaMatchMode.FreeForAll && mode != MechaMatchMode.Team || Starting || InGame) return;
+        if (Session == null) { SelectedMode = mode; return; }
+        if (!Session.IsHost || Session.IsLocked) return;
+        var host = Session.AsHost(); host.SetProperty("mode", new SessionProperty(mode.ToString()));
+        host.SetProperty("rules", new SessionProperty(Guid.NewGuid().ToString("N")));
+        await host.SavePropertiesAsync(); SelectedMode = mode;
+        Session.CurrentPlayer.SetProperty("ready", new PlayerProperty("0"));
+        await Session.SaveCurrentPlayerDataAsync();
+    });
+    public Task SelectTeamAsync(PvpTeam team) => Operation(async () =>
+    {
+        if (SelectedMode != MechaMatchMode.Team || team != PvpTeam.Blue && team != PvpTeam.Red || Starting || InGame || Session != null && Session.IsLocked) return;
+        SelectedTeam = team;
+        if (Session == null) return;
+        Session.CurrentPlayer.SetProperty("team", new PlayerProperty(team.ToString()));
+        Session.CurrentPlayer.SetProperty("ready", new PlayerProperty("0"));
+        await Session.SaveCurrentPlayerDataAsync();
+    });
     public void CloseBrowser() => Browsing = false;
     private void Update()
     {
@@ -65,17 +96,18 @@ public sealed class MechaLobbyService : MonoBehaviour
     {
         if (querying || destroyed || Session != null) return;
         querying = true;
+        string queriedType = SessionType;
         try
         {
             await InitializeAsync();
             var filters = new List<FilterOption> {
-                new FilterOption(FilterField.StringIndex1, settings.sessionType, FilterOperation.Equal),
+                new FilterOption(FilterField.StringIndex1, queriedType, FilterOperation.Equal),
                 new FilterOption(FilterField.IsLocked, "false", FilterOperation.Equal),
                 new FilterOption(FilterField.AvailableSlots, "0", FilterOperation.Greater)};
             if (!string.IsNullOrWhiteSpace(Search)) filters.Add(new FilterOption(FilterField.Name, Search.Trim(), FilterOperation.Contains));
             var result = await MultiplayerService.Instance.QuerySessionsAsync(new QuerySessionsOptions {Count = 100, FilterOptions = filters});
             queryFailures = 0;
-            if (!destroyed && Session == null)
+            if (!destroyed && Session == null && queriedType == SessionType)
             {
                 Lobbies = result.Sessions.ToArray();
                 Status = Lobbies.Count == 0 ? GameText.Get("Lobby", "browser.empty") : GameText.Get("Lobby", "browser.count", (Lobbies.Count));
@@ -86,37 +118,48 @@ public sealed class MechaLobbyService : MonoBehaviour
     }
     public Task CreateAsync(string lobbyName, string playerName) => Operation(async () =>
     {
+        PilotName = playerName;
         if (CharacterSelectionMenu.Instance != null && !await CharacterSelectionMenu.Instance.EnsureConfirmedAsync()) return;
         await InitializeAsync();
         if (Session != null || InGame) throw new InvalidOperationException(GameText.Get("Lobby", "session.leaveFirst"));
-        var options = new SessionOptions {Name = Clean(lobbyName, GameText.Get(settings.defaultLobbyNameLocalized)), MaxPlayers = settings.maxPlayers,
-            Type = settings.sessionType, PlayerProperties = PlayerData(playerName),
+        var options = new SessionOptions {Name = Clean(lobbyName, PvpLobby ? GameText.Get("Lobby", "pvp.defaultName") : GameText.Get(settings.defaultLobbyNameLocalized)), MaxPlayers = settings.maxPlayers,
+            Type = SessionType, PlayerProperties = PlayerData(playerName),
             SessionProperties = new Dictionary<string, SessionProperty> {
-                {"game", new SessionProperty(settings.sessionType, VisibilityPropertyOptions.Public, PropertyIndex.String1)},
+                {"game", new SessionProperty(SessionType, VisibilityPropertyOptions.Public, PropertyIndex.String1)},
+                {"mode", new SessionProperty(SelectedMode.ToString())},
+                {"rules", new SessionProperty(Guid.NewGuid().ToString("N"))},
                 {"phase", new SessionProperty("waiting")}}};
         options.WithNetworkHandler(handler).WithNetworkOptions(new NetworkOptions {RelayProtocol = RelayProtocol.DTLS});
         Attach(await MultiplayerService.Instance.CreateSessionAsync(options));
     });
     public Task JoinAsync(string id, string playerName, bool byCode = false) => Operation(async () =>
     {
+        PilotName = playerName;
         if (CharacterSelectionMenu.Instance != null && !await CharacterSelectionMenu.Instance.EnsureConfirmedAsync()) return;
         await InitializeAsync();
         if (Session != null || InGame) throw new InvalidOperationException(GameText.Get("Lobby", "session.leaveFirst"));
-        var options = new JoinSessionOptions {Type = settings.sessionType, PlayerProperties = PlayerData(playerName)};
+        var options = new JoinSessionOptions {Type = SessionType, PlayerProperties = PlayerData(playerName)};
         options.WithNetworkHandler(handler).WithNetworkOptions(new NetworkOptions {RelayProtocol = RelayProtocol.DTLS});
-        Attach(byCode ? await MultiplayerService.Instance.JoinSessionByCodeAsync(id.Trim().ToUpperInvariant(), options)
-            : await MultiplayerService.Instance.JoinSessionByIdAsync(id, options));
+        string expectedType = SessionType;
+        var joined = byCode ? await MultiplayerService.Instance.JoinSessionByCodeAsync(id.Trim().ToUpperInvariant(), options)
+            : await MultiplayerService.Instance.JoinSessionByIdAsync(id, options);
+        if (!joined.Properties.TryGetValue("game", out var game) || game.Value != expectedType)
+        { await joined.LeaveAsync(); throw new InvalidOperationException("Lobby type does not match this browser."); }
+        Attach(joined);
     });
     public Task ToggleReadyAsync() => Operation(async () =>
     {
         if (Session == null || Session.IsLocked || Starting || InGame) return;
         Session.CurrentPlayer.SetProperty("ready", new PlayerProperty(IsReady ? "0" : "1"));
+        Session.CurrentPlayer.SetProperty("readyMode", new PlayerProperty(SelectedMode.ToString()));
+        Session.CurrentPlayer.SetProperty("readyRules", new PlayerProperty(RulesVersion));
         await Session.SaveCurrentPlayerDataAsync();
         Status = GameText.Get("Lobby", "ready.waiting");
     });
     private void Attach(ISession session)
     {
         Session = session; Browsing = false; nextRoster = Time.unscaledTime + settings.rosterRefreshSeconds;
+        ReadMode();
         session.Changed += OnSessionChanged; session.RemovedFromSession += OnRemoved;
         session.Deleted += OnRemoved; session.SessionHostChanged += OnHostChanged;
         session.Network.StartFailed += OnNetworkStartFailed; session.Network.StateChanged += OnNetworkStateChanged;
@@ -130,7 +173,11 @@ public sealed class MechaLobbyService : MonoBehaviour
         Session.Network.StartFailed -= OnNetworkStartFailed; Session.Network.StateChanged -= OnNetworkStateChanged;
         Session = null;
     }
-    private void OnSessionChanged() { Changed?.Invoke(); if (!Busy) _ = CheckReadyAsync(); }
+    private void ReadMode()
+    {
+        if (Session != null && Session.Properties.TryGetValue("mode", out var value) && Enum.TryParse(value.Value, out MechaMatchMode mode) && Enum.IsDefined(typeof(MechaMatchMode), mode)) SelectedMode = mode;
+    }
+    private void OnSessionChanged() { ReadMode(); Changed?.Invoke(); if (!Busy) _ = CheckReadyAsync(); }
     private void OnNetworkStateChanged(NetworkState state)
     {
         if (state == NetworkState.Starting) Status = GameText.Get("Lobby", "connection.starting");
@@ -171,7 +218,7 @@ public sealed class MechaLobbyService : MonoBehaviour
     {
         var session = Session;
         if (session == null || !session.IsHost || starting || InGame || Busy || session.PlayerCount == 0 ||
-            session.Players.Any(player => Read(player, "ready") != "1")) return;
+            session.Players.Any(player => !PlayerReady(player)) || !PvpRosterValid(session)) return;
         starting = true; Status = GameText.Get("Lobby", "ready.connecting"); Changed?.Invoke();
         try
         {
@@ -179,7 +226,7 @@ public sealed class MechaLobbyService : MonoBehaviour
             host.SetProperty("phase", new SessionProperty("starting")); await host.SavePropertiesAsync();
             await Task.Delay(1100);
             await session.RefreshAsync();
-            if (session.Players.Any(player => Read(player, "ready") != "1"))
+            if (session.Players.Any(player => !PlayerReady(player)) || !PvpRosterValid(session))
             { host.IsLocked = false; host.SetProperty("phase", new SessionProperty("waiting")); await host.SavePropertiesAsync(); Status = GameText.Get("Lobby", "ready.waiting"); return; }
             await host.Network.StartRelayNetworkAsync(new RelayNetworkOptions());
             host.SetProperty("phase", new SessionProperty("playing")); await host.SavePropertiesAsync();
@@ -212,6 +259,11 @@ public sealed class MechaLobbyService : MonoBehaviour
         }
         finally { await handler.StopAsync(); leaving = false; Browsing = true; nextQuery = 0f; Status = GameText.Get("Lobby", "session.left"); }
     });
+    private string RulesVersion => Session != null && Session.Properties.TryGetValue("rules", out var rules) ? rules.Value : "";
+    public bool PlayerReady(IReadOnlyPlayer player) => Read(player, "ready") == "1" && (!PvpLobby || Read(player, "readyMode") == SelectedMode.ToString() && Read(player, "readyRules") == RulesVersion);
+    private bool PvpRosterValid(ISession session) => !PvpLobby || session.PlayerCount >= 2 && (SelectedMode != MechaMatchMode.Team ||
+        session.Players.All(p => Read(p, "team") == "Blue" || Read(p, "team") == "Red") &&
+        session.Players.Any(p => Read(p, "team") == "Blue") && session.Players.Any(p => Read(p, "team") == "Red"));
     private async Task Operation(Func<Task> operation)
     {
         if (Busy || destroyed) return;
@@ -222,7 +274,8 @@ public sealed class MechaLobbyService : MonoBehaviour
     }
     private Dictionary<string, PlayerProperty> PlayerData(string playerName) => new Dictionary<string, PlayerProperty> {
         {"name", new PlayerProperty(Clean(playerName, GameText.Get(settings.defaultPlayerNameLocalized)))}, {"ready", new PlayerProperty("0")},
-        {"character", new PlayerProperty(CharacterSelectionMenu.SelectedId)}};
+        {"character", new PlayerProperty(CharacterSelectionMenu.SelectedId)}, {"team", new PlayerProperty(SelectedTeam.ToString())},
+        {"readyMode", new PlayerProperty(SelectedMode.ToString())}};
     public static string Read(IReadOnlyPlayer player, string key) => player != null && player.Properties.TryGetValue(key, out var value) ? value.Value : "";
     private static string Clean(string value, string fallback) => string.IsNullOrWhiteSpace(value) ? fallback : value.Trim().Substring(0, Mathf.Min(28, value.Trim().Length));
     private static string Friendly(Exception error) => error.Message.Contains("429")

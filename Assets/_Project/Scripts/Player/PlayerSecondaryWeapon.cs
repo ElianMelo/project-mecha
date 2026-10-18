@@ -8,13 +8,18 @@ public sealed class PlayerSecondaryWeapon : NetworkBehaviour
     [SerializeField] private SecondaryWeaponSettings settings;
     private readonly SyncVar<float> ammunition = new SyncVar<float>();
     private readonly SyncVar<float> aimAngle = new SyncVar<float>();
-    private float soloAmmo, nextLocalShot, nextServerShot, refillAt, nextAimSync, lastAim;
+    private float soloAmmo, nextLocalShot, nextServerShot, refillAt, nextAimSync, lastAim, nextServerAim;
     private PlayerInputs inputs;
     private PlayerHealth health;
     private PlayerAttack attack;
     private MechaAutoAim aim;
     public int Ammo => Mathf.FloorToInt((IsSpawned ? ammunition.Value : soloAmmo) + 0.001f);
     public int Capacity => settings.capacity;
+    public void ResetMatchResources()
+    {
+        if (!IsServerInitialized) return;
+        ammunition.Value = settings.capacity; nextServerShot = refillAt = 0f;
+    }
     private void Awake()
     {
         inputs = GetComponent<PlayerInputs>(); health = GetComponent<PlayerHealth>(); attack = GetComponent<PlayerAttack>();
@@ -23,7 +28,7 @@ public sealed class PlayerSecondaryWeapon : NetworkBehaviour
     private void OnEnable() => inputs.OnSecondaryFireInput += FirePressed;
     private void OnDisable() => inputs.OnSecondaryFireInput -= FirePressed;
     public override void OnStartServer() { base.OnStartServer(); ammunition.Value = settings.capacity; }
-    private bool CanFire => (GetComponent<CharacterRuntime>() == null || GetComponent<CharacterRuntime>().Ready && GetComponent<CharacterRuntime>().Allows(CombatCapabilities.Ranged)) && health != null && health.Health > 0f && !health.IsStunned && !attack.IsBusy && !attack.ServerBusy;
+    private bool CanFire => !PvpMatchDirector.BlocksCombat && (GetComponent<CharacterRuntime>() == null || GetComponent<CharacterRuntime>().Ready && GetComponent<CharacterRuntime>().Allows(CombatCapabilities.Ranged)) && health != null && health.Health > 0f && !health.IsStunned && !attack.IsBusy && !attack.ServerBusy;
     private void Update()
     {
         if ((!IsSpawned || IsServerInitialized) && Time.time >= refillAt)
@@ -45,7 +50,9 @@ public sealed class PlayerSecondaryWeapon : NetworkBehaviour
     [ServerRpc]
     private void RequestAim(float value)
     {
-        if (!float.IsNaN(value) && !float.IsInfinity(value)) aimAngle.Value = Mathf.Repeat(value, 360f);
+        if (!float.IsFinite(value) || Time.time < nextServerAim) return;
+        nextServerAim = Time.time + settings.aimSyncInterval * 0.5f;
+        aimAngle.Value = Mathf.Repeat(value, 360f);
     }
     private void FirePressed()
     {

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3259acc6e040d77468c42f62b0f0423b, type: 3}
+  m_Name: PvpMatch
+  m_EditorClassIdentifier: Assembly-CSharp::PvpMatchSettings
+  durationSeconds: 300
+  respawnSeconds: 5
+  assistHealthFraction: 0.2
+  snapshotInterval: 0.25
+  rosterTimeout: 45
+  spawnInset: 2
+  positionSampleSeconds: 0.2
+  positionSlack: 2
+  maximumTravelPerSecond: 45
+  positionPenaltySeconds: 1
+  blue: {r: 0.22, g: 0.62, b: 1, a: 1}
+  red: {r: 1, g: 0.3, b: 0.28, a: 1}

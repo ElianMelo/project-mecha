@@ -3,7 +3,7 @@ using FishNet.Object.Synchronizing;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerHealth : NetworkBehaviour
+public class PlayerHealth : NetworkBehaviour, IDamageable, ITargetable
 {
     [SerializeField] private PlayerHealthSettings settings;
     private readonly SyncVar<float> health = new SyncVar<float>(100f);
@@ -11,31 +11,60 @@ public class PlayerHealth : NetworkBehaviour
     private Vector3 spawnPosition;
     private Rigidbody body;
     private PlayerMovement movement;
+    private CapsuleCollider capsule;
+    public bool IsDead => defeated || Health <= 0f;
+    public bool CanTarget => PvpMatchDirector.Active && !IsDead;
+    public int TargetPriority => 2;
+    public Bounds TargetBounds => capsule != null ? capsule.bounds : new Bounds(transform.position, Vector3.one);
+    public Vector3 AimPoint => TargetBounds.center;
+    public Transform TargetTransform => transform;
+    public float RespawnRemaining => defeated ? Mathf.Max(0f, respawnAt - Time.time) : 0f;
+    private float DefeatDuration => PvpMatchDirector.Active ? PvpMatchDirector.Instance.Settings.respawnSeconds : settings.defeatDuration;
     private bool defeated;
     private float respawnAt;
     public float Health => NetworkObject.IsSpawned ? health.Value : soloHealth;
     public bool IsStunned => defeated || Time.time < stunnedUntil;
     public float MaxHealth => settings.maxHealth;
-    private void Awake() { body = GetComponent<Rigidbody>(); movement = GetComponent<PlayerMovement>(); spawnPosition = transform.position; soloHealth = settings.maxHealth; }
+    private void Awake() { body = GetComponent<Rigidbody>(); capsule = GetComponent<CapsuleCollider>(); movement = GetComponent<PlayerMovement>(); spawnPosition = transform.position; soloHealth = settings.maxHealth; }
     public override void OnStartServer() { base.OnStartServer(); health.Value = settings.maxHealth; spawnPosition = transform.position; }
     public override void OnStartClient() { base.OnStartClient(); spawnPosition = transform.position; if (Health <= 0f) ApplyDefeat(); }
     private void Update()
     {
         if (defeated)
         {
-            if (Time.time >= respawnAt && (!NetworkObject.IsSpawned || IsServerInitialized)) Respawn();
+            if (!PvpMatchDirector.BlocksCombat && Time.time >= respawnAt && (!NetworkObject.IsSpawned || IsServerInitialized)) Respawn();
             return;
         }
-        if (transform.position.y < settings.fallLimit && (!NetworkObject.IsSpawned || IsServerInitialized)) Respawn();
+        if (transform.position.y < settings.fallLimit && (!NetworkObject.IsSpawned || IsServerInitialized))
+        {
+            if (PvpMatchDirector.Active)
+            {
+                if (PvpMatchDirector.BlocksCombat) return;
+                health.Value = 0f; PvpMatchDirector.Instance.RecordDeath(this, null); Defeat();
+            }
+            else Respawn();
+        }
     }
     public void TakeHit(float damage, Vector3 knockback)
+        => ReceiveHit(damage, knockback, null);
+    public void TakeDamage(float damage, Vector3 knockback, float stun, PlayerHealth attacker)
     {
-        if (defeated || (NetworkObject.IsSpawned && !IsServerInitialized) || Time.time < invincibleUntil || movement != null && movement.IsDashing) return;
+        if (!CombatTargetRules.CanHit(attacker, this)) return;
+        ReceiveHit(damage, knockback, attacker);
+    }
+    private void ReceiveHit(float damage, Vector3 knockback, PlayerHealth attacker)
+    {
+        if (!float.IsFinite(damage) || damage <= 0f || !float.IsFinite(knockback.x) || !float.IsFinite(knockback.y) || !float.IsFinite(knockback.z) ||
+            defeated || (NetworkObject.IsSpawned && !IsServerInitialized) || Time.time < invincibleUntil || movement != null && movement.IsDashing ||
+            PvpMatchDirector.Active && (attacker == null || !CombatTargetRules.CanHit(attacker, this))) return;
+        float removed = Mathf.Min(Health, damage);
         if (NetworkObject.IsSpawned) health.Value = Mathf.Max(0f, health.Value - damage);
         else soloHealth = Mathf.Max(0f, soloHealth - damage);
         invincibleUntil = Time.time + settings.invincibility;
+        if (PvpMatchDirector.Active) PvpMatchDirector.Instance.RecordDamage(this, attacker, removed);
         if (Health <= 0f)
         {
+            if (PvpMatchDirector.Active) PvpMatchDirector.Instance.RecordDeath(this, attacker);
             if (NetworkObject.IsSpawned) Defeat(); else ApplyDefeat();
             return;
         }
@@ -55,10 +84,10 @@ public class PlayerHealth : NetworkBehaviour
     private void ApplyDefeat()
     {
         if (!defeated) GameAudio.Play(GameAudioCue.PlayerDeath, transform.position);
-        defeated=true;respawnAt=Time.time+settings.defeatDuration;
+        defeated=true;respawnAt=Time.time+DefeatDuration;
         GetComponent<CharacterSkills>()?.ClearModifier();
         GetComponent<PlayerAttack>().Interrupt();GetComponent<PlayerMovement>().StopDash();
-        GetComponent<CharacterAnimator>()?.Death(settings.defeatDuration);
+        GetComponent<CharacterAnimator>()?.Death(DefeatDuration);
         if(!NetworkObject.IsSpawned || IsOwner)body.linearVelocity=Vector3.zero;
     }
     [ObserversRpc(RunLocally = true)]
@@ -75,9 +104,24 @@ public class PlayerHealth : NetworkBehaviour
     }
     private void Respawn()
     {
+        if (PvpMatchDirector.Active) spawnPosition = PvpMatchDirector.Instance.SpawnPoint(this);
         invincibleUntil = Time.time + settings.respawnInvincibility;
         if (NetworkObject.IsSpawned) { health.Value = settings.maxHealth; ResetAtSpawn(spawnPosition); }
         else { soloHealth = settings.maxHealth; ApplyReset(spawnPosition); }
+        if (PvpMatchDirector.Active) PvpMatchDirector.Instance.ResetLife(this);
+    }
+    public void CorrectPvpPosition(Vector3 position)
+    {
+        if (!IsServerInitialized) return;
+        CorrectPosition(position);
+    }
+    [ObserversRpc(RunLocally = true)]
+    private void CorrectPosition(Vector3 position)
+    {
+        body.position = transform.position = position;
+        GetComponent<FishNet.Component.Transforming.NetworkTransform>()?.Teleport();
+        if (!body.isKinematic) body.linearVelocity = Vector3.zero;
+        movement?.ResetTraversal();
     }
     public void EnterLevel(Vector3 position)
     {

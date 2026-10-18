@@ -19,6 +19,7 @@ public class ProceduralLevelDirector : NetworkBehaviour
     private LevelRouteDirector routing;
     private RouteEncounter customEncounter;
     private ProceduralLevelSettings activeSettings;
+    private bool pvpArena;
     public static ProceduralLevelDirector Instance { get; private set; }
     public ProceduralLevelSettings Settings => activeSettings != null ? activeSettings : settings;
     public ProceduralLevelLayout Layout { get; private set; }
@@ -33,14 +34,20 @@ public class ProceduralLevelDirector : NetworkBehaviour
         hasPresentedRoom = false;
         customEncounter = null; activeSettings = null;
         Layout = null; LevelNumber = 0; placedPlayers.Clear();
+        pvpArena = false;
         base.OnStopServer();
     }
     public override void OnStopClient() { hasPresentedRoom = false; base.OnStopClient(); }
     public void BeginRun()
     {
         if (!IsServerInitialized || Layout != null) return;
-        bool skipOpeningChoice = GameManager.Instance != null && GameManager.Instance.ConsumeQuickHostOpening();
-        if (routing != null) { routing.BeginRun(skipOpeningChoice); return; }
+        GameManager.Instance?.ConsumeQuickHostOpening();
+        if (FindFirstObjectByType<MechaLobbyService>()?.PvpLobby == true)
+        {
+            pvpArena = true; BuildRoom(1, settings.firstRoomSeed, "", true);
+            spawner.SpawnEncounter(System.Array.Empty<Vector3>()); return;
+        }
+        if (routing != null) { routing.BeginRun(); return; }
         ChangeLevel(1, settings.firstRoomSeed);
     }
     public void EnterRouteEncounter(RouteEncounterDefinition encounter, int seed)
@@ -70,8 +77,9 @@ public class ProceduralLevelDirector : NetworkBehaviour
         placedPlayers.Clear(); PlaceNewPlayers(); changing = false;
     }
     [ObserversRpc(BufferLast = true, RunLocally = true)]
-    private void BuildRoom(int number, int seed, string encounterId = "")
+    private void BuildRoom(int number, int seed, string encounterId = "", bool forPvp = false)
     {
+        pvpArena = forPvp;
         if (hasPresentedRoom) GameAudio.Play(GameAudioCue.PortalTravel, Layout != null ? Layout.Portal : transform.position);
         hasPresentedRoom = true;
         LevelNumber = number; Seed = seed;
@@ -79,16 +87,18 @@ public class ProceduralLevelDirector : NetworkBehaviour
         activeSettings = encounter != null ? encounter.roomSettings : settings;
         Layout = ProceduralLevelLayout.Generate(Settings, seed, number, 16f / 9f, encounter != null ? encounter.shape : (LevelShape?)null);
         GetComponent<ProceduralRoomBuilder>().Build(Layout, Settings);
+        if (pvpArena) { if (portal != null) portal.gameObject.SetActive(false); return; }
         if (portal == null)
         {
             var go = new GameObject("Exit Portal"); portal = go.AddComponent<LevelPortal>();
             portal.Configure(this);
         }
         portal.transform.position = Layout.Portal;
+        portal.gameObject.SetActive(true);
     }
     private void Update()
     {
-        if (!IsServerInitialized || Layout == null || changing) return;
+        if (!IsServerInitialized || Layout == null || changing || pvpArena) return;
         remaining.Value = customEncounter != null ? customEncounter.Remaining : spawner.LivingCount;
         if (!cleared.Value && (customEncounter != null ? customEncounter.IsComplete : spawner.IsFinished && remaining.Value == 0)) cleared.Value = true;
         if (Time.time >= nextRoster) { nextRoster = Time.time + 0.25f; PlaceNewPlayers(); }
@@ -109,7 +119,7 @@ public class ProceduralLevelDirector : NetworkBehaviour
     }
     public bool TryTravel(PlayerHealth player)
     {
-        if (!IsServerInitialized || changing || Layout == null || !IsClear || player == null || player.Health <= 0f || player.IsStunned ||
+        if (pvpArena || !IsServerInitialized || changing || Layout == null || !IsClear || player == null || player.Health <= 0f || player.IsStunned ||
             Vector3.Distance(player.transform.position, Layout.Portal) > Settings.portalInteractionRange) return false;
         if (routing != null) return routing.OpenAfterClear();
         int nextSeed = unchecked(Seed * 1664525 + 1013904223);

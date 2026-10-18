@@ -100,10 +100,12 @@ public sealed class RouteMapBoard : MonoBehaviour
         foreach (var edge in edges)
         {
             bool travelled = route.Visited.Contains(edge.from) && route.Visited.Contains(edge.to);
-            bool reachable = edge.from == route.CurrentNode && route.IsAvailable(edge.to);
+            bool reachable = edge.from == route.ChoiceOrigin && route.IsAvailable(edge.to);
+            int plannedIndex = System.Array.IndexOf(route.Planned, edge.to);
+            bool planned = plannedIndex >= 0 && (plannedIndex > 0 ? route.Planned[plannedIndex - 1] == edge.from : edge.from == route.CurrentNode);
             bool preview = reachable && (edge.from == focused || edge.to == focused);
             bool chosen = reachable && edge.to == route.Winner && route.IsRouting;
-            Color color = travelled || chosen ? route.Settings.visitedColor : preview ? Color.white : reachable ? route.Settings.reachableColor : route.Settings.lockedColor;
+            Color color = travelled || planned || chosen ? route.Settings.visitedColor : preview ? Color.white : reachable ? route.Settings.reachableColor : route.Settings.lockedColor;
             foreach (var dash in edge.dashes) dash.color = color;
         }
     }
@@ -124,9 +126,9 @@ public sealed class RouteMapBoard : MonoBehaviour
         previewTitle.text = GameText.Get(room.displayNameLocalized).ToUpperInvariant();
         previewBody.text = GameText.Get("Routing", "encounter.heading") + (node.depth + 1).ToString("00") + " / " + GameText.Term("Routing", room.shape).ToUpperInvariant() + "\n\n" + GameText.Get(room.descriptionLocalized) + "\n\n" + GameText.Get(room.rewardPreviewLocalized);
         bool voted = route.Pilots.Any(x => x.playerId == route.ClientManager.Connection.ClientId && x.nodeId == id);
-        previewState.text = route.Winner == id ? GameText.Get("Routing", "destination.confirmed") : voted ? GameText.Get("Routing", "vote.yours") : pending == id ? GameText.Get("Routing", "vote.sending") : route.IsAvailable(id) ? GameText.Get("Routing", "destination.available") : route.Visited.Contains(id) ? GameText.Get("Routing", "destination.cleared") : GameText.Get("Routing", "destination.scouting");
+        previewState.text = pending == -2 && voted ? GameText.Get("Routing", "vote.withdrawing") : route.Winner == id ? GameText.Get("Routing", "destination.confirmed") : voted ? GameText.Get("Routing", "vote.yours") : pending == id ? GameText.Get("Routing", "vote.sending") : route.IsAvailable(id) ? GameText.Get("Routing", "destination.available") : route.Visited.Contains(id) ? GameText.Get("Routing", "destination.cleared") : route.Planned.Contains(id) ? GameText.Get("Routing", "destination.planned") : GameText.Get("Routing", "destination.scouting");
         previewState.color = route.IsAvailable(id) ? route.Settings.reachableColor :
-            route.Visited.Contains(id) ? route.Settings.visitedColor : route.Settings.lockedLabelColor;
+            route.Visited.Contains(id) || route.Planned.Contains(id) ? route.Settings.visitedColor : route.Settings.lockedLabelColor;
         roster.text = GameText.Get("Routing", "squad.heading") + string.Join("\n", route.Pilots.Select((pilot, index) =>
             "<color=#" + ColorUtility.ToHtmlStringRGB(route.Settings.squad.PilotColor(pilot.colorSlot)) + ">P" + (index + 1) + "</color> " + pilot.name.Replace("<", "").Replace(">", "") + " / " +
             (pilot.nodeId < 0 ? GameText.Get("Routing", "vote.choosing") : route.Encounter(route.Nodes[pilot.nodeId].encounterId) is RouteEncounterDefinition intent ? GameText.Get(intent.displayNameLocalized) : string.Empty)));
@@ -134,8 +136,9 @@ public sealed class RouteMapBoard : MonoBehaviour
     public void UpdateClock()
     {
         int seconds = Mathf.Max(1, Mathf.CeilToInt(route.SecondsRemaining));
-        countdown.text = route.Phase == RouteVotePhase.SoftWait ? GameText.Get("Routing", "vote.waiting") + seconds : route.Phase == RouteVotePhase.Locked ?
-            (route.Candidates.Length > 1 ? GameText.Get("Routing", "vote.tiebreak") : GameText.Get("Routing", "deployment.countdown")) + seconds : route.Phase == RouteVotePhase.TieReveal ? GameText.Get("Routing", "route.confirmed") : GameText.Get("Routing", "encounter.select");
+        int path = route.Planned.Length + 1;
+        countdown.text = route.Phase == RouteVotePhase.SoftWait ? GameText.Get("Routing", "planning.waiting", path, route.PlanningTarget) : route.Phase == RouteVotePhase.Locked ?
+            (path == route.PlanningTarget ? GameText.Get("Routing", "deployment.countdown") + seconds : GameText.Get("Routing", "planning.confirmed", path, route.PlanningTarget, seconds)) : GameText.Get("Routing", "planning.select", path, route.PlanningTarget);
         if (countdownAnimator != null)
         {
             countdownAnimator.enabled = route.Settings.feel == null || route.Settings.feel.motionEnabled;

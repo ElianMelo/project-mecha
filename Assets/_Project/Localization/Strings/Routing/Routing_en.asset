@@ -35,7 +35,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 459382785
-    m_Localized: YOUR VOTE
+    m_Localized: YOUR VOTE / SELECT TO REMOVE
     m_Metadata:
       m_Items: []
   - m_Id: 459382786
@@ -91,7 +91,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 467771393
-    m_Localized: ' / CLICK  Select
+    m_Localized: ' / CLICK  Vote / unvote
 
 '
     m_Metadata:
@@ -184,8 +184,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 767681470467
-    m_Localized: A fixed staging arena with broad platforms. Eliminate the patrol
-      to unlock your first route choice.
+    m_Localized: A fixed staging arena with broad platforms. Plan five connected
+      encounters with your squad, then eliminate the patrol and follow your chosen
+      route.
     m_Metadata:
       m_Items: []
   - m_Id: 767685664768
@@ -212,6 +213,26 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 113561168879616
     m_Localized: '?'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332339530014720
+    m_Localized: SELECT PATH {0} / {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332339559374848
+    m_Localized: PATH {0} / {1} / WAITING FOR SQUAD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332339559374849
+    m_Localized: PATH {0} / {1} CONFIRMED / {2}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332339559374850
+    m_Localized: PLANNED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332339559374851
+    m_Localized: REMOVING VOTE...
     m_Metadata:
       m_Items: []
   references:

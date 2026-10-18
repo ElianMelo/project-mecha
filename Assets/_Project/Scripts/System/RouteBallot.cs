@@ -12,26 +12,25 @@ public sealed class RouteBallot
     public int[] Candidates { get; private set; } = Array.Empty<int>();
     public int Winner { get; private set; } = -1;
     public double Deadline { get; private set; }
-    private double softDeadline;
     private int[] roster = Array.Empty<int>();
     private readonly LevelRouteSettings settings;
     public RouteBallot(LevelRouteSettings settings) { this.settings = settings; }
     public void Open(int[] players)
     {
         Votes.Clear(); roster = players; Winner = -1; Candidates = Array.Empty<int>();
-        softDeadline = Deadline = 0; Phase = RouteVotePhase.Choosing;
+        Deadline = 0; Phase = RouteVotePhase.Choosing;
     }
     public void StartEncounter(int node)
     {
         Votes.Clear(); Candidates = new[] { node }; Winner = node;
-        softDeadline = Deadline = 0; Phase = RouteVotePhase.Encounter;
+        Deadline = 0; Phase = RouteVotePhase.Encounter;
     }
     public bool SetRoster(int[] players, double now)
     {
         if (roster.SequenceEqual(players)) return false;
         roster = players;
         foreach (int id in Votes.Keys.Where(id => !players.Contains(id)).ToArray()) Votes.Remove(id);
-        // Reconsider a lock when its voters leave. Preserve the original soft deadline.
+        // Reconsider agreement whenever a voter joins or leaves.
         if (Phase == RouteVotePhase.Locked || Phase == RouteVotePhase.SoftWait || Phase == RouteVotePhase.Choosing)
         { Phase = RouteVotePhase.Choosing; Winner = -1; Evaluate(now); }
         return true;
@@ -40,39 +39,31 @@ public sealed class RouteBallot
     {
         if (!CanVote || !roster.Contains(player)) return false;
         if (node < 0) { if (!Votes.Remove(player)) return false; }
-        else { if (Votes.TryGetValue(player, out int old) && old == node) return false; Votes[player] = node; }
+        else if (Votes.TryGetValue(player, out int old) && old == node) Votes.Remove(player);
+        else Votes[player] = node;
         Evaluate(now); return true;
     }
     public bool CanVote => Phase == RouteVotePhase.Choosing || Phase == RouteVotePhase.SoftWait;
     private void Evaluate(double now)
     {
-        if (Votes.Count == 0) { Phase = RouteVotePhase.Choosing; Deadline = softDeadline = 0; Candidates = Array.Empty<int>(); return; }
+        Winner = -1;
+        if (Votes.Count == 0) { Phase = RouteVotePhase.Choosing; Deadline = 0; Candidates = Array.Empty<int>(); return; }
         var counts = Votes.Values.GroupBy(x => x).ToArray();
         int most = counts.Max(x => x.Count());
         Candidates = counts.Where(x => x.Count() == most).Select(x => x.Key).OrderBy(x => x).ToArray();
-        if (softDeadline == 0) softDeadline = now + settings.softVoteSeconds;
-        if (roster.Length == 1 || most > roster.Length / 2 || Votes.Count == roster.Length || now >= softDeadline)
+        if (roster.Length > 0 && Votes.Count == roster.Length && most == roster.Length)
         {
             Phase = RouteVotePhase.Locked;
             Winner = Candidates.Length == 1 ? Candidates[0] : -1;
             Deadline = now + (roster.Length == 1 ? settings.soloConfirmSeconds : settings.confirmedVoteSeconds);
         }
-        else { Phase = RouteVotePhase.SoftWait; Deadline = softDeadline; }
+        // Split votes remain editable until the whole active roster agrees.
+        else { Phase = RouteVotePhase.SoftWait; Deadline = 0; }
     }
     public bool Tick(double now, Random random)
     {
         var before = Phase;
-        if (Phase == RouteVotePhase.SoftWait && now >= Deadline) Evaluate(now);
-        else if (Phase == RouteVotePhase.Locked && now >= Deadline)
-        {
-            if (Winner < 0)
-            {
-                Winner = Candidates[random.Next(Candidates.Length)];
-                Phase = RouteVotePhase.TieReveal; Deadline = now + settings.tieRevealSeconds;
-            }
-            else Phase = RouteVotePhase.Encounter;
-        }
-        else if (Phase == RouteVotePhase.TieReveal && now >= Deadline) Phase = RouteVotePhase.Encounter;
+        if (Phase == RouteVotePhase.Locked && now >= Deadline) Phase = RouteVotePhase.Encounter;
         return before != Phase;
     }
 }

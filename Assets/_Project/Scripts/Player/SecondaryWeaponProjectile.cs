@@ -21,7 +21,14 @@ public sealed class SecondaryWeaponProjectile : NetworkBehaviour
     public void Launch(SecondaryWeaponSettings profile, PlayerHealth source, Vector3 direction)
     {
         settings = profile; shooter = source; origin = body.position;
-        hitbox.excludeLayers = ~settings.hitLayers.value;
+        hitbox.excludeLayers = ~CombatTargetRules.TargetLayers(settings.hitLayers.value);
+        foreach (var actor in PlayerAttack.ActiveActors)
+        {
+            if (actor == null) continue;
+            var health = actor.GetComponent<PlayerHealth>();
+            if (health == shooter || !CombatTargetRules.CanHit(shooter, health))
+                foreach (var collider in actor.GetComponentsInChildren<Collider>()) Physics.IgnoreCollision(hitbox, collider);
+        }
         expires = Time.time + settings.projectileLifetime; launched = true;
         body.isKinematic = false; body.linearVelocity = direction.normalized * settings.boltSpeed;
     }
@@ -33,9 +40,10 @@ public sealed class SecondaryWeaponProjectile : NetworkBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (spent || !launched || IsSpawned && !IsServerInitialized) return;
+        if (PvpMatchDirector.BlocksCombat) { Finish(); return; }
         var target = collision.collider.GetComponentInParent<IDamageable>();
         Vector3 force = body.linearVelocity.normalized * 0.5f;
-        if (target != null && !target.IsDead)
+        if (CombatTargetRules.CanHit(shooter, target))
             target.TakeDamage(settings.damage, force, 0.04f, shooter);
         Vector3 position = collision.contactCount > 0 ? collision.GetContact(0).point : transform.position;
         if (IsSpawned) ImpactAudio(position); else GameAudio.Play(GameAudioCue.BulletImpact, position);

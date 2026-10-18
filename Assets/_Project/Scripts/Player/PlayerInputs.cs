@@ -11,7 +11,7 @@ public class PlayerInputs : NetworkBehaviour
     public Vector2 MoveInput { get; private set; }
     public bool JumpHeld { get; private set; }
     public bool DownHeld { get; private set; }
-    public bool HasControl => (!NetworkObject.IsSpawned || IsOwner) && !GameInputPresentation.Disconnected && !MechaChat.IsTyping &&
+    public bool HasControl => (!NetworkObject.IsSpawned || IsOwner) && !PvpMatchDirector.BlocksCombat && !GameInputPresentation.Disconnected && !MechaChat.IsTyping &&
         (GetComponent<CharacterRuntime>() == null || GetComponent<CharacterRuntime>().Ready) &&
         !(GameManager.Instance != null && GameManager.Instance.GameplayInputBlocked);
     public event Action OnJumpInput;

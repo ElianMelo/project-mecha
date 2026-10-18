@@ -67,7 +67,7 @@ public class MechaGameplayHud : MonoBehaviour
         {
             controlsRoot.gameObject.SetActive(GameManager.Instance == null || !GameManager.Instance.LobbyOpen);
             if (chatLayout != null) controlsRoot.anchoredPosition = chatLayout.offset + Vector2.down *
-                (MechaChat.Instance != null && MechaChat.Instance.ContentVisible ? chatLayout.size.y + 12f : 0f);
+                ((PvpMatchDirector.Active || MechaChat.Instance != null && MechaChat.Instance.ContentVisible ? chatLayout.size.y + 12f : 0f) + PvpScoreboard.ReservedHeight);
         }
         if (promptRevision != GameInputPresentation.Revision + GameText.Revision)
         {

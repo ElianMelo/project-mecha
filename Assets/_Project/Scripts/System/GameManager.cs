@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     public bool GameplayInputBlocked => MenuOpen || LevelRouteDirector.Instance != null && LevelRouteDirector.Instance.IsRouting || MechaChat.IsTyping || Time.unscaledTime < resumeInputAt;
     public ControllerInterfaceSettings ControllerSettings => controllerSettings;
     public NetworkManager Network => _networkManager;
-    public bool LobbyOpen => lobbyPanel != null && lobbyPanel.IsVisible;
+    public bool LobbyOpen => optionsMenu != null ? optionsMenu.LobbyVisible : lobbyPanel != null && lobbyPanel.IsVisible;
     public bool AudioMenuOpen => audioMenu != null && audioMenu.IsVisible;
     public bool OptionsMenuOpen => optionsMenu != null && optionsMenu.IsVisible;
     private void Awake()
@@ -111,6 +111,14 @@ public class GameManager : MonoBehaviour
     {
         // Optional launch parameters exercise the same public lobby flow as the menu.
         string[] args = System.Environment.GetCommandLineArgs();
+        int pvp = System.Array.IndexOf(args, "--mecha-pvp");
+        if (pvp >= 0)
+        {
+            var service = FindFirstObjectByType<MechaLobbyService>();
+            int team = System.Array.IndexOf(args, "--mecha-team");
+            service.PrepareLocal(pvp + 1 < args.Length && args[pvp + 1] == "team" ? MechaMatchMode.Team : MechaMatchMode.FreeForAll,
+                team + 1 < args.Length && team >= 0 && args[team + 1] == "red" ? PvpTeam.Red : PvpTeam.Blue);
+        }
         int join = System.Array.IndexOf(args, "--mecha-join-lobby");
         if (join >= 0 && join + 1 < args.Length)
         {
@@ -125,7 +133,7 @@ public class GameManager : MonoBehaviour
     private void OnDisable() => systemActions?.Disable();
     private void OnDestroy() { GameControlBindings.Unregister(interfaceActions); if (interfaceActions != null) Destroy(interfaceActions); if (Instance == this) Instance = null; }
     public void StartHost() => StartHost(false);
-    public void StartQuickHost() => StartHost(true);
+    public void StartQuickHost() { FindFirstObjectByType<MechaLobbyService>()?.PrepareLocal(MechaMatchMode.Cooperative); StartHost(true); }
     public bool ConsumeQuickHostOpening()
     {
         bool requested = quickHostOpening; quickHostOpening = false; return requested;

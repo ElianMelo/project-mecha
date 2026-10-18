@@ -5,7 +5,9 @@ public sealed class LevelRouteSettings : ScriptableObject
 {
     public RouteEncounterDefinition openingEncounter;
     [Tooltip("Total steps, including the single starting node. Later rows are randomized for each sector.")]
-    [Range(2, 30)] public int stepCount = 10;
+    [Range(2, 30)] public int stepCount = 15;
+    [Tooltip("Connected encounters the squad plans before playing the next batch.")]
+    [Min(1)] public int pathsPerBatch = 5;
     [Range(1, 4)] public int minimumRowWidth = 1;
     [Range(2, 4)] public int maximumRowWidth = 4;
     [Tooltip("Maximum consecutive rows with the same node count. The width range must permit at least two different counts for longer routes.")]

@@ -96,7 +96,7 @@ public class PlayerMovement : NetworkBehaviour
         if (IsServerInitialized) observedGrounded.Value = IsGrounded;
         if (IsGrounded) { lastGrounded = Time.time; airDashUsed = serverAirDashUsed = false; }
         if (!wasGrounded && IsGrounded) attack?.HandleLanding();
-        if (health != null && health.IsStunned)
+        if (PvpMatchDirector.BlocksCombat || health != null && health.IsStunned)
         {
             StopDash(); jumpRequested = dashRequestedUntil = -10f;
             ApplyGravity(); return;
@@ -244,6 +244,7 @@ public class PlayerMovement : NetworkBehaviour
     [ServerRpc]
     private void RequestDash(int direction, Vector2 vector)
     {
+        if (PvpMatchDirector.BlocksCombat) { RejectDash(Owner); return; }
         if (!float.IsFinite(vector.x) || !float.IsFinite(vector.y) || Mathf.Abs(vector.sqrMagnitude - 1f) > 0.02f) { RejectDash(Owner); return; }
         if ((direction != -1 && direction != 1) || (health != null && health.IsStunned) || attack != null && attack.ServerBusy) { RejectDash(Owner); return; }
         bool airTransition = !IsGrounded && !serverAirDashUsed;
@@ -302,6 +303,7 @@ public class PlayerMovement : NetworkBehaviour
     [ServerRpc]
     private void RequestAdvancedImpulse(ImpulseKind kind)
     {
+        if (PvpMatchDirector.BlocksCombat) return;
         if (settings.style != PlayerMovementSettings.MovementStyle.Dasher) return;
         if (health != null && health.IsStunned || attack != null && attack.ServerBusy) return;
         if (kind == ImpulseKind.Rocket)

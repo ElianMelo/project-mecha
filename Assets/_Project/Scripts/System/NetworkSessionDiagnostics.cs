@@ -23,6 +23,10 @@ public sealed class NetworkSessionDiagnostics : MonoBehaviour
         Debug.Log("MECHA_NETWORK " + JsonUtility.ToJson(new Snapshot {
             lobby = lobby?.Session?.Name ?? "", lobbyPlayers = lobby?.Session?.PlayerCount ?? 0,
             status = lobby?.Status ?? "", room = level?.LevelNumber ?? 0, seed = level?.Seed ?? 0,
+            pvpMode = PvpMatchDirector.Active ? PvpMatchDirector.Instance.Mode.ToString() : "",
+            pvpPhase = PvpMatchDirector.Active ? PvpMatchDirector.Instance.Phase.ToString() : "",
+            pvpSeconds = PvpMatchDirector.Active ? PvpMatchDirector.Instance.SecondsRemaining : 0f,
+            pvpScores = PvpMatchDirector.Active ? PvpMatchDirector.Instance.Scores : Array.Empty<PvpScore>(),
             remaining = level?.Remaining ?? 0, clear = level != null && level.IsClear,
             platforms = OneWayPlatform.ActivePlatforms.Count, projectiles = FindObjectsByType<EnemyLanceProjectile>(FindObjectsSortMode.None).Length,
             players = players.Select(player => $"owner={player.OwnerId} local={player.IsOwner} hp={player.GetComponent<PlayerHealth>().Health:0} grounded={player.IsGrounded} pos={player.transform.position} action={player.GetComponent<PlayerAttack>().CurrentAction}").ToArray()}));
@@ -30,6 +34,9 @@ public sealed class NetworkSessionDiagnostics : MonoBehaviour
     [Serializable] private class Snapshot
     {
         public string lobby, status;
+        public string pvpMode, pvpPhase;
+        public float pvpSeconds;
+        public PvpScore[] pvpScores;
         public int lobbyPlayers, room, seed, remaining, platforms, projectiles;
         public bool clear;
         public string[] players;

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: LevelRouting
   m_EditorClassIdentifier: Assembly-CSharp::LevelRouteSettings
   openingEncounter: {fileID: 11400000, guid: 74b8fde16666fe440a0cd78ecbca4f34, type: 2}
-  stepCount: 10
+  stepCount: 15
+  pathsPerBatch: 5
   minimumRowWidth: 1
   maximumRowWidth: 4
   maximumRowWidthStreak: 2

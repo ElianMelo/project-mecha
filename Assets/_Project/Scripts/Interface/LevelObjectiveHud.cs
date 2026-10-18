@@ -15,6 +15,7 @@ public sealed class LevelObjectiveHud : MonoBehaviour
     private void Awake() { view = Camera.main; graphic = arrow.GetComponent<UnityEngine.UI.Image>(); }
     private void LateUpdate()
     {
+        if (PvpMatchDirector.Active) { arrow.gameObject.SetActive(false); if (portalHold != null) portalHold.SetActive(false); objective.text = ""; return; }
         var levels = ProceduralLevelDirector.Instance;
         if (player == null && Time.unscaledTime >= nextSearch)
         {

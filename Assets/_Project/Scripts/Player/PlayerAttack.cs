@@ -43,6 +43,15 @@ public class PlayerAttack : NetworkBehaviour
         System.Array.Clear(localCooldowns, 0, localCooldowns.Length);
     }
     public void BeginAirCombo() => sequence.Reset();
+    public void ResetMatchResources()
+    {
+        if (!IsServerInitialized) return;
+        mana.Value = settings.maxMana;
+        System.Array.Clear(serverCooldowns, 0, serverCooldowns.Length);
+        ResetMatchPresentation();
+    }
+    [ObserversRpc(RunLocally = true)]
+    private void ResetMatchPresentation() { Interrupt(); System.Array.Clear(localCooldowns, 0, localCooldowns.Length); ResetDamageReadout(); }
     private float localStart, serverStart, comboExpires, attackBuffered = -10f;
     private int localPulse, serverPulse, localDirection, serverDirection, combo;
     private bool localActive, serverActive;
@@ -97,6 +106,7 @@ public class PlayerAttack : NetworkBehaviour
     public override void OnStartServer() { base.OnStartServer(); mana.Value = settings.maxMana; }
     private void Update()
     {
+        if (PvpMatchDirector.BlocksCombat) { if (localActive || serverActive) Interrupt(); return; }
         bool solo = !NetworkObject.IsSpawned;
         if (solo) soloMana = Mathf.Min(settings.maxMana, soloMana + settings.manaRegen * Time.deltaTime);
         else if (IsServerInitialized) mana.Value = Mathf.Min(settings.maxMana, mana.Value + settings.manaRegen * Time.deltaTime);
@@ -213,6 +223,7 @@ public class PlayerAttack : NetworkBehaviour
     }
     private bool TryBeginPiece(int piece, int direction = 0)
     {
+        if (PvpMatchDirector.BlocksCombat) return false;
         if (!settings.IsValidPiece(piece)) return false;
         var data = settings.At(piece);
         if (data.airOnly && movement.IsGrounded || data.requiresGround && !movement.IsGrounded) return false;
@@ -265,6 +276,7 @@ public class PlayerAttack : NetworkBehaviour
     [ServerRpc]
     private void RequestAction(int piece, int direction)
     {
+        if (PvpMatchDirector.BlocksCombat) { RejectAction(Owner); return; }
         if (character != null && !character.Ready) { RejectAction(Owner); return; }
         if (!settings.IsValidPiece(piece) || (direction != -1 && direction != 1) || (health != null && health.IsStunned)) { RejectAction(Owner); return; }
         var action = settings.At(piece);
@@ -334,12 +346,12 @@ public class PlayerAttack : NetworkBehaviour
         // NetworkTransform writes Transforms between physics steps. Query the current
         // collider poses, without globally enabling costly autoSyncTransforms.
         Physics.SyncTransforms();
-        int count = Physics.OverlapBoxNonAlloc(center, action.hitHalfSize, hitBuffer, Quaternion.identity, settings.enemyLayers, QueryTriggerInteraction.Ignore);
+        int count = Physics.OverlapBoxNonAlloc(center, action.hitHalfSize, hitBuffer, Quaternion.identity, CombatTargetRules.TargetLayers(settings.enemyLayers), QueryTriggerInteraction.Ignore);
         hitTargets.Clear();
         for (int i = 0; i < count; i++)
         {
             var enemy = hitBuffer[i].GetComponentInParent<IDamageable>();
-            if (enemy == null || !hitTargets.Add(enemy) || enemy.IsDead) continue;
+            if (!CombatTargetRules.CanHit(health, enemy) || !hitTargets.Add(enemy)) continue;
             if (kind == ActionKind.DiveStrike && !diveTargets.Add(enemy)) continue;
             DealHit(action, direction, pulse, enemy, hitBuffer[i]);
         }
@@ -367,16 +379,16 @@ public class PlayerAttack : NetworkBehaviour
                 int count;
                 while (true)
                 {
-                    count = Physics.OverlapCapsuleNonAlloc(start, end, action.hitRadius, hitBuffer, settings.enemyLayers, QueryTriggerInteraction.Ignore);
+                    count = Physics.OverlapCapsuleNonAlloc(start, end, action.hitRadius, hitBuffer, CombatTargetRules.TargetLayers(settings.enemyLayers), QueryTriggerInteraction.Ignore);
                     if (count < hitBuffer.Length) break;
-                    if (hitBuffer.Length >= 256) { hitBuffer = Physics.OverlapCapsule(start, end, action.hitRadius, settings.enemyLayers, QueryTriggerInteraction.Ignore); count = hitBuffer.Length; break; }
+                    if (hitBuffer.Length >= 256) { hitBuffer = Physics.OverlapCapsule(start, end, action.hitRadius, CombatTargetRules.TargetLayers(settings.enemyLayers), QueryTriggerInteraction.Ignore); count = hitBuffer.Length; break; }
                     System.Array.Resize(ref hitBuffer, hitBuffer.Length * 2);
                 }
                 for (int i = 0; i < count; i++)
                 {
                     var collider = hitBuffer[i];
                     var target = collider.GetComponentInParent<IDamageable>();
-                    if (target == null || target.IsDead || window.targets.Contains(target)) continue;
+                    if (!CombatTargetRules.CanHit(health, target) || window.targets.Contains(target)) continue;
                     Vector3 point = collider.ClosestPoint(start);
                     Vector3 towardTarget = collider.bounds.center - start;
                     Vector3 normal;
@@ -409,11 +421,13 @@ public class PlayerAttack : NetworkBehaviour
             float damage = (pulse == action.pulses - 1 ? action.finalDamage : action.damage) * settings.damageMultiplier;
             bool launcher = action.launcher || action.finalPulseLaunch && pulse == action.pulses - 1;
             var target = contact.GetComponentInParent<EnemyController>();
-            float dealt = Mathf.Min(damage, enemy.Health);
+            float before = enemy.Health;
             bool airborne = target != null && target.IsJuggling;
             float push = action.pull ? Mathf.Sign(transform.position.x - contact.transform.position.x) * action.pullSpeed : direction * action.push;
             float lift = launcher ? action.lift : airborne ? action.airLift : 0f;
             enemy.TakeDamage(damage, new Vector3(push, lift, 0f), action.stun, health);
+            float dealt = float.IsPositiveInfinity(before) ? damage : Mathf.Max(0f, before - enemy.Health);
+            if (dealt <= 0f) return;
             if (NetworkObject.IsSpawned) ConfirmHit(dealt);
             else RecordHit(dealt);
             if (!IsSkill(kind))

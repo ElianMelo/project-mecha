@@ -406,6 +406,124 @@ MonoBehaviour:
     m_Localized: Pilot {0}
     m_Metadata:
       m_Items: []
+  - m_Id: 328701369753600
+    m_Localized: "sexo lanches    1/4    JOIN \u2192"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418691756032
+    m_Localized: MECHA  /  PVP ARENA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116160
+    m_Localized: CHOOSE YOUR RULES  /  READY UP  /  COMPETE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116161
+    m_Localized: PVP LOBBY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116162
+    m_Localized: Free-for-All
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116163
+    m_Localized: Team
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116164
+    m_Localized: Blue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116165
+    m_Localized: Red
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116166
+    m_Localized: YOUR MATCH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116167
+    m_Localized: "5 minutes \xB7 5 second respawn\nAssists: deal at least 20% of
+      maximum health"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116168
+    m_Localized: At least 2 pilots. Team matches need Blue and Red. Every pilot must
+      be ready.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116169
+    m_Localized: "Free-for-All  \xB7  {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116170
+    m_Localized: "Team  \xB7  {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116171
+    m_Localized: "Waiting for pilots\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116172
+    m_Localized: 'Match cancelled: pilots did not connect.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116173
+    m_Localized: "Blue {0}  \xB7  Red {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116174
+    m_Localized: MATCH DRAW
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116175
+    m_Localized: '{0} WINS'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116176
+    m_Localized: "Kills \u2193  \xB7  Deaths \u2191  \xB7  Assists \u2193"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116177
+    m_Localized: "Match finished \xB7 Open the menu to leave"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116178
+    m_Localized: Respawn in {0}s
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116179
+    m_Localized: '{0} (left)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116180
+    m_Localized: PILOT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116181
+    m_Localized: K
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116182
+    m_Localized: D
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116183
+    m_Localized: A
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347423140585472
+    m_Localized: Mecha Arena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347423174139904
+    m_Localized: LOCAL HOST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349027604471808
+    m_Localized: "{0} \xB7 Selected"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

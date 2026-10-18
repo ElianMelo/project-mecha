@@ -54,14 +54,14 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
         label.transform.localPosition = revealed ? labelPosition : new Vector3(labelPosition.x, 2.2f, 0f);
         label.rectTransform.sizeDelta = revealed ? labelSize : new Vector2(labelSize.x, labelSize.y * 3f);
         label.fontSize = revealed ? labelFontSize : labelFontSize * 2f;
-        bool available = route.IsAvailable(NodeId), visited = route.Visited.Contains(NodeId);
+        bool available = route.IsAvailable(NodeId), visited = route.Visited.Contains(NodeId), planned = route.Planned.Contains(NodeId);
         bool winner = route.Winner == NodeId && route.IsRouting;
         SetModelBrightness(winner || available ? route.Settings.reachableModelBrightness :
-            visited ? route.Settings.visitedModelBrightness : route.Settings.lockedModelBrightness);
-        ring.color = winner || visited ? route.Settings.visitedColor : available ? route.Settings.reachableColor : route.Settings.lockedColor;
+            visited ? route.Settings.visitedModelBrightness : planned ? 1f : route.Settings.lockedModelBrightness);
+        ring.color = winner || visited || planned ? route.Settings.visitedColor : available ? route.Settings.reachableColor : route.Settings.lockedColor;
         ring.enabled = revealed;
         focusRing.enabled = focused; // Persistent even with every Animator disabled.
-        state.text = !revealed ? string.Empty : winner ? GameText.Get("Routing", "node.confirmed") : available ? GameText.Get("Routing", "node.select") : visited ? GameText.Get("Routing", "destination.cleared") : GameText.Get("Routing", "node.scout");
+        state.text = !revealed ? string.Empty : winner ? GameText.Get("Routing", "node.confirmed") : available ? GameText.Get("Routing", "node.select") : visited ? GameText.Get("Routing", "destination.cleared") : planned ? GameText.Get("Routing", "destination.planned") : GameText.Get("Routing", "node.scout");
         state.color = ring.color;
         var supporters = route.Pilots.Where(x => x.nodeId == NodeId).ToArray();
         votes.text = !revealed ? string.Empty : string.Join("  ", supporters.Select(x => GameText.Get("Routing", "pilot.prefix") + (System.Array.FindIndex(route.Pilots, p => p.playerId == x.playerId) + 1)));
@@ -72,7 +72,7 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
         }
         if (model != null && model.enabled) model.SetBool("Focused", focused);
         // Scouting focus must not make an unavailable destination look selectable.
-        label.color = winner || available ? Color.white : visited ? route.Settings.visitedColor : route.Settings.lockedLabelColor;
+        label.color = winner || available ? Color.white : visited || planned ? route.Settings.visitedColor : route.Settings.lockedLabelColor;
     }
     private void CacheModelColors(GameObject miniature)
     {

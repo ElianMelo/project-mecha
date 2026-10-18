@@ -1,5 +1,13 @@
 # Project content classification
 
+## PVP lobby — 2026-10-18
+
+The separate PVP lobby adds provisional **Code** for opponent filtering, match rules and the standings presenter; one **Authored Data** match profile; and **Prefabs** for the PVP lobby and scoreboard. Existing player/options prefabs, MainScene composition, English Lobby String Tables and combat/network source are updated. Native Image graphics, the existing focus frame, world health bars and localized font assets are reused. No artwork is generated and no provenance is inferred. Native authoring/manual inspection helpers and [PVP documentation](PvpLobby.md) are **Others / Support**. The file inventory includes the additions; builds, captures and logs remain ignored local validation artifacts. Existing routing changes remain independently classified.
+
+## Routing planning batches — 2026-10-18
+
+The fifteen-depth/five-path planning change updates existing provisional **Code**, the LevelRouting **Authored Data** profile, English Routing String Tables (**Authored Data**) and the native LevelRouting **Scene** preview. Inspection tooling and architecture/routing documentation remain **Others**. Existing artwork, native asset labels and provenance are preserved; no new maintained assets or artwork are added. The file inventory is refreshed. Validation captures and the targeted local-player build remain ignored artifacts outside maintained game content.
+
 ## Coding-agent memory — 2026-10-18
 
 The ai-memory integration adds the repository scope marker `.ai-memory.toml` and [installation/use documentation](AiMemory.md), and updates the canonical agent and architecture instructions. These files are **Others / Support**; no game artwork, runtime code or Unity assets are added. The third-party executable, global Codex connection/hooks/skills, local memory wiki/index and private credentials live outside the repository and are not maintained game content. Installation inspection artifacts remain under ignored `Temp/AiMemoryInstall`. The maintained file inventory includes the repository additions; existing classifications and provenance are preserved.

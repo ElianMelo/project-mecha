@@ -395,6 +395,122 @@ MonoBehaviour:
     m_Key: pilot.number
     m_Metadata:
       m_Items: []
+  - m_Id: 328701369753600
+    m_Key: lobby.row.0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418691756032
+    m_Key: pvp.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116160
+    m_Key: pvp.subtitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116161
+    m_Key: pvp.lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116162
+    m_Key: pvp.free
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116163
+    m_Key: pvp.team
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116164
+    m_Key: team.blue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116165
+    m_Key: team.red
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116166
+    m_Key: pvp.create
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116167
+    m_Key: pvp.rules
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116168
+    m_Key: pvp.instructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116169
+    m_Key: pvp.freeClock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116170
+    m_Key: pvp.teamClock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116171
+    m_Key: pvp.waiting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116172
+    m_Key: pvp.cancelled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116173
+    m_Key: pvp.teamScore
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116174
+    m_Key: pvp.draw
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116175
+    m_Key: pvp.winner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116176
+    m_Key: pvp.ranking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116177
+    m_Key: pvp.finished
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116178
+    m_Key: pvp.respawn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116179
+    m_Key: pvp.disconnected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116180
+    m_Key: score.pilot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116181
+    m_Key: score.kills
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116182
+    m_Key: score.deaths
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343418721116183
+    m_Key: score.assists
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347423140585472
+    m_Key: pvp.defaultName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347423174139904
+    m_Key: pvp.localHost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349027604471808
+    m_Key: team.selected
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

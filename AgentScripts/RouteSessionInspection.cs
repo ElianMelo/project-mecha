@@ -10,6 +10,7 @@ public static class RouteSessionInspection
     {
         var route = LevelRouteDirector.Instance;
         return new { frame = Time.frameCount, phase = route.Phase.ToString(), route.Sector, route.Round, route.CurrentNode, route.Winner,
+            route.Planned, route.PlanningTarget, route.ChoiceOrigin, depths = route.Nodes.Length == 0 ? 0 : route.Nodes.Max(n => n.depth) + 1,
             route.SecondsRemaining, room = ProceduralLevelDirector.Instance.LevelNumber, remaining = ProceduralLevelDirector.Instance.Remaining,
             votes = route.Pilots.Select(x => new { x.playerId, x.nodeId, x.name }).ToArray(),
             available = route.Nodes.Where(x => route.IsAvailable(x.id)).Select(x => new { x.id, x.encounterId, x.next }).ToArray() };

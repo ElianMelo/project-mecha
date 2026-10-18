@@ -11,10 +11,12 @@ public sealed class ActorWorldHud : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Image ring;
     private EnemyController enemy;
     private PlayerIdentity identity;
+    private PlayerHealth health;
     private CapsuleCollider body;
     private void Awake()
     {
         enemy = GetComponentInParent<EnemyController>(); identity = GetComponentInParent<PlayerIdentity>();
+        health = GetComponentInParent<PlayerHealth>();
         body = GetComponentInParent<CapsuleCollider>();
     }
     private void LateUpdate()
@@ -27,12 +29,14 @@ public sealed class ActorWorldHud : MonoBehaviour
         transform.localScale = new Vector3(1f / scale.x, 1f / scale.y, 1f / scale.z);
         if (bar != null)
         {
-            bar.gameObject.SetActive(enemy != null && !enemy.IsDead);
+            bool pvp = PvpMatchDirector.Active && health != null && !health.IsDead;
+            bar.gameObject.SetActive(enemy != null && !enemy.IsDead || pvp);
             bar.position = transform.position + Vector3.down * settings.barBelowFeet;
             if (enemy != null) fill.fillAmount = Mathf.Clamp01(enemy.Health / enemy.MaxHealth);
+            else if (pvp) { fill.fillAmount = Mathf.Clamp01(health.Health / health.MaxHealth); fill.color = PilotColor(); }
         }
         if (identity == null) return;
-        var color = settings.PilotColor(identity.ColorSlot);
+        var color = PilotColor();
         pilotName.text = identity.IsSpawned ? identity.PilotName : PlayerIdentity.LocalName;
         pilotName.enabled = !identity.LocallyControlled;
         pilotName.color = color;
@@ -50,4 +54,7 @@ public sealed class ActorWorldHud : MonoBehaviour
             rect.sizeDelta = Vector2.one * settings.ringWidth;
         }
     }
+    private Color PilotColor() => PvpMatchDirector.Active && PvpMatchDirector.Instance.Mode == MechaMatchMode.Team
+        ? identity.Team == PvpTeam.Blue ? PvpMatchDirector.Instance.Settings.blue : PvpMatchDirector.Instance.Settings.red
+        : settings.PilotColor(identity.ColorSlot);
 }

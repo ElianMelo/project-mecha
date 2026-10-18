@@ -199,6 +199,26 @@ MonoBehaviour:
     m_Key: node.unknown
     m_Metadata:
       m_Items: []
+  - m_Id: 332339530014720
+    m_Key: planning.select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332339559374848
+    m_Key: planning.waiting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332339559374849
+    m_Key: planning.confirmed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332339559374850
+    m_Key: destination.planned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332339559374851
+    m_Key: vote.withdrawing
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

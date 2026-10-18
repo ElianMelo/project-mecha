@@ -10,6 +10,7 @@ public sealed class MechaAutoAim : MonoBehaviour
     public void Bind(Transform arm) => leftArm = arm;
     private PlayerMovement movement;
     private PlayerIdentity identity;
+    private PlayerHealth health;
     private ITargetable target;
     private bool hadTarget, capturing;
     private Camera viewCamera;
@@ -40,7 +41,7 @@ public sealed class MechaAutoAim : MonoBehaviour
     }
     private void Awake()
     {
-        movement = GetComponent<PlayerMovement>(); identity = GetComponent<PlayerIdentity>();
+        movement = GetComponent<PlayerMovement>(); identity = GetComponent<PlayerIdentity>(); health = GetComponent<PlayerHealth>();
         angle = remoteAngle = movement.Facing > 0 ? 0f : 180f;
     }
     public void PresentRemote(float value) => remoteAngle = value;
@@ -118,7 +119,7 @@ public sealed class MechaAutoAim : MonoBehaviour
     private ITargetable FindBest()
     {
         Physics.SyncTransforms();
-        int count = Physics.OverlapSphereNonAlloc(Origin, settings.range, candidates, settings.targetLayers, QueryTriggerInteraction.Ignore);
+        int count = Physics.OverlapSphereNonAlloc(Origin, settings.range, candidates, CombatTargetRules.TargetLayers(settings.targetLayers), QueryTriggerInteraction.Ignore);
         visited.Clear();
         ITargetable best = null;
         float distance = float.MaxValue;
@@ -134,7 +135,7 @@ public sealed class MechaAutoAim : MonoBehaviour
     }
     private bool Valid(ITargetable candidate)
     {
-        if (candidate == null || candidate is Object native && native == null || !candidate.CanTarget) return false;
+        if (candidate == null || candidate is Object native && native == null || !candidate.CanTarget || !CombatTargetRules.CanAim(health, candidate)) return false;
         if (!GeometryUtility.TestPlanesAABB(frustum, candidate.TargetBounds)) return false;
         // Full XY acquisition includes enemies above/below and behind the pilot.
         // Platforms do not veto screen acquisition or physical bullet travel.

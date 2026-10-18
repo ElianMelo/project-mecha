@@ -1,0 +1,697 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Lobby_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 2f64491c2b5452948a77c3e8aeb1bcff, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 455188480
+    m_Localized: OPEN SLOT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 471965696
+    m_Localized: INVITE A PILOT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 471965697
+    m_Localized: AWAITING PILOT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 471965698
+    m_Localized: READY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 471965699
+    m_Localized: WAITING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 539074560
+    m_Localized: NOT READY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 543268864
+    m_Localized: READY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 543268865
+    m_Localized: "{0} / {1}  \xB7  AUTO REFRESH 1s"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 543268866
+    m_Localized: "{0}    {1}/{2}    JOIN \u2192"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 547463168
+    m_Localized: '
+
+      LOBBY CODE  '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 547463169
+    m_Localized: EXPEDITION HOST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 547463170
+    m_Localized: SQUAD PILOT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 551657472
+    m_Localized: "DEPLOYING SQUAD\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 551657473
+    m_Localized: '{0} / {1}  PILOTS READY'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 551657474
+    m_Localized: "Squad confirmed. Preparing your expedition\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 551657475
+    m_Localized: Ready up when equipped. Deployment begins when every pilot is ready.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2099355648
+    m_Localized: Create an expedition or join a lobby.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2116132864
+    m_Localized: No open lobbies. Create one to invite other players.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2116132865
+    m_Localized: "{0} open lobbies \xB7 refreshes every second"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2124521472
+    m_Localized: Leave your current game or lobby first.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2128715776
+    m_Localized: Waiting for every pilot to be ready.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2128715777
+    m_Localized: Lobby joined. Press READY when you want to start.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2132910080
+    m_Localized: "Connecting through Unity Relay\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2132910081
+    m_Localized: Expedition started.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2132910082
+    m_Localized: The game connection failed. Choose a lobby to try again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2132910083
+    m_Localized: The host closed the lobby. Choose another expedition.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2137104384
+    m_Localized: "All pilots ready. Connecting through Unity Relay\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2141298688
+    m_Localized: You left the expedition.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2145492992
+    m_Localized: "Unity services are busy. Retrying shortly\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2145492993
+    m_Localized: Could not complete the lobby request.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2145492994
+    m_Localized: '  Try again.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759359971328
+    m_Localized: MECHA  /  ONLINE EXPEDITIONS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759372554240
+    m_Localized: ASSEMBLE YOUR SQUAD   /   READY UP   /   DEPLOY TOGETHER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759376748544
+    m_Localized: CLOSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759380942848
+    m_Localized: FIND A LOBBY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759380942849
+    m_Localized: "Search lobby names\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759380942850
+    m_Localized: <
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759385137152
+    m_Localized: '>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759389331456
+    m_Localized: Or enter a lobby code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759389331457
+    m_Localized: JOIN CODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759389331458
+    m_Localized: YOUR EXPEDITION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759389331459
+    m_Localized: PILOT NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759393525760
+    m_Localized: Pilot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759393525761
+    m_Localized: NEW LOBBY NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759393525762
+    m_Localized: Mecha Expedition
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759393525763
+    m_Localized: CREATE LOBBY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759393525764
+    m_Localized: 'Up to 4 pilots. Every pilot must be ready.
+
+
+      D-pad / stick:
+      navigate. Bottom button: select.
+
+      Right button: back. MENU: close.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759397720064
+    m_Localized: SOLO HOST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759397720065
+    m_Localized: LOCAL JOIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759401914368
+    m_Localized: LEAVE LOBBY / GAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759406108672
+    m_Localized: A
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759406108673
+    m_Localized: B
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759406108674
+    m_Localized: C
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759406108675
+    m_Localized: D
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759406108676
+    m_Localized: E
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759410302976
+    m_Localized: F
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759410302977
+    m_Localized: G
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759410302978
+    m_Localized: H
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759410302979
+    m_Localized: I
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759410302980
+    m_Localized: J
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759414497280
+    m_Localized: K
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759414497281
+    m_Localized: L
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759414497282
+    m_Localized: M
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759414497283
+    m_Localized: N
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759414497284
+    m_Localized: O
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759414497285
+    m_Localized: P
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759418691584
+    m_Localized: Q
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759418691585
+    m_Localized: R
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759418691586
+    m_Localized: S
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759418691587
+    m_Localized: T
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759418691588
+    m_Localized: U
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759418691589
+    m_Localized: V
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759422885888
+    m_Localized: W
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759422885889
+    m_Localized: X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759422885890
+    m_Localized: Y
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759422885891
+    m_Localized: Z
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759422885892
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759427080192
+    m_Localized: 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759427080193
+    m_Localized: 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759427080194
+    m_Localized: 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759427080195
+    m_Localized: 4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759427080196
+    m_Localized: 5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759427080197
+    m_Localized: 6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759431274496
+    m_Localized: 7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759431274497
+    m_Localized: 8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759431274498
+    m_Localized: 9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759431274499
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759431274500
+    m_Localized: _
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759435468800
+    m_Localized: ''''
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759435468801
+    m_Localized: .
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759435468802
+    m_Localized: ERASE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759435468803
+    m_Localized: SPACE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759435468804
+    m_Localized: abc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759435468805
+    m_Localized: CANCEL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759439663104
+    m_Localized: DONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759519354880
+    m_Localized: LOBBY / SQUAD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762568613888
+    m_Localized: MECHA  /  ONLINE EXPEDITIONS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762568613889
+    m_Localized: ASSEMBLE YOUR SQUAD   /   READY UP   /   DEPLOY TOGETHER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762572808192
+    m_Localized: CLOSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762572808193
+    m_Localized: FIND A LOBBY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762572808194
+    m_Localized: "Search lobby names\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762577002496
+    m_Localized: <
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762577002497
+    m_Localized: '>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762577002498
+    m_Localized: Or enter a lobby code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762581196800
+    m_Localized: JOIN CODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762581196801
+    m_Localized: YOUR EXPEDITION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762585391104
+    m_Localized: PILOT NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762585391105
+    m_Localized: Pilot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762585391106
+    m_Localized: NEW LOBBY NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762585391107
+    m_Localized: Mecha Expedition
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762585391108
+    m_Localized: CREATE LOBBY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762589585408
+    m_Localized: 'Up to 4 pilots. Every pilot must be ready.
+
+
+      D-pad / stick:
+      navigate. Bottom button: select.
+
+      Right button: back. MENU: close.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762589585409
+    m_Localized: SOLO HOST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762589585410
+    m_Localized: LOCAL JOIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762597974016
+    m_Localized: LEAVE LOBBY / GAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762597974017
+    m_Localized: A
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762597974018
+    m_Localized: B
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762602168320
+    m_Localized: C
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762602168321
+    m_Localized: D
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762602168322
+    m_Localized: E
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762602168323
+    m_Localized: F
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762606362624
+    m_Localized: G
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762606362625
+    m_Localized: H
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762606362626
+    m_Localized: I
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762606362627
+    m_Localized: J
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762606362628
+    m_Localized: K
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762610556928
+    m_Localized: L
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762610556929
+    m_Localized: M
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762610556930
+    m_Localized: N
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762610556931
+    m_Localized: O
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762610556932
+    m_Localized: P
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762614751232
+    m_Localized: Q
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762614751233
+    m_Localized: R
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762614751234
+    m_Localized: S
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762614751235
+    m_Localized: T
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762614751236
+    m_Localized: U
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762614751237
+    m_Localized: V
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945536
+    m_Localized: W
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945537
+    m_Localized: X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945538
+    m_Localized: Y
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945539
+    m_Localized: Z
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945540
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945541
+    m_Localized: 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945542
+    m_Localized: 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762623139840
+    m_Localized: 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762623139841
+    m_Localized: 4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762623139842
+    m_Localized: 5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762623139843
+    m_Localized: 6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762623139844
+    m_Localized: 7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762623139845
+    m_Localized: 8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762627334144
+    m_Localized: 9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762627334145
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762627334146
+    m_Localized: _
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762627334147
+    m_Localized: ''''
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762631528448
+    m_Localized: .
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762631528449
+    m_Localized: ERASE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762631528450
+    m_Localized: SPACE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762635722752
+    m_Localized: abc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762635722753
+    m_Localized: CANCEL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762635722754
+    m_Localized: DONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 765584318464
+    m_Localized: LOBBY / SQUAD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 768088317952
+    m_Localized: Mecha Expedition
+    m_Metadata:
+      m_Items: []
+  - m_Id: 768088317953
+    m_Localized: Pilot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1478804742144
+    m_Localized: Pilot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1478838296576
+    m_Localized: Pilot {0}
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

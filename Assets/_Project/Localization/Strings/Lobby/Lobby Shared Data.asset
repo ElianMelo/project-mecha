@@ -1,0 +1,688 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Lobby Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Lobby
+  m_TableCollectionNameGuidString: 2f64491c2b5452948a77c3e8aeb1bcff
+  m_Entries:
+  - m_Id: 455188480
+    m_Key: slot.open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 471965696
+    m_Key: slot.invite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 471965697
+    m_Key: slot.empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 471965698
+    m_Key: slot.ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 471965699
+    m_Key: slot.waiting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 539074560
+    m_Key: ready.cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 543268864
+    m_Key: ready.confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 543268865
+    m_Key: browser.pagination
+    m_Metadata:
+      m_Items: []
+  - m_Id: 543268866
+    m_Key: browser.row
+    m_Metadata:
+      m_Items: []
+  - m_Id: 547463168
+    m_Key: room.code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 547463169
+    m_Key: role.host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 547463170
+    m_Key: role.pilot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 551657472
+    m_Key: deployment.starting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 551657473
+    m_Key: pilots.ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 551657474
+    m_Key: deployment.confirmed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 551657475
+    m_Key: ready.instructions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2099355648
+    m_Key: browser.welcome
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2116132864
+    m_Key: browser.empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2116132865
+    m_Key: browser.count
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2124521472
+    m_Key: session.leaveFirst
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2128715776
+    m_Key: ready.waiting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2128715777
+    m_Key: session.joined
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2132910080
+    m_Key: connection.starting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2132910081
+    m_Key: deployment.started
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2132910082
+    m_Key: connection.failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2132910083
+    m_Key: session.hostLeft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2137104384
+    m_Key: ready.connecting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2141298688
+    m_Key: session.left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2145492992
+    m_Key: services.busy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2145492993
+    m_Key: request.failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2145492994
+    m_Key: request.retry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759359971328
+    m_Key: panel.title.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759372554240
+    m_Key: panel.subtitle.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759376748544
+    m_Key: panel.close.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759380942848
+    m_Key: browser.title.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759380942849
+    m_Key: search.placeholder.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759380942850
+    m_Key: page.previous.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759385137152
+    m_Key: page.next.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759389331456
+    m_Key: code.placeholder.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759389331457
+    m_Key: code.join.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759389331458
+    m_Key: create.title.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759389331459
+    m_Key: pilot.label.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759393525760
+    m_Key: pilot.placeholder.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759393525761
+    m_Key: name.label.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759393525762
+    m_Key: name.placeholder.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759393525763
+    m_Key: create.button.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759393525764
+    m_Key: panel.help.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759397720064
+    m_Key: local.host.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759397720065
+    m_Key: local.join.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759401914368
+    m_Key: session.leave.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759406108672
+    m_Key: keyboard.a.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759406108673
+    m_Key: keyboard.b.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759406108674
+    m_Key: keyboard.c.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759406108675
+    m_Key: keyboard.d.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759406108676
+    m_Key: keyboard.e.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759410302976
+    m_Key: keyboard.f.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759410302977
+    m_Key: keyboard.g.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759410302978
+    m_Key: keyboard.h.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759410302979
+    m_Key: keyboard.i.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759410302980
+    m_Key: keyboard.j.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759414497280
+    m_Key: keyboard.k.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759414497281
+    m_Key: keyboard.l.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759414497282
+    m_Key: keyboard.m.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759414497283
+    m_Key: keyboard.n.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759414497284
+    m_Key: keyboard.o.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759414497285
+    m_Key: keyboard.p.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759418691584
+    m_Key: keyboard.q.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759418691585
+    m_Key: keyboard.r.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759418691586
+    m_Key: keyboard.s.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759418691587
+    m_Key: keyboard.t.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759418691588
+    m_Key: keyboard.u.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759418691589
+    m_Key: keyboard.v.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759422885888
+    m_Key: keyboard.w.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759422885889
+    m_Key: keyboard.x.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759422885890
+    m_Key: keyboard.y.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759422885891
+    m_Key: keyboard.z.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759422885892
+    m_Key: keyboard.0.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759427080192
+    m_Key: keyboard.1.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759427080193
+    m_Key: keyboard.2.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759427080194
+    m_Key: keyboard.3.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759427080195
+    m_Key: keyboard.4.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759427080196
+    m_Key: keyboard.5.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759427080197
+    m_Key: keyboard.6.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759431274496
+    m_Key: keyboard.7.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759431274497
+    m_Key: keyboard.8.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759431274498
+    m_Key: keyboard.9.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759431274499
+    m_Key: keyboard.dash.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759431274500
+    m_Key: keyboard.underscore.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759435468800
+    m_Key: keyboard.apostrophe.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759435468801
+    m_Key: keyboard.period.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759435468802
+    m_Key: keyboard.erase.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759435468803
+    m_Key: keyboard.space.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759435468804
+    m_Key: keyboard.case.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759435468805
+    m_Key: keyboard.cancel.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759439663104
+    m_Key: keyboard.confirm.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759519354880
+    m_Key: options.lobby.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762568613888
+    m_Key: panel.title.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762568613889
+    m_Key: panel.subtitle.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762572808192
+    m_Key: panel.close.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762572808193
+    m_Key: browser.title.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762572808194
+    m_Key: search.placeholder.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762577002496
+    m_Key: page.previous.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762577002497
+    m_Key: page.next.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762577002498
+    m_Key: code.placeholder.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762581196800
+    m_Key: code.join.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762581196801
+    m_Key: create.title.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762585391104
+    m_Key: pilot.label.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762585391105
+    m_Key: pilot.placeholder.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762585391106
+    m_Key: name.label.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762585391107
+    m_Key: name.placeholder.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762585391108
+    m_Key: create.button.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762589585408
+    m_Key: panel.help.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762589585409
+    m_Key: local.host.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762589585410
+    m_Key: local.join.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762597974016
+    m_Key: session.leave.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762597974017
+    m_Key: keyboard.a.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762597974018
+    m_Key: keyboard.b.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762602168320
+    m_Key: keyboard.c.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762602168321
+    m_Key: keyboard.d.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762602168322
+    m_Key: keyboard.e.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762602168323
+    m_Key: keyboard.f.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762606362624
+    m_Key: keyboard.g.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762606362625
+    m_Key: keyboard.h.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762606362626
+    m_Key: keyboard.i.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762606362627
+    m_Key: keyboard.j.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762606362628
+    m_Key: keyboard.k.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762610556928
+    m_Key: keyboard.l.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762610556929
+    m_Key: keyboard.m.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762610556930
+    m_Key: keyboard.n.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762610556931
+    m_Key: keyboard.o.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762610556932
+    m_Key: keyboard.p.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762614751232
+    m_Key: keyboard.q.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762614751233
+    m_Key: keyboard.r.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762614751234
+    m_Key: keyboard.s.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762614751235
+    m_Key: keyboard.t.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762614751236
+    m_Key: keyboard.u.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762614751237
+    m_Key: keyboard.v.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945536
+    m_Key: keyboard.w.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945537
+    m_Key: keyboard.x.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945538
+    m_Key: keyboard.y.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945539
+    m_Key: keyboard.z.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945540
+    m_Key: keyboard.0.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945541
+    m_Key: keyboard.1.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762618945542
+    m_Key: keyboard.2.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762623139840
+    m_Key: keyboard.3.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762623139841
+    m_Key: keyboard.4.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762623139842
+    m_Key: keyboard.5.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762623139843
+    m_Key: keyboard.6.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762623139844
+    m_Key: keyboard.7.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762623139845
+    m_Key: keyboard.8.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762627334144
+    m_Key: keyboard.9.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762627334145
+    m_Key: keyboard.dash.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762627334146
+    m_Key: keyboard.underscore.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762627334147
+    m_Key: keyboard.apostrophe.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762631528448
+    m_Key: keyboard.period.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762631528449
+    m_Key: keyboard.erase.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762631528450
+    m_Key: keyboard.space.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762635722752
+    m_Key: keyboard.case.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762635722753
+    m_Key: keyboard.cancel.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762635722754
+    m_Key: keyboard.confirm.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 765584318464
+    m_Key: options.lobby.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 768088317952
+    m_Key: default.lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 768088317953
+    m_Key: default.pilot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1478804742144
+    m_Key: pilot.default
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1478838296576
+    m_Key: pilot.number
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 4535699150239695839
+  references:
+    version: 2
+    RefIds:
+    - rid: 4535699150239695839
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1792276231117

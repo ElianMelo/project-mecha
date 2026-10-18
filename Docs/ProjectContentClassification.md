@@ -1,5 +1,11 @@
 # Project content classification
 
+The 2026-10-18 localization key refactor changes wording identifiers and existing references, preserving entry IDs, English text, fonts, and locale scope. Existing table/data, Code, Prefabs, Scenes and Others classifications remain unchanged. No artwork or language was added.
+
+## English localization — 2026-10-17
+
+Game wording now uses Unity Localization category String Tables and serialized localized references. The English locale, String/Asset Tables, shared table data and Localization Settings under `Assets/_Project/Localization` are provisional **Authored Data**. `Fonts/EnglishDefault.asset` copies the existing imported Liberation Sans SDF artwork outside Resources for Addressables font loading; its upstream creation provenance is unverified and it remains **Placeholder**. New runtime localization source is **Code**. Editor capture, build policy and migration/inspection scripts are **Others**, as are package-generated Addressables configuration and its metadata. Existing scenes, prefabs and authored game data retain their categories. No final content approval is implied. See [localization authoring and policy](Localization.md).
+
 ## Route availability contrast — 2026-10-17
 
 This revision changes existing routing Code, the LevelRouting Authored Data profile and supporting documentation. Native per-renderer material overrides reuse the existing miniature artwork, rings and path sprites; no new artwork, material, shader, prefab or maintained file is added. Categories, provisional readiness, provenance and inventory paths/totals remain unchanged. Manual Play Mode captures stay under ignored Logs/LevelRoutingContrast.

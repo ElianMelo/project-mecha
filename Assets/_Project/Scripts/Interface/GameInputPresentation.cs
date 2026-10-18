@@ -40,19 +40,20 @@ public sealed class GameInputPresentation : MonoBehaviour
     {
         if (action == "Interact") action = "Attack";
         if (!UsingGamepad)
-            return action == "Jump" ? "UP / SPACE" : action == "Attack" ? "Z" : action == "Dash" ? "SHIFT" :
-                action == "Tech" ? "X" : action == "SecondaryFire" ? "C" : action == "SkillA" ? "A" : action == "SkillS" ? "S" : action == "SkillD" ? "D" :
-                action == "Interact" ? "E / UP" : action == "Menu" ? "ESC / 3" : action == "ControlsHelp" ? "F1" : action == "ChatVisibility" ? "F2" : action == "Diagnostics" ? "F3" : "ENTER";
-        if (action == "ChatVisibility") return "F2";
+            return action == "Jump" ? GameText.Get("Input", "key.jump") : action == "Attack" ? GameText.Get("Input", "key.z") : action == "Dash" ? GameText.Get("Input", "key.shift") :
+                action == "Tech" ? GameText.Get("Input", "key.x") : action == "SecondaryFire" ? GameText.Get("Input", "key.c") : action == "SkillA" ? GameText.Get("Input", "key.a") : action == "SkillS" ? GameText.Get("Input", "key.s") : action == "SkillD" ? GameText.Get("Input", "key.d") :
+                action == "Interact" ? GameText.Get("Input", "key.interact") : action == "Menu" ? GameText.Get("Input", "key.menu") : action == "ControlsHelp" ? GameText.Get("Input", "key.f1") : action == "ChatVisibility" ? GameText.Get("Input", "key.f2") : action == "Diagnostics" ? GameText.Get("Input", "key.f3") : GameText.Get("Input", "key.enter");
+        if (action == "ChatVisibility") return GameText.Get("Input", "key.f2");
         var pad = Instance.gamepad;
         InputControl control = action == "Jump" || action == "Submit" ? pad.buttonSouth : action == "Attack" ? pad.buttonWest :
             action == "Dash" ? pad.rightShoulder : action == "Tech" ? pad.buttonNorth : action == "SkillA" || action == "Cancel" ? pad.buttonEast :
             action == "SkillS" ? pad.leftShoulder : action == "SkillD" ? pad.leftTrigger :
             action == "SecondaryFire" ? pad.rightTrigger : action == "ControlsHelp" ? pad.rightStickButton : action == "Interact" ? pad.leftStickButton : action == "Menu" ? pad.startButton : pad.selectButton;
-        return (string.IsNullOrEmpty(control.shortDisplayName) ? control.displayName : control.shortDisplayName).ToUpperInvariant();
+        string family = pad is UnityEngine.InputSystem.DualShock.DualShockGamepad ? "playstation." : "gamepad.";
+        return GameText.Get("Input", family + control.name);
     }
 
-    public static string ControllerHelp(ControllerInterfaceSettings settings) => settings.controllerHelp
+    public static string ControllerHelp(ControllerInterfaceSettings settings) => GameText.Get(settings.controllerHelpLocalized)
         .Replace("{jump}", Hint("Jump")).Replace("{attack}", Hint("Attack")).Replace("{dash}", Hint("Dash"))
         .Replace("{tech}", Hint("Tech")).Replace("{skill1}", Hint("SkillA")).Replace("{skill2}", Hint("SkillS"))
         .Replace("{skill3}", Hint("SkillD")).Replace("{interact}", Hint("Interact"))

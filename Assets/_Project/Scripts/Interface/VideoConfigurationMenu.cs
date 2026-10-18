@@ -75,10 +75,10 @@ public sealed class VideoConfigurationMenu : MonoBehaviour
         if (sizes.Count == 0) sizes.Add(new Vector2Int(Screen.width, Screen.height));
         if (!sizes.Contains(size)) { draft.width = sizes[sizes.Count - 1].x; draft.height = sizes[sizes.Count - 1].y; }
         SetOptions(resolution, sizes.Select(s => s.x + " × " + s.y));
-        SetOptions(display, modes.Select(m => m == FullScreenMode.Windowed ? "WINDOWED" : m == FullScreenMode.ExclusiveFullScreen ? "FULLSCREEN (EXCLUSIVE)" : "FULLSCREEN (BORDERLESS)"));
-        SetOptions(quality, QualitySettings.names.Select(n => n.ToUpperInvariant()));
-        SetOptions(sync, new[] { "OFF", "ON" });
-        SetOptions(frameLimit, settings.frameLimits.Select(n => n < 0 ? "UNLIMITED" : n + " FPS"));
+        SetOptions(display, modes.Select(m => m == FullScreenMode.Windowed ? GameText.Get("Settings", "mode.windowed") : m == FullScreenMode.ExclusiveFullScreen ? GameText.Get("Settings", "mode.exclusive") : GameText.Get("Settings", "mode.borderless")));
+        SetOptions(quality, QualitySettings.names.Select(n => GameText.Term("Settings", n).ToUpperInvariant()));
+        SetOptions(sync, new[] { GameText.Get("Settings", "sync.off"), GameText.Get("Settings", "sync.on") });
+        SetOptions(frameLimit, settings.frameLimits.Select(n => n < 0 ? GameText.Get("Settings", "frames.unlimited") : n + GameText.Get("Settings", "units.fps")));
         BuildRates();
     }
     private void BuildRates()
@@ -88,14 +88,14 @@ public sealed class VideoConfigurationMenu : MonoBehaviour
             if (!rates.Any(r => Math.Abs(r.value - mode.refreshRateRatio.value) < 0.01)) rates.Add(mode.refreshRateRatio);
         if (rates.Count == 0) rates.Add(Screen.currentResolution.refreshRateRatio);
         if (!rates.Any(r => Math.Abs(r.value - draft.rate.value) < 0.01)) draft.rate = rates[rates.Count - 1];
-        SetOptions(refreshRate, rates.Select(r => r.value.ToString("0.##") + " HZ"));
+        SetOptions(refreshRate, rates.Select(r => r.value.ToString("0.##") + GameText.Get("Settings", "units.hz")));
     }
     private static void SetOptions(TMP_Dropdown dropdown, IEnumerable<string> values)
     { dropdown.ClearOptions(); dropdown.AddOptions(values.ToList()); }
     public void Refresh(bool selectFirst = true)
     {
         Initialize(); draft = current; BuildModes(); ShowValues();
-        status.text = Application.isEditor ? "Display changes preview in a desktop build. Other settings apply here." : "Changes take effect when you choose Apply.";
+        status.text = Application.isEditor ? GameText.Get("Settings", "video.editorPreview") : GameText.Get("Settings", "video.applyHint");
         if (selectFirst) EventSystem.current?.SetSelectedGameObject(display.gameObject);
     }
     private void ShowValues()
@@ -115,8 +115,8 @@ public sealed class VideoConfigurationMenu : MonoBehaviour
     private void LateUpdate() { if (initialized) RefreshCaptions(); }
     private void RefreshCaptions()
     {
-        if (draft.mode != FullScreenMode.ExclusiveFullScreen) refreshRate.captionText.text = "DESKTOP (" + Screen.currentResolution.refreshRateRatio.value.ToString("0.##") + " HZ)";
-        if (draft.vsync != 0) frameLimit.captionText.text = "CONTROLLED BY V-SYNC";
+        if (draft.mode != FullScreenMode.ExclusiveFullScreen) refreshRate.captionText.text = GameText.Get("Settings", "refresh.desktop") + Screen.currentResolution.refreshRateRatio.value.ToString("0.##") + GameText.Get("Settings", "refresh.suffix");
+        if (draft.vsync != 0) frameLimit.captionText.text = GameText.Get("Settings", "frames.vsync");
     }
     private void Navigation()
     {
@@ -136,7 +136,7 @@ public sealed class VideoConfigurationMenu : MonoBehaviour
         var desktop = Screen.currentResolution;
         draft = new Values { width = desktop.width, height = desktop.height, rate = desktop.refreshRateRatio, mode = FullScreenMode.FullScreenWindow,
             quality = original.quality, vsync = settings.defaultVSync ? 1 : 0, limit = settings.defaultFrameLimit };
-        BuildModes(); ShowValues(); status.text = "Defaults selected. Choose Apply to save.";
+        BuildModes(); ShowValues(); status.text = GameText.Get("Settings", "video.defaults");
     }
     private static bool DisplayChanged(Values a, Values b) => a.width != b.width || a.height != b.height || a.mode != b.mode ||
         (a.mode == FullScreenMode.ExclusiveFullScreen && Math.Abs(a.rate.value - b.rate.value) > 0.01);
@@ -153,24 +153,24 @@ public sealed class VideoConfigurationMenu : MonoBehaviour
         if (confirming) return;
         bool changed = DisplayChanged(draft, current);
         ApplyNative(draft, changed);
-        if (!changed) { current = draft; Save(); status.text = "Video settings saved."; return; }
+        if (!changed) { current = draft; Save(); status.text = GameText.Get("Settings", "video.saved"); return; }
         confirming = true; confirmationDeadline = Time.realtimeSinceStartup + settings.displayConfirmationSeconds;
         controls.interactable = controls.blocksRaycasts = false; confirmation.SetActive(true);
         EventSystem.current?.SetSelectedGameObject(revert.gameObject); UpdateConfirmation();
     }
     private void Update() { if (!confirming) return; if (Time.realtimeSinceStartup >= confirmationDeadline) Revert(); else UpdateConfirmation(); }
-    private void UpdateConfirmation() => confirmationText.text = "KEEP THESE DISPLAY SETTINGS?\nReverting in " + Mathf.CeilToInt(confirmationDeadline - Time.realtimeSinceStartup) + " seconds";
+    private void UpdateConfirmation() => confirmationText.text = GameText.Get("Settings", "display.confirmation") + Mathf.CeilToInt(confirmationDeadline - Time.realtimeSinceStartup) + GameText.Get("Settings", "display.seconds");
     private void Keep()
     {
         if (!confirming) return;
         current = draft;
         if (!Application.isEditor) { var actual = Capture(); current.width = actual.width; current.height = actual.height; current.mode = actual.mode; current.rate = actual.rate; }
-        Save(); FinishConfirmation(); status.text = "Video settings saved.";
+        Save(); FinishConfirmation(); status.text = GameText.Get("Settings", "video.saved");
     }
     private void Revert()
     {
         if (!confirming) return;
-        ApplyNative(current, true); draft = current; FinishConfirmation(); status.text = "Previous video settings restored.";
+        ApplyNative(current, true); draft = current; FinishConfirmation(); status.text = GameText.Get("Settings", "video.restored");
     }
     private void FinishConfirmation()
     {

@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68c9f7ea41634044b8bcac853656489, type: 3}
   m_Name: GroundOriginal
   m_EditorClassIdentifier: Assembly-CSharp::ComboDefinition
+  displayNameLocalized:
+    m_TableReference:
+      m_TableCollectionName: Combat
+    m_TableEntryReference:
+      m_KeyId: 770009309185
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   displayName: Ground Original
   domain: 0
   inputWindow: 0.9
@@ -20,3 +29,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 00ce543397741e94a9bc2196095771cb, type: 2}
   - {fileID: 11400000, guid: c7b9ad3be08069846b10b702da2a8131, type: 2}
   - {fileID: 11400000, guid: 024a51c43fc3b514aab872de4106071f, type: 2}
+  references:
+    version: 2
+    RefIds: []

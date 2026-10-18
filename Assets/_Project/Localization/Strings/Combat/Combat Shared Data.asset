@@ -1,0 +1,476 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Combat Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Combat
+  m_TableCollectionNameGuidString: 8b661cfc1c9dd8f43a8dc77601d2772e
+  m_Entries:
+  - m_Id: 446799872
+    m_Key: save.editorOnly
+    m_Metadata:
+      m_Items: []
+  - m_Id: 471965696
+    m_Key: preview.stats
+    m_Metadata:
+      m_Items: []
+  - m_Id: 480354304
+    m_Key: draft.loaded
+    m_Metadata:
+      m_Items: []
+  - m_Id: 484548608
+    m_Key: draft.unsaved
+    m_Metadata:
+      m_Items: []
+  - m_Id: 488742912
+    m_Key: step.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 492937216
+    m_Key: step.details
+    m_Metadata:
+      m_Items: []
+  - m_Id: 492937217
+    m_Key: sequence.empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2996936704
+    m_Key: skill.megaSlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2996936705
+    m_Key: skill.swordFire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2996936706
+    m_Key: skill.criticalX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690426585088
+    m_Key: term.Slash1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779392
+    m_Key: term.Slash2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779393
+    m_Key: term.Slash3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779394
+    m_Key: term.AirSlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779395
+    m_Key: term.DashSlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779396
+    m_Key: term.MegaSlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779397
+    m_Key: term.SwordFire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779398
+    m_Key: term.CriticalX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779399
+    m_Key: term.RisingSlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779400
+    m_Key: term.DiveStrike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779401
+    m_Key: term.CriticalStrike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779402
+    m_Key: term.MagneticPull
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779403
+    m_Key: term.Dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779404
+    m_Key: term.Rocket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779405
+    m_Key: term.Mushidon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779406
+    m_Key: term.Hit stun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779407
+    m_Key: term.Action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779408
+    m_Key: term.Recovery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779409
+    m_Key: term.Air
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779410
+    m_Key: term.Idle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779411
+    m_Key: term.Run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779412
+    m_Key: term.Walk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779413
+    m_Key: term.Ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779414
+    m_Key: term.NEUTRAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779415
+    m_Key: term.STARTUP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779416
+    m_Key: term.ACTIVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779417
+    m_Key: term.RECOVERY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779418
+    m_Key: term.HIT STOP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 742599532544
+    m_Key: editor.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744130453504
+    m_Key: editor.help
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744130453505
+    m_Key: tab.ground
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744134647808
+    m_Key: tab.air
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744134647809
+    m_Key: preset.previous
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744138842112
+    m_Key: preset.next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744138842113
+    m_Key: preset.copy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744143036416
+    m_Key: step.0.previous
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744143036417
+    m_Key: step.0.next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744143036418
+    m_Key: step.0.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744143036419
+    m_Key: step.0.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744147230720
+    m_Key: step.0.remove
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744147230721
+    m_Key: step.1.previous
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744147230722
+    m_Key: step.1.next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744151425024
+    m_Key: step.1.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744151425025
+    m_Key: step.1.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744151425026
+    m_Key: step.1.remove
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744155619328
+    m_Key: step.2.previous
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744155619329
+    m_Key: step.2.next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744155619330
+    m_Key: step.2.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744159813632
+    m_Key: step.2.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744159813633
+    m_Key: step.2.remove
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744159813634
+    m_Key: step.3.previous
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744164007936
+    m_Key: step.3.next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744164007937
+    m_Key: step.3.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744164007938
+    m_Key: step.3.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744168202240
+    m_Key: step.3.remove
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744168202241
+    m_Key: step.4.previous
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744168202242
+    m_Key: step.4.next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744172396544
+    m_Key: step.4.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744172396545
+    m_Key: step.4.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744172396546
+    m_Key: step.4.remove
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744176590848
+    m_Key: step.5.previous
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744176590849
+    m_Key: step.5.next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744176590850
+    m_Key: step.5.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744176590851
+    m_Key: step.5.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744180785152
+    m_Key: step.5.remove
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744180785153
+    m_Key: step.6.previous
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744180785154
+    m_Key: step.6.next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744184979456
+    m_Key: step.6.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744184979457
+    m_Key: step.6.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744189173760
+    m_Key: step.6.remove
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744193368064
+    m_Key: step.7.previous
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744193368065
+    m_Key: step.7.next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744193368066
+    m_Key: step.7.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744193368067
+    m_Key: step.7.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744197562368
+    m_Key: step.7.remove
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744197562369
+    m_Key: step.add
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744197562370
+    m_Key: combo.save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744197562371
+    m_Key: preview.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744197562372
+    m_Key: preview.help
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744201756672
+    m_Key: combo.play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744201756673
+    m_Key: preview.reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868672
+    m_Key: attack.airSlash.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868673
+    m_Key: attack.criticalStrike.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868674
+    m_Key: attack.dashSlash.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868675
+    m_Key: attack.diveStrike.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868676
+    m_Key: attack.magneticPull.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868677
+    m_Key: attack.risingSlash.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868678
+    m_Key: attack.slash1.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868679
+    m_Key: attack.slash2.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868680
+    m_Key: attack.slash3.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770005114880
+    m_Key: combo.airLauncher.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770005114881
+    m_Key: combo.airOriginal.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770009309184
+    m_Key: combo.groundHeavy.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770009309185
+    m_Key: combo.groundOriginal.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770122555392
+    m_Key: attack.criticalX.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770122555393
+    m_Key: attack.megaSlash.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770122555394
+    m_Key: skill.prefix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770122555395
+    m_Key: attack.swordFire.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1582672486400
+    m_Key: save.empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1586564800512
+    m_Key: save.success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1586568994816
+    m_Key: preset.copySuffix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4694690865152
+    m_Key: combo.air.prefix
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 4535699150239695835
+  references:
+    version: 2
+    RefIds:
+    - rid: 4535699150239695835
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1792276230656

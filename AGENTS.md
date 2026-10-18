@@ -1,5 +1,8 @@
 # Project architecture and validation
 
+- Localization uses Unity Localization as the source of truth. All game-facing wording must use category String Tables and localized font assets; new labels must use the automatic editor capture or `GameText.Bind`/`GameText.Get`. English (`en`) is the only approved locale. Add another language only after the user's explicit request and direct approval. See `Docs/Localization.md`.
+- Keep localization keys concise: two or three meaningful words such as `hitbox.shown`. Do not derive keys from full sentences, class names, full hierarchy paths, formatting tokens or GUIDs.
+
 - For every VFX creation, refinement, diagnosis or change request, read and apply [.agents/skills/unity-vfx-refinery/SKILL.md](.agents/skills/unity-vfx-refinery/SKILL.md). Use Particle System first and ShaderLab/HLSL when a special material needs code. Keep new effect assets, profiles and focused interaction scripts under `Assets/_Project/VFX`. Supplied finished effects are `Reference` for study only; reusable building blocks are `VFXSource`. Never use a finished vendor effect, nested prefab or recolored variant as a project effect. Preserve the dark 1980s anime/toon mecha direction and translate fantasy elements into technical mechanisms. Re-evaluate and narrowly improve the skill on feedback or demonstrated bad output; see `Docs/VfxIterationNotes.md`.
 
 - Design every game UI for controllers first. Always provide clear, persistent visual feedback for the currently selected button/control, including when optional motion is disabled. Review the complete controller navigation flow whenever implementing or changing UI: directional links, first focus, modal scope, confirm/back, hidden or disabled controls, and routes between screens.

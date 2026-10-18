@@ -1,0 +1,217 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Diagnostics_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 4745a44ac6545124b956aa2a5b2604e6, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 417439744
+    m_Localized: '{0:000000}   {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 434216960
+    m_Localized: ' / MEGA'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 434216961
+    m_Localized: ' / FIRE'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 434216962
+    m_Localized: ' / CRITICAL X'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411264
+    m_Localized: Enemy practice control belongs to the local host.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411265
+    m_Localized: Enemy AI held. Damage, flinch, launch and physics remain active.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411266
+    m_Localized: Enemy AI resumed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411267
+    m_Localized: Hit volume shown in Scene view with Gizmos enabled.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411268
+    m_Localized: Hit volume hidden.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411269
+    m_Localized: Damage and input counters reset.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411270
+    m_Localized: Refill is available in the offline practice deck.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411271
+    m_Localized: Practice energy and skill cooldowns reset.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442605568
+    m_Localized: '
+
+      INPUTS
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442605569
+    m_Localized: Snapshot copied to clipboard.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442605570
+    m_Localized: PERFORMANCE    {0:0} FPS    {1:0.00} ms    P95 {2:0.00} ms
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442605571
+    m_Localized: MEMORY         {0:0} MB    MANAGED {1:0.0} MB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442605572
+    m_Localized: LOCAL HOST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442605573
+    m_Localized: CLIENT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799872
+    m_Localized: LINK           {0}    RTT {1} ms    {2} Hz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799873
+    m_Localized: LINK           OFFLINE    RTT --
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799874
+    m_Localized: MOVEMENT       {0}    Vx {1:0.00}    Vy {2:0.00}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799875
+    m_Localized: GROUND
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799876
+    m_Localized: AIR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799877
+    m_Localized: SUPPORT        {0}    DASH RECOVERY {1:0} ms
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799878
+    m_Localized: ACTION         {0} / {1}    {2:0.0} / {3:0.0}f @60
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799879
+    m_Localized: SKILL LOCK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994176
+    m_Localized: BRANCH WINDOWS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994177
+    m_Localized: CANCEL         {0:0} ms    {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994178
+    m_Localized: DAMAGE         LAST {0:0}    COMBO {1:0} / {2} HITS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994179
+    m_Localized: SESSION        {0:0}    BEST {1:0}    AVG DPS {2:0.0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994180
+    m_Localized: ENEMIES        {0}    AIRBORNE {1}    TEMPO {2:0.00}x
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760253358080
+    m_Localized: F3  //  COMBAT LAB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760265940992
+    m_Localized: BLUE Startup    RED Active    GREEN Recovery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760265940993
+    m_Localized: 60 Hz display samples  /  wraps left to right  /  rendered-frame
+      telemetry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760265940994
+    m_Localized: RESET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760270135296
+    m_Localized: COPY DATA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760270135297
+    m_Localized: REFILL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760270135298
+    m_Localized: HITBOXES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760270135299
+    m_Localized: HOLD AI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762484727808
+    m_Localized: F3  //  COMBAT LAB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762484727809
+    m_Localized: BLUE Startup    RED Active    GREEN Recovery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762484727810
+    m_Localized: 60 Hz display samples  /  wraps left to right  /  rendered-frame
+      telemetry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762484727811
+    m_Localized: RESET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762488922112
+    m_Localized: COPY DATA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762488922113
+    m_Localized: REFILL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762488922114
+    m_Localized: HITBOXES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762488922115
+    m_Localized: HOLD AI
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -41,7 +41,7 @@ public sealed class ControllerTextEntry : MonoBehaviour
         if (IsVisible) return;
         field = target; draft = field.text; lowerCase = false;
         field.DeactivateInputField();
-        title.text = "EDIT " + field.gameObject.name.ToUpperInvariant();
+        title.text = GameText.Get("Input", "keyboard.title");
         panel.SetActive(true); Refresh();
         EventSystem.current?.SetSelectedGameObject(keys[0].gameObject);
     }
@@ -56,7 +56,7 @@ public sealed class ControllerTextEntry : MonoBehaviour
         preview.text = draft + "|";
         for (int i = 0; i < keys.Length; i++) keys[i].GetComponentInChildren<TMP_Text>().text =
             lowerCase ? settings.keyboardCharacters[i].ToString().ToLowerInvariant() : settings.keyboardCharacters[i].ToString();
-        changeCase.GetComponentInChildren<TMP_Text>().text = lowerCase ? "ABC" : "abc";
+        changeCase.GetComponentInChildren<TMP_Text>().text = lowerCase ? GameText.Get("Input", "keyboard.uppercase") : GameText.Get("Input", "keyboard.lowercase");
     }
     private void Confirm() { if (field != null) field.text = draft; Close(); }
     public void Cancel() => Close();

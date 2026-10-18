@@ -1,0 +1,484 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Combat_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 8b661cfc1c9dd8f43a8dc77601d2772e, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 446799872
+    m_Localized: Preview mode. Save combo assets from the Unity Editor.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 471965696
+    m_Localized: '{0}   /   {1} HITS   /   {2:0} DAMAGE
+
+      Attack damage x{3:0.#}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 480354304
+    m_Localized: Draft loaded. SAVE & USE applies it to the game.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 484548608
+    m_Localized: Unsaved draft. Preview it, then SAVE & USE.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 488742912
+    m_Localized: '{0:00}   Z   {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 492937216
+    m_Localized: 'PIECE {0:00}  /  {1}
+
+      Startup {2:0.00}s   Cancel {3:0.00}s  
+      Duration {4:0.00}s
+
+      Damage {5:0.#}   Final {6:0.#}   Pulses {7}
+
+      Edit
+      timing, hitboxes and costs on its Attack Piece asset.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 492937217
+    m_Localized: Empty sequence. Add an attack to begin assembling it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2996936704
+    m_Localized: MEGA SLASH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2996936705
+    m_Localized: SWORD FIRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2996936706
+    m_Localized: CRITICAL X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690426585088
+    m_Localized: Slash1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779392
+    m_Localized: Slash2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779393
+    m_Localized: Slash3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779394
+    m_Localized: AirSlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779395
+    m_Localized: DashSlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779396
+    m_Localized: MegaSlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779397
+    m_Localized: SwordFire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779398
+    m_Localized: CriticalX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779399
+    m_Localized: RisingSlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779400
+    m_Localized: DiveStrike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779401
+    m_Localized: CriticalStrike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779402
+    m_Localized: MagneticPull
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779403
+    m_Localized: Dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779404
+    m_Localized: Rocket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779405
+    m_Localized: Mushidon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779406
+    m_Localized: Hit stun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779407
+    m_Localized: Action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779408
+    m_Localized: Recovery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779409
+    m_Localized: Air
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779410
+    m_Localized: Idle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779411
+    m_Localized: Run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779412
+    m_Localized: Walk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779413
+    m_Localized: Ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779414
+    m_Localized: NEUTRAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779415
+    m_Localized: STARTUP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779416
+    m_Localized: ACTIVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779417
+    m_Localized: RECOVERY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 690430779418
+    m_Localized: HIT STOP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 742599532544
+    m_Localized: COMBO CONFIGURATOR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744130453504
+    m_Localized: Assemble reusable attacks. Preview, then save to the game.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744130453505
+    m_Localized: GROUND
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744134647808
+    m_Localized: AIR / UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744134647809
+    m_Localized: <
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744138842112
+    m_Localized: '>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744138842113
+    m_Localized: COPY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744143036416
+    m_Localized: <
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744143036417
+    m_Localized: '>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744143036418
+    m_Localized: UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744143036419
+    m_Localized: DN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744147230720
+    m_Localized: X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744147230721
+    m_Localized: <
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744147230722
+    m_Localized: '>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744151425024
+    m_Localized: UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744151425025
+    m_Localized: DN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744151425026
+    m_Localized: X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744155619328
+    m_Localized: <
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744155619329
+    m_Localized: '>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744155619330
+    m_Localized: UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744159813632
+    m_Localized: DN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744159813633
+    m_Localized: X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744159813634
+    m_Localized: <
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744164007936
+    m_Localized: '>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744164007937
+    m_Localized: UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744164007938
+    m_Localized: DN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744168202240
+    m_Localized: X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744168202241
+    m_Localized: <
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744168202242
+    m_Localized: '>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744172396544
+    m_Localized: UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744172396545
+    m_Localized: DN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744172396546
+    m_Localized: X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744176590848
+    m_Localized: <
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744176590849
+    m_Localized: '>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744176590850
+    m_Localized: UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744176590851
+    m_Localized: DN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744180785152
+    m_Localized: X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744180785153
+    m_Localized: <
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744180785154
+    m_Localized: '>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744184979456
+    m_Localized: UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744184979457
+    m_Localized: DN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744189173760
+    m_Localized: X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744193368064
+    m_Localized: <
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744193368065
+    m_Localized: '>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744193368066
+    m_Localized: UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744193368067
+    m_Localized: DN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744197562368
+    m_Localized: X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744197562369
+    m_Localized: + ADD ATTACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744197562370
+    m_Localized: SAVE & USE IN GAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744197562371
+    m_Localized: PRACTICE DECK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744197562372
+    m_Localized: 'Z attack   /   Up jump   /   A S D skills
+
+      Use the arrows
+      to replace pieces, UP / DN to reorder.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744201756672
+    m_Localized: PLAY COMBO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744201756673
+    m_Localized: RESET TARGET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868672
+    m_Localized: Air Slash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868673
+    m_Localized: Critical Cross-through
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868674
+    m_Localized: Dash Slash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868675
+    m_Localized: Dive Strike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868676
+    m_Localized: Magnetic Recall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868677
+    m_Localized: Rising Slash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868678
+    m_Localized: Slash 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868679
+    m_Localized: Slash 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769891868680
+    m_Localized: Slash 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770005114880
+    m_Localized: Air Launcher
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770005114881
+    m_Localized: Air Original
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770009309184
+    m_Localized: Ground Heavy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770009309185
+    m_Localized: Ground Original
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770122555392
+    m_Localized: Critical X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770122555393
+    m_Localized: Mega Slash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770122555394
+    m_Localized: 'CORE OUTPUT // '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 770122555395
+    m_Localized: Sword Fire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1582672486400
+    m_Localized: Add at least one attack before saving.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1586564800512
+    m_Localized: Saved. The game now uses this combo.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1586568994816
+    m_Localized: ' Copy'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4694690865152
+    m_Localized: 'Up  '
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

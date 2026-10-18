@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53020ab6bbcb1754e9ab1074fad27b0e, type: 3}
   m_Name: SkillPresentation
   m_EditorClassIdentifier: Assembly-CSharp::SkillPresentationSettings
+  skillPrefixLocalized:
+    m_TableReference:
+      m_TableCollectionName: Combat
+    m_TableEntryReference:
+      m_KeyId: 770122555394
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   backdropSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   backdropMaterial: {fileID: 2100000, guid: a69f76322e161a04ab5a2438f8027ea9, type: 2}
   darkness: 0.92
@@ -22,3 +31,6 @@ MonoBehaviour:
   flashOpacity: 0.12
   letterboxHeight: {x: 22, y: 22}
   skillPrefix: 'CORE OUTPUT // '
+  references:
+    version: 2
+    RefIds: []

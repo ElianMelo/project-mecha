@@ -1,0 +1,216 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Diagnostics Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Diagnostics
+  m_TableCollectionNameGuidString: 4745a44ac6545124b956aa2a5b2604e6
+  m_Entries:
+  - m_Id: 417439744
+    m_Key: input.history
+    m_Metadata:
+      m_Items: []
+  - m_Id: 434216960
+    m_Key: skill.mega
+    m_Metadata:
+      m_Items: []
+  - m_Id: 434216961
+    m_Key: skill.fire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 434216962
+    m_Key: skill.critical
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411264
+    m_Key: practice.hostOnly
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411265
+    m_Key: ai.held
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411266
+    m_Key: ai.resumed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411267
+    m_Key: hitbox.shown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411268
+    m_Key: hitbox.hidden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411269
+    m_Key: counters.reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411270
+    m_Key: refill.offlineOnly
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438411271
+    m_Key: resources.reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442605568
+    m_Key: input.heading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442605569
+    m_Key: snapshot.copied
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442605570
+    m_Key: stats.performance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442605571
+    m_Key: stats.memory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442605572
+    m_Key: link.host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442605573
+    m_Key: link.client
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799872
+    m_Key: stats.link
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799873
+    m_Key: link.offline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799874
+    m_Key: stats.movement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799875
+    m_Key: support.ground
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799876
+    m_Key: support.air
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799877
+    m_Key: stats.support
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799878
+    m_Key: stats.action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 446799879
+    m_Key: cancel.skillLock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994176
+    m_Key: cancel.branchWindows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994177
+    m_Key: stats.cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994178
+    m_Key: stats.damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994179
+    m_Key: stats.session
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994180
+    m_Key: stats.enemies
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760253358080
+    m_Key: panel.title.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760265940992
+    m_Key: phases.legend.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760265940993
+    m_Key: meter.help.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760265940994
+    m_Key: button.reset.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760270135296
+    m_Key: button.copy.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760270135297
+    m_Key: button.refill.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760270135298
+    m_Key: button.hitboxes.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760270135299
+    m_Key: button.holdAI.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762484727808
+    m_Key: panel.title.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762484727809
+    m_Key: phases.legend.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762484727810
+    m_Key: meter.help.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762484727811
+    m_Key: button.reset.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762488922112
+    m_Key: button.copy.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762488922113
+    m_Key: button.refill.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762488922114
+    m_Key: button.hitboxes.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762488922115
+    m_Key: button.holdAI.prefab
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 4535699150239695837
+  references:
+    version: 2
+    RefIds:
+    - rid: 4535699150239695837
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1792276230897

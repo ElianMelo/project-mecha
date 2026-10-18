@@ -30,10 +30,10 @@ public sealed class SkillFocusPresentation : MonoBehaviour
             backdrop.color = new Color(0f, 0f, 0f, opacity * settings.darkness);
         }
         if (letterbox != null) letterbox.alpha = opacity;
-        if (title != null) title.text = active ? settings.skillPrefix + ObjectNames(player.CurrentAction) : "";
+        if (title != null) title.text = active ? GameText.Get(settings.skillPrefixLocalized) + ObjectNames(player.CurrentAction) : "";
         if (flash != null) flash.color = new Color(0.75f, 0.92f, 1f, Time.unscaledTime < flashUntil ? settings.flashOpacity : 0f);
     }
-    private static string ObjectNames(string value) => value == "MegaSlash" ? "MEGA SLASH" : value == "SwordFire" ? "SWORD FIRE" : "CRITICAL X";
+    private static string ObjectNames(string value) => value == "MegaSlash" ? GameText.Get("Combat", "skill.megaSlash") : value == "SwordFire" ? GameText.Get("Combat", "skill.swordFire") : GameText.Get("Combat", "skill.criticalX");
     private void OnImpact(float damage) { if (player != null && player.IsSkillActive) flashUntil = Time.unscaledTime + settings.flashDuration; }
     private void OnDisable()
     {

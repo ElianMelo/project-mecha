@@ -27,6 +27,7 @@ public static class MechaComboConfiguratorSetup
         {
             font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset");
             var root = scene.GetRootGameObjects().FirstOrDefault(g => g.name == "Combo Configurator UI") ?? new GameObject("Combo Configurator UI");
+            MechaPresentationSetup.Ensure<UiNavigationScope>(root);
             var canvas = MechaPresentationSetup.Ensure<Canvas>(root); canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             var scaler = MechaPresentationSetup.Ensure<UnityEngine.UI.CanvasScaler>(root);
             scaler.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
@@ -145,6 +146,9 @@ public static class MechaComboConfiguratorSetup
         var rect = Rect(p, name, new Vector2(x, y), new Vector2(w, h));
         var image = MechaPresentationSetup.Ensure<UnityEngine.UI.Image>(rect.gameObject); image.color = color ?? new Color(0.11f, 0.18f, 0.25f);
         var button = MechaPresentationSetup.Ensure<UnityEngine.UI.Button>(rect.gameObject); button.targetGraphic = image;
-        Label(rect, "Label", text, 2, 0, w - 4, h, h < 30 ? 13 : 16).alignment = TextAlignmentOptions.Center; return button;
+        Label(rect, "Label", text, 2, 0, w - 4, h, h < 30 ? 13 : 16).alignment = TextAlignmentOptions.Center;
+        var style = AssetDatabase.LoadAssetAtPath<UiFeelSettings>("Assets/_Project/Settings/Interface/UiFeel.asset");
+        if (style != null) MechaUiFeelSetup.Button(button, style);
+        return button;
     }
 }

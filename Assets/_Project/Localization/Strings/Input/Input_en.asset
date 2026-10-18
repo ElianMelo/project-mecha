@@ -1,0 +1,367 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Input_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 06479e22c1acbe046b83d7ade969e255, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 413245440
+    m_Localized: EDIT TEXT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 430022656
+    m_Localized: ABC
+    m_Metadata:
+      m_Items: []
+  - m_Id: 430022657
+    m_Localized: abc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994176
+    m_Localized: UP / SPACE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994177
+    m_Localized: Z
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994178
+    m_Localized: SHIFT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994179
+    m_Localized: X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994180
+    m_Localized: C
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994181
+    m_Localized: A
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994182
+    m_Localized: S
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994183
+    m_Localized: D
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994184
+    m_Localized: E / UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188480
+    m_Localized: ESC / 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188481
+    m_Localized: F1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188482
+    m_Localized: F2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188483
+    m_Localized: F3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188484
+    m_Localized: ENTER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268608
+    m_Localized: A
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268609
+    m_Localized: B
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268610
+    m_Localized: X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268611
+    m_Localized: Y
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268612
+    m_Localized: Cross
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268613
+    m_Localized: Circle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268614
+    m_Localized: Square
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268615
+    m_Localized: Triangle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268616
+    m_Localized: LB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268617
+    m_Localized: RB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268618
+    m_Localized: LT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268619
+    m_Localized: RT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268620
+    m_Localized: L1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268621
+    m_Localized: R1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268622
+    m_Localized: L2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268623
+    m_Localized: R2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268624
+    m_Localized: L3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268625
+    m_Localized: R3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268626
+    m_Localized: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268627
+    m_Localized: Select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268628
+    m_Localized: Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268629
+    m_Localized: View
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268630
+    m_Localized: Options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268631
+    m_Localized: Share
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268632
+    m_Localized: LS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268633
+    m_Localized: RS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268634
+    m_Localized: Left Stick Press
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268635
+    m_Localized: Right Stick Press
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268636
+    m_Localized: Left Shoulder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268637
+    m_Localized: Right Shoulder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268638
+    m_Localized: Left Trigger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268639
+    m_Localized: Right Trigger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760714731520
+    m_Localized: Enter text...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760731508736
+    m_Localized: Start Host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760735703040
+    m_Localized: Start Client
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769493409792
+    m_Localized: 'STICK / D-PAD Move   {jump} Jump   {attack} Light attack   {dash}
+      Dash
+
+      {tech} Heavy attack   {skill1} 25 MP / {skill2} 40 MP / {skill3}
+      60 MP   HOLD {attack} Portal
+
+      {dash} + {jump} Rocket   then DOWN Mushidon  
+      DOWN + {attack} Dive
+
+      {menu} Menu   {diagnostics} Combat lab
+
+      RT
+      SMG   /   ENTER Chat'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071761887232
+    m_Localized: '{0} / HEAVY ATTACK'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071782858752
+    m_Localized: '{0} / DASH'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071782858753
+    m_Localized: UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071782858754
+    m_Localized: DOWN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071782858755
+    m_Localized: 'DOWN + '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071782858756
+    m_Localized: DASH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071782858757
+    m_Localized: A
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053056
+    m_Localized: Y
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053057
+    m_Localized: X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053058
+    m_Localized: B
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053059
+    m_Localized: LB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053060
+    m_Localized: RB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053061
+    m_Localized: LT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053062
+    m_Localized: RT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053063
+    m_Localized: LS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053064
+    m_Localized: RS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053065
+    m_Localized: START
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053066
+    m_Localized: VIEW
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053067
+    m_Localized: CROSS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053068
+    m_Localized: TRIANGLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053069
+    m_Localized: SQUARE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053070
+    m_Localized: CIRCLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053071
+    m_Localized: L1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053072
+    m_Localized: R1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053073
+    m_Localized: L2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053074
+    m_Localized: R2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053075
+    m_Localized: L3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053076
+    m_Localized: R3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053077
+    m_Localized: OPTIONS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053078
+    m_Localized: SHARE
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -10,7 +10,7 @@ public class CombatEffect : MonoBehaviour
     {
         var go=new GameObject("Damage number"); go.transform.position=position;
         var effect=go.AddComponent<CombatEffect>(); effect.settings=settings; effect.expires=Time.time+settings.damageNumberLifetime;
-        effect.label=go.AddComponent<TMPro.TextMeshPro>(); effect.label.text=Mathf.RoundToInt(damage).ToString();
+        effect.label=go.AddComponent<TMPro.TextMeshPro>(); GameText.BindFont(effect.label); effect.label.text=Mathf.RoundToInt(damage).ToString();
         effect.label.fontSize=settings.damageNumberSize; effect.label.alignment=TMPro.TextAlignmentOptions.Center;
         effect.label.rectTransform.sizeDelta=new Vector2(2f,1f); effect.label.color=settings.damageNumberColor;
         if(Camera.main!=null) go.transform.rotation=Camera.main.transform.rotation;

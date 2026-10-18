@@ -39,15 +39,16 @@ public sealed class ComboConfigurator : MonoBehaviour
             remove[i].onClick.AddListener(() => RemoveStep(slot));
         }
         SelectDomain(ComboDomain.Ground); ResetPreview();
+        UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(ground.gameObject);
 #if !UNITY_EDITOR
         save.interactable = duplicate.interactable = false;
-        status.text = "Preview mode. Save combo assets from the Unity Editor.";
+        status.text = GameText.Get("Combat", "save.editorOnly");
 #endif
     }
     private void Update()
     {
         if (player != null && target != null)
-            previewStatus.text = $"{player.CurrentAction}   /   {target.Hits} HITS   /   {target.TotalDamage:0} DAMAGE\nAttack damage x{settings.combat.damageMultiplier:0.#}";
+            previewStatus.text = GameText.Get("Combat", "preview.stats", (GameText.Term("Combat", player.CurrentAction)), (target.Hits), (target.TotalDamage), (settings.combat.damageMultiplier));
     }
     public void SelectDomain(ComboDomain value)
     {
@@ -66,7 +67,7 @@ public sealed class ComboConfigurator : MonoBehaviour
         if (draft != null) Destroy(draft);
         selected = source; draft = Instantiate(source);
         draft.attacks = (source.attacks ?? System.Array.Empty<AttackPiece>()).Where(p => p != null).ToArray(); selectedRow = 0;
-        status.text = "Draft loaded. SAVE & USE applies it to the game.";
+        status.text = GameText.Get("Combat", "draft.loaded");
         Refresh();
     }
     public void CyclePiece(int slot, int direction)
@@ -95,7 +96,7 @@ public sealed class ComboConfigurator : MonoBehaviour
         draft.attacks = draft.attacks.Concat(new[] {draft.attacks.LastOrDefault() ?? settings.combat.pieces[0]}).ToArray();
         selectedRow = draft.attacks.Length - 1; Changed();
     }
-    private void Changed() { status.text = "Unsaved draft. Preview it, then SAVE & USE."; Refresh(); }
+    private void Changed() { status.text = GameText.Get("Combat", "draft.unsaved"); Refresh(); }
     private void Refresh()
     {
         if (playing != null) { StopCoroutine(playing); playing = null; }
@@ -104,16 +105,16 @@ public sealed class ComboConfigurator : MonoBehaviour
         for (int i = 0; i < rows.Length; i++)
         {
             bool active = i < draft.attacks.Length; rows[i].SetActive(active); if (!active) continue;
-            rowLabels[i].text = $"{i + 1:00}   Z   {draft.attacks[i].Label}";
+            rowLabels[i].text = GameText.Get("Combat", "step.summary", (i + 1), (draft.attacks[i].Label));
             moveUp[i].interactable = i > 0; moveDown[i].interactable = i < draft.attacks.Length - 1;
             remove[i].interactable = draft.attacks.Length > 1;
         }
         if (draft.attacks.Length > 0)
         {
             var data = draft.attacks[Mathf.Clamp(selectedRow, 0, draft.attacks.Length - 1)].action;
-            detail.text = $"PIECE {selectedRow + 1:00}  /  {data.kind}\nStartup {data.impact:0.00}s   Cancel {data.cancel:0.00}s   Duration {data.duration:0.00}s\nDamage {data.damage * settings.combat.damageMultiplier:0.#}   Final {data.finalDamage * settings.combat.damageMultiplier:0.#}   Pulses {data.pulses}\nEdit timing, hitboxes and costs on its Attack Piece asset.";
+            detail.text = GameText.Get("Combat", "step.details", (selectedRow + 1), (GameText.Term("Combat", data.kind)), (data.impact), (data.cancel), (data.duration), (data.damage * settings.combat.damageMultiplier), (data.finalDamage * settings.combat.damageMultiplier), (data.pulses));
         }
-        else detail.text = "Empty sequence. Add an attack to begin assembling it.";
+        else detail.text = GameText.Get("Combat", "sequence.empty");
         preview.interactable = draft.attacks.Length > 0;
         add.interactable = draft.attacks.Length < settings.maximumSteps;
         working.groundCombo = domain == ComboDomain.Ground ? draft : settings.loadout.groundCombo;
@@ -123,22 +124,33 @@ public sealed class ComboConfigurator : MonoBehaviour
     public void Save()
     {
 #if UNITY_EDITOR
-        if (draft.attacks.Length == 0) { status.text = "Add at least one attack before saving."; return; }
+        if (draft.attacks.Length == 0) { status.text = GameText.Get("Combat", "save.empty"); return; }
         UnityEditor.Undo.RecordObject(selected, "Save combo sequence");
         selected.attacks = draft.attacks.ToArray(); selected.inputWindow = draft.inputWindow; selected.loop = draft.loop;
         UnityEditor.EditorUtility.SetDirty(selected);
         UnityEditor.Undo.RecordObject(settings.loadout, "Select gameplay combo");
         if (domain == ComboDomain.Ground) settings.loadout.groundCombo = selected; else settings.loadout.airCombo = selected;
         UnityEditor.EditorUtility.SetDirty(settings.loadout); UnityEditor.AssetDatabase.SaveAssets();
-        status.text = "Saved. The game now uses this combo.";
+        status.text = GameText.Get("Combat", "save.success");
 #endif
     }
     public void Duplicate()
     {
 #if UNITY_EDITOR
-        var copy = Instantiate(draft); copy.displayName = selected.Label + " Copy"; copy.name = copy.displayName;
+        var copy = Instantiate(draft); copy.displayName = selected.Label + GameText.Get("Combat", "preset.copySuffix"); copy.name = copy.displayName;
         string path = UnityEditor.AssetDatabase.GenerateUniqueAssetPath("Assets/_Project/Settings/Combos/" + copy.name + ".asset");
         UnityEditor.AssetDatabase.CreateAsset(copy, path);
+        var collection = UnityEditor.Localization.LocalizationEditorSettings.GetStringTableCollection("Combat");
+        string stem = string.Join(".", System.Text.RegularExpressions.Regex.Matches(copy.name.ToLowerInvariant(), "[a-z0-9]+")
+            .Cast<System.Text.RegularExpressions.Match>().Take(3).Select(match => match.Value));
+        if (string.IsNullOrEmpty(stem)) stem = "combo.copy";
+        var table = collection.StringTables.First(t => t.LocaleIdentifier.Code == "en");
+        string key = stem; int suffix = 2;
+        while (collection.SharedData.GetEntry(key) != null) key = stem + suffix++;
+        var entry = table.AddEntry(key, copy.displayName);
+        copy.displayNameLocalized = new UnityEngine.Localization.LocalizedString("Combat", entry.KeyId);
+        UnityEditor.EditorUtility.SetDirty(table); UnityEditor.EditorUtility.SetDirty(collection.SharedData); UnityEditor.EditorUtility.SetDirty(copy);
+        UnityEditor.Localization.LocalizationEditorSettings.EditorEvents.RaiseCollectionModified(this, collection);
         UnityEditor.Undo.RecordObject(settings, "Add combo preset");
         settings.presets = settings.presets.Concat(new[] {copy}).ToArray();
         UnityEditor.EditorUtility.SetDirty(settings); UnityEditor.AssetDatabase.SaveAssets(); Load(copy);

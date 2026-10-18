@@ -19,9 +19,9 @@ public sealed class LobbyPlayerCard : MonoBehaviour
             punchAt = Time.unscaledTime;
         identity = id; ready = isReady;
         targetColor = !occupied ? settings.emptyColor : isReady ? settings.readyColor : settings.waitingColor;
-        pilotName.text = occupied ? name : "OPEN SLOT";
-        role.text = occupied ? roleText : "INVITE A PILOT";
-        state.text = !occupied ? "AWAITING PILOT" : isReady ? "READY" : "WAITING";
+        pilotName.text = occupied ? name : GameText.Get("Lobby", "slot.open");
+        role.text = occupied ? roleText : GameText.Get("Lobby", "slot.invite");
+        state.text = !occupied ? GameText.Get("Lobby", "slot.empty") : isReady ? GameText.Get("Lobby", "slot.ready") : GameText.Get("Lobby", "slot.waiting");
         if (!initialized) { border.color = state.color = targetColor; initialized = true; }
         background.color = Color.Lerp(settings.cardColor, targetColor, occupied ? 0.08f : 0.025f);
     }

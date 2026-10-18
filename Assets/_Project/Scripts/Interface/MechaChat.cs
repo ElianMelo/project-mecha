@@ -79,7 +79,7 @@ public sealed class MechaChat : MonoBehaviour
     private void Update()
     {
         messages.text = history.Render(Time.unscaledTime);
-        hint.text = Editing ? "ENTER Send  /  ESC Cancel" : "SQUAD  /  ENTER Chat  /  F2 Hide";
+        hint.text = Editing ? GameText.Get("Chat", "controls.editing") : GameText.Get("Chat", "controls.idle");
         RefreshVisibility();
         if (!Available) return;
         if (changedFrame == Time.frameCount) return;
@@ -132,7 +132,7 @@ public sealed class MechaChat : MonoBehaviour
         string text = ChatHistory.Clean(request.Text, settings.characterLimit);
         if (text.Length == 0) return;
         lastSent[sender] = Time.unscaledTime + settings.sendInterval;
-        string name = "Pilot " + (sender.ClientId + 1);
+        string name = GameText.Get("Chat", "pilot.prefix") + (sender.ClientId + 1);
         foreach (var owned in sender.Objects)
             if (owned != null && owned.TryGetComponent<PlayerIdentity>(out var identity)) { name = identity.PilotName; break; }
         network.ServerManager.Broadcast(new ChatDelivery { Pilot = name, Text = text });

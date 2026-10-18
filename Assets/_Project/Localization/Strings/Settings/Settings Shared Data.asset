@@ -1,0 +1,348 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Settings Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Settings
+  m_TableCollectionNameGuidString: 0bb092b73b279be4c8d0127d457a6f0e
+  m_Entries:
+  - m_Id: 958504960
+    m_Key: mode.windowed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 971087872
+    m_Key: mode.exclusive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 971087873
+    m_Key: mode.borderless
+    m_Metadata:
+      m_Items: []
+  - m_Id: 971087874
+    m_Key: sync.off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 971087875
+    m_Key: sync.on
+    m_Metadata:
+      m_Items: []
+  - m_Id: 979476480
+    m_Key: frames.unlimited
+    m_Metadata:
+      m_Items: []
+  - m_Id: 979476481
+    m_Key: units.fps
+    m_Metadata:
+      m_Items: []
+  - m_Id: 979476482
+    m_Key: units.hz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 979476483
+    m_Key: video.editorPreview
+    m_Metadata:
+      m_Items: []
+  - m_Id: 979476484
+    m_Key: video.applyHint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 983670784
+    m_Key: refresh.desktop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 983670785
+    m_Key: refresh.suffix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 983670786
+    m_Key: frames.vsync
+    m_Metadata:
+      m_Items: []
+  - m_Id: 983670787
+    m_Key: video.defaults
+    m_Metadata:
+      m_Items: []
+  - m_Id: 983670788
+    m_Key: video.saved
+    m_Metadata:
+      m_Items: []
+  - m_Id: 983670789
+    m_Key: display.confirmation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 983670790
+    m_Key: display.seconds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 987865088
+    m_Key: video.restored
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687423463424
+    m_Key: term.Mobile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687423463425
+    m_Key: term.PC
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758378504192
+    m_Key: audio.title.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758391087104
+    m_Key: audio.subtitle.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758391087105
+    m_Key: audio.master.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758391087106
+    m_Key: audio.ui.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758395281408
+    m_Key: audio.sfx.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758395281409
+    m_Key: audio.ambient.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758395281410
+    m_Key: audio.music.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758395281411
+    m_Key: audio.help.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758399475712
+    m_Key: audio.defaults.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758399475713
+    m_Key: audio.back.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758424641536
+    m_Key: options.title.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758424641537
+    m_Key: options.subtitle.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758424641538
+    m_Key: options.resume.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758428835840
+    m_Key: options.audio.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758428835841
+    m_Key: options.video.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758433030144
+    m_Key: options.help.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758433030145
+    m_Key: video.title.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758433030146
+    m_Key: video.subtitle.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758437224448
+    m_Key: video.back.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758437224449
+    m_Key: video.mode.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758441418752
+    m_Key: video.resolution.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758441418753
+    m_Key: video.refresh.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758445613056
+    m_Key: video.quality.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758449807360
+    m_Key: video.vsync.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758449807361
+    m_Key: video.frameLimit.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758454001664
+    m_Key: video.help.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758454001665
+    m_Key: video.apply.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758454001666
+    m_Key: video.defaults.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758458195968
+    m_Key: display.keep.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758458195969
+    m_Key: display.revert.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763751407616
+    m_Key: audio.title.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763751407617
+    m_Key: audio.subtitle.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763751407618
+    m_Key: audio.master.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763755601920
+    m_Key: audio.ui.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763755601921
+    m_Key: audio.sfx.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763755601922
+    m_Key: audio.ambient.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763759796224
+    m_Key: audio.music.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763759796225
+    m_Key: audio.help.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763759796226
+    m_Key: audio.defaults.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763763990528
+    m_Key: audio.back.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764493799424
+    m_Key: options.title.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764493799425
+    m_Key: options.subtitle.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764493799426
+    m_Key: options.resume.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764493799427
+    m_Key: options.audio.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764493799428
+    m_Key: options.video.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764497993728
+    m_Key: options.help.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764497993729
+    m_Key: video.title.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764497993730
+    m_Key: video.subtitle.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764502188032
+    m_Key: video.back.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764502188033
+    m_Key: video.mode.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764502188034
+    m_Key: video.resolution.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764506382336
+    m_Key: video.refresh.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764506382337
+    m_Key: video.quality.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764506382338
+    m_Key: video.vsync.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764506382339
+    m_Key: video.frameLimit.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764510576640
+    m_Key: video.help.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764510576641
+    m_Key: video.apply.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764510576642
+    m_Key: video.defaults.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764510576643
+    m_Key: display.keep.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 764510576644
+    m_Key: display.revert.prefab
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 4535699150239695841
+  references:
+    version: 2
+    RefIds:
+    - rid: 4535699150239695841
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1792276231377

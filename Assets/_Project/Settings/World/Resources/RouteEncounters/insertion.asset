@@ -12,6 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8deadf3fd6d7b3c4281ea9a7aebc5ce3, type: 3}
   m_Name: insertion
   m_EditorClassIdentifier: Assembly-CSharp::RouteEncounterDefinition
+  displayNameLocalized:
+    m_TableReference:
+      m_TableCollectionName: Routing
+    m_TableEntryReference:
+      m_KeyId: 767681470466
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  descriptionLocalized:
+    m_TableReference:
+      m_TableCollectionName: Routing
+    m_TableEntryReference:
+      m_KeyId: 767681470467
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  rewardPreviewLocalized:
+    m_TableReference:
+      m_TableCollectionName: Routing
+    m_TableEntryReference:
+      m_KeyId: 767681470468
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   encounterId: insertion
   displayName: Insertion
   description: A fixed staging arena with broad platforms. Eliminate the patrol to
@@ -27,3 +54,6 @@ MonoBehaviour:
   weight: 1
   minimumDepth: 1
   maximumDepth: 99
+  references:
+    version: 2
+    RefIds: []

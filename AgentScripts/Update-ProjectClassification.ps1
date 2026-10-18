@@ -98,6 +98,10 @@ $rows = foreach ($path in ($paths | Sort-Object -Unique)) {
         $evidence = 'Contains references to provisional art; prefab configuration is not itself placeholder artwork.'
     } elseif ($basePath -match '^Assets/(_Project|Scenes|Settings)/.+\.unity$') {
         $category = 'Scenes'; $status = 'Provisional'; $kind = 'Scene composition'
+    } elseif ($basePath -eq 'Assets/_Project/Localization/Fonts/EnglishDefault.asset') {
+        $category = 'Placeholder'; $status = 'Placeholder'; $origin = 'Supplied / imported; upstream AI origin unverified'
+        $kind = 'Imported TMP font artwork copied for localized Addressables loading'
+        $evidence = 'Docs/Localization.md; copied from the existing Liberation Sans SDF asset, outside Resources. No final artwork approval.'
     } elseif ($basePath -match '^Assets/(_Project|Scenes|Settings)/.+\.(asset|mixer|inputactions|controller|overrideController|physicsMaterial|physicMaterial|renderTexture|shadersubgraph)$') {
         $category = 'Authored Data'; $status = 'Provisional'; $kind = 'Settings, definition or native configuration'
         $evidence = 'User classification correction 2026-10-16: authored configuration is separate from unfinished art.'

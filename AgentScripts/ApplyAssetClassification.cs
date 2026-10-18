@@ -5,12 +5,18 @@ using System.Text;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using Newtonsoft.Json;
 
 // Run through official Pipeline run_script after updating the file inventory.
 // Unity's built-in labels remain editable in the Project window.
 public static class ApplyAssetClassification
 {
+    // Localization also bundles Newtonsoft in its editor assembly. Select the public
+    // package assembly explicitly to keep this external inspection tool unambiguous.
+    private static string SerializeJson(object value)
+    {
+        var json = AppDomain.CurrentDomain.GetAssemblies().Single(a => a.GetName().Name == "Newtonsoft.Json").GetType("Newtonsoft.Json.JsonConvert");
+        return (string)json.GetMethod("SerializeObject", new[]{typeof(object)}).Invoke(null, new[]{value});
+    }
     private static readonly string[] ManagedLabels = { "AI Generated", "Placeholder", "Others", "Code", "Prefabs", "Scenes", "Authored Data", "Reference", "VFXSource" };
 
     public static object Apply()
@@ -79,7 +85,7 @@ public static class ApplyAssetClassification
             }
         }
         finally { AssetDatabase.StopAssetEditing(); }
-        return JsonConvert.SerializeObject(new { total = entries.Count, offset, processed = batch.Length, labeled, changed,
+        return SerializeJson(new { total = entries.Count, offset, processed = batch.Length, labeled, changed,
             nextOffset = offset + batch.Length, complete = offset + batch.Length >= entries.Count, skipped });
     }
 
@@ -98,7 +104,7 @@ public static class ApplyAssetClassification
             if (entry.Value.Except(labels).Any() || labels.Contains("Reference") && labels.Contains("VFXSource"))
                 mismatches.Add(entry.Key);
         }
-        return JsonConvert.SerializeObject(new { assets = entries.Count, reference, source, mismatches,
+        return SerializeJson(new { assets = entries.Count, reference, source, mismatches,
             playMode = EditorApplication.isPlaying, compiling = EditorApplication.isCompiling });
     }
 
@@ -125,7 +131,7 @@ public static class ApplyAssetClassification
             if (!before.OrderBy(label=>label,StringComparer.Ordinal).SequenceEqual(after)) {AssetDatabase.SetLabels(asset,after);changed++;}
             labeled++;
         }
-        return JsonConvert.SerializeObject(new{prefix,labeled,changed});
+        return SerializeJson(new{prefix,labeled,changed});
     }
 
     public static object ApplyFireSkills()
@@ -133,7 +139,7 @@ public static class ApplyAssetClassification
         AssetDatabase.StartAssetEditing();
         try
         {
-            return JsonConvert.SerializeObject(new[] {
+            return SerializeJson(new[] {
                 ApplyPathPrefix("Assets/_Project/VFX/FireSkills"),
                 ApplyPathPrefix("Assets/_Project/VFX/SceneSupport"),
                 ApplyPathPrefix("Assets/_Project/Scripts/Combat/CombatEmissionOrigin"),

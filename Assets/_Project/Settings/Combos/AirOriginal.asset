@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68c9f7ea41634044b8bcac853656489, type: 3}
   m_Name: AirOriginal
   m_EditorClassIdentifier: Assembly-CSharp::ComboDefinition
+  displayNameLocalized:
+    m_TableReference:
+      m_TableCollectionName: Combat
+    m_TableEntryReference:
+      m_KeyId: 770005114881
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   displayName: Air Original
   domain: 1
   inputWindow: 0.9
@@ -19,3 +28,6 @@ MonoBehaviour:
   attacks:
   - {fileID: 11400000, guid: 2ef7c3de22225e84694ebbe49c6306ba, type: 2}
   - {fileID: 11400000, guid: 2ef7c3de22225e84694ebbe49c6306ba, type: 2}
+  references:
+    version: 2
+    RefIds: []

@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a645d58581cfc7e4585151eecb96da10, type: 3}
   m_Name: ControllerInterface
   m_EditorClassIdentifier: Assembly-CSharp::ControllerInterfaceSettings
+  controllerHelpLocalized:
+    m_TableReference:
+      m_TableCollectionName: Input
+    m_TableEntryReference:
+      m_KeyId: 769493409792
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   menuResumeDelay: 0.15
   navigationRepeatDelay: 0.35
@@ -31,3 +40,6 @@ MonoBehaviour:
 
     RT SMG  
     /   ENTER Chat'
+  references:
+    version: 2
+    RefIds: []

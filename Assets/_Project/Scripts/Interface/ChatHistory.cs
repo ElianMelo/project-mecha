@@ -8,7 +8,7 @@ public sealed class ChatHistory
     public int Count => lines.Count;
     public void Add(string name, string message, float now, float lifetime, int capacity)
     {
-        lines.Enqueue((Clean(name, 24, "Pilot") + ": " + message, now + lifetime));
+        lines.Enqueue((Clean(name, 24, GameText.Get("Chat", "pilot.fallback")) + ": " + message, now + lifetime));
         while (lines.Count > System.Math.Max(1, capacity)) lines.Dequeue();
     }
     public string Render(float now)

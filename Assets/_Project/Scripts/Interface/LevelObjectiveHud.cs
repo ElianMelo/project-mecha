@@ -38,9 +38,10 @@ public sealed class LevelObjectiveHud : MonoBehaviour
         }
         bool portal = levels.IsClear;
         if (portal) target = levels.Layout.Portal + Vector3.up * 0.9f;
-        objective.text = $"ROOM {levels.LevelNumber:00}  /  {levels.Layout.Description}  /  " +
+        objective.text = GameText.Get("HUD", "room.summary", (levels.LevelNumber),
+            (GameText.Term("Routing", levels.Layout.Shape).ToUpperInvariant() + (string.IsNullOrEmpty(levels.Layout.DescriptionDirection) ? "" : " " + GameText.Term("Routing", levels.Layout.DescriptionDirection)))) +
             (portal ? (Vector3.Distance(player.transform.position, levels.Layout.Portal) <= levels.Settings.portalInteractionRange
-                ? "HOLD " + GameInputPresentation.Hint("Attack") + "  ·  ENTER PORTAL" : "ROOM CLEAR  ·  FIND THE PORTAL") : $"{levels.Remaining} ENEMIES");
+                ? GameText.Get("HUD", "portal.hold") + GameInputPresentation.Hint("Attack") + GameText.Get("HUD", "portal.enter") : GameText.Get("HUD", "room.cleared")) : GameText.Get("HUD", "room.enemies", (levels.Remaining)));
         var travel = player.GetComponent<PlayerLevelTravel>();
         if (portalHold != null)
         {

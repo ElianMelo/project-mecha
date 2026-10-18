@@ -1,0 +1,224 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Routing Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Routing
+  m_TableCollectionNameGuidString: f6f7c2e59520bd941a007f2cc4fd108b
+  m_Entries:
+  - m_Id: 434216960
+    m_Key: node.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188480
+    m_Key: expedition.heading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188481
+    m_Key: encounter.heading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382784
+    m_Key: destination.confirmed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382785
+    m_Key: vote.yours
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382786
+    m_Key: vote.sending
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382787
+    m_Key: destination.available
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382788
+    m_Key: destination.cleared
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382789
+    m_Key: destination.scouting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382790
+    m_Key: squad.heading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382791
+    m_Key: vote.choosing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 463577088
+    m_Key: vote.waiting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 463577089
+    m_Key: vote.tiebreak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 463577090
+    m_Key: deployment.countdown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 463577091
+    m_Key: route.confirmed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 463577092
+    m_Key: encounter.select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 467771392
+    m_Key: controls.scout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 467771393
+    m_Key: controls.select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 467771394
+    m_Key: controls.withdraw
+    m_Metadata:
+      m_Items: []
+  - m_Id: 467771395
+    m_Key: controls.options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 476160000
+    m_Key: node.insertion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 476160001
+    m_Key: node.unavailable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 480354304
+    m_Key: node.confirmed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 480354305
+    m_Key: node.select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 480354306
+    m_Key: node.cleared
+    m_Metadata:
+      m_Items: []
+  - m_Id: 480354307
+    m_Key: node.scout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 480354308
+    m_Key: pilot.prefix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 484548608
+    m_Key: shader.baseColor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 484548609
+    m_Key: shader.color
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557120
+    m_Key: term.Rising
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557121
+    m_Key: term.Long
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557122
+    m_Key: term.Big
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557123
+    m_Key: term.UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557124
+    m_Key: term.DOWN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557125
+    m_Key: term.BOTH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557126
+    m_Key: term.RIGHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557127
+    m_Key: term.LEFT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767660498944
+    m_Key: big.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767681470464
+    m_Key: big.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767681470465
+    m_Key: big.reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767681470466
+    m_Key: insertion.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767681470467
+    m_Key: insertion.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767681470468
+    m_Key: insertion.reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767685664768
+    m_Key: long.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767685664769
+    m_Key: long.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767685664770
+    m_Key: long.reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767689859072
+    m_Key: rising.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767689859073
+    m_Key: rising.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767689859074
+    m_Key: rising.reward
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 4535699150239695840
+  references:
+    version: 2
+    RefIds:
+    - rid: 4535699150239695840
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1792276231253

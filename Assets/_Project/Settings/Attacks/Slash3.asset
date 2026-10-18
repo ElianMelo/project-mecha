@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d0c8407305438429d78cb432671fc8, type: 3}
   m_Name: Slash3
   m_EditorClassIdentifier: Assembly-CSharp::AttackPiece
+  displayNameLocalized:
+    m_TableReference:
+      m_TableCollectionName: Combat
+    m_TableEntryReference:
+      m_KeyId: 769891868680
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   displayName: Slash 3
   action:
     kind: 2
@@ -42,3 +51,18 @@ MonoBehaviour:
     pull: 0
     diveSpeed: 0
     pullSpeed: 6
+    hitActiveTime: 0
+    hitLength: 0
+    hitTravelTime: 0
+    hitRadius: 0.3
+    hitFirstAngle: 0
+    hitAngleStep: 0
+    hitPulseHeight: 0
+    hitOrigin: {x: 0.15, y: 0.85}
+    hitFromHand: 0
+    hitObstructions:
+      serializedVersion: 2
+      m_Bits: 192
+  references:
+    version: 2
+    RefIds: []

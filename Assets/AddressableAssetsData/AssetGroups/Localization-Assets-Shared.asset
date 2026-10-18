@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-Shared
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Localization-Assets-Shared
+  m_GUID: 9d3e8c31a9f018749ae5a25e468fbc9f
+  m_SerializeEntries:
+  - m_GUID: 06479e22c1acbe046b83d7ade969e255
+    m_Address: Assets/_Project/Localization/Strings/Input/Input Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0bb092b73b279be4c8d0127d457a6f0e
+    m_Address: Assets/_Project/Localization/Strings/Settings/Settings Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f64491c2b5452948a77c3e8aeb1bcff
+    m_Address: Assets/_Project/Localization/Strings/Lobby/Lobby Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4745a44ac6545124b956aa2a5b2604e6
+    m_Address: Assets/_Project/Localization/Strings/Diagnostics/Diagnostics Shared
+      Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4d9fac0b0ea47384495575afe1a42f7a
+    m_Address: Assets/_Project/Localization/Strings/HUD/HUD Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7282c23297bf3c8438e7ae5cc008dddc
+    m_Address: Assets/_Project/Localization/Strings/Chat/Chat Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b661cfc1c9dd8f43a8dc77601d2772e
+    m_Address: Assets/_Project/Localization/Strings/Combat/Combat Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab1099f6b65d40b44b887d8f4960cbda
+    m_Address: Assets/_Project/Localization/Fonts/Fonts Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6f7c2e59520bd941a007f2cc4fd108b
+    m_Address: Assets/_Project/Localization/Strings/Routing/Routing Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: f2ba16d24765f2841883252f33effbcd, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ac35035b6bb771744839145f15cf3d9b, type: 2}
+    - {fileID: 11400000, guid: be656d3ec6862a5488f30be23a729670, type: 2}
+    - {fileID: 11400000, guid: 214a5ebcdb9c75b4aa624c548b58dd63, type: 2}

@@ -27,7 +27,7 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
     {
         menu = owner; route = director; NodeId = node.id;
         var room = route.Encounter(node.encounterId);
-        label.text = room != null ? node.depth == 0 && room.encounterId == "insertion" ? "INSERTION" : room.shape.ToString().ToUpperInvariant() + " / " + (node.depth + 1).ToString("00") : "UNAVAILABLE";
+        label.text = room != null ? node.depth == 0 && room.encounterId == "insertion" ? GameText.Get("Routing", "node.insertion") : GameText.Term("Routing", room.shape).ToUpperInvariant() + " / " + (node.depth + 1).ToString("00") : GameText.Get("Routing", "node.unavailable");
         foreach (var text in new[] {label,state,votes}) text.transform.rotation = camera.transform.rotation;
         if (room != null && room.mapModel != null)
         {
@@ -46,10 +46,10 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
             visited ? route.Settings.visitedModelBrightness : route.Settings.lockedModelBrightness);
         ring.color = winner || visited ? route.Settings.visitedColor : available ? route.Settings.reachableColor : route.Settings.lockedColor;
         focusRing.enabled = focused; // Persistent even with every Animator disabled.
-        state.text = winner ? "CONFIRMED" : available ? "SELECT ROUTE" : visited ? "CLEARED" : "SCOUT AHEAD";
+        state.text = winner ? GameText.Get("Routing", "node.confirmed") : available ? GameText.Get("Routing", "node.select") : visited ? GameText.Get("Routing", "node.cleared") : GameText.Get("Routing", "node.scout");
         state.color = ring.color;
         var supporters = route.Pilots.Where(x => x.nodeId == NodeId).ToArray();
-        votes.text = string.Join("  ", supporters.Select(x => "P" + (System.Array.FindIndex(route.Pilots, p => p.playerId == x.playerId) + 1)));
+        votes.text = string.Join("  ", supporters.Select(x => GameText.Get("Routing", "pilot.prefix") + (System.Array.FindIndex(route.Pilots, p => p.playerId == x.playerId) + 1)));
         for (int i = 0; i < votePips.Length; i++)
         {
             votePips[i].enabled = i < supporters.Length;
@@ -61,7 +61,7 @@ public sealed class RouteMapNodeView : MonoBehaviour, IPointerEnterHandler, IPoi
     }
     private void CacheModelColors(GameObject miniature)
     {
-        int baseColor = Shader.PropertyToID("_BaseColor"), legacyColor = Shader.PropertyToID("_Color");
+        int baseColor = Shader.PropertyToID(GameText.Get("Routing", "shader.baseColor")), legacyColor = Shader.PropertyToID(GameText.Get("Routing", "shader.color"));
         foreach (var renderer in miniature.GetComponentsInChildren<MeshRenderer>(true))
         {
             var materials = renderer.sharedMaterials;

@@ -26,7 +26,7 @@ public class MechaGameplayHud : MonoBehaviour
     private bool controlsVisible;
     private bool refreshControlsLayout;
     private readonly string[] skillNames = new string[3];
-    private static readonly string[] SkillTitles = { "MEGA SLASH", "SWORD FIRE", "CRITICAL X" };
+    private static string[] SkillTitles => new[] { GameText.Get("HUD", "skill.megaSlash"), GameText.Get("HUD", "skill.swordFire"), GameText.Get("HUD", "skill.criticalX") };
     private static readonly string[] SkillActions = { "SkillA", "SkillS", "SkillD" };
     private void Awake()
     {
@@ -56,7 +56,7 @@ public class MechaGameplayHud : MonoBehaviour
         if (controlsToggle != null) controlsToggle.interactable = !MechaChat.IsTyping;
         if (controlsToggleLabel != null)
         {
-            controlsToggleLabel.text = GameInputPresentation.Hint("ControlsHelp") + (controlsVisible ? "  HIDE CONTROLS" : "  SHOW CONTROLS");
+            controlsToggleLabel.text = GameInputPresentation.Hint("ControlsHelp") + (controlsVisible ? GameText.Get("HUD", "controls.hide") : GameText.Get("HUD", "controls.show"));
             controlsToggleLabel.alpha = MechaChat.IsTyping ? 0.4f : 1f;
         }
     }
@@ -69,12 +69,12 @@ public class MechaGameplayHud : MonoBehaviour
             if (chatLayout != null) controlsRoot.anchoredPosition = chatLayout.offset + Vector2.down *
                 (MechaChat.Instance != null && MechaChat.Instance.ContentVisible ? chatLayout.size.y + 12f : 0f);
         }
-        if (promptRevision != GameInputPresentation.Revision)
+        if (promptRevision != GameInputPresentation.Revision + GameText.Revision)
         {
-            promptRevision = GameInputPresentation.Revision;
+            promptRevision = GameInputPresentation.Revision + GameText.Revision;
             for (int i = 0; i < skillNames.Length; i++) skillNames[i] = GameInputPresentation.Hint(SkillActions[i]) + "  " + SkillTitles[i];
             if (controls != null) controls.text = GameInputPresentation.UsingGamepad && GameManager.Instance != null
-                ? GameInputPresentation.ControllerHelp(GameManager.Instance.ControllerSettings) : settings.tutorialText;
+                ? GameInputPresentation.ControllerHelp(GameManager.Instance.ControllerSettings) : GameText.Get(settings.tutorialTextLocalized);
         }
         if (player == null && Time.unscaledTime >= nextSearch)
         {
@@ -85,30 +85,30 @@ public class MechaGameplayHud : MonoBehaviour
         if (player == null)
         {
             feedback?.Combo(false, 0);
-            status.text = "MECHA // SYSTEM STANDBY";
-            if (motion != null) motion.text = GameInputPresentation.UsingGamepad ? GameInputPresentation.Hint("Menu") + "  /  PLAY & ONLINE LOBBIES" : "1 LOCAL HOST    3 ONLINE LOBBIES";
-            if (link != null) link.text = "NO LINK   /   " + GameInputPresentation.Hint("Diagnostics") + " DIAGNOSTICS";
+            status.text = GameText.Get("HUD", "status.standby");
+            if (motion != null) motion.text = GameInputPresentation.UsingGamepad ? GameInputPresentation.Hint("Menu") + GameText.Get("HUD", "standby.gamepad") : GameText.Get("HUD", "standby.keyboard");
+            if (link != null) link.text = GameText.Get("HUD", "link.none") + GameInputPresentation.Hint("Diagnostics") + GameText.Get("HUD", "link.diagnostics");
             return;
         }
-        status.text = "MK-01  //  MECHA KNIGHT";
-        if (ammunition != null) ammunition.text = secondary != null ? $"{GameInputPresentation.Hint("SecondaryFire")}  SMG   {secondary.Ammo:00} / {secondary.Capacity}   ·   AUTO REFILL" : "";
-        if (healthValue != null) healthValue.text = $"AP   {health.Health:000} <size=12>/ {health.MaxHealth:0}</size>";
-        if (energyValue != null) energyValue.text = $"EN   {player.Mana:000} <size=12>/ {player.MaxMana:0}</size>";
-        if (motion != null) motion.text = $"{movement.MovementState.ToUpperInvariant()}    {Mathf.Abs(movement.Velocity.x):0.0} m/s    //    {player.Phase}";
-        if (motion != null && GameInputPresentation.Disconnected) motion.text = "CONTROLLER DISCONNECTED / RECONNECT OR USE KEYBOARD";
-        if (comboReadout != null && (player.ComboVisible || feedback == null)) comboReadout.text = player.ComboVisible ? $"<size=38>{player.ComboHits:00}</size>  HITS\n<color=#71E5E8>{player.ComboDamage:0}</color> DAMAGE" : "";
+        status.text = GameText.Get("HUD", "pilot.title");
+        if (ammunition != null) ammunition.text = secondary != null ? GameText.Get("HUD", "ammo.summary", (GameInputPresentation.Hint("SecondaryFire")), (secondary.Ammo), (secondary.Capacity)) : "";
+        if (healthValue != null) healthValue.text = GameText.Get("HUD", "resources.armor", (health.Health), (health.MaxHealth));
+        if (energyValue != null) energyValue.text = GameText.Get("HUD", "resources.energy", (player.Mana), (player.MaxMana));
+        if (motion != null) motion.text = GameText.Get("HUD", "motion.summary", (GameText.Term("Combat", movement.MovementState).ToUpperInvariant()), (Mathf.Abs(movement.Velocity.x)), (GameText.Term("Combat", player.Phase)));
+        if (motion != null && GameInputPresentation.Disconnected) motion.text = GameText.Get("HUD", "controller.disconnected");
+        if (comboReadout != null && (player.ComboVisible || feedback == null)) comboReadout.text = player.ComboVisible ? GameText.Get("HUD", "combo.summary", (player.ComboHits), (player.ComboDamage)) : "";
         feedback?.Combo(player.ComboVisible, player.ComboHits);
         var network = GameManager.Instance != null ? GameManager.Instance.Network : null;
         if (link != null) link.text = network != null && network.ClientManager.Started
-            ? $"{(network.ServerManager.Started ? "HOST" : "LINK")}   {network.TimeManager.RoundTripTime} ms   /   {GameInputPresentation.Hint("Diagnostics")} DIAGNOSTICS"
-            : "OFFLINE   /   " + GameInputPresentation.Hint("Diagnostics") + " DIAGNOSTICS";
+            ? GameText.Get("HUD", "link.summary", ((network.ServerManager.Started ? GameText.Get("HUD", "link.host") : GameText.Get("HUD", "link.client"))), (network.TimeManager.RoundTripTime), (GameInputPresentation.Hint("Diagnostics")))
+            : GameText.Get("HUD", "link.offline") + GameInputPresentation.Hint("Diagnostics") + GameText.Get("HUD", "link.diagnostics");
         if (feedback != null) feedback.Resources(health.Health, health.MaxHealth, player.Mana, player.MaxMana);
         else { healthFill.fillAmount = health.Health / health.MaxHealth; manaFill.fillAmount = player.Mana / player.MaxMana; }
         for (int i = 0; i < skills.Length; i++)
         {
             float cooldown = player.Cooldown(i);
             feedback?.Skill(i, cooldown, player.Mana >= player.Cost(i));
-            skills[i].text = skillNames[i] + "\n" + (cooldown > 0f ? $"{cooldown:0.0}s" : player.Mana < player.Cost(i) ? "LOW MP" : "READY") + $"  /  {player.Cost(i):0} MP";
+            skills[i].text = skillNames[i] + "\n" + (cooldown > 0f ? GameText.Get("HUD", "skill.cooldown", (cooldown)) : player.Mana < player.Cost(i) ? GameText.Get("HUD", "skill.lowEnergy") : GameText.Get("HUD", "skill.ready")) + GameText.Get("HUD", "skill.cost", (player.Cost(i)));
             skills[i].color = cooldown > 0f || player.Mana < player.Cost(i) ? new Color(0.44f, 0.51f, 0.55f) : settings != null ? settings.textColor : Color.white;
         }
     }

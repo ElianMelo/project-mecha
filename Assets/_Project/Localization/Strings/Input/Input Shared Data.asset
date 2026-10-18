@@ -1,0 +1,360 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Input Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Input
+  m_TableCollectionNameGuidString: 06479e22c1acbe046b83d7ade969e255
+  m_Entries:
+  - m_Id: 413245440
+    m_Key: keyboard.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 430022656
+    m_Key: keyboard.uppercase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 430022657
+    m_Key: keyboard.lowercase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994176
+    m_Key: key.jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994177
+    m_Key: key.z
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994178
+    m_Key: key.shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994179
+    m_Key: key.x
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994180
+    m_Key: key.c
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994181
+    m_Key: key.a
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994182
+    m_Key: key.s
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994183
+    m_Key: key.d
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450994184
+    m_Key: key.interact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188480
+    m_Key: key.menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188481
+    m_Key: key.f1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188482
+    m_Key: key.f2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188483
+    m_Key: key.f3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188484
+    m_Key: key.enter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268608
+    m_Key: term.A
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268609
+    m_Key: term.B
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268610
+    m_Key: term.X
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268611
+    m_Key: term.Y
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268612
+    m_Key: term.Cross
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268613
+    m_Key: term.Circle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268614
+    m_Key: term.Square
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268615
+    m_Key: term.Triangle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268616
+    m_Key: term.LB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268617
+    m_Key: term.RB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268618
+    m_Key: term.LT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268619
+    m_Key: term.RT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268620
+    m_Key: term.L1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268621
+    m_Key: term.R1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268622
+    m_Key: term.L2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268623
+    m_Key: term.R2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268624
+    m_Key: term.L3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268625
+    m_Key: term.R3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268626
+    m_Key: term.Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268627
+    m_Key: term.Select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268628
+    m_Key: term.Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268629
+    m_Key: term.View
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268630
+    m_Key: term.Options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268631
+    m_Key: term.Share
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268632
+    m_Key: term.LS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268633
+    m_Key: term.RS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268634
+    m_Key: term.Left Stick Press
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268635
+    m_Key: term.Right Stick Press
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268636
+    m_Key: term.Left Shoulder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268637
+    m_Key: term.Right Shoulder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268638
+    m_Key: term.Left Trigger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 689923268639
+    m_Key: term.Right Trigger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760714731520
+    m_Key: relay.placeholder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760731508736
+    m_Key: relay.host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760735703040
+    m_Key: relay.join
+    m_Metadata:
+      m_Items: []
+  - m_Id: 769493409792
+    m_Key: controls.gamepadHelp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071761887232
+    m_Key: command.heavy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071782858752
+    m_Key: command.direction.dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071782858753
+    m_Key: command.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071782858754
+    m_Key: command.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071782858755
+    m_Key: command.down.prefix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071782858756
+    m_Key: command.dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071782858757
+    m_Key: gamepad.buttonSouth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053056
+    m_Key: gamepad.buttonNorth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053057
+    m_Key: gamepad.buttonWest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053058
+    m_Key: gamepad.buttonEast
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053059
+    m_Key: gamepad.leftShoulder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053060
+    m_Key: gamepad.rightShoulder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053061
+    m_Key: gamepad.leftTrigger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053062
+    m_Key: gamepad.rightTrigger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053063
+    m_Key: gamepad.leftStickPress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053064
+    m_Key: gamepad.rightStickPress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053065
+    m_Key: gamepad.start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053066
+    m_Key: gamepad.select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053067
+    m_Key: playstation.buttonSouth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053068
+    m_Key: playstation.buttonNorth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053069
+    m_Key: playstation.buttonWest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053070
+    m_Key: playstation.buttonEast
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053071
+    m_Key: playstation.leftShoulder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053072
+    m_Key: playstation.rightShoulder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053073
+    m_Key: playstation.leftTrigger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053074
+    m_Key: playstation.rightTrigger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053075
+    m_Key: playstation.leftStickPress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053076
+    m_Key: playstation.rightStickPress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053077
+    m_Key: playstation.start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2071787053078
+    m_Key: playstation.select
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 4535699150239695836
+  references:
+    version: 2
+    RefIds:
+    - rid: 4535699150239695836
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1792276230781

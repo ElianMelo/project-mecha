@@ -15,6 +15,7 @@ public sealed class ProceduralLevelLayout
     public ArenaLayoutSettings.PlatformData[] Platforms;
     public Vector3[] Enemies;
     public string Description;
+    public string DescriptionDirection;
 
     public static ProceduralLevelLayout Generate(ProceduralLevelSettings settings, int seed, int number, float aspect, LevelShape? shape = null)
     {
@@ -112,6 +113,7 @@ public sealed class ProceduralLevelLayout
         string direction = room.Shape == LevelShape.Rising ? (normalized.y == 0f ? "UP" : normalized.y == 1f ? "DOWN" : "BOTH")
             : room.Shape == LevelShape.Long ? (normalized.x == 0f ? "RIGHT" : normalized.x == 1f ? "LEFT" : "BOTH") : "";
         room.Description = $"{room.Shape.ToString().ToUpperInvariant()} {direction}".Trim();
+        room.DescriptionDirection = direction;
         return room;
     }
     private static float Range(System.Random r, Vector2 range) => Mathf.Lerp(range.x, range.y, (float)r.NextDouble());

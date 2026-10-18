@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d429a37a255f54399a4d295cd486f4, type: 3}
   m_Name: GameplayHudLayout
   m_EditorClassIdentifier: Assembly-CSharp::GameplayHudLayoutSettings
+  tutorialTextLocalized:
+    m_TableReference:
+      m_TableCollectionName: HUD
+    m_TableEntryReference:
+      m_KeyId: 768532914176
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   panelColor: {r: 0.025, g: 0.042, b: 0.055, a: 0.92}
   textColor: {r: 0.84, g: 0.9, b: 0.91, a: 1}
   accentColor: {r: 0.36, g: 0.9, b: 0.92, a: 1}
@@ -51,3 +60,6 @@ MonoBehaviour:
 
     F1 Controls
     / F2 Chat visibility'
+  references:
+    version: 2
+    RefIds: []

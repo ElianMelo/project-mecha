@@ -5,10 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Mecha/Routing/Encounter")]
 public sealed class RouteEncounterDefinition : ScriptableObject
 {
+    public UnityEngine.Localization.LocalizedString displayNameLocalized = new UnityEngine.Localization.LocalizedString();
+    public UnityEngine.Localization.LocalizedString descriptionLocalized = new UnityEngine.Localization.LocalizedString();
+    public UnityEngine.Localization.LocalizedString rewardPreviewLocalized = new UnityEngine.Localization.LocalizedString();
     public string encounterId;
-    public string displayName = "Enemy patrol";
-    [TextArea] public string description = "Defeat every enemy to open the exit.";
-    public string rewardPreview = "Clear the encounter to continue.";
+    [HideInInspector] public string displayName = "Enemy patrol";
+    [TextArea] [HideInInspector] public string description = "Defeat every enemy to open the exit.";
+    [HideInInspector] public string rewardPreview = "Clear the encounter to continue.";
     public LevelShape shape;
     public ProceduralLevelSettings roomSettings;
     [Tooltip("Optional server-spawned encounter. Empty uses the existing enemy encounter.")]

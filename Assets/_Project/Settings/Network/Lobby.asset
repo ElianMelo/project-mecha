@@ -12,6 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0c0238986e4064abe578e7cd28d022, type: 3}
   m_Name: Lobby
   m_EditorClassIdentifier: Assembly-CSharp::LobbySettings
+  defaultLobbyNameLocalized:
+    m_TableReference:
+      m_TableCollectionName: Lobby
+    m_TableEntryReference:
+      m_KeyId: 768088317952
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  defaultPlayerNameLocalized:
+    m_TableReference:
+      m_TableCollectionName: Lobby
+    m_TableEntryReference:
+      m_KeyId: 768088317953
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   maxPlayers: 4
   sessionType: project-mecha-v1
   authenticationProfile: mecha
@@ -29,3 +47,6 @@ MonoBehaviour:
   textScale: 1.25
   transitionSeconds: 0.22
   readyPunch: 0.035
+  references:
+    version: 2
+    RefIds: []

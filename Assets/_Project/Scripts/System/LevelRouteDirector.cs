@@ -133,7 +133,7 @@ public sealed class LevelRouteDirector : NetworkBehaviour
     {
         var pilots = Roster().Select(x => {
             var identity = x.GetComponent<PlayerIdentity>();
-            return new RoutePilotVote { playerId = x.OwnerId, name = identity != null ? identity.PilotName : "Pilot " + (x.OwnerId + 1),
+            return new RoutePilotVote { playerId = x.OwnerId, name = identity != null ? identity.PilotName : GameText.Get("Lobby", "pilot.number", x.OwnerId + 1),
                 colorSlot = identity != null ? identity.ColorSlot : x.OwnerId, nodeId = ballot.Votes.TryGetValue(x.OwnerId, out int vote) ? vote : -1 };
         }).ToArray();
         PresentState(generation, current, visited.ToArray(), ballot.Phase, ballot.Winner, ballot.Candidates,

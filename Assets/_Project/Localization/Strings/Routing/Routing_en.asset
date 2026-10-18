@@ -1,0 +1,231 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Routing_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: f6f7c2e59520bd941a007f2cc4fd108b, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 434216960
+    m_Localized: 'Route '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188480
+    m_Localized: 'EXPEDITION / '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 455188481
+    m_Localized: 'ENCOUNTER '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382784
+    m_Localized: DESTINATION CONFIRMED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382785
+    m_Localized: YOUR VOTE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382786
+    m_Localized: SENDING VOTE...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382787
+    m_Localized: AVAILABLE / CONFIRM TO SELECT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382788
+    m_Localized: CLEARED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382789
+    m_Localized: SCOUTING AHEAD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382790
+    m_Localized: 'SQUAD INTENT
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 459382791
+    m_Localized: Choosing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 463577088
+    m_Localized: 'WAITING FOR VOTES / '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 463577089
+    m_Localized: 'TIED VOTE / ROLL IN '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 463577090
+    m_Localized: 'DEPLOYING IN '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 463577091
+    m_Localized: ROUTE CONFIRMED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 463577092
+    m_Localized: SELECT NEXT ENCOUNTER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 467771392
+    m_Localized: 'D-PAD / STICK / ARROWS  Scout
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 467771393
+    m_Localized: ' / CLICK  Select
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 467771394
+    m_Localized: '  Withdraw vote
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 467771395
+    m_Localized: START / ESC  Options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 476160000
+    m_Localized: INSERTION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 476160001
+    m_Localized: UNAVAILABLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 480354304
+    m_Localized: CONFIRMED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 480354305
+    m_Localized: SELECT ROUTE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 480354306
+    m_Localized: CLEARED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 480354307
+    m_Localized: SCOUT AHEAD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 480354308
+    m_Localized: P
+    m_Metadata:
+      m_Items: []
+  - m_Id: 484548608
+    m_Localized: _BaseColor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 484548609
+    m_Localized: _Color
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557120
+    m_Localized: Rising
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557121
+    m_Localized: Long
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557122
+    m_Localized: Big
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557123
+    m_Localized: UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557124
+    m_Localized: DOWN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557125
+    m_Localized: BOTH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557126
+    m_Localized: RIGHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 687943557127
+    m_Localized: LEFT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767660498944
+    m_Localized: Open stronghold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767681470464
+    m_Localized: A broad, multi-tier combat arena. Expect staggered platforms, mixed
+      elevations, and several approaches to the enemy patrol.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767681470465
+    m_Localized: Clear the encounter to continue.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767681470466
+    m_Localized: Insertion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767681470467
+    m_Localized: A fixed staging arena with broad platforms. Eliminate the patrol
+      to unlock your first route choice.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767681470468
+    m_Localized: Clear the encounter to continue.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767685664768
+    m_Localized: Flank patrol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767685664769
+    m_Localized: A wide battlefield with low platforms. Expect long firing lanes,
+      room to dash, and enemy pressure from the flanks.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767685664770
+    m_Localized: Clear the encounter to continue.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767689859072
+    m_Localized: Vertical assault
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767689859073
+    m_Localized: Fight through stacked decks and narrow landings. Expect enemies
+      above and below you, with vertical approaches between platforms.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 767689859074
+    m_Localized: Clear the encounter to continue.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

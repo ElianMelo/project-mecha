@@ -17,12 +17,12 @@ public sealed class MechaLobbyPanel : MonoBehaviour
     private bool wasInGame;
     private ControllerTextEntry textEntry;
     public bool IsVisible => panel.activeSelf;
-    public string PilotName => ChatHistory.Clean(playerName.text, 24, service.Settings.defaultPlayerName);
+    public string PilotName => ChatHistory.Clean(playerName.text, 24, GameText.Get(service.Settings.defaultPlayerNameLocalized));
     private void Awake()
     {
         textEntry = GetComponent<ControllerTextEntry>();
         rowIds = new string[lobbyRows.Length];
-        playerName.text = service.Settings.defaultPlayerName; lobbyName.text = service.Settings.defaultLobbyName;
+        playerName.text = GameText.Get(service.Settings.defaultPlayerNameLocalized); lobbyName.text = GameText.Get(service.Settings.defaultLobbyNameLocalized);
         create.onClick.AddListener(() => { _ = service.CreateAsync(lobbyName.text, playerName.text); });
         join.onClick.AddListener(() => { if (!string.IsNullOrWhiteSpace(joinCode.text)) _ = service.JoinAsync(joinCode.text, playerName.text, true); });
         ready.onClick.AddListener(() => { _ = service.ToggleReadyAsync(); });
@@ -81,12 +81,12 @@ public sealed class MechaLobbyPanel : MonoBehaviour
         localHost.interactable = localJoin.interactable = !service.Busy && !service.InGame;
         leave.interactable = !service.Busy && !service.Starting;
         ready.interactable = joined && !service.Session.IsLocked && !service.Busy && !service.Starting && !service.InGame;
-        readyText.text = service.IsReady ? "NOT READY" : "READY";
+        readyText.text = service.IsReady ? GameText.Get("Lobby", "ready.cancel") : GameText.Get("Lobby", "ready.confirm");
         var buttonImage = ready.targetGraphic as UnityEngine.UI.Image;
         if (buttonImage != null) buttonImage.color = service.IsReady ? service.Settings.readyColor : service.Settings.waitingColor;
         status.color = service.Busy || service.Starting ? service.Settings.waitingColor : service.Settings.readyColor;
         int pages = Mathf.Max(1, Mathf.CeilToInt((float)service.Lobbies.Count / lobbyRows.Length));
-        page = Mathf.Clamp(page, 0, pages - 1); pageText.text = $"{page + 1} / {pages}  ·  AUTO REFRESH 1s";
+        page = Mathf.Clamp(page, 0, pages - 1); pageText.text = GameText.Get("Lobby", "browser.pagination", (page + 1), (pages));
         previous.interactable = page > 0; next.interactable = page + 1 < pages;
         for (int i = 0; i < lobbyRows.Length; i++)
         {
@@ -95,11 +95,11 @@ public sealed class MechaLobbyPanel : MonoBehaviour
             lobbyRows[i].gameObject.SetActive(exists); rowIds[i] = null;
             if (!exists) continue;
             var lobby = service.Lobbies[index]; rowIds[i] = lobby.Id;
-            lobbyRows[i].GetComponentInChildren<TMP_Text>().text = $"{lobby.Name}    {lobby.MaxPlayers - lobby.AvailableSlots}/{lobby.MaxPlayers}    JOIN →";
+            lobbyRows[i].GetComponentInChildren<TMP_Text>().text = GameText.Get("Lobby", "browser.row", (lobby.Name), (lobby.MaxPlayers - lobby.AvailableSlots), (lobby.MaxPlayers));
             lobbyRows[i].interactable = !service.Busy && !service.InGame;
         }
         if (!joined) return;
-        roomTitle.text = service.Session.Name + "\nLOBBY CODE  " + service.Session.Code;
+        roomTitle.text = service.Session.Name + GameText.Get("Lobby", "room.code") + service.Session.Code;
         int slotIndex = 0, readyCount = 0;
         foreach (var player in service.Session.Players)
         {
@@ -107,11 +107,11 @@ public sealed class MechaLobbyPanel : MonoBehaviour
             if (isReady) readyCount++;
             if (slotIndex < playerCards.Length)
                 playerCards[slotIndex++].Present(player.Id, MechaLobbyService.Read(player, "name"),
-                    player.Id == service.Session.Host ? "EXPEDITION HOST" : "SQUAD PILOT", isReady);
+                    player.Id == service.Session.Host ? GameText.Get("Lobby", "role.host") : GameText.Get("Lobby", "role.pilot"), isReady);
         }
         for (; slotIndex < playerCards.Length; slotIndex++) playerCards[slotIndex].Present(null, null, null, false);
-        readiness.text = service.Starting ? "DEPLOYING SQUAD…" : $"{readyCount} / {service.Session.Players.Count}  PILOTS READY";
+        readiness.text = service.Starting ? GameText.Get("Lobby", "deployment.starting") : GameText.Get("Lobby", "pilots.ready", (readyCount), (service.Session.Players.Count));
         readiness.color = service.Starting || readyCount == service.Session.Players.Count ? service.Settings.readyColor : service.Settings.waitingColor;
-        members.text = service.Starting ? "Squad confirmed. Preparing your expedition…" : "Ready up when equipped. Deployment begins when every pilot is ready.";
+        members.text = service.Starting ? GameText.Get("Lobby", "deployment.confirmed") : GameText.Get("Lobby", "ready.instructions");
     }
 }

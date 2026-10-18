@@ -1,0 +1,188 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: HUD Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: HUD
+  m_TableCollectionNameGuidString: 4d9fac0b0ea47384495575afe1a42f7a
+  m_Entries:
+  - m_Id: 413245440
+    m_Key: room.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 430022656
+    m_Key: portal.hold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 434216960
+    m_Key: portal.enter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 434216961
+    m_Key: room.cleared
+    m_Metadata:
+      m_Items: []
+  - m_Id: 434216962
+    m_Key: room.enemies
+    m_Metadata:
+      m_Items: []
+  - m_Id: 958504960
+    m_Key: skill.megaSlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 958504961
+    m_Key: skill.swordFire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 958504962
+    m_Key: skill.criticalX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 962699264
+    m_Key: controls.hide
+    m_Metadata:
+      m_Items: []
+  - m_Id: 962699265
+    m_Key: controls.show
+    m_Metadata:
+      m_Items: []
+  - m_Id: 962699266
+    m_Key: status.standby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 962699267
+    m_Key: standby.gamepad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 966893568
+    m_Key: standby.keyboard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 966893569
+    m_Key: link.none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 966893570
+    m_Key: link.diagnostics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 966893571
+    m_Key: pilot.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 966893572
+    m_Key: ammo.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 966893573
+    m_Key: resources.armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 966893574
+    m_Key: resources.energy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 971087872
+    m_Key: motion.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 971087873
+    m_Key: controller.disconnected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 971087874
+    m_Key: combo.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 971087875
+    m_Key: link.host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 971087876
+    m_Key: link.client
+    m_Metadata:
+      m_Items: []
+  - m_Id: 971087877
+    m_Key: link.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 971087878
+    m_Key: link.offline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 975282176
+    m_Key: skill.cooldown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 975282177
+    m_Key: skill.lowEnergy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 975282178
+    m_Key: skill.ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 975282179
+    m_Key: skill.cost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747825635328
+    m_Key: briefing.expedition
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747846606848
+    m_Key: briefing.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747846606849
+    m_Key: briefing.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747846606850
+    m_Key: briefing.state
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747846606851
+    m_Key: briefing.roster
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747850801152
+    m_Key: briefing.countdown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747850801153
+    m_Key: briefing.controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 759800373248
+    m_Key: brand.scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 762019160064
+    m_Key: brand.prefab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 768532914176
+    m_Key: controls.keyboardHelp
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 4535699150239695838
+  references:
+    version: 2
+    RefIds:
+    - rid: 4535699150239695838
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1792276231010

@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d0c8407305438429d78cb432671fc8, type: 3}
   m_Name: SwordFire
   m_EditorClassIdentifier: Assembly-CSharp::AttackPiece
+  displayNameLocalized:
+    m_TableReference:
+      m_TableCollectionName: Combat
+    m_TableEntryReference:
+      m_KeyId: 770122555395
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   displayName: Sword Fire
   action:
     kind: 6
@@ -54,3 +63,6 @@ MonoBehaviour:
     hitObstructions:
       serializedVersion: 2
       m_Bits: 192
+  references:
+    version: 2
+    RefIds: []

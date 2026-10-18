@@ -74,10 +74,10 @@ public sealed class GameplayDiagnostics : MonoBehaviour
     private void RecordInput(string command)
     {
         for (int i = history.Length - 1; i > 0; i--) history[i] = history[i - 1];
-        history[0] = $"{Time.frameCount:000000}   {command}"; historyCount = Mathf.Min(historyCount + 1, history.Length);
+        history[0] = GameText.Get("Diagnostics", "input.history", (Time.frameCount), (command)); historyCount = Mathf.Min(historyCount + 1, history.Length);
     }
     private void RecordSkill(int slot) => RecordInput(GameInputPresentation.Hint(slot == 0 ? "SkillA" : slot == 1 ? "SkillS" : "SkillD") +
-        (slot == 0 ? " / MEGA" : slot == 1 ? " / FIRE" : " / CRITICAL X"));
+        (slot == 0 ? GameText.Get("Diagnostics", "skill.mega") : slot == 1 ? GameText.Get("Diagnostics", "skill.fire") : GameText.Get("Diagnostics", "skill.critical")));
     private void RecordDamage(float damage) { if (firstDamage < 0f) firstDamage = Time.unscaledTime; sessionDamage += damage; }
     public void Toggle()
     {
@@ -90,27 +90,27 @@ public sealed class GameplayDiagnostics : MonoBehaviour
     {
         var network = GameManager.Instance != null ? GameManager.Instance.Network : null;
         if (network != null && network.ClientManager.Started && !network.ServerManager.Started)
-        { notice.text = "Enemy practice control belongs to the local host."; return; }
+        { notice.text = GameText.Get("Diagnostics", "practice.hostOnly"); return; }
         bool passive = false;
         foreach (var enemy in EnemyController.ActiveEnemies) { passive = !enemy.PracticePassive; break; }
         foreach (var enemy in EnemyController.ActiveEnemies) enemy.PracticePassive = passive;
-        notice.text = passive ? "Enemy AI held. Damage, flinch, launch and physics remain active." : "Enemy AI resumed.";
+        notice.text = passive ? GameText.Get("Diagnostics", "ai.held") : GameText.Get("Diagnostics", "ai.resumed");
     }
-    public void ToggleHitboxes() { hitboxes = !hitboxes; notice.text = hitboxes ? "Hit volume shown in Scene view with Gizmos enabled." : "Hit volume hidden."; }
+    public void ToggleHitboxes() { hitboxes = !hitboxes; notice.text = hitboxes ? GameText.Get("Diagnostics", "hitbox.shown") : GameText.Get("Diagnostics", "hitbox.hidden"); }
     public void ResetCounters()
     {
         player?.ResetDamageReadout(); firstDamage = -1f; sessionDamage = 0f; historyCount = 0;
-        Array.Clear(history, 0, history.Length); notice.text = "Damage and input counters reset.";
+        Array.Clear(history, 0, history.Length); notice.text = GameText.Get("Diagnostics", "counters.reset");
     }
     public void RefillPractice()
     {
-        if (player == null || player.NetworkObject.IsSpawned) { notice.text = "Refill is available in the offline practice deck."; return; }
-        player.ResetPracticeResources(); notice.text = "Practice energy and skill cooldowns reset.";
+        if (player == null || player.NetworkObject.IsSpawned) { notice.text = GameText.Get("Diagnostics", "refill.offlineOnly"); return; }
+        player.ResetPracticeResources(); notice.text = GameText.Get("Diagnostics", "resources.reset");
     }
     public void CopySnapshot()
     {
-        Refresh(); GUIUtility.systemCopyBuffer = readout.text + "\nINPUTS\n" + inputHistory.text;
-        notice.text = "Snapshot copied to clipboard.";
+        Refresh(); GUIUtility.systemCopyBuffer = readout.text + GameText.Get("Diagnostics", "input.heading") + inputHistory.text;
+        notice.text = GameText.Get("Diagnostics", "snapshot.copied");
     }
     private void Refresh()
     {
@@ -122,21 +122,21 @@ public sealed class GameplayDiagnostics : MonoBehaviour
         var network = GameManager.Instance != null ? GameManager.Instance.Network : null;
         bool connected = network != null && network.ClientManager.Started;
         text.Clear();
-        text.AppendLine($"PERFORMANCE    {(mean > 0f ? 1000f / mean : 0f):0} FPS    {mean:0.00} ms    P95 {p95:0.00} ms");
-        text.AppendLine($"MEMORY         {UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong() / 1048576f:0} MB    MANAGED {GC.GetTotalMemory(false) / 1048576f:0.0} MB");
-        text.AppendLine(connected ? $"LINK           {(network.ServerManager.Started ? "LOCAL HOST" : "CLIENT")}    RTT {network.TimeManager.RoundTripTime} ms    {network.TimeManager.TickRate} Hz" : "LINK           OFFLINE    RTT --");
+        text.AppendLine(GameText.Get("Diagnostics", "stats.performance", ((mean > 0f ? 1000f / mean : 0f)), (mean), (p95)));
+        text.AppendLine(GameText.Get("Diagnostics", "stats.memory", (UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong() / 1048576f), (GC.GetTotalMemory(false) / 1048576f)));
+        text.AppendLine(connected ? GameText.Get("Diagnostics", "stats.link", ((network.ServerManager.Started ? GameText.Get("Diagnostics", "link.host") : GameText.Get("Diagnostics", "link.client"))), (network.TimeManager.RoundTripTime), (network.TimeManager.TickRate)) : GameText.Get("Diagnostics", "link.offline"));
         if (player != null)
         {
-            text.AppendLine($"MOVEMENT       {movement.MovementState}    Vx {movement.Velocity.x:0.00}    Vy {movement.Velocity.y:0.00}");
-            text.AppendLine($"SUPPORT        {(movement.IsGrounded ? "GROUND" : "AIR")}    DASH RECOVERY {movement.RecoveryRemaining * 1000f:0} ms");
-            text.AppendLine($"ACTION         {player.CurrentAction} / {player.Phase}    {player.ActionElapsed * 60f:0.0} / {player.ActionDuration * 60f:0.0}f @60");
-            text.AppendLine($"CANCEL         {player.CancelRemaining * 1000f:0} ms    {(player.IsSkillActive ? "SKILL LOCK" : "BRANCH WINDOWS")}");
-            text.AppendLine($"DAMAGE         LAST {player.LastDamage:0}    COMBO {player.ComboDamage:0} / {player.ComboHits} HITS");
-            text.AppendLine($"SESSION        {player.TotalDamage:0}    BEST {player.PeakComboDamage:0}    AVG DPS {(firstDamage < 0f ? 0f : sessionDamage / Mathf.Max(1f, Time.unscaledTime - firstDamage)):0.0}");
+            text.AppendLine(GameText.Get("Diagnostics", "stats.movement", (GameText.Term("Combat", movement.MovementState)), (movement.Velocity.x), (movement.Velocity.y)));
+            text.AppendLine(GameText.Get("Diagnostics", "stats.support", ((movement.IsGrounded ? GameText.Get("Diagnostics", "support.ground") : GameText.Get("Diagnostics", "support.air"))), (movement.RecoveryRemaining * 1000f)));
+            text.AppendLine(GameText.Get("Diagnostics", "stats.action", (GameText.Term("Combat", player.CurrentAction)), (GameText.Term("Combat", player.Phase)), (player.ActionElapsed * 60f), (player.ActionDuration * 60f)));
+            text.AppendLine(GameText.Get("Diagnostics", "stats.cancel", (player.CancelRemaining * 1000f), ((player.IsSkillActive ? GameText.Get("Diagnostics", "cancel.skillLock") : GameText.Get("Diagnostics", "cancel.branchWindows")))));
+            text.AppendLine(GameText.Get("Diagnostics", "stats.damage", (player.LastDamage), (player.ComboDamage), (player.ComboHits)));
+            text.AppendLine(GameText.Get("Diagnostics", "stats.session", (player.TotalDamage), (player.PeakComboDamage), ((firstDamage < 0f ? 0f : sessionDamage / Mathf.Max(1f, Time.unscaledTime - firstDamage)))));
         }
         int juggling = 0;
         foreach (var enemy in EnemyController.ActiveEnemies) if (enemy != null && !enemy.IsDead && enemy.IsJuggling) juggling++;
-        text.AppendLine($"ENEMIES        {EnemyController.ActiveEnemies.Count}    AIRBORNE {juggling}    TEMPO {Time.timeScale:0.00}x");
+        text.AppendLine(GameText.Get("Diagnostics", "stats.enemies", (EnemyController.ActiveEnemies.Count), (juggling), (Time.timeScale)));
         readout.text = text.ToString();
         text.Clear();
         for (int i = 0; i < historyCount; i++) text.AppendLine(history[i]);

@@ -35,7 +35,7 @@ public class PlayerInputs : NetworkBehaviour
     {
         input = GetComponent<PlayerInput>();
     }
-    public void OnTech(InputValue value) { if (HasControl && !typing && value.isPressed) { OnCommand?.Invoke(GameInputPresentation.Hint("Tech") + " / HEAVY ATTACK"); OnTechInput?.Invoke(); } }
+    public void OnTech(InputValue value) { if (HasControl && !typing && value.isPressed) { OnCommand?.Invoke(GameText.Get("Input", "command.heavy", GameInputPresentation.Hint("Tech"))); OnTechInput?.Invoke(); } }
     public void OnInteract(InputValue value)
     {
         var selected = EventSystem.current?.currentSelectedGameObject;
@@ -139,7 +139,7 @@ public class PlayerInputs : NetworkBehaviour
             float previous = direction > 0 ? lastRight : lastLeft;
             if (Time.time - previous <= settings.doubleTapWindow)
             {
-                OnCommand?.Invoke(direction > 0 ? ">> / DASH" : "<< / DASH"); OnDashInput?.Invoke(direction);
+                OnCommand?.Invoke(GameText.Get("Input", "command.direction.dash", direction > 0 ? ">>" : "<<")); OnDashInput?.Invoke(direction);
                 if (direction > 0) lastRight = -10f; else lastLeft = -10f;
             }
             else if (direction > 0) lastRight = Time.time; else lastLeft = Time.time;
@@ -150,13 +150,13 @@ public class PlayerInputs : NetworkBehaviour
     {
         if (!HasControl || typing) return;
         JumpHeld = value.isPressed;
-        if (JumpHeld) { LastJumpPressed = Time.time; OnCommand?.Invoke("UP"); OnJumpInput?.Invoke(); }
+        if (JumpHeld) { LastJumpPressed = Time.time; OnCommand?.Invoke(GameText.Get("Input", "command.up")); OnJumpInput?.Invoke(); }
     }
     public void OnDown(InputValue value)
     {
         if (!HasControl || typing) return;
         DownHeld = value.isPressed;
-        if (DownHeld) { OnCommand?.Invoke("DOWN"); OnDownInput?.Invoke(); }
+        if (DownHeld) { OnCommand?.Invoke(GameText.Get("Input", "command.down")); OnDownInput?.Invoke(); }
     }
     public void OnAttack(InputValue value)
     {
@@ -164,13 +164,13 @@ public class PlayerInputs : NetworkBehaviour
         if (GetComponent<PlayerLevelTravel>()?.CanUsePortal == true) return;
         // Read the action state so a simultaneous Down+Z is independent of callback order.
         if (downAction != null) DownHeld = downAction.IsPressed();
-        OnCommand?.Invoke((DownHeld ? "DOWN + " : "") + GameInputPresentation.Hint("Attack")); OnAttackInput?.Invoke();
+        OnCommand?.Invoke((DownHeld ? GameText.Get("Input", "command.down.prefix") : "") + GameInputPresentation.Hint("Attack")); OnAttackInput?.Invoke();
     }
     public void OnDash(InputValue value)
     {
         if (!HasControl || typing || !value.isPressed) return;
         Vector2 move = moveAction != null ? moveAction.ReadValue<Vector2>() : MoveInput;
-        OnCommand?.Invoke("DASH");
+        OnCommand?.Invoke(GameText.Get("Input", "command.dash"));
         OnDashInput?.Invoke(Mathf.Abs(move.x) < settings.movementDeadzone ? 0 : (move.x > 0f ? 1 : -1));
     }
     public void OnSkillA(InputValue value) { if (HasControl && !typing && value.isPressed) OnSkillInput?.Invoke(0); }

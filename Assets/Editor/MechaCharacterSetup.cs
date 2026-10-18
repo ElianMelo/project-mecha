@@ -148,6 +148,14 @@ public static class MechaCharacterSetup
             MechaPresentationSetup.Assign(root.GetComponent<PlayerHealth>(),"settings",MechaPresentationSetup.Profile<PlayerHealthSettings>("PlayerHealth"));
             MechaPresentationSetup.Assign(MechaPresentationSetup.Ensure<PlayerAwareness>(root),"settings",MechaPresentationSetup.Profile<PlayerAwarenessSettings>("PlayerAwareness"));
             MechaPresentationSetup.Assign(MechaPresentationSetup.Ensure<PlayerEnemyCollision>(root),"settings",MechaPresentationSetup.Create<PlayerBodyCollisionSettings>("PlayerBodyCollision"));
+            // An explicitly selected replacement visual owns its retargeted profile.
+            // Reapplying presentation must not pair that rig with the original clips.
+            var currentPresentation=root.GetComponent<CharacterAnimator>();
+            if(currentPresentation!=null)
+            {
+                var currentProfile=new SerializedObject(currentPresentation).FindProperty("settings").objectReferenceValue as CharacterAnimationSettings;
+                if(currentProfile!=null&&currentProfile.controller!=null)animation=currentProfile;
+            }
             ConfigurePresentation(root,animation);
             var movement=MechaPresentationSetup.Profile<PlayerMovementSettings>("PlayerMovement");
             var capsule=root.GetComponent<CapsuleCollider>();capsule.height=movement.capsuleHeight;capsule.radius=movement.capsuleRadius;capsule.center=movement.capsuleCenter;

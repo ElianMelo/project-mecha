@@ -20,6 +20,10 @@ public static class MechaToonSetup
         {
             foreach(var r in player.GetComponentsInChildren<Renderer>(true))
             {
+                // Native authored replacement meshes keep their texture/material and
+                // outline units; the legacy FBX conversion applies to its own artwork.
+                if(r is SkinnedMeshRenderer skin && skin.sharedMesh!=null &&
+                    AssetDatabase.GetAssetPath(skin.sharedMesh).EndsWith(".asset",System.StringComparison.Ordinal))continue;
                 var materials=r.sharedMaterials;for(int i=0;i<materials.Length;i++)materials[i]=i==0?body:blade;r.sharedMaterials=materials;
                 r.shadowCastingMode=ShadowCastingMode.On;r.receiveShadows=true;
                 ConfigureOutline(r,look);

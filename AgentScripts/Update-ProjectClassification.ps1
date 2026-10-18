@@ -137,6 +137,15 @@ $rows = foreach ($path in ($paths | Sort-Object -Unique)) {
     } elseif ($basePath -match '^\.codex(/|$)' -or $basePath -in @('.gitignore', '.vsconfig')) {
         $kind = 'Workspace / tool configuration'
     }
+    if ($basePath -like 'Assets/_Project/Models/Player/WingZeroEW/*' -or
+        $basePath -in @('Assets/_Project/Models/Player/Mecha.fbx', 'Assets/_Project/Models/Player/MechaAlbedo.png', 'SourceArchive/WingZeroEW-ModelsResource-292776.zip')) {
+        $origin = 'Imported game artwork / derived asset; upstream AI origin unverified'
+        $evidence = 'Docs/MechaModelSources.md; Gundam Memories: Tatakai no Kioku (PSP), Models Resource / ZRen. No final-product approval.'
+    }
+    if ($basePath -like 'Assets/_Project/Animations/WingZeroEW/*.anim') {
+        $origin = 'Retargeted supplied project animation; upstream AI origin unverified'
+        $evidence = 'Docs/MechaModelSources.md; baked from existing player clips for the Wing Zero rig. No claim that animation came from the game rip.'
+    }
     $labels = if ($category -eq 'AI Generated') { 'AI Generated;Placeholder' } else { $category }
     if ($vfxOrigins.ContainsKey($basePath)) {
         $origin = 'Copied / adapted supplied VFX source; upstream AI origin unverified'

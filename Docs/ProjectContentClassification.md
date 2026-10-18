@@ -1,5 +1,9 @@
 # Project content classification
 
+## Wing Zero placeholder — 2026-10-18
+
+The second mecha's imported OBJ/texture/material and derived native skin/baked animation clips are **Placeholder**. WingZeroVisual and the preserved TallgeeseVisual are **Prefabs**; the copied Animator controller and animation profile are **Authored Data**. The editor-only rigging/retargeting helper, source archive and documentation remain **Others**. The original mesh name identifies Tallgeese III and both models' Models Resource listings credit ZRen; imported-game origin is recorded separately from upstream AI provenance, which remains unverified. No final-art approval or AI-generated artwork is implied. The refreshed file inventory includes these additions. See [model sources and validation](MechaModelSources.md).
+
 The repeated-row-width cap refines existing routing Code, LevelRouting Authored Data and its scene preview. Documentation remains Others. No maintained files, artwork or dependencies were added, and existing inventory categories and provenance remain unchanged.
 
 The four-lane routing/fog revision changes existing Code, editor tooling (Others), the LevelRouting Scene and routing/localization Authored Data. The shared question marker uses the existing localized TMP font and node label; no artwork, package or maintained file was added. Existing classifications and file inventory remain valid; all content stays provisional with provenance unchanged. See [routing rules and manual validation](LevelRouting.md).

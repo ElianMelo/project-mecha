@@ -210,11 +210,13 @@ public static class WingZeroPlaceholder
             var order=tb.Keys.OrderBy(k=>AnimationUtility.CalculateTransformPath(tb[k],target.transform).Count(c=>c=='/')).ToArray();
             foreach(var clip in clips)
             {
+                bool plantedLocomotion=clip==profile.Clip("Idle")||clip==profile.Clip("Run");
                 var curves=order.ToDictionary(n=>n,n=>Enumerable.Range(0,7).Select(_=>new AnimationCurve()).ToArray());
-                int frames=Mathf.CeilToInt(clip.length*60);
+                int sampleRate=60;
+                int frames=Mathf.CeilToInt(clip.length*sampleRate);
                 for(int f=0;f<=frames;f++)
                 {
-                    float time=Mathf.Min(clip.length,f/60f);clip.SampleAnimation(source,time);
+                    float time=Mathf.Min(clip.length,f/(float)sampleRate);clip.SampleAnimation(source,time);
                     foreach(string n in order)
                     {
                         tb[n].localPosition=localPositions[n];
@@ -260,13 +262,22 @@ public static class WingZeroPlaceholder
                         var hint=tb[prefix+"Thigh"].position+(sb[prefix+"Calf"].position-sb[prefix+"Thigh"].position)*legScale;
                         SolveLeg(tb[prefix+"Thigh"],tb[prefix+"Calf"],tb[prefix+"Foot"],footGoals[side],hint,footRotations[side]);
                     }
+                    if(plantedLocomotion)
+                    {
+                        // The source clips lift both soles during idle/run. Their
+                        // transferred height reads as hovering on Zero's proportions.
+                        // Ground the actual solved geometry, preserving the relative
+                        // swing-foot lift. Physics still owns jumping and root travel.
+                        float sole=targetFootPoints.Min(pair=>pair.Value.Min(p=>tb["Bip001 "+pair.Key+" Foot"].TransformPoint(p).y));
+                        tb["Bip001"].position-=Vector3.up*sole;
+                    }
                     foreach(string n in order)
                     {
                         var q=tb[n].localRotation;var p=tb[n].localPosition;
                         float[] values={q.x,q.y,q.z,q.w,p.x,p.y,p.z};for(int j=0;j<7;j++)curves[n][j].AddKey(time,values[j]);
                     }
                 }
-                var output=new AnimationClip{name=clip.name,frameRate=60,wrapMode=clip.wrapMode};
+                var output=new AnimationClip{name=clip.name,frameRate=sampleRate,wrapMode=clip.wrapMode};
                 foreach(string n in order)
                 {
                     string path=AnimationUtility.CalculateTransformPath(tb[n],target.transform);
@@ -279,7 +290,23 @@ public static class WingZeroPlaceholder
                     }
                 }
                 output.EnsureQuaternionContinuity();AnimationUtility.SetAnimationClipSettings(output,AnimationUtility.GetAnimationClipSettings(clip));
-                AnimationUtility.SetAnimationEvents(output,AnimationUtility.GetAnimationEvents(clip));newClips[clip]=Save(output,Animations+"/"+clip.name+".anim");
+                AnimationUtility.SetAnimationEvents(output,AnimationUtility.GetAnimationEvents(clip));
+                if(plantedLocomotion)
+                {
+                    // Measure Unity's final interpolated curves too: interpolating
+                    // rotating feet is nonlinear, even between grounded key poses.
+                    var contact=new AnimationCurve();int samples=Mathf.CeilToInt(clip.length*960);
+                    for(int f=0;f<=samples;f++)
+                    {
+                        float time=Mathf.Min(clip.length,f/960f);output.SampleAnimation(target,time);
+                        float sole=targetFootPoints.Min(pair=>pair.Value.Min(p=>tb["Bip001 "+pair.Key+" Foot"].TransformPoint(p).y));
+                        contact.AddKey(time,tb["Bip001"].localPosition.y-sole);
+                    }
+                    contact=Reduce(contact,.00001f);
+                    for(int k=0;k<contact.length;k++){AnimationUtility.SetKeyLeftTangentMode(contact,k,AnimationUtility.TangentMode.Linear);AnimationUtility.SetKeyRightTangentMode(contact,k,AnimationUtility.TangentMode.Linear);}
+                    AnimationUtility.SetEditorCurve(output,EditorCurveBinding.FloatCurve(AnimationUtility.CalculateTransformPath(tb["Bip001"],target.transform),typeof(Transform),"m_LocalPosition.y"),contact);
+                }
+                newClips[clip]=Save(output,Animations+"/"+clip.name+".anim");
             }
             UnityEngine.Object.DestroyImmediate(sampledMesh);
             // Keep the Animator graph, state names and playback parameter contract intact.

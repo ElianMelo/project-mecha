@@ -1,5 +1,9 @@
 # Project content classification
 
+## Zero foot contact correction — 2026-10-18
+
+The adjusted idle/run native animation assets remain provisional **Placeholder** with their existing provenance. The updated retarget authoring helper and operator-invoked grounding inspection helper are **Others**; no new runtime system or artwork was introduced. Existing asset labels remain applicable and the maintained file inventory is refreshed.
+
 ## World VFX interaction clarification — 2026-10-18
 
 The blanket foreground camera was removed through Unity APIs. VfxSurfaceDepth is provisional **Code**; its profile/type are **Authored Data**/**Code**. Existing water/fire **Prefabs** gain an optional placement reference, while scene camera changes remain **Scenes**. The obsolete foreground camera script/metadata are removed. Existing artwork/material/clip classifications and provenance are unchanged. Native labels/file inventory are refreshed. Authoring/manual observation helpers and updated policy/feedback records remain **Others**; no new artwork, shader, vendor dependency or automated test was added.

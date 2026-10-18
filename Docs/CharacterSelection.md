@@ -44,6 +44,12 @@ Raw manual captures/notes live under ignored Logs/Characters (organized by chara
 
 ## Follow-up size, retarget and visibility revision
 
+### Foot contact correction — 2026-10-18
+
+Zero's grounded idle/run clips previously inherited both-foot lift from the source animation. The retarget authoring helper now aligns the lowest solved foot geometry to the physics root plane in these two clips, retaining the other foot's relative swing. An offline vertical contact curve compensates for native curve interpolation between key poses; no runtime mesh sampling, foot solver or per-frame physics repositioning was added. Jump, combat, dash, collider dimensions and gameplay movement settings are unchanged. Re-authoring retains existing clip GUIDs.
+
+Native baked pose inspection at 1/1920-second intervals found the lowest idle sole within 0.00005 world units of the root plane, and the running sole between -0.0055 and +0.0094 world units at Zero's 0.5 scale. Manual Play Mode inspection covered standing on Central Causeway (surface/capsule bottom 0.15, lowest sole approximately 0.15) and the advancing run cycle. Screenshots are under ignored Logs/ZeroGrounding. No automated tests or extra network session were used.
+
 Later VFX clarification supersedes the blanket foreground pass described in the historical validation below. Effects now render with world depth and lighting in the normal camera. Optional bounded cosmetic offsets clear nearby platform fronts while interaction particles, lights, collider roots and damage positions keep their authored locations. See [current rendering policy](../Assets/_Project/VFX/Rendering/Authoring.md).
 
 Subsequent traversal tuning requested by the user: reduce Zero's baseline travel speed by 15%, from 8.5 to 7.225 units/s, and halve its directional dash from .40 to .20 seconds at the same 10.5-unit/s speed. Nominal dash travel is now 2.1 instead of 4.2 units. The animation reference follows the new base running speed; Water Mode retains its existing multiplier. The repeatable roster authoring helper and localized character/control descriptions reflect the shorter dash. This is an authored-data change; earlier observations below retain their historical values.

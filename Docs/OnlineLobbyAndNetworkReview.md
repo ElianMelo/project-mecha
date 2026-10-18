@@ -11,6 +11,8 @@ Implemented and manually reviewed on 2026-10-15 through the official Unity CLI a
 - Each pilot can toggle **Ready**. Once everyone is ready, the host locks the lobby, verifies readiness again, allocates Relay, and starts FishNet. Both clients enter gameplay automatically.
 - **Leave lobby / game** exits the session. A host leaving closes the expedition and returns other players to the browser. Host migration is not implemented.
 
+The 2026-10-18 continuity decision records cooperative lobby/expedition preservation as the desired replacement for the host-exit behavior above, with implementation deferred at the user's request. See [host-disconnect requirements and FishNet support assessment](HostMigration.md). The current runtime behavior remains unchanged.
+
 This uses the installed Unity Multiplayer Services Sessions API for discovery, membership, readiness, and Relay allocation. A custom `INetworkHandler` passes Relay data to the project's existing FishNet Unity Transport. Gameplay continues to use FishNet. The installed SDK supplies the joined Relay allocation in `NetworkConfiguration.RelayServerData`; the separate optional `RelayClientData` field belongs to another netcode integration and is not used here.
 
 `Lobby.asset` owns maximum players, session identity, authentication profile, refresh intervals, connection timeout, and local port. Editor and standalone player authentication profiles are separate so two local processes can join the same cloud lobby as different pilots. The linked cloud project was successfully exercised; no new dashboard configuration or credentials were required.

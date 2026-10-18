@@ -1,5 +1,9 @@
 # Project content classification
 
+## Deferred host migration requirements — 2026-10-18
+
+The host-disconnect decision adds [requirements and the current FishNet support assessment](HostMigration.md) and updates canonical agent, architecture and lobby documentation. These are **Others / Support**. No runtime code, authored game data, scenes, prefabs, artwork or provenance changes are introduced. The maintained file inventory includes the new documentation page; no build, network session or automated test is added or run.
+
 ## PVP lobby — 2026-10-18
 
 The separate PVP lobby adds provisional **Code** for opponent filtering, match rules and the standings presenter; one **Authored Data** match profile; and **Prefabs** for the PVP lobby and scoreboard. Existing player/options prefabs, MainScene composition, English Lobby String Tables and combat/network source are updated. Native Image graphics, the existing focus frame, world health bars and localized font assets are reused. No artwork is generated and no provenance is inferred. Native authoring/manual inspection helpers and [PVP documentation](PvpLobby.md) are **Others / Support**. The file inventory includes the additions; builds, captures and logs remain ignored local validation artifacts. Existing routing changes remain independently classified.

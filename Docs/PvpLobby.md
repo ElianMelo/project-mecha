@@ -2,6 +2,8 @@
 
 Configuration has a separate **PVP Lobby** entry. The existing cooperative lobby and route-planning flow remain. PVP uses the installed Unity Multiplayer Services session API for discovery/readiness and FishNet for gameplay; it adds no networking dependency or second transport.
 
+Host-disconnect behavior has a deferred follow-up: 1v1 PVP should end and return to the menu; Team PVP with more than two participants before departure should preserve the match through a successor host. Cooperative continuity is also required. FishNet currently has no documented built-in migration, including no advertised Pro migration feature. See [accepted requirements and deferred scope](HostMigration.md); these outcomes are not implemented by the current lobby.
+
 ## Rules and presentation
 
 - New PVP browsers default to **Free-for-All**. The host can switch to **Team** before deployment. Team players choose **Blue** or **Red**; matches need both colors and at least two players. Additional teams are not implemented.

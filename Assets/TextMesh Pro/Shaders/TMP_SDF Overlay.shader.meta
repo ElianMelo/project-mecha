@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: dd89cf5b9246416f84610a006f916af7
-labels:
-- Others
 ShaderImporter:
   externalObjects: {}
   defaultTextures: []
@@ -9,3 +7,10 @@ ShaderImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 309498
+  packageName: Free Slash VFX
+  packageVersion: 1.0
+  assetPath: Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader
+  uploadId: 738318

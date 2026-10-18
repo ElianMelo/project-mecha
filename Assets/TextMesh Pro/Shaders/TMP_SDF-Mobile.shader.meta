@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: fe393ace9b354375a9cb14cdbbc28be4
-labels:
-- Others
 ShaderImporter:
   externalObjects: {}
   defaultTextures: []
@@ -9,3 +7,10 @@ ShaderImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 309498
+  packageName: Free Slash VFX
+  packageVersion: 1.0
+  assetPath: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
+  uploadId: 738318

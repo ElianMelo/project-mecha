@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: a3d800b099a06e0478fb790c5e79057a
-labels:
-- Others
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -10,11 +8,10 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
-  useAsTemplate: 0
-  exposeTemplateAsShader: 0
-  template:
-    name: 
-    category: 
-    description: 
-    icon: {instanceID: 0}
-    thumbnail: {instanceID: 0}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 309498
+  packageName: Free Slash VFX
+  packageVersion: 1.0
+  assetPath: Assets/TextMesh Pro/Shaders/TMP_SDF-URP Lit.shadergraph
+  uploadId: 738318

@@ -59,7 +59,7 @@ public class CharacterAnimator : MonoBehaviour
         }
         Play(state, playback: playback);
     }
-    private void Play(string state, float duration = 0f, float normalizedTime = 0f, float playback = 1f)
+    private void Play(string state, float duration = 0f, float normalizedTime = 0f, float playback = 1f, float fade = -1f)
     {
         if (animator == null || settings == null || !DrivesAnimator) return;
         var clip = settings.Clip(state);
@@ -71,14 +71,15 @@ public class CharacterAnimator : MonoBehaviour
         if (current == state && duration <= 0f) return;
         current = state;
         if (networkAnimator != null && networkAnimator.IsSpawned)
-            networkAnimator.CrossFadeInFixedTime(state, settings.crossFade, 0, normalizedTime * clip.length);
-        else animator.CrossFadeInFixedTime(state, settings.crossFade, 0, normalizedTime * clip.length);
+            networkAnimator.CrossFadeInFixedTime(state, fade < 0f ? settings.crossFade : fade, 0, normalizedTime * clip.length);
+        else animator.CrossFadeInFixedTime(state, fade < 0f ? settings.crossFade : fade, 0, normalizedTime * clip.length);
     }
     public void Action(PlayerAttack.ActionKind kind, float duration) {
+        bool melee = kind == PlayerAttack.ActionKind.Slash1 || kind == PlayerAttack.ActionKind.Slash2 || kind == PlayerAttack.ActionKind.Slash3 || PlayerAttack.IsHeavy(kind);
         if (kind == PlayerAttack.ActionKind.DiveStrike) kind = PlayerAttack.ActionKind.AirSlash;
         else if (kind == PlayerAttack.ActionKind.CriticalStrike) kind = PlayerAttack.ActionKind.DashSlash;
         else if (kind == PlayerAttack.ActionKind.MagneticPull) kind = PlayerAttack.ActionKind.RisingSlash;
-        lockedUntil = Time.time + duration; Play(kind.ToString(), duration); }
+        lockedUntil = Time.time + duration; Play(kind.ToString(), duration, fade: melee ? settings.meleeCrossFade : settings.crossFade); }
     public void ReleaseAction() { lockedUntil = 0f; current = null; }
     public void Reaction(float stun) { lockedUntil = Time.time + stun; Play("Hit", stun, settings.hitPoseTime); }
     public void Telegraph(float duration) { lockedUntil = Time.time + duration; Play("Attack", duration); }

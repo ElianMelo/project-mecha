@@ -395,7 +395,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 87513530212354
-    m_Localized: Use the heavy branch of your equipped combo.
+    m_Localized: Heavy sword attack. Slower, wider and stronger. Mix with light attacks
+      to choose a combo finisher.
     m_Metadata:
       m_Items: []
   - m_Id: 87513530212356
@@ -672,6 +673,11 @@ MonoBehaviour:
   - m_Id: 252935927865344
     m_Localized: "{0} + direction: directional dash   \u2022   Tap {1}: short hop
       / hold: full jump"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371555320307712
+    m_Localized: "Mix {0}/{1}: 3-hit combos   \u2022   {2}: stagger break (3 charges
+      / 5s refill)"
     m_Metadata:
       m_Items: []
   references:

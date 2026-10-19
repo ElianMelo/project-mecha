@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ComboLoadout
   groundCombo: {fileID: 11400000, guid: 93718151c9b3b044ca5f94fb14e01c75, type: 2}
   airCombo: {fileID: 11400000, guid: faf09f89bf5b7484e8b4af9584e7b350, type: 2}
+  heavyCombo: {fileID: 11400000, guid: 173a6ffef7e594248a7537c4beb33665, type: 2}
+  heavyAirCombo: {fileID: 11400000, guid: 844d666ab1168e6409eb072557a8e952, type: 2}
   dashAttack: {fileID: 11400000, guid: 47c51f316cd8d4a48bd1935460e382ec, type: 2}
   risingBranch: {fileID: 11400000, guid: f6b6fa8ede36381458b3a822c082dda5, type: 2}
   diveAttack: {fileID: 11400000, guid: c5bcbe9639521d74d9ad7db050ccae74, type: 2}

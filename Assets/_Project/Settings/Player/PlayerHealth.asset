@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: PlayerHealth
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthSettings
   maxHealth: 100
-  invincibility: 0.9
-  hitStun: 0.3
+  invincibility: 0.16
+  hitStun: 0.4
   respawnInvincibility: 2
   fallLimit: -12
+  defeatDuration: 1.1
+  escapeCapacity: 3
+  escapeRefillSeconds: 5
+  escapeInvincibility: 0.25
+  staggerDrag: 24

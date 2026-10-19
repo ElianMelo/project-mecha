@@ -14,6 +14,8 @@ public sealed class RouteMapBoard : MonoBehaviour
     [SerializeField] private RouteMapCamera depthCamera;
     [SerializeField] private Transform tableSurface;
     [SerializeField] private Transform[] tableRails, depthDividers;
+    [SerializeField] private RouteRandomButton randomRoute;
+    public UnityEngine.UI.Button RandomRouteButton => randomRoute;
     private readonly List<Transform> dividers = new List<Transform>();
     private int displayedSecond = -1;
     private sealed class Edge { public int from, to; public SpriteRenderer[] dashes; }
@@ -25,6 +27,7 @@ public sealed class RouteMapBoard : MonoBehaviour
     public void Build(LevelRouteDirector director, RouteMapMenu owner)
     {
         Clear(); route = director; displayedSecond = -1;
+        randomRoute.onClick.RemoveAllListeners(); randomRoute.onClick.AddListener(owner.RandomRoute);
         int steps = route.Nodes.Length == 0 ? 2 : route.Nodes.Max(node => node.depth) + 1;
         ConfigureTable(route.Settings, steps);
         depthCamera.Configure(route.Settings, steps);
@@ -38,6 +41,8 @@ public sealed class RouteMapBoard : MonoBehaviour
             foreach (int next in node.next) CreateEdge(node.id, next);
         }
         foreach (var child in content.GetComponentsInChildren<Transform>(true)) child.gameObject.layer = route.Settings.boardLayer;
+        randomRoute.Board=this;
+        randomRoute.navigation=new UnityEngine.UI.Navigation {mode=UnityEngine.UI.Navigation.Mode.None};
     }
     public void ConfigureTable(LevelRouteSettings settings, int steps)
     {
@@ -57,6 +62,11 @@ public sealed class RouteMapBoard : MonoBehaviour
         for (int depth = steps; depth < dividers.Count; depth++) dividers[depth].gameObject.SetActive(false);
     }
     public void FocusDepth(int node) { if (node >= 0 && node < route.Nodes.Length) depthCamera.Focus(route.Nodes[node]); }
+    public void FocusAvailable()
+    {
+        var first=nodes.FirstOrDefault(n=>route.IsAvailable(n.NodeId));
+        if(first != null) UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(first.gameObject);
+    }
     public void SuspendCamera() => depthCamera.Suspend();
     public Vector3 Position(LevelRouteNode node) => MapPosition(route.Settings, node);
     public static Vector3 MapPosition(LevelRouteSettings settings, LevelRouteNode node)
@@ -96,6 +106,7 @@ public sealed class RouteMapBoard : MonoBehaviour
     }
     public void Refresh(int focused)
     {
+        randomRoute.interactable=route.CanVote;
         foreach (var node in nodes) node.Refresh(node.NodeId == focused);
         foreach (var edge in edges)
         {

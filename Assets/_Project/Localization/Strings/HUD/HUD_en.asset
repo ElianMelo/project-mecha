@@ -175,6 +175,10 @@ MonoBehaviour:
     m_Localized: 0% mutes a layer. SFX includes combat, movement and destruction.
     m_Metadata:
       m_Items: []
+  - m_Id: 371553357373440
+    m_Localized: '{0} BREAK  {1}/{2}'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

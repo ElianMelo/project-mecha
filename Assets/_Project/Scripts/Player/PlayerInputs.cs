@@ -145,7 +145,7 @@ public class PlayerInputs : NetworkBehaviour
         {
             OnCommand?.Invoke(direction > 0 ? ">" : "<");
             float previous = direction > 0 ? lastRight : lastLeft;
-            if (Time.time - previous <= settings.doubleTapWindow && GetComponent<PlayerMovement>().Settings.style == PlayerMovementSettings.MovementStyle.Dasher)
+            if (Time.time - previous <= settings.doubleTapWindow && !GetComponent<PlayerHealth>().IsStunned && GetComponent<PlayerMovement>().Settings.style == PlayerMovementSettings.MovementStyle.Dasher)
             {
                 OnCommand?.Invoke(GameText.Get("Input", "command.direction.dash", direction > 0 ? ">>" : "<<")); OnDashInput?.Invoke(direction);
                 if (direction > 0) lastRight = -10f; else lastLeft = -10f;

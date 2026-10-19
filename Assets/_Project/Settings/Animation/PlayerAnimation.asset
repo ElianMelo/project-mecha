@@ -15,42 +15,53 @@ MonoBehaviour:
   controller: {fileID: 9100000, guid: bcd7cc7f41aeb584c89fa86db759e094, type: 2}
   clips:
   - state: Idle
-    clip: {fileID: 7400000, guid: ba12df1a70556ed4e8aa880e5ff5a613, type: 2}
+    clip: {fileID: 7804281696320516629, guid: 99ba2dab2137f0445992b3992d994bfe, type: 3}
   - state: Run
-    clip: {fileID: 7400000, guid: da77ee7ee45afb54797e8863cea77b87, type: 2}
+    clip: {fileID: -6848113619949682186, guid: 77cbe76379436db42afc0e47ff625926, type: 3}
   - state: Dash
-    clip: {fileID: 7400000, guid: 609c741bd846d3d488caaa19a8f7dd91, type: 2}
+    clip: {fileID: -6848113619949682186, guid: 77cbe76379436db42afc0e47ff625926, type: 3}
   - state: Jump
-    clip: {fileID: 7400000, guid: 0263b9b77227c5c43854653388f5cf63, type: 2}
+    clip: {fileID: 7400002, guid: b337fd7e329bb3e49b021db435f45693, type: 3}
   - state: Fall
-    clip: {fileID: 7400000, guid: beb8d3cf0a3a9df4b8e3abc92eb364dd, type: 2}
+    clip: {fileID: 7400000, guid: 864149f863d0268478c600e44bcc6aa4, type: 3}
   - state: Hit
-    clip: {fileID: 7400000, guid: b10783479317fbe40b13891ac5713cb8, type: 2}
+    clip: {fileID: -7081366064800193788, guid: fea69a6598fcfea439ea384cbf04c7f1, type: 3}
   - state: Death
     clip: {fileID: 7400000, guid: 0c3a4a0326bf16144bbc0ce2a72d286c, type: 2}
   - state: Attack
-    clip: {fileID: 7400000, guid: 7638bfaec7dbf614f9f76a982bf4b1cb, type: 2}
-  - state: Slash1
-    clip: {fileID: 7400000, guid: 7638bfaec7dbf614f9f76a982bf4b1cb, type: 2}
-  - state: Slash2
-    clip: {fileID: 7400000, guid: b10783479317fbe40b13891ac5713cb8, type: 2}
-  - state: Slash3
-    clip: {fileID: 7400000, guid: de28089b109107e4b9082ec42649139b, type: 2}
-  - state: AirSlash
-    clip: {fileID: 7400000, guid: 7638bfaec7dbf614f9f76a982bf4b1cb, type: 2}
-  - state: DashSlash
-    clip: {fileID: 7400000, guid: 7638bfaec7dbf614f9f76a982bf4b1cb, type: 2}
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
   - state: MegaSlash
-    clip: {fileID: 7400000, guid: 7638bfaec7dbf614f9f76a982bf4b1cb, type: 2}
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
   - state: SwordFire
-    clip: {fileID: 7400000, guid: 4505c19a4ec049240a0d57f86271a514, type: 2}
+    clip: {fileID: 7804281696320516629, guid: 99ba2dab2137f0445992b3992d994bfe, type: 3}
   - state: CriticalX
-    clip: {fileID: 7400000, guid: de28089b109107e4b9082ec42649139b, type: 2}
+    clip: {fileID: -5476243507799159532, guid: ac296747f46c9c14c9214a0d6099d6d4, type: 3}
+  - state: Slash1
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
+  - state: Slash2
+    clip: {fileID: 4620549596321508458, guid: 4f498dbb49170ba40ae31c97f607f403, type: 3}
+  - state: Slash3
+    clip: {fileID: -2752935217625242881, guid: 7214e71ba135aa7428378b5ee5eea8d9, type: 3}
+  - state: Heavy1
+    clip: {fileID: 7245417250056673891, guid: 6128f1872f8e4044f8b5e057ab1e0289, type: 3}
+  - state: Heavy2
+    clip: {fileID: -5239087387508573575, guid: 198601327e5c05d43975fcd875a0d9c7, type: 3}
+  - state: Heavy3
+    clip: {fileID: -5476243507799159532, guid: ac296747f46c9c14c9214a0d6099d6d4, type: 3}
+  - state: AirSlash
+    clip: {fileID: 4620549596321508458, guid: 4f498dbb49170ba40ae31c97f607f403, type: 3}
+  - state: DashSlash
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
   - state: RisingSlash
-    clip: {fileID: 7400000, guid: de28089b109107e4b9082ec42649139b, type: 2}
+    clip: {fileID: -5476243507799159532, guid: ac296747f46c9c14c9214a0d6099d6d4, type: 3}
+  - state: DiveStrike
+    clip: {fileID: -5239087387508573575, guid: 198601327e5c05d43975fcd875a0d9c7, type: 3}
+  - state: CriticalStrike
+    clip: {fileID: 7245417250056673891, guid: 6128f1872f8e4044f8b5e057ab1e0289, type: 3}
   crossFade: 0.035
   movementThreshold: 0.25
   hitPoseTime: 0.2
+  meleeCrossFade: 0.012
   runReferenceSpeed: 4.2
   dashReferenceSpeed: 10.5
   minimumLocomotionPlayback: 0.2

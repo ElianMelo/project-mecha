@@ -38,12 +38,13 @@ public sealed class ActorWorldHud : MonoBehaviour
         if (identity == null) return;
         var color = PilotColor();
         pilotName.text = identity.IsSpawned ? identity.PilotName : PlayerIdentity.LocalName;
-        pilotName.enabled = !identity.LocallyControlled;
+        bool showHighlight = identity.LocallyControlled ? PlayerHighlightPreferences.ShowSelf : PlayerHighlightPreferences.ShowPlayers;
+        pilotName.enabled = showHighlight;
         pilotName.color = color;
         pilotName.rectTransform.position = transform.position + Vector3.up * (bounds.size.y + settings.nameAboveHead);
         if (ring != null)
         {
-            ring.enabled = !identity.LocallyControlled;
+            ring.enabled = showHighlight;
             ring.color = color;
             // Unlike the labels, the ring intersects the actor's depth. The default
             // world-space UI material lets the opaque body occlude its rear arc.

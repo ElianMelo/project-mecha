@@ -99,6 +99,8 @@ public class PlayerMovement : NetworkBehaviour
         if (PvpMatchDirector.BlocksCombat || health != null && health.IsStunned)
         {
             StopDash(); jumpRequested = dashRequestedUntil = -10f;
+            if (health != null && health.IsStunned)
+                body.linearVelocity = new Vector3(Mathf.MoveTowards(body.linearVelocity.x, 0f, health.StaggerDrag * Time.fixedDeltaTime), body.linearVelocity.y, 0f);
             ApplyGravity(); return;
         }
         // Evaluate held input again after support changes and recovery windows open.
@@ -205,7 +207,16 @@ public class PlayerMovement : NetworkBehaviour
     }
     public void HandleDash(int direction)
     {
-        if (!HasControl || (health != null && health.IsStunned)) return;
+        if (!HasControl || PvpMatchDirector.BlocksCombat) return;
+        if (health != null && health.IsStunned)
+        {
+            if (health.IsDead || health.EscapeCharges <= 0) return;
+            int facing = direction == 0 ? Facing : direction;
+            Vector2 vector = settings.directionalDash ? ResolveDashVector(inputs.MoveInput, facing) : new Vector2(facing, 0f);
+            if (NetworkObject.IsSpawned) RequestEscapeDash(facing, vector);
+            else if (health.TryConsumeEscape()) BeginEscapeDash(facing, vector);
+            return;
+        }
         if (attack != null && attack.IsBusy)
         {
             attack.TryCriticalBranch(direction == 0 ? Facing : direction);
@@ -240,6 +251,31 @@ public class PlayerMovement : NetworkBehaviour
         // Eight consistent directions; diagonals retain the same total travel distance.
         float angle = Mathf.Round(Mathf.Atan2(input.y, input.x) / (Mathf.PI / 4f)) * (Mathf.PI / 4f);
         return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+    }
+    [ServerRpc]
+    private void RequestEscapeDash(int direction, Vector2 vector)
+    {
+        if (PvpMatchDirector.BlocksCombat || (direction != -1 && direction != 1) ||
+            !float.IsFinite(vector.x) || !float.IsFinite(vector.y) || Mathf.Abs(vector.sqrMagnitude - 1f) > .02f ||
+            !settings.directionalDash && Vector2.Distance(vector, new Vector2(direction, 0f)) > .02f ||
+            health == null || !health.TryConsumeEscape()) return;
+        serverDashStarted = Time.time; serverImpulse = ImpulseKind.Dash; serverAirDashUsed = !IsGrounded;
+        serverDashUntil = Time.time + settings.dashDuration; serverNextDash = serverDashUntil + settings.dashCooldown;
+        ShowEscapeDash(direction, vector);
+    }
+    [ObserversRpc(RunLocally = true)]
+    private void ShowEscapeDash(int direction, Vector2 vector) => BeginEscapeDash(direction, vector);
+    private void BeginEscapeDash(int direction, Vector2 vector)
+    {
+        attack?.Interrupt(); health.ReleaseStaggerForEscape();
+        jumpRequested = dashRequestedUntil = -10f; stepUntil = 0f;
+        dashDirection = direction; dashVector = vector; directionalDashMotion = settings.directionalDash;
+        impulse = ImpulseKind.Dash; impulseStart = Time.time;
+        impulseSpeed = settings.dashSpeed * (modifiers != null ? modifiers.MoveSpeed : 1f); impulseDuration = settings.dashDuration;
+        dashUntil = Time.time + impulseDuration; nextDash = dashUntil + settings.dashCooldown;
+        airDashUsed = !IsGrounded; running = true;
+        if (HasControl) { Face(direction); body.linearVelocity = settings.directionalDash ? (Vector3)(vector * impulseSpeed) : new Vector3(direction * impulseSpeed, 0f, 0f); }
+        GetComponent<PlayerCombatVfx>()?.Dash(direction, true);
     }
     [ServerRpc]
     private void RequestDash(int direction, Vector2 vector)

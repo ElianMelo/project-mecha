@@ -2,6 +2,7 @@ fileFormatVersion: 2
 guid: 369bd997abf101d409cf0bbe61388cf4
 labels:
 - Placeholder
+- Replace
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

@@ -386,16 +386,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c5bcbe9639521d74d9ad7db050ccae74, type: 2}
   - {fileID: 11400000, guid: 9493b75a6ca764e478807fbf753b2104, type: 2}
   - {fileID: 11400000, guid: d8e13a696b0c76c4ea708ed3e08f0195, type: 2}
+  - {fileID: 11400000, guid: 772bea1dfc6d3ad4aa7638115017e1fb, type: 2}
+  - {fileID: 11400000, guid: 934781c857eedb144bbb770ec51af9cf, type: 2}
+  - {fileID: 11400000, guid: f8ba5e6c08148104a89774d8dbdc5d72, type: 2}
   combos: {fileID: 11400000, guid: ceda6f78c6a37ec44823afae75c3e659, type: 2}
   damageMultiplier: 2
   maxMana: 100
   manaRegen: 7
   hitMana: 4
-  attackBuffer: 0.28
+  attackBuffer: 0.35
   skillBuffer: 0.3
   networkRecoveryGrace: 0.04
   comboWindow: 0.9
   enemyLayers:
     serializedVersion: 2
     m_Bits: 1536
-  comboDisplayWindow: 1.25
+  comboDisplayWindow: 1.65

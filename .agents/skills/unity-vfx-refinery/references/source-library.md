@@ -93,7 +93,7 @@ Use the catalog's GUID/path/hash to read a selected member with Python `tarfile`
 
 ## Maintenance and origin record
 
-Regenerate after source library additions/deletions with `AgentScripts/Build-VfxSourceCatalog.py` using bundled Python with Pillow/pypdf. This inventories and hashes files/archives; it does not import them. Then update `AgentScripts/Update-ProjectClassification.ps1` and apply labels through `ApplyAssetClassification` in bounded Unity batches. Catalog and native labels are snapshots; new packages require review and regeneration. Keep new package roots/commits in the scanner's explicit scope when expanding the library.
+Regenerate the VFX source catalog after supplied library additions/deletions with `AgentScripts/Build-VfxSourceCatalog.py` using bundled Python with Pillow/pypdf. It inventories/hashes the supplied sources and archives without importing them. Classification lives in native Unity labels, applied through MechaAssetLabels or the ApplyAssetClassification compatibility entry points; there is no per-file classification CSV. Preserve Reference/VFXSource roles. Keep new supplied package roots/commits in the scanner's explicit scope when expanding the source catalog.
 
 When the first effect is produced, create `Docs/VfxEffectOrigins.csv` with columns:
 

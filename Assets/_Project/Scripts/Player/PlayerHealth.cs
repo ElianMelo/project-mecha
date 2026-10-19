@@ -7,6 +7,9 @@ public class PlayerHealth : NetworkBehaviour, IDamageable, ITargetable
 {
     [SerializeField] private PlayerHealthSettings settings;
     private readonly SyncVar<float> health = new SyncVar<float>(100f);
+    private readonly SyncVar<int> escapeCharges = new SyncVar<int>(3);
+    private int soloEscapeCharges;
+    private float nextEscapeRefill;
     private float soloHealth = 100f, stunnedUntil, invincibleUntil;
     private Vector3 spawnPosition;
     private Rigidbody body;
@@ -24,12 +27,21 @@ public class PlayerHealth : NetworkBehaviour, IDamageable, ITargetable
     private float respawnAt;
     public float Health => NetworkObject.IsSpawned ? health.Value : soloHealth;
     public bool IsStunned => defeated || Time.time < stunnedUntil;
+    public int EscapeCharges => NetworkObject.IsSpawned ? escapeCharges.Value : soloEscapeCharges;
+    public int EscapeCapacity => settings.escapeCapacity;
+    public float EscapeRefillRemaining => EscapeCharges < EscapeCapacity ? Mathf.Max(0f, nextEscapeRefill - Time.time) : 0f;
+    public float StaggerDrag => settings.staggerDrag;
     public float MaxHealth => settings.maxHealth;
-    private void Awake() { body = GetComponent<Rigidbody>(); capsule = GetComponent<CapsuleCollider>(); movement = GetComponent<PlayerMovement>(); spawnPosition = transform.position; soloHealth = settings.maxHealth; }
-    public override void OnStartServer() { base.OnStartServer(); health.Value = settings.maxHealth; spawnPosition = transform.position; }
+    private void Awake() { body = GetComponent<Rigidbody>(); capsule = GetComponent<CapsuleCollider>(); movement = GetComponent<PlayerMovement>(); spawnPosition = transform.position; soloHealth = settings.maxHealth; soloEscapeCharges = EscapeCapacity; }
+    public override void OnStartServer() { base.OnStartServer(); health.Value = settings.maxHealth; ResetEscapeResources(); spawnPosition = transform.position; }
     public override void OnStartClient() { base.OnStartClient(); spawnPosition = transform.position; if (Health <= 0f) ApplyDefeat(); }
     private void Update()
     {
+        if ((!NetworkObject.IsSpawned || IsServerInitialized) && !PvpMatchDirector.BlocksCombat && !defeated && EscapeCharges < EscapeCapacity && Time.time >= nextEscapeRefill)
+        {
+            if (NetworkObject.IsSpawned) escapeCharges.Value++; else soloEscapeCharges++;
+            nextEscapeRefill = Time.time + settings.escapeRefillSeconds;
+        }
         if (defeated)
         {
             if (!PvpMatchDirector.BlocksCombat && Time.time >= respawnAt && (!NetworkObject.IsSpawned || IsServerInitialized)) Respawn();
@@ -46,13 +58,13 @@ public class PlayerHealth : NetworkBehaviour, IDamageable, ITargetable
         }
     }
     public void TakeHit(float damage, Vector3 knockback)
-        => ReceiveHit(damage, knockback, null);
+        => ReceiveHit(damage, knockback, settings.hitStun, null);
     public void TakeDamage(float damage, Vector3 knockback, float stun, PlayerHealth attacker)
     {
         if (!CombatTargetRules.CanHit(attacker, this)) return;
-        ReceiveHit(damage, knockback, attacker);
+        ReceiveHit(damage, knockback, stun, attacker);
     }
-    private void ReceiveHit(float damage, Vector3 knockback, PlayerHealth attacker)
+    private void ReceiveHit(float damage, Vector3 knockback, float stun, PlayerHealth attacker)
     {
         if (!float.IsFinite(damage) || damage <= 0f || !float.IsFinite(knockback.x) || !float.IsFinite(knockback.y) || !float.IsFinite(knockback.z) ||
             defeated || (NetworkObject.IsSpawned && !IsServerInitialized) || Time.time < invincibleUntil || movement != null && movement.IsDashing ||
@@ -68,7 +80,8 @@ public class PlayerHealth : NetworkBehaviour, IDamageable, ITargetable
             if (NetworkObject.IsSpawned) Defeat(); else ApplyDefeat();
             return;
         }
-        if (NetworkObject.IsSpawned) React(knockback); else ApplyReaction(knockback);
+        float duration = float.IsFinite(stun) ? Mathf.Max(settings.hitStun, stun) : settings.hitStun;
+        if (NetworkObject.IsSpawned) React(knockback, duration); else ApplyReaction(knockback, duration);
     }
     public void Heal(float amount)
     {
@@ -91,24 +104,44 @@ public class PlayerHealth : NetworkBehaviour, IDamageable, ITargetable
         if(!NetworkObject.IsSpawned || IsOwner)body.linearVelocity=Vector3.zero;
     }
     [ObserversRpc(RunLocally = true)]
-    private void React(Vector3 knockback) => ApplyReaction(knockback);
-    private void ApplyReaction(Vector3 knockback)
+    private void React(Vector3 knockback, float stun) => ApplyReaction(knockback, stun);
+    private void ApplyReaction(Vector3 knockback, float stun)
     {
         GetComponent<PlayerCombatVfx>()?.Hit(knockback);
-        // Skills have super armor; ordinary attacks can be interrupted.
-        if (GetComponent<PlayerAttack>().IsSkillActive) return;
-        stunnedUntil = Time.time + settings.hitStun;
+        stunnedUntil = Mathf.Max(stunnedUntil, Time.time + stun);
         GetComponent<PlayerAttack>().Interrupt(); GetComponent<PlayerMovement>().StopDash();
-        GetComponent<CharacterAnimator>()?.Reaction(settings.hitStun);
+        GetComponent<CharacterAnimator>()?.Reaction(stun);
         if (!NetworkObject.IsSpawned || IsOwner) body.linearVelocity = knockback;
     }
     private void Respawn()
     {
+        ResetEscapeResources();
         if (PvpMatchDirector.Active) spawnPosition = PvpMatchDirector.Instance.SpawnPoint(this);
         invincibleUntil = Time.time + settings.respawnInvincibility;
         if (NetworkObject.IsSpawned) { health.Value = settings.maxHealth; ResetAtSpawn(spawnPosition); }
         else { soloHealth = settings.maxHealth; ApplyReset(spawnPosition); }
         if (PvpMatchDirector.Active) PvpMatchDirector.Instance.ResetLife(this);
+    }
+    public void ResetEscapeResources()
+    {
+        if (NetworkObject.IsSpawned && !IsServerInitialized) return;
+        if (NetworkObject.IsSpawned) escapeCharges.Value = EscapeCapacity; else soloEscapeCharges = EscapeCapacity;
+        nextEscapeRefill = 0f;
+    }
+    // Called only by solo gameplay or the server, never by owner prediction.
+    public bool TryConsumeEscape()
+    {
+        if (NetworkObject.IsSpawned && !IsServerInitialized || IsDead || !IsStunned || EscapeCharges <= 0) return false;
+        bool full = EscapeCharges == EscapeCapacity;
+        if (NetworkObject.IsSpawned) escapeCharges.Value--; else soloEscapeCharges--;
+        if (full) nextEscapeRefill = Time.time + settings.escapeRefillSeconds;
+        return true;
+    }
+    public void ReleaseStaggerForEscape()
+    {
+        stunnedUntil = 0f;
+        invincibleUntil = Mathf.Max(invincibleUntil, Time.time + settings.escapeInvincibility);
+        GetComponent<CharacterAnimator>()?.ReleaseAction();
     }
     public void CorrectPvpPosition(Vector3 position)
     {

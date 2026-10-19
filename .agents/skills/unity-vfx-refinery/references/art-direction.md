@@ -39,6 +39,8 @@ Do not reduce this table to renaming a fantasy prefab. Change its silhouette, mo
 
 ## Art review at gameplay distance
 
+For equipped melee weapons, preserve the supplied emission mask and HDR color when converting to the project shader; inspect the actual shader's emission properties/keywords. A bloom override alone cannot restore missing emissive pixels. Drive the slash plane from the animated blade frame, rather than actor facing. Validate the rig and source animation first; do not conceal a broken retarget with corrective weapon/VFX rotations or new pose curves. Use native Humanoid playback when the model supports it, and report skin/rig limitations when it does not.
+
 View the effect against both dark and lit portions of the actual environment. Check the first readable frame, peak force, secondary motion and final fade. Compare the effect with the actor's body size and weapons; no hardcoded universal meter scale. A contact flash must communicate direction while leaving the receiver readable. Smoke can have a dark core while keeping a controllable alpha perimeter.
 
 For skills with several damage pulses, distinguish buildup, repeated contact and the final impact. Do not introduce hit-stop/time dilation: the project's clocks run in real time and stun is gameplay state. Camera emphasis goes through existing Cinemachine/presentation facilities, with authored amplitude and optional-motion preferences respected. Avoid vendor camera-shake components.

@@ -9,7 +9,7 @@ public static class ControlTutorialText
         if (settings == null) return string.Empty;
         bool controller = GameInputPresentation.UsingGamepad;
         var lines = settings.descriptions.Where(d => d.tutorial).Select(d => GameText.Get("Input", "tutorial.action",
-            GameControlBindings.Hint(d.action, controller), GameText.Get(d.title)));
+            GameControlBindings.Hint(d.action, controller), GameText.Get(d.title))).Concat(new[] { GameText.Get("Input", "melee.sequence", GameInputPresentation.Hint("Attack"), GameInputPresentation.Hint("Tech"), GameInputPresentation.Hint("Dash")) });
         if (character != null && character.movement.directionalDash)
             return string.Join("   •   ", lines) + "\n" + GameText.Get("Input", "zero.traversal", GameInputPresentation.Hint("Dash"), GameInputPresentation.Hint("Jump")) + "\n" +
                 GameText.Get("Input", "tutorial.chord", GameInputPresentation.Hint("Down"), GameInputPresentation.Hint("Attack"), GameText.Get("Input", "action.dive")) + "   •   " +

@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Mecha/Presentation/Combat Effects")]
 public class CombatVfxSettings : ScriptableObject
 {
+    public GameObject damageSparkPrefab;
     public SwordFireVfxSettings swordFire;
     public SwordFireVfxSettings megaSlashFire, criticalXFire;
     public ParticleEffectSettings dashSmoke, wind, hitSparks, hitSmoke, skillWind;

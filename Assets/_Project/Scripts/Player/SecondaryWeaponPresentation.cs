@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// The gun is parented to the animated left forearm; only its world aim is independent.
+// The gun's authored left-hand socket follows animation. Only world aim is independent.
 public sealed class SecondaryWeaponPresentation : MonoBehaviour
 {
     [SerializeField] private SecondaryWeaponSettings settings;
@@ -16,8 +16,8 @@ public sealed class SecondaryWeaponPresentation : MonoBehaviour
     private void LateUpdate()
     {
         Vector3 direction = aim.Direction;
-        Vector3 mount = leftArm != null ? leftArm.TransformPoint(settings.armMountOffset) : aim.Origin;
-        gun.SetPositionAndRotation(mount, Quaternion.LookRotation(Vector3.forward, Vector3.Cross(Vector3.forward, direction)));
+        if(gun == null) return;
+        gun.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.Cross(Vector3.forward, direction));
         if (reticle == null) return;
         bool visible = identity.LocallyControlled && aim.Target != null;
         reticle.enabled = visible;

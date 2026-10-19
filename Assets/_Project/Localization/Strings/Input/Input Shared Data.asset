@@ -647,6 +647,10 @@ MonoBehaviour:
     m_Key: zero.traversal
     m_Metadata:
       m_Items: []
+  - m_Id: 371555320307712
+    m_Key: melee.sequence
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

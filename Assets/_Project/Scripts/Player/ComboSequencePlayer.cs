@@ -5,6 +5,16 @@ public sealed class ComboSequencePlayer
     private int next;
     private float expires;
     public void Reset() { current = null; next = 0; expires = 0f; }
+    // X and Y share an ordinal: XXY selects the heavy finisher, XYX the light one.
+    public AttackPiece ConsumeVariant(ComboDefinition sequence, float now)
+    {
+        if (sequence == null || sequence.attacks == null || sequence.attacks.Length == 0) return null;
+        if (current == null || current.domain != sequence.domain || now > expires) next = 0;
+        current = sequence;
+        if (next >= sequence.attacks.Length) { if (!sequence.loop) return null; next = 0; }
+        expires = now + sequence.inputWindow;
+        return sequence.attacks[next++];
+    }
     public AttackPiece Consume(ComboDefinition sequence, float now)
     {
         if (sequence == null || sequence.attacks == null || sequence.attacks.Length == 0) return null;

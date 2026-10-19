@@ -24,26 +24,26 @@ MonoBehaviour:
   displayName: Slash 3
   action:
     kind: 2
-    duration: 0.56666666
-    impact: 0.2
-    cancel: 0.38333333
+    duration: 0.56
+    impact: 0.19
+    cancel: 0.48000002
     pulses: 1
     pulseInterval: 0.13
-    damage: 15
-    finalDamage: 15
+    damage: 11
+    finalDamage: 11
     launcher: 0
     finalPulseLaunch: 0
-    hitHalfSize: {x: 0.65, y: 0.7, z: 0.7}
-    reach: 0.7
+    hitHalfSize: {x: 0.85, y: 0.7, z: 0.65}
+    reach: 0.85
     pulseAdvance: 0
     height: 0.85
-    push: 3.4
-    lift: 7
-    stun: 0.38
+    push: 3
+    lift: 0
+    stun: 0.4
     manaCost: 0
     cooldown: 0
-    stepSpeed: 3
-    stepDuration: 0.083333336
+    stepSpeed: 2.6
+    stepDuration: 0.08
     airLift: 6.3
     airOnly: 0
     requiresGround: 0
@@ -51,14 +51,14 @@ MonoBehaviour:
     pull: 0
     diveSpeed: 0
     pullSpeed: 6
-    hitActiveTime: 0
-    hitLength: 0
+    hitActiveTime: 0.11
+    hitLength: 1.15
     hitTravelTime: 0
-    hitRadius: 0.3
-    hitFirstAngle: 0
+    hitRadius: 0.5
+    hitFirstAngle: 8
     hitAngleStep: 0
     hitPulseHeight: 0
-    hitOrigin: {x: 0.15, y: 0.85}
+    hitOrigin: {x: 0.12, y: 0.85}
     hitFromHand: 0
     hitObstructions:
       serializedVersion: 2

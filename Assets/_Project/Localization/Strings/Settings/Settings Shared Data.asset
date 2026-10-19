@@ -271,6 +271,18 @@ MonoBehaviour:
     m_Key: save.failed
     m_Metadata:
       m_Items: []
+  - m_Id: 409000158011392
+    m_Key: option.on
+    m_Metadata:
+      m_Items: []
+  - m_Id: 409000346755072
+    m_Key: highlight.self
+    m_Metadata:
+      m_Items: []
+  - m_Id: 409000363532288
+    m_Key: highlight.players
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -9,7 +9,7 @@ public sealed class SecondaryWeaponProjectile : NetworkBehaviour
     private PlayerHealth shooter;
     private Rigidbody body;
     private Collider hitbox;
-    private Vector3 origin;
+    private Vector3 origin, launchDirection;
     private float expires;
     private bool launched, spent;
     private void Awake() { body = GetComponent<Rigidbody>(); hitbox = GetComponent<Collider>(); }
@@ -20,7 +20,7 @@ public sealed class SecondaryWeaponProjectile : NetworkBehaviour
     }
     public void Launch(SecondaryWeaponSettings profile, PlayerHealth source, Vector3 direction)
     {
-        settings = profile; shooter = source; origin = body.position;
+        settings = profile; shooter = source; origin = body.position; launchDirection = direction.normalized;
         hitbox.excludeLayers = ~CombatTargetRules.TargetLayers(settings.hitLayers.value);
         foreach (var actor in PlayerAttack.ActiveActors)
         {
@@ -30,7 +30,7 @@ public sealed class SecondaryWeaponProjectile : NetworkBehaviour
                 foreach (var collider in actor.GetComponentsInChildren<Collider>()) Physics.IgnoreCollision(hitbox, collider);
         }
         expires = Time.time + settings.projectileLifetime; launched = true;
-        body.isKinematic = false; body.linearVelocity = direction.normalized * settings.boltSpeed;
+        body.isKinematic = false; body.linearVelocity = launchDirection * settings.boltSpeed;
     }
     private void Update()
     {
@@ -42,7 +42,10 @@ public sealed class SecondaryWeaponProjectile : NetworkBehaviour
         if (spent || !launched || IsSpawned && !IsServerInitialized) return;
         if (PvpMatchDirector.BlocksCombat) { Finish(); return; }
         var target = collision.collider.GetComponentInParent<IDamageable>();
-        Vector3 force = body.linearVelocity.normalized * 0.5f;
+        // Use actual flight travel: resolved velocity can be zero and relative-velocity sign is callback-relative.
+        Vector3 incoming = transform.position-origin;
+        if(incoming.sqrMagnitude < .0001f) incoming = launchDirection;
+        Vector3 force = incoming.normalized * 0.5f;
         if (CombatTargetRules.CanHit(shooter, target))
             target.TakeDamage(settings.damage, force, 0.04f, shooter);
         Vector3 position = collision.contactCount > 0 ? collision.GetContact(0).point : transform.position;

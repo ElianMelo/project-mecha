@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using Newtonsoft.Json;
 
 // Read-only prefab analysis through official Pipeline run_script. No instantiation,
 // vendor behaviour execution, scene changes, or asset saves.
@@ -13,7 +12,7 @@ public static class InspectVfxReference
     {
         var root = AssetDatabase.LoadAssetAtPath<GameObject>(path);
         if (root == null) throw new ArgumentException("Expected an imported prefab asset: " + path);
-        return JsonConvert.SerializeObject(new
+        return Serialize(new
         {
             path,
             labels = AssetDatabase.GetLabels(root),
@@ -66,7 +65,13 @@ public static class InspectVfxReference
                 shadows = l.shadows.ToString() }).ToArray(),
             dependencies = AssetDatabase.GetDependencies(path, true),
             note = "For exact curves/gradients, inspect serialized native components read-only. Summary is structural, not visual approval."
-        }, Formatting.Indented);
+        });
+    }
+    static string Serialize(object value)
+    {
+        // Pipeline also references Localization's embedded JSON types; select the public package explicitly.
+        var type = AppDomain.CurrentDomain.GetAssemblies().Single(a => a.GetName().Name == "Newtonsoft.Json").GetType("Newtonsoft.Json.JsonConvert");
+        return (string)type.GetMethod("SerializeObject", new[]{typeof(object)}).Invoke(null, new[]{value});
     }
 
     private static object Curve(ParticleSystem.MinMaxCurve c) => new

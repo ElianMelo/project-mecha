@@ -96,6 +96,7 @@ public class MechaGameplayHud : MonoBehaviour
         if (healthValue != null) healthValue.text = GameText.Get("HUD", "resources.armor", (health.Health), (health.MaxHealth));
         if (energyValue != null) energyValue.text = GameText.Get("HUD", "resources.energy", (player.Mana), (player.MaxMana));
         if (motion != null) motion.text = GameText.Get("HUD", "motion.summary", (GameText.Term("Combat", movement.MovementState).ToUpperInvariant()), (Mathf.Abs(movement.Velocity.x)), (GameText.Term("Combat", player.Phase)));
+        if (motion != null) motion.text += "\n" + GameText.Get("HUD", "escape.charges", GameInputPresentation.Hint("Dash"), health.EscapeCharges, health.EscapeCapacity);
         if (motion != null && GameInputPresentation.Disconnected) motion.text = GameText.Get("HUD", "controller.disconnected");
         if (comboReadout != null && (player.ComboVisible || feedback == null)) comboReadout.text = player.ComboVisible ? GameText.Get("HUD", "combo.summary", (player.ComboHits), (player.ComboDamage)) : "";
         feedback?.Combo(player.ComboVisible, player.ComboHits);

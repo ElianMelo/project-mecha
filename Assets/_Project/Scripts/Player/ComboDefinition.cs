@@ -14,5 +14,5 @@ public sealed class ComboDefinition : ScriptableObject
     public bool loop = true;
     public AttackPiece[] attacks = Array.Empty<AttackPiece>();
     public string Label => GameText.Get(displayNameLocalized);
-    public string Inputs => (domain == ComboDomain.Air ? GameText.Get("Combat", "combo.air.prefix") : "") + string.Join("  ", (attacks ?? Array.Empty<AttackPiece>()).Select(_ => GameInputPresentation.Hint("Attack")));
+    public string Inputs => (domain == ComboDomain.Air ? GameText.Get("Combat", "combo.air.prefix") : "") + string.Join("  ", (attacks ?? Array.Empty<AttackPiece>()).Select(p => GameInputPresentation.Hint(p != null && PlayerAttack.IsHeavy(p.action.kind) ? "Tech" : "Attack")));
 }

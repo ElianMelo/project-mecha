@@ -147,3 +147,7 @@ The Windows build succeeded. One recorded build error was a Pipeline inspection 
 Editor Play Mode is restored to stopped MainScene after inspection. Temporary input devices, client process and review captures are cleaned up; captures and player logs are retained outside game content under ignored `Logs/LevelRouting`. The provisional room miniatures/materials/animation are Placeholder art; no AI-image provenance is asserted.
 
 Repeatable authoring is available at **Tools / Mecha / Apply Level Routing**. It preserves existing encounter definitions and tuning while wiring native assets and the scene.
+
+## Random route — 2026-10-19
+
+The routing screen's Random route button is localized native uGUI, with a persistent focus border. Left from a row's left edge enters it; directional input returns to an available map node. Solo's server request randomly fills the remaining connected nodes in the current batch (normally five) and deploys immediately. Multiplayer picks only the requesting pilot's vote among currently available options, preserving normal agreement and confirmation. It never chooses future fogged destinations on a player's behalf. The server checks the current round, live roster and request rate. A single local host exercised the button/RPC, five connected selections and immediate encounter entry. Remote multiplayer voting was source-reviewed without extra clients or builds. See CombatFollowup.md.

@@ -124,9 +124,9 @@ public static class MechaAdjustmentsSetup
     {
         var aim = MechaPresentationSetup.Ensure<MechaAutoAim>(root); Assign(aim, "settings", settings);
         var view = MechaPresentationSetup.Ensure<SecondaryWeaponPresentation>(root); Assign(view, "settings", settings);
-        var arm = root.GetComponentsInChildren<Transform>(true).First(t => t.name == "Bip001 L Forearm");
+        var arm = root.GetComponentsInChildren<Transform>(true).First(t => t.name == "Bip001 L Hand");
         var gun = root.GetComponentsInChildren<Transform>(true).FirstOrDefault(t => t.name == "Secondary Weapon Aim") ?? Child(arm, "Secondary Weapon Aim").transform;
-        gun.SetParent(arm, false); gun.localPosition = settings.armMountOffset;
+        gun.SetParent(arm, false); gun.localPosition = arm.Find("Bip001 L Finger0").localPosition*.5f;
         Assign(aim, "leftArm", arm); Assign(view, "leftArm", arm);
         if (gun.childCount == 0)
         {

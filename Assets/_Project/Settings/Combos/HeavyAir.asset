@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b68c9f7ea41634044b8bcac853656489, type: 3}
+  m_Name: HeavyAir
+  m_EditorClassIdentifier: Assembly-CSharp::ComboDefinition
+  displayNameLocalized:
+    m_TableReference:
+      m_TableCollectionName: Combat
+    m_TableEntryReference:
+      m_KeyId: 371543400095744
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  displayName: 
+  domain: 1
+  inputWindow: 1.5
+  loop: 1
+  attacks:
+  - {fileID: 11400000, guid: 772bea1dfc6d3ad4aa7638115017e1fb, type: 2}
+  - {fileID: 11400000, guid: 934781c857eedb144bbb770ec51af9cf, type: 2}
+  - {fileID: 11400000, guid: f8ba5e6c08148104a89774d8dbdc5d72, type: 2}
+  references:
+    version: 2
+    RefIds: []

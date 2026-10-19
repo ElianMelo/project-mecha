@@ -5,6 +5,8 @@ public sealed class ComboLoadout : ScriptableObject
 {
     public ComboDefinition groundCombo;
     public ComboDefinition airCombo;
+    public ComboDefinition heavyCombo;
+    public ComboDefinition heavyAirCombo;
     public AttackPiece dashAttack;
     public AttackPiece risingBranch;
     public AttackPiece diveAttack;

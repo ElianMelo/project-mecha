@@ -142,6 +142,7 @@ public sealed class RouteMapMenu : MonoBehaviour
     private void EnsureFocus()
     {
         var selected = EventSystem.current?.currentSelectedGameObject;
+        if(board.RandomRouteButton != null && board.RandomRouteButton.IsInteractable() && selected == board.RandomRouteButton.gameObject) return;
         if (selected != null && selected.GetComponent<RouteMapNodeView>() != null) return;
         var fallback = board.Node(focused) ?? board.Nodes.FirstOrDefault(x => route.IsAvailable(x.NodeId));
         if (fallback != null) EventSystem.current?.SetSelectedGameObject(fallback.gameObject);
@@ -167,6 +168,7 @@ public sealed class RouteMapMenu : MonoBehaviour
         Vector2 vector = direction == MoveDirection.Up ? Vector2.up : direction == MoveDirection.Down ? Vector2.down : direction == MoveDirection.Left ? Vector2.left : direction == MoveDirection.Right ? Vector2.right : Vector2.zero;
         if (vector == Vector2.zero) return;
         var next = board.Node(board.Neighbour(from, vector));
+        if(next != null && next.NodeId == from && direction == MoveDirection.Left && board.RandomRouteButton.IsInteractable()) { board.RandomRouteButton.Select(); return; }
         if (next != null) EventSystem.current?.SetSelectedGameObject(next.gameObject);
     }
     public void Confirm(int node)
@@ -180,6 +182,11 @@ public sealed class RouteMapMenu : MonoBehaviour
         if (withdraw) route.Withdraw();
         else { route.Select(node); board.Confirm(node); }
         Pulse();
+    }
+    public void RandomRoute()
+    {
+        if(!CanInteract || !route.CanVote) return;
+        route.RandomRoute(); GameAudio.Play(GameAudioCue.UiConfirm);
     }
     private void Pulse()
     {

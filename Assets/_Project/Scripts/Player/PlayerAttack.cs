@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInputs), typeof(PlayerMovement))]
 public class PlayerAttack : NetworkBehaviour
 {
-    public enum ActionKind { Slash1, Slash2, Slash3, AirSlash, DashSlash, MegaSlash, SwordFire, CriticalX, RisingSlash, DiveStrike, CriticalStrike, MagneticPull }
+    public enum ActionKind { Slash1, Slash2, Slash3, AirSlash, DashSlash, MegaSlash, SwordFire, CriticalX, RisingSlash, DiveStrike, CriticalStrike, MagneticPull, Heavy1, Heavy2, Heavy3 }
     [SerializeField] private PlayerCombatSettings settings;
     private readonly SyncVar<float> mana = new SyncVar<float>(100f);
     private float soloMana = 100f;
@@ -40,6 +40,7 @@ public class PlayerAttack : NetworkBehaviour
     {
         if (NetworkObject.IsSpawned) return;
         soloMana = settings.maxMana;
+        health?.ResetEscapeResources();
         System.Array.Clear(localCooldowns, 0, localCooldowns.Length);
     }
     public void BeginAirCombo() => sequence.Reset();
@@ -47,6 +48,7 @@ public class PlayerAttack : NetworkBehaviour
     {
         if (!IsServerInitialized) return;
         mana.Value = settings.maxMana;
+        health?.ResetEscapeResources();
         System.Array.Clear(serverCooldowns, 0, serverCooldowns.Length);
         ResetMatchPresentation();
     }
@@ -57,7 +59,7 @@ public class PlayerAttack : NetworkBehaviour
     private bool localActive, serverActive;
     private float risingBufferedUntil = -10f, skillBufferedUntil = -10f;
     private int bufferedSkill = -1;
-    private bool bufferedDive;
+    private bool bufferedDive, bufferedHeavy;
     private float branchUntil = -10f;
     private int bufferedBranch = -1, branchDirection;
     public bool ServerBusy => serverActive;
@@ -89,6 +91,7 @@ public class PlayerAttack : NetworkBehaviour
     public float Cost(int skill) => settings.Get((ActionKind)(skill + 5)).manaCost;
     private bool HasControl => !NetworkObject.IsSpawned || IsOwner;
     public static bool IsSkill(ActionKind kind) => kind >= ActionKind.MegaSlash && kind <= ActionKind.CriticalX;
+    public static bool IsHeavy(ActionKind kind) => kind >= ActionKind.Heavy1 && kind <= ActionKind.Heavy3;
     private float Duration(int piece) => settings.At(piece).duration;
     private int Pulses(int piece) => settings.At(piece).pulses;
     private float ImpactTime(int piece, int pulse) => settings.At(piece).impact + pulse * settings.At(piece).pulseInterval;
@@ -148,8 +151,8 @@ public class PlayerAttack : NetworkBehaviour
         }
         else if (canChain && Time.time - attackBuffered <= settings.attackBuffer)
         {
-            bool dive = bufferedDive; bufferedDive = false;
-            attackBuffered = -10f; HandleAttack(dive);
+            bool dive = bufferedDive, heavy = bufferedHeavy; bufferedDive = bufferedHeavy = false;
+            attackBuffered = -10f; HandleAttack(dive, heavy);
         }
     }
     public bool TryRisingBranch()
@@ -176,31 +179,24 @@ public class PlayerAttack : NetworkBehaviour
     }
     public void HandleTech()
     {
-        if (character != null && !character.Allows(CombatCapabilities.HeavyMelee)) return;
-        if (!HasControl || health != null && health.IsStunned || IsSkillActive) return;
-        int piece = Loadout != null ? settings.IndexOf(Loadout.techBranch) : settings.IndexOf(ActionKind.MagneticPull);
-        if (piece < 0) return;
-        if (localActive)
-        {
-            bufferedBranch = piece; branchDirection = movement.Facing; branchUntil = Time.time + settings.attackBuffer;
-        }
-        else TryBeginPiece(piece);
+        HandleAttack(false, true);
     }
     public void HandleAttack()
         => HandleAttack(false);
-    private void HandleAttack(bool bufferedAirDive)
+    private void HandleAttack(bool bufferedAirDive, bool heavy = false)
     {
-        if (character != null && !character.Allows(CombatCapabilities.LightMelee)) return;
+        if (character != null && !character.Allows(heavy ? CombatCapabilities.HeavyMelee : CombatCapabilities.LightMelee)) return;
         if (!HasControl || (health != null && health.IsStunned)) return;
         if (localActive && IsSkill(localKind)) return;
-        bool wantsDive = bufferedAirDive || !movement.IsGrounded && inputs.DownHeld;
-        if (localActive && ActionElapsed < CancelTime(localPiece)) { attackBuffered = Time.time; bufferedDive = wantsDive; return; }
+        bool wantsDive = !heavy && (bufferedAirDive || !movement.IsGrounded && inputs.DownHeld);
+        if (localActive && ActionElapsed < CancelTime(localPiece)) { attackBuffered = Time.time; bufferedDive = wantsDive; bufferedHeavy = heavy; return; }
         if (Loadout != null)
         {
             AttackPiece piece;
-            if (!movement.IsGrounded && wantsDive && Loadout.diveAttack != null) { sequence.Reset(); piece = Loadout.diveAttack; }
+            if (heavy) piece = sequence.ConsumeVariant(movement.IsGrounded ? Loadout.heavyCombo : Loadout.heavyAirCombo, Time.time);
+            else if (!movement.IsGrounded && wantsDive && Loadout.diveAttack != null) { sequence.Reset(); piece = Loadout.diveAttack; }
             else if (movement.IsDashing) { sequence.Reset(); piece = Loadout.dashAttack; }
-            else piece = sequence.Consume(movement.IsGrounded ? Loadout.groundCombo : Loadout.airCombo, Time.time);
+            else piece = sequence.ConsumeVariant(movement.IsGrounded ? Loadout.groundCombo : Loadout.airCombo, Time.time);
             if (!TryBeginPiece(settings.IndexOf(piece))) sequence.Reset();
             return;
         }
@@ -272,7 +268,7 @@ public class PlayerAttack : NetworkBehaviour
         serverActive = false;
         skillWindows.Clear();
     }
-    private void ClearBuffers() { bufferedDive = false; bufferedBranch = -1; branchUntil = -10f; attackBuffered = risingBufferedUntil = skillBufferedUntil = -10f; bufferedSkill = -1; }
+    private void ClearBuffers() { bufferedDive = bufferedHeavy = false; bufferedBranch = -1; branchUntil = -10f; attackBuffered = risingBufferedUntil = skillBufferedUntil = -10f; bufferedSkill = -1; }
     [ServerRpc]
     private void RequestAction(int piece, int direction)
     {
@@ -281,7 +277,7 @@ public class PlayerAttack : NetworkBehaviour
         if (!settings.IsValidPiece(piece) || (direction != -1 && direction != 1) || (health != null && health.IsStunned)) { RejectAction(Owner); return; }
         var action = settings.At(piece);
         ActionKind kind = action.kind;
-        var capability = kind == ActionKind.MagneticPull ? CombatCapabilities.HeavyMelee : CombatCapabilities.LightMelee;
+        var capability = kind == ActionKind.MagneticPull || IsHeavy(kind) ? CombatCapabilities.HeavyMelee : CombatCapabilities.LightMelee;
         if (!IsSkill(kind) && character != null && !character.Allows(capability)) { RejectAction(Owner); return; }
         if (action.airOnly && movement.IsGrounded || action.requiresGround && !movement.IsGrounded) { RejectAction(Owner); return; }
         // RPCs begin on a network tick, after the owner's presentation starts.
@@ -334,7 +330,7 @@ public class PlayerAttack : NetworkBehaviour
         if (NetworkObject.IsSpawned && !IsServerInitialized) return;
         var action = settings.At(piece);
         if (characterSkills != null && characterSkills.ApplyAuthority(action.kind, direction, pulse)) return;
-        if (IsSkill(action.kind) && action.hitLength > 0f && emissionOrigin != null)
+        if (action.hitLength > 0f && emissionOrigin != null)
         {
             skillWindows.Add(new SkillContactWindow { piece = piece, pulse = pulse, facing = direction,
                 started = Time.time, expires = Time.time + action.hitActiveTime, previousOrigin = emissionOrigin.Resolve(action, direction, pulse) });
@@ -402,8 +398,11 @@ public class PlayerAttack : NetworkBehaviour
                     Vector3 incoming = point - start;
                     incoming = incoming.sqrMagnitude > 0.001f ? incoming.normalized : axis;
                     DealHit(action, window.facing, window.pulse, target, collider);
-                    if (NetworkObject.IsSpawned) ShowSkillContact((int)action.kind, point, incoming, normal, window.pulse == action.pulses - 1);
-                    else vfx?.SkillContact(action.kind, point, incoming, normal, window.pulse == action.pulses - 1);
+                    if (IsSkill(action.kind))
+                    {
+                        if (NetworkObject.IsSpawned) ShowSkillContact((int)action.kind, point, incoming, normal, window.pulse == action.pulses - 1);
+                        else vfx?.SkillContact(action.kind, point, incoming, normal, window.pulse == action.pulses - 1);
+                    }
                 }
             }
             window.previousOrigin = origin;

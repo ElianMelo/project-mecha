@@ -139,6 +139,40 @@ public sealed class LevelRouteDirector : NetworkBehaviour
     {
         if (IsClientInitialized && CanVote) RequestVote(Round, -1);
     }
+    public void RandomRoute()
+    {
+        if (IsClientInitialized && CanVote) RequestRandomRoute(Round);
+    }
+    [ServerRpc(RequireOwnership = false)]
+    private void RequestRandomRoute(int round, NetworkConnection sender = null)
+    {
+        if(sender == null || ballot == null || !ballot.CanVote || round != generation) return;
+        var roster = Roster();
+        if(!roster.Any(p=>p.OwnerId==sender.ClientId)) return;
+        double now=Clock;
+        if(nextVote.TryGetValue(sender.ClientId,out double next) && now<next) return;
+        if(roster.Length==1)
+        {
+            // Complete the current connected batch, then deploy immediately without confirmation timers.
+            while(planned.Count<planningTarget)
+            {
+                var choices=Nodes.Where(n=>ServerAvailable(n.id)).ToArray();
+                if(choices.Length==0)break;
+                planned.Add(choices[random.Next(choices.Length)].id);
+            }
+            if(planCursor<planned.Count){generation++;EnterEncounter();}
+        }
+        else
+        {
+            // Multiplayer randomizes only this pilot's vote among the current available destinations.
+            var choices=Nodes.Where(n=>ServerAvailable(n.id)).ToArray();
+            if(choices.Length==0)return;
+            int chosen=choices[random.Next(choices.Length)].id;
+            ballot.SetRoster(roster.Select(p=>p.OwnerId).ToArray(),now);
+            if(!ballot.Votes.TryGetValue(sender.ClientId,out int vote)||vote!=chosen)ballot.Vote(sender.ClientId,chosen,now);
+            nextVote[sender.ClientId]=now+settings.voteRepeatSeconds;Publish();
+        }
+    }
     [ServerRpc(RequireOwnership = false)]
     private void RequestVote(int round, int node, NetworkConnection sender = null)
     {

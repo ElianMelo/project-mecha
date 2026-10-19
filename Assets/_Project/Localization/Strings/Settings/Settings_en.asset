@@ -282,6 +282,18 @@ MonoBehaviour:
     m_Localized: Your changes apply for this session, but could not be saved to disk.
     m_Metadata:
       m_Items: []
+  - m_Id: 409000158011392
+    m_Localized: On
+    m_Metadata:
+      m_Items: []
+  - m_Id: 409000346755072
+    m_Localized: Show self highlight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 409000363532288
+    m_Localized: Show players highlight
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

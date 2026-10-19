@@ -7,6 +7,8 @@ public static class GameSaveKeys
     public const string VideoPrefix = "Mecha.Video.";
     public const string LegacyMigration = "Mecha.Migration.PlayerPrefs";
     public const string SelectedCharacter = "Mecha.Character.Selected";
+    public const string SelfHighlight = "Mecha.General.SelfHighlight";
+    public const string PlayersHighlight = "Mecha.General.PlayersHighlight";
 
     public static string AudioVolume(GameAudioBus bus)
     {

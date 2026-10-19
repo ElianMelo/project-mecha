@@ -16,13 +16,28 @@ public class CharacterHitFeedback : MonoBehaviour, IHitFeedback
         if (GetComponent<DestructibleProp>() == null)
             GameAudio.Play(GetComponent<PlayerHealth>() != null ? GameAudioCue.PlayerHit : GameAudioCue.Hit, transform.position, transform);
         Flash(settings.flashColor, settings.flashDuration, true);
+        Vector3 direction = incomingDirection.sqrMagnitude > .0001f ? incomingDirection.normalized : Vector3.up;
         Vector3 position = transform.position + settings.hitOffset;
-        // Follow the incoming impulse, away from the attacker.
-        Vector3 direction = new Vector3(Mathf.Sign(incomingDirection.x), settings.hitSprayLift, 0f);
-        ParticleBurstEmitter.Emit(settings.hitSparks, position, direction);
-        ParticleBurstEmitter.Emit(settings.hitSmoke, position, direction);
-        ParticleBurstEmitter.Emit(settings.hitCore, position, direction);
-        ParticleBurstEmitter.Emit(settings.hitDebris, position, direction);
+        if(settings.damageSparkPrefab != null)
+        {
+            var body=GetComponent<Collider>();
+            if(body != null)
+            {
+                position=body.ClosestPoint(body.bounds.center-direction*(body.bounds.extents.magnitude+.1f));
+                // Project a cosmetic contact onto the visible face in the X/Y combat view.
+                // Physics, damage and the receiving collider retain their original depth.
+                position.z=body.bounds.min.z+Mathf.Min(-.025f,settings.hitOffset.z);
+            }
+            // Rebound from the receiving face, preserving vertical/diagonal incoming hit direction.
+            Instantiate(settings.damageSparkPrefab,position,Quaternion.LookRotation(-direction,Mathf.Abs(direction.z)<.95f?Vector3.forward:Vector3.up));
+        }
+        else
+        {
+            ParticleBurstEmitter.Emit(settings.hitSparks, position, direction);
+            ParticleBurstEmitter.Emit(settings.hitSmoke, position, direction);
+            ParticleBurstEmitter.Emit(settings.hitCore, position, direction);
+            ParticleBurstEmitter.Emit(settings.hitDebris, position, direction);
+        }
         if (damage > 0f) CombatEffect.DamageNumber(position + settings.damageTextOffset, damage, settings);
     }
     public void Telegraph() => Flash(settings.telegraphColor, settings.telegraphDuration);

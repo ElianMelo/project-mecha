@@ -23,7 +23,7 @@ MonoBehaviour:
     m_LocalVariables: []
   displayName: Ground Original
   domain: 0
-  inputWindow: 0.9
+  inputWindow: 1.5
   loop: 1
   attacks:
   - {fileID: 11400000, guid: 00ce543397741e94a9bc2196095771cb, type: 2}

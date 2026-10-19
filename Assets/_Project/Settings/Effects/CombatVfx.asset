@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f56d777bc7807ca42875ea95b849c8bf, type: 3}
   m_Name: CombatVfx
   m_EditorClassIdentifier: Assembly-CSharp::CombatVfxSettings
+  damageSparkPrefab: {fileID: 5829033233322377715, guid: b6b0a6d08e82ef345be4775507b79e41, type: 3}
   swordFire: {fileID: 11400000, guid: 32c519568a28f9f47837c9d5952733f2, type: 2}
   megaSlashFire: {fileID: 11400000, guid: b5ca54661b346404dbd3ecfd158503e3, type: 2}
   criticalXFire: {fileID: 11400000, guid: c934e0c940612974bbf2c819ce53e920, type: 2}

@@ -18,7 +18,7 @@ MonoBehaviour:
   floorFaceHeight: 1.5
   floorTileWidth: 6
   floatingFaceHeight: 0.55
-  propDepth: 0.6
+  propDepth: 0
   boxSize: {x: 1, y: 1, z: 0.7}
   boxFeet:
   - {x: -2, y: -3.5, z: 0}

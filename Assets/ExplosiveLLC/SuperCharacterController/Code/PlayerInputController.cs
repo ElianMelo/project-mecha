@@ -2,12 +2,12 @@
 
 public class PlayerInputController:MonoBehaviour
 {
-	public PlayerInput Current;
+	public SuperCharacterInput Current;
 	public Vector2 RightStickMultiplier = new Vector2(3, -1.5f);
 
 	private void Start()
 	{
-		Current = new PlayerInput();
+		Current = new SuperCharacterInput();
 	}
 
 	private void Update()
@@ -27,7 +27,7 @@ public class PlayerInputController:MonoBehaviour
 
 		bool jumpInput = Input.GetButtonDown("Jump");
 
-		Current = new PlayerInput() {
+		Current = new SuperCharacterInput() {
 			MoveInput = moveInput,
 			MouseInput = mouseInput,
 			JumpInput = jumpInput
@@ -35,7 +35,7 @@ public class PlayerInputController:MonoBehaviour
 	}
 }
 
-public struct PlayerInput
+public struct SuperCharacterInput
 {
 	public Vector3 MoveInput;
 	public Vector2 MouseInput;

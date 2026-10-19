@@ -371,6 +371,38 @@ MonoBehaviour:
     m_Key: mode.remaining
     m_Metadata:
       m_Items: []
+  - m_Id: 371539293872128
+    m_Key: heavy.cut1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371540497637376
+    m_Key: heavy.cut2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371541508464640
+    m_Key: heavy.cut3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371542624149504
+    m_Key: combo.heavy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371543400095744
+    m_Key: combo.heavy.air
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371556607959040
+    m_Key: term.Heavy1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371557455208448
+    m_Key: term.Heavy2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 371558201794560
+    m_Key: term.Heavy3
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -1,6 +1,7 @@
 fileFormatVersion: 2
 guid: a63fca1331d4ef34282dd5cf42833d5f
 labels:
+- Keep
 - Prefabs
 PrefabImporter:
   externalObjects: {}

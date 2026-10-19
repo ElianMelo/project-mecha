@@ -51,7 +51,7 @@ public class PlayerCombatVfx : MonoBehaviour
         if (PlayerAttack.IsSkill(kind) && pulse == action.pulses - 1)
             GameAudio.Play(kind == PlayerAttack.ActionKind.MegaSlash ? GameAudioCue.MegaSlashImpact :
                 kind == PlayerAttack.ActionKind.SwordFire ? GameAudioCue.SwordFireImpact : GameAudioCue.CriticalXImpact, transform.position, transform);
-        var sound = PlayerAttack.IsSkill(kind) ? GameAudioCue.SkillPulse :
+        var sound = PlayerAttack.IsHeavy(kind) ? GameAudioCue.Finisher : PlayerAttack.IsSkill(kind) ? GameAudioCue.SkillPulse :
             kind == PlayerAttack.ActionKind.Slash2 ? GameAudioCue.Combo :
             kind == PlayerAttack.ActionKind.Slash3 ? GameAudioCue.Finisher :
             kind == PlayerAttack.ActionKind.AirSlash ? GameAudioCue.AirSlash :
@@ -60,6 +60,8 @@ public class PlayerCombatVfx : MonoBehaviour
             kind == PlayerAttack.ActionKind.DiveStrike ? GameAudioCue.DiveStrike :
             kind == PlayerAttack.ActionKind.CriticalStrike ? GameAudioCue.CriticalStrike : GameAudioCue.Slash;
         if (kind != PlayerAttack.ActionKind.MagneticPull) GameAudio.Play(sound, transform.position, transform);
+        // Equipped swords draw their real animated arc. Contact receivers own sparks.
+        if (!PlayerAttack.IsSkill(kind) && kind != PlayerAttack.ActionKind.MagneticPull && GetComponentInChildren<SwordSwingPresentation>() != null) return;
         Vector3 offset=new Vector3(facing*(action.reach+pulse*action.pulseAdvance),action.height,settings.strikeOffset.z);
         if (kind == PlayerAttack.ActionKind.MagneticPull)
         {

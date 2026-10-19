@@ -57,7 +57,7 @@ The skill requires compilation and observed rendering at gameplay scale, several
 - [VfxPackageScan.json](VfxPackageScan.json): commit scope, archive counts, local ignored dependencies and guide coverage.
 - [Build-VfxSourceCatalog.py](../AgentScripts/Build-VfxSourceCatalog.py): read-only library/archive scanner; bundled Python requires Pillow/pypdf. Extend explicit roots/commits when adding libraries.
 - [Inspect-VfxReference.cs](../AgentScripts/Inspect-VfxReference.cs): native-prefab report through Pipeline, without instantiation or vendor script execution.
-- [Update-ProjectClassification.ps1](../AgentScripts/Update-ProjectClassification.ps1) and [ApplyAssetClassification.cs](../AgentScripts/ApplyAssetClassification.cs): preserve VFX roles alongside categories; bounded batches include folder assets.
+- [MechaAssetLabels.cs](../Assets/Editor/MechaAssetLabels.cs) and [ApplyAssetClassification.cs](../AgentScripts/ApplyAssetClassification.cs): native Keep/Replace/category labels preserve provenance and VFX roles; no per-file classification CSV is maintained.
 
 Regenerate the catalog after library changes, regenerate classification, then apply labels through Unity APIs. Do not hand-edit serialized metadata. Preserve unrelated labels, GUIDs and dirty assets. See [classification](ProjectContentClassification.md).
 

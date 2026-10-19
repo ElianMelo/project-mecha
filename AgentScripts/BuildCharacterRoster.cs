@@ -107,13 +107,14 @@ public static class BuildCharacterRoster
                 else {visual=(GameObject)PrefabUtility.InstantiatePrefab(character.visualPrefab,root.transform);visual.name=i==0?"Dasher Visual":"Zero Visual";}
                 var transforms=visual.GetComponentsInChildren<Transform>(true);
                 visual.transform.localScale=Vector3.one*character.visualScale;
-                var arm=transforms.First(t=>t.name=="Bip001 L Forearm");
+                var arm=transforms.First(t=>t.name=="Bip001 L Hand");
                 var gun=transforms.FirstOrDefault(t=>t.name=="Secondary Weapon Aim");
                 if(gun==null)
                 {
                     var source=root.GetComponentsInChildren<Transform>(true).First(t=>t.name=="Secondary Weapon Aim");gun=UnityEngine.Object.Instantiate(source.gameObject,arm).transform;gun.name="Secondary Weapon Aim";
                 }
                 var rig=MechaPresentationSetup.Ensure<CharacterRigBinding>(visual);rig.animator=visual.GetComponent<Animator>();rig.leftArm=arm;rig.gun=gun;
+                gun.SetParent(arm,false);gun.localPosition=arm.Find("Bip001 L Finger0").localPosition*.5f;
                 rig.skillHand=transforms.First(t=>t.name=="Bip001 R Hand");rig.animator.runtimeAnimatorController=character.animation.controller;rig.animator.applyRootMotion=false;
                 foreach(var t in visual.GetComponentsInChildren<Transform>(true))t.gameObject.layer=root.layer;
                 rigs[i]=rig;visual.SetActive(i==0);

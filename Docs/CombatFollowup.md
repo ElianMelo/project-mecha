@@ -1,5 +1,19 @@
 # Combat and usability follow-up — 2026-10-19
 
+## TEMPORARY HANDOFF — REJECTED; revisit next session
+
+The user rejects the current solution as terrible and worse than before. Idle and dash previously had good poses and are now completely broken. The current animation/Humanoid implementation is unfinished and is **not an accepted baseline**. The implementation notes and technical validation below do not constitute visual or gameplay approval.
+
+Work is paused at the user's request. This update changes documentation only; preserve the current working changes for investigation. Do not continue tuning or automatically revert the implementation.
+
+Next session:
+
+- Compare the previously good idle/dash poses with the current replacements. Start at `AgentScripts/HumanoidRigAuthoring.cs` (`NativeLocomotion`), both animation settings/controllers, and the character visual prefabs. Dash currently uses the replacement Run clip.
+- Identify whether the regression comes from the Humanoid mapping/skin, source motion, or state setup before making further changes. Valid Avatar flags and successful compilation are insufficient evidence of usable animation.
+- Respect the user's rejection of accumulating workarounds: do not add corrective bakes, pose patches, or more VFX tuning to conceal an unresolved rig/animation problem. Review the actual idle/dash result with the user when work resumes.
+
+## Previous implementation record — subject to the rejection above
+
 The user's priority is a maintainable native Humanoid solution. Both players have native Humanoid Avatars and share imported melee motion assets directly. Duplicate baked melee curves and corrective bake tooling are removed. Native Humanoid movement/reaction/skill references replace incompatible Generic states; source clips remain untouched. Legacy Death clips were outside the melee conversion and remain unverified. See CombatCombos.md for the rig boundary.
 
 Extra rifles/cannon remain visible because they are fused into body skins. Neither character provides separate unwanted weapon objects to disable. The filtered Zero mesh was retired and the original derived skin restored. A split model is required to hide those weapons without mesh alteration; no replacement hiding trick was added.

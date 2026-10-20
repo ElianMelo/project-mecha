@@ -1,8 +1,10 @@
 fileFormatVersion: 2
 guid: 32ad98274622a564e87d1aa42637ad61
-labels:
-- Others
-- Reference
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
   productId: 251038
@@ -10,8 +12,3 @@ AssetOrigin:
   packageVersion: 1.5
   assetPath: Assets/GabrielAguiarProductions/Documentation_StylizedBeams_v1.pdf
   uploadId: 891846
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 

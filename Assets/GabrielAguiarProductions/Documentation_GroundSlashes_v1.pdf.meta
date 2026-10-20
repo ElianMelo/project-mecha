@@ -1,8 +1,10 @@
 fileFormatVersion: 2
 guid: cf4dd7082e0497548b25178e7bb9fb4c
-labels:
-- Others
-- Reference
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
   productId: 251038
@@ -10,8 +12,3 @@ AssetOrigin:
   packageVersion: 1.5
   assetPath: Assets/GabrielAguiarProductions/Documentation_GroundSlashes_v1.pdf
   uploadId: 891846
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 

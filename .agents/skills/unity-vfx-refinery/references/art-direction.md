@@ -4,6 +4,12 @@ Read for every VFX task. Apply `Docs/VfxIterationNotes.md` as scoped evidence; a
 
 ## Identity before modules
 
+### Water correction — 2026-10-20
+
+The user's water reference shows broad saturated blue/cyan flow with bright near-white broken foam boundaries and luminous highlights. Zero's earlier dark flipbook clouds and point-light-only revision were rejected: the water material itself must visibly glow. Prefer cohesive water volumes, a few graphic shade/highlight regions, sharp source-derived foam shapes, fast growth/breakup and geometric retraction. Alpha fades and fine density texture are supporting tools, not the primary visual treatment. This supersedes the earlier requirement to retain graded grayscale density when that conflicts with the current graphic water brief; do not impose photorealistic mottling on all VFX.
+
+Use GabrielAguiarProductions for 100% of new/revised visual source ingredients, inspecting the actual relevant local VFX before authoring. In this water pass, read ToonLiquids water burst/loop and TsunamiWaves blue setups, then use their source shader/meshes/maps. Native Particle System remains the default for bounded skill assemblies. The reference's directional water flow lines are context-specific flow detail; the melee ban on decorative straight slash bars does not prohibit them. Preserve source licensing/provenance and record actual dependencies. Do not change unrelated existing effects merely to apply the new sourcing preference.
+
 The project combines 1980s anime mecha, modern controlled execution, toon shading and deep shadows. Grand Chase informs readable attack rhythm and side-view combat; Armored Core informs engineered machinery, mass and high-energy weapon systems. These references do not authorize copying artwork. The brief's 80s influence does not mean crude early-era anime, comedy, fantasy or exaggerated rubbery cartoon motion.
 
 Favor angular silhouettes, abrupt ignition, forceful acceleration, tearing metal, hot edges, compressed pressure fronts and deliberate residual settling. Keep actor silhouettes, enemy tells, ground contact, projectiles and HUD legible. Use fine detail to support a strong primary read. A plausible energy source and material response should explain each visible layer.

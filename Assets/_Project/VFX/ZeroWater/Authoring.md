@@ -1,5 +1,31 @@
 # Zero hydraulic water skills
 
+## Current revision — 2026-10-20: emissive anime water from Gabriel sources
+
+The user rejected the soft fading water texture treatment and clarified that glow belongs in the visible VFX material. Their supplied anime-water reference calls for saturated blue flow, luminous cyan patterns and near-white broken foam. All five water prefabs now use GabrielAguiarProductions meshes, maps and shader, with native Particle System for simulation. No finished vendor prefab/graph is instantiated. No Hovl/JMO texture or project ZeroWater shader remains in their rendered dependencies. Older notes below describe superseded implementations.
+
+Read-only source inspection covered ToonLiquids water burst/loop v1 (48e4578babdd90245a061262a31c0494 Liquid graph: radial erosion and confined liquid breakup), TsunamiWaves/vfx_TsunamiWave_v2_blue (6b999d5a51acd6a49933cdadb1af7e71: blue volume/HDR highlights, moving wave and impact layers), their exposed properties, and source shader-generated output. The source catalog still says archive-only for some now-imported assets; native AssetDatabase and actual local files established availability.
+
+Actual visual ingredients: Water01/Water02 hard graphic water masks; Sphere01 and Cylinder meshes; TsunamiShader_lite Shader Graph. This compatible native Gabriel shader already provides separate base/highlight colors, scrolling flow and HDR output, so no custom replacement shader was needed. Its unlit HDR color is self-luminous rendering, not baked/dynamic GI. Material colors reach 3.2 for foam and 2.5 for cyan flow; body highlights reach 3.05 after the shader's base-plus-highlight combination. Original shader/maps/models remain unchanged apart from native VFXSource labels. Source AI provenance is unknown and not relabeled as generated.
+
+| Effect | Current layers and motion |
+| --- | --- |
+| Bubble preparation | Growing blue source sphere plus separate luminous foam skin, .32 s |
+| Bubble detonation | Fast growing/retracting blue volume and cyan pressure front, 32 white breakup droplets |
+| Fountain preparation | Four short rising nozzle volumes and foam lead-in |
+| Fountain | Four cohesive 2.75-unit columns, scrolling graphic highlights, broken crests and four native droplet pulses at .22 s |
+| Water Mode | Two attached recirculation jets, luminous side droplets and broken flow envelope; immediate native initial bursts |
+
+Growth, retraction and particle breakup own the visible end; no color-over-lifetime alpha fade is used. Sprite flipbooks are replaced by source meshes and graphic scrolling masks. Materials/prefabs own authored tuning. WaterEffect retains its existing attachment/lifetime/particle-drain role; the point-light Animator signal was removed. No gameplay profile, input, damage, modifier or authority change. World depth and VfxSurfaceDepth remain. Existing Bloom/exposure stay unchanged. The old light clips/controller assets are retained unused after automatic approval review rejected their deletion; legacy ApplyAll forwards to current authoring and old per-root light authoring refuses the current component.
+
+WaterAnimeAuthoring explicitly rebuilds these prefabs through Unity APIs; BuildCharacterRoster calls the same authoring helper and preserves existing skill references. New visual assets are Replace. Unchanged configuration/code labels remain as before. The supplied reference is preserved at Docs/References/WaterSkills/Feedback01-user-reference.png; its pixels are not runtime art.
+
+Compilation passed and source shader messages are empty. A manual disposable preview invoked actual skill presentation on Zero in the actual generated room. Final advancing frames 116→485/time 2.409→9.632 showed all five phases with zero water lights and the sword light disabled. Same-frame owned-material comparisons dimmed only material RGB to 18%, retaining alpha/shape/time; material glow was visible in captured VFX without point lights. Floor/actor crop differences in this comparison include bloom/visible effect overlap and **are not receiver illumination evidence**. Shader-loading cyan in the first preparation capture was invalid and excluded; the settled preparation was recaptured. The initial aura lacked immediate mesh emission; native initial bursts repaired it (15 particles observed at the early mode sample). Aura followed a one-unit actor move, then drained from 13 particles to zero on ClearModifier; zero water roots remained. Play Mode restored stopped and MainScene clean. No automated tests, builds or network session. Final console ground truth zero errors/warnings; earlier asset import reported unrelated VFX_Hit_Impact graphs missing shader GUID 773800098bca19141ae66346997c42f9, outside these water dependencies. One recompilation temporarily dropped the tool connection; subsequent native status confirmed completed/no errors.
+
+Captures and operator receipts: ignored Logs/WaterAnime, AgentScripts/PreviewWaterAnime.cs. Visual acceptance remains with the user.
+
+## Superseded point-light revision and initial water pass
+
 Current rendering policy: the later user clarification supersedes the foreground overlay note below. Water uses normal scene depth. Optional VfxSurfaceDepth moves cosmetic emitter branches just ahead of a nearby platform, within an authored bound; the effect root and any interaction/light branches keep their world positions. The 2026-10-19 lighting revision below adds real lights; particle modules, materials and source art remain unchanged. See [depth/interaction verification](../Rendering/Authoring.md).
 
 ## Real light emission — 2026-10-19

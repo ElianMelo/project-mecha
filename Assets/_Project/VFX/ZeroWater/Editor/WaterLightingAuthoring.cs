@@ -58,8 +58,11 @@ public static class WaterLightingAuthoring
         }
         EditorUtility.SetDirty(controller); return controller;
     }
+    // Retained for history; current water authoring is material-emissive, not point-light based.
     public static void Apply(GameObject effect)
     {
+        if (new SerializedObject(effect.GetComponent<WaterEffect>()).FindProperty("sustainedLighting") == null)
+            throw new InvalidOperationException("Point-light authoring is retired. Use WaterAnimeAuthoring.ApplyAll.");
         string name = effect.name;
         if (!Names.Contains(name)) return;
         Folder(Root + "/Animations");
@@ -97,7 +100,8 @@ public static class WaterLightingAuthoring
         serialized.FindProperty("sustainedLighting").objectReferenceValue = mode ? animator : null;
         serialized.ApplyModifiedPropertiesWithoutUndo();
     }
-    public static object ApplyAll()
+    public static object ApplyAll() => WaterAnimeAuthoring.ApplyAll();
+    private static object LegacyApplyAll()
     {
         if (EditorApplication.isPlaying) throw new InvalidOperationException("Author lights in Edit Mode.");
         foreach (var name in Names)

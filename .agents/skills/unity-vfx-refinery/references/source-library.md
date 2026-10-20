@@ -2,6 +2,8 @@
 
 ## Find a source or study an effect
 
+Current user sourcing preference (2026-10-20): use GabrielAguiarProductions exclusively for newly authored/revised VFX visual ingredients. For water, inspect the on-disk ToonLiquids/TsunamiWaves prefabs and their graph/shader/model/map dependencies first, and use the compatible Gabriel source ingredients in the actual effect. A catalog's archive-only status can be stale after a full import: confirm through AssetDatabase and direct local reads before staging anything. Other vendor entries below remain historical inventory, not current fallback permission for new visuals.
+
 `Docs/VfxSourceCatalog.csv` is the searchable asset index; `Docs/VfxPackageScan.json` records scope, archive counts, hashes/commit provenance and guide coverage. The initial scan covers commits `2072054` and `a258685`, all four supplied VFX trees, and nine locally supplied archives. The catalog includes every on-disk file/metadata plus every archived Unity asset. `DependencyGuids`, shader path, layer/name summary, dimensions and technical tags support targeted inspection. Tags are text-derived hints, not proof that a native module is enabled or a shader works in URP.
 
 Use structured CSV reads; a plain text search can help shortlist but rows may contain escaped/multiline content. For example, from the project root:

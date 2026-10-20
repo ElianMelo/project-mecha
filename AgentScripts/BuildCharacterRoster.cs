@@ -131,71 +131,14 @@ public static class BuildCharacterRoster
         }
         finally{PrefabUtility.UnloadPrefabContents(root);}
     }
-    static Material Material(string name,string texture,bool shell=false)
-    {
-        string path=Vfx+"/Materials/"+name+".mat";Folder(Vfx+"/Materials");var mat=Load<Material>(path);
-        if(mat==null){mat=new Material(Shader.Find("Mecha/Zero Water"));AssetDatabase.CreateAsset(mat,path);}
-        mat.SetTexture("_BaseMap",Load<Texture2D>(texture));mat.SetColor("_Color",new Color(.025f,.22f,.44f,shell?.65f:.85f));mat.SetColor("_EdgeColor",new Color(.58f,1.05f,1.2f));mat.SetFloat("_Fresnel",shell?1f:0f);EditorUtility.SetDirty(mat);return mat;
-    }
-    static ParticleSystem Layer(GameObject root,string name,Material mat,Vector3 point,int count,float delay,float life,float size,float speed,bool loop=false,float radius=.1f)
-    {
-        var go=new GameObject(name);go.transform.SetParent(root.transform,false);go.transform.localPosition=point;go.transform.localRotation=Quaternion.Euler(-90,0,0);
-        go.layer=CombatVfxRendering.Layer;
-        var ps=go.AddComponent<ParticleSystem>();ps.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);
-        var m=ps.main;m.duration=1f;m.loop=loop;m.playOnAwake=true;m.startDelay=delay;m.startLifetime=new ParticleSystem.MinMaxCurve(life*.85f,life);m.startSpeed=new ParticleSystem.MinMaxCurve(speed*.8f,speed);m.startSize=new ParticleSystem.MinMaxCurve(size*.8f,size);m.startColor=Color.white;m.maxParticles=240;m.simulationSpace=loop?ParticleSystemSimulationSpace.Local:ParticleSystemSimulationSpace.World;m.scalingMode=ParticleSystemScalingMode.Hierarchy;
-        m.startRotation=new ParticleSystem.MinMaxCurve(-3.14f,3.14f);
-        var e=ps.emission;e.rateOverTime=loop?count:0;if(!loop)e.SetBursts(new[]{new ParticleSystem.Burst(0,(short)count)});
-        var sh=ps.shape;sh.enabled=true;sh.shapeType=ParticleSystemShapeType.Cone;sh.radius=radius;sh.angle=25f;
-        var color=ps.colorOverLifetime;color.enabled=true;var g=new Gradient();g.SetKeys(new[]{new GradientColorKey(new Color(.2f,.6f,.8f),0),new GradientColorKey(Color.white,.35f),new GradientColorKey(new Color(.1f,.35f,.6f),1)},new[]{new GradientAlphaKey(0,0),new GradientAlphaKey(1,.1f),new GradientAlphaKey(.8f,.55f),new GradientAlphaKey(0,1)});color.color=g;
-        var scale=ps.sizeOverLifetime;scale.enabled=true;scale.size=new ParticleSystem.MinMaxCurve(1,new AnimationCurve(new Keyframe(0,.35f),new Keyframe(.2f,1),new Keyframe(1,1.5f)));
-        var noise=ps.noise;noise.enabled=true;noise.strength=.16f;noise.frequency=1.5f;noise.scrollSpeed=.45f;
-        var r=ps.GetComponent<ParticleSystemRenderer>();r.sharedMaterial=mat;r.renderMode=ParticleSystemRenderMode.Billboard;r.sortingFudge=.1f;
-        return ps;
-    }
-    static void Sheet(ParticleSystem ps,int x,int y)
-    {var s=ps.textureSheetAnimation;s.enabled=true;s.numTilesX=x;s.numTilesY=y;s.frameOverTime=new ParticleSystem.MinMaxCurve(1,AnimationCurve.Linear(0,0,1,1));s.startFrame=new ParticleSystem.MinMaxCurve(0f,.2f);}
-    static WaterEffect Effect(string name,Action<GameObject> build)
-    {
-        Folder(Vfx+"/Prefabs");var go=new GameObject(name);try{go.AddComponent<WaterEffect>();build(go);MechaRenderSetup.ConfigureSurfaceDepth(go);WaterLightingAuthoring.Apply(go);return PrefabUtility.SaveAsPrefabAsset(go,Vfx+"/Prefabs/"+name+".prefab").GetComponent<WaterEffect>();}finally{UnityEngine.Object.DestroyImmediate(go);}
-    }
     static void BuildEffects(WaterBubbleSkill bubble,WaterFountainSkill fountain,WaterModeSkill mode)
     {
-        var water=Material("WaterVolume","Assets/Hovl Studio/HSFiles/Textures/Water2.png");
-        var foam=Material("Foam","Assets/JMO Assets/Cartoon FX Remaster/CFXR Assets/Graphics/cfxr water foam.png");
-        var droplets=Material("Droplets","Assets/JMO Assets/Cartoon FX Remaster/CFXR Assets/Graphics/cfxr water small splash hollow stretch.png");
-        var shell=Material("PressureShell","Assets/Hovl Studio/HSFiles/Textures/Water2.png",true);
-        var sphere=GameObject.CreatePrimitive(PrimitiveType.Sphere);var mesh=sphere.GetComponent<MeshFilter>().sharedMesh;UnityEngine.Object.DestroyImmediate(sphere);
-        bubble.bubble=Effect("BubblePreparation",go=>{
-            var p=Layer(go,"Pressurized shell",shell,Vector3.zero,1,0,.32f,2.1f,0);var sh=p.shape;sh.enabled=false;var r=p.GetComponent<ParticleSystemRenderer>();r.renderMode=ParticleSystemRenderMode.Mesh;r.mesh=mesh;
-            var m=p.main;m.startRotation=0;m.startSize=2.1f;var scale=p.sizeOverLifetime;scale.size=new ParticleSystem.MinMaxCurve(1,AnimationCurve.EaseInOut(0,.1f,1,1));
-            Sheet(Layer(go,"Contained rolling water",water,Vector3.zero,5,.02f,.28f,.8f,.4f,false,.45f),7,7);
-        });
-        bubble.explosion=Effect("BubbleDetonation",go=>{
-            Sheet(Layer(go,"Dark liquid body",water,Vector3.zero,9,0,.52f,1.4f,1.8f,false,.35f),7,7);
-            var p=Layer(go,"Radial pressure spray",droplets,Vector3.zero,28,.03f,.65f,.42f,4.2f,false,.35f);var s=p.shape;s.shapeType=ParticleSystemShapeType.Sphere;s.radius=.3f;Sheet(p,2,2);var m=p.main;m.gravityModifier=.6f;
-            Layer(go,"Foam aftermath",foam,Vector3.zero,14,.12f,.85f,.5f,1.3f,false,.6f);
-        });
-        fountain.preparation=Effect("FountainPreparation",go=>{for(int i=0;i<4;i++)Layer(go,"Nozzle pressure "+i,foam,new Vector3((i-1.5f)*1.45f,.12f,0),3,0,.3f,.65f,.25f);});
-        fountain.fountain=Effect("RisingFountain",go=>{
-            for(int i=0;i<4;i++)
-            {
-                float x=(i-1.5f)*1.45f;float delay=.03f*(i%2);
-                var jet=Layer(go,"Rising flow "+i,water,new Vector3(x,.05f,(i%2==0?.2f:-.2f)),10,delay,.62f,1.05f,5f,false,.22f);Sheet(jet,7,7);
-                var e=jet.emission;e.SetBursts(new[]{new ParticleSystem.Burst(0,10,4,.22f)});
-                var spray=Layer(go,"Crown spray "+i,droplets,new Vector3(x,2.7f,0),8,.42f,.65f,.28f,2f,false,.3f);Sheet(spray,2,2);var m=spray.main;m.gravityModifier=.8f;
-                Layer(go,"Turbulent base "+i,foam,new Vector3(x,.12f,0),9,.1f,.9f,.6f,.55f,false,.4f);
-            }
-        });
-        mode.aura=Effect("WaterModeAura",go=>{
-            var shellLayer=Layer(go,"Water envelope",shell,new Vector3(0,.85f,0),2,0,.9f,1.8f,0,true,0);
-            var shellShape=shellLayer.shape;shellShape.enabled=false;var shellRenderer=shellLayer.GetComponent<ParticleSystemRenderer>();shellRenderer.renderMode=ParticleSystemRenderMode.Mesh;shellRenderer.mesh=mesh;
-            var shellMain=shellLayer.main;shellMain.startRotation=0;shellMain.startColor=new Color(1,1,1,.6f);var shellSize=shellLayer.sizeOverLifetime;shellSize.size=new ParticleSystem.MinMaxCurve(1,new AnimationCurve(new Keyframe(0,.85f),new Keyframe(.4f,1),new Keyframe(1,1.08f)));
-            var body=Layer(go,"Circulating coolant",water,new Vector3(0,.6f,.25f),9,0,.7f,.7f,.9f,true,.7f);Sheet(body,7,7);var sh=body.shape;sh.shapeType=ParticleSystemShapeType.Donut;sh.radius=.65f;sh.donutRadius=.1f;
-            var vel=body.velocityOverLifetime;vel.enabled=true;vel.orbitalY=2.5f;vel.radial=.1f;
-            Sheet(Layer(go,"Left recirculation",water,new Vector3(-.65f,.15f,-.1f),8,0,.65f,.6f,1.7f,true,.12f),7,7);
-            Sheet(Layer(go,"Right recirculation",water,new Vector3(.65f,.15f,-.1f),8,0,.65f,.6f,1.7f,true,.12f),7,7);
-            Layer(go,"Vent foam",foam,new Vector3(0,.2f,0),8,0,.65f,.26f,1.6f,true,.45f);
-        });
+        WaterAnimeAuthoring.ApplyAll();
+        bubble.bubble=Load<WaterEffect>(Vfx+"/Prefabs/BubblePreparation.prefab");
+        bubble.explosion=Load<WaterEffect>(Vfx+"/Prefabs/BubbleDetonation.prefab");
+        fountain.preparation=Load<WaterEffect>(Vfx+"/Prefabs/FountainPreparation.prefab");
+        fountain.fountain=Load<WaterEffect>(Vfx+"/Prefabs/RisingFountain.prefab");
+        mode.aura=Load<WaterEffect>(Vfx+"/Prefabs/WaterModeAura.prefab");
     }
     static void Portrait(CharacterDefinition definition,int index)
     {

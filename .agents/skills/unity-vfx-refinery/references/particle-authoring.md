@@ -106,6 +106,8 @@ For variation, configure native TwoGradients, rotation ranges and noise scroll r
 
 ## Scene support, preparation and aftermath (feedback revision 5)
 
+The water correction (2026-10-20) distinguishes luminous effect materials from receiver illumination. Inspect actual shader HDR output and the native Bloom contribution with all effect point lights off before claiming self-glow. Use compatible Gabriel source shaders/materials and graphic water masks first; a custom density shader or extra receiver lights do not satisfy that brief. Native size/growth/breakup curves can end a graphic effect without relying on a long alpha fade.
+
 For surface-response revisions, distinguish source albedo from relief: Unity's native height-to-normal importer can derive approximate panel relief from an existing atlas without changing its source importer. Validate with the actual requested light (for example the equipped sword), not only a brighter substitute. Discard cyan shader-loading fallback captures; warm the relevant native material passes before paired light/map comparisons. Short light envelopes need observed action time and actual intensity in the captured frame.
 
 Inspect the material assigned by runtime room/platform builders as well as authored scenes/prefabs. A lit authored face does not establish that generated rooms receive lights: a new SpriteRenderer silently uses its default unlit material unless the builder assigns the shared receiver. Keep that material reference in the existing scenario ScriptableObject and verify a generated room with same-frame light on/off evidence. Compare the renderer/shader requirements of a reference sample before proposing a renderer migration.

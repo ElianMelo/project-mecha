@@ -2,21 +2,20 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 // Native particles/trail/light observe combat state; presentation never drives hits.
+[DefaultExecutionOrder(100)]
 public sealed class SwordSwingPresentation : MonoBehaviour
 {
     [SerializeField] private SwordSwingSettings settings;
     [SerializeField] private TrailRenderer bladeTrail;
+    [SerializeField] private TrailRenderer[] bladeBodyTrails;
     [SerializeField] private Unity.Cinemachine.CinemachineImpulseSource impactSource;
     [SerializeField] private Light bladeLight;
     [SerializeField] private ParticleSystem bladePeel;
-    [SerializeField] private GameObject cutPrefab;
     private PlayerAttack attack;
     private PlayerMovement movement;
-    private GameObject cutInstance;
-    private ParticleSystem[] cutSystems;
     private PlayerCombatSettings.ActionData lastAction;
     private float previousElapsed;
-    private bool cutPlayed;
+    private bool strikePlayed;
     private float lightPeakUntil;
     private Gamepad hapticPad;
     private float hapticUntil;
@@ -26,14 +25,7 @@ public sealed class SwordSwingPresentation : MonoBehaviour
         attack = GetComponentInParent<PlayerAttack>();
         movement = GetComponentInParent<PlayerMovement>();
         if (attack != null) attack.HitConfirmed += Impact;
-        if (bladeTrail != null) { bladeTrail.Clear(); bladeTrail.emitting = false; }
-        if (cutInstance == null && cutPrefab != null)
-        {
-            // One reusable, unit-scale world envelope per equipped sword; no network particle objects.
-            cutInstance = Instantiate(cutPrefab);
-            cutSystems = cutInstance.GetComponentsInChildren<ParticleSystem>(true);
-        }
-        ClearCut();lastAction=null;previousElapsed=0f;cutPlayed=false;
+        ClearTrails();lastAction=null;previousElapsed=0f;strikePlayed=false;
     }
     private void LateUpdate()
     {
@@ -44,33 +36,23 @@ public sealed class SwordSwingPresentation : MonoBehaviour
         bool heavy = melee && PlayerAttack.IsHeavy(action.kind);
         float elapsed = attack.ActionElapsed;
         if(action != lastAction || elapsed < previousElapsed)
-        {cutPlayed=false;lastAction=action;}
+        {ClearTrails();strikePlayed=false;lastAction=action;}
         previousElapsed=elapsed;
-        bool emitting = melee && elapsed >= action.impact-settings.leadIn && elapsed <= action.impact+Mathf.Max(.1f,action.hitActiveTime);
-        if(bladeTrail != null)
-        {
-            bladeTrail.widthMultiplier = heavy ? settings.heavyWidth : settings.lightWidth;
-            bladeTrail.time = heavy ? settings.heavyTail : settings.lightTail;
-            if (emitting && !bladeTrail.emitting) bladeTrail.Clear();
-            bladeTrail.emitting = emitting;
-        }
+        // Combat queries the animated blade segment in this same LateUpdate phase.
+        bool emitting = attack.MeleeContactActive;
+        PresentTrail(bladeTrail, emitting, heavy, 1f);
+        if (bladeBodyTrails != null)
+            foreach (var trail in bladeBodyTrails) PresentTrail(trail, emitting, heavy, settings.bodyTrailWidth);
         if(bladePeel != null)
         {
             if(emitting && !bladePeel.isPlaying)bladePeel.Play();
             else if(!emitting && bladePeel.isPlaying)bladePeel.Stop(false,ParticleSystemStopBehavior.StopEmitting);
         }
-        if(melee && !cutPlayed && elapsed >= action.impact-settings.cutLead)
+        if(emitting && !strikePlayed)
         {
-            cutPlayed=true;lightPeakUntil=Time.time+settings.lightDecay;
-            if(cutInstance != null)
-            {
-                ClearCut();
-                FollowBlade();
-                cutInstance.transform.localScale=Vector3.one*(heavy?settings.heavyRadius:settings.lightRadius);
-                foreach(var ps in cutSystems)ps.Play(false);
-            }
+            strikePlayed=true;lightPeakUntil=Time.time+settings.lightDecay;
         }
-        if(cutPlayed && emitting && cutInstance != null)FollowBlade();
+        if (!melee) lightPeakUntil=0f;
         if(bladeLight != null)
         {
             float envelope=Mathf.Clamp01((lightPeakUntil-Time.time)/Mathf.Max(.01f,settings.lightDecay));
@@ -91,20 +73,27 @@ public sealed class SwordSwingPresentation : MonoBehaviour
         hapticPad = pad; pad.SetMotorSpeeds(strength,strength*.6f); hapticUntil = Time.unscaledTime+settings.rumbleSeconds;
     }
     private void StopHaptic() { if (hapticPad != null && hapticPad.added) hapticPad.SetMotorSpeeds(0f,0f); hapticPad = null; }
-    private void ClearCut(){if(cutSystems!=null)foreach(var ps in cutSystems)if(ps != null)ps.Stop(false,ParticleSystemStopBehavior.StopEmittingAndClear);}
-    private void FollowBlade()
+    private void PresentTrail(TrailRenderer trail, bool emitting, bool heavy, float width)
     {
-        // The source mesh's +X radial axis follows the blade's long +Y axis in its actual 3D plane.
-        cutInstance.transform.SetPositionAndRotation(transform.position,Quaternion.LookRotation(transform.forward,-transform.right));
+        if (trail == null) return;
+        trail.widthMultiplier=(heavy?settings.heavyWidth:settings.lightWidth)*width;
+        trail.time=heavy?settings.heavyTail:settings.lightTail;
+        if(emitting && !trail.emitting) trail.Clear();
+        trail.emitting=emitting;
+    }
+    private void ClearTrails()
+    {
+        if (bladeTrail != null) {bladeTrail.emitting=false;bladeTrail.Clear();}
+        if (bladeBodyTrails != null) foreach(var trail in bladeBodyTrails)
+            if(trail != null){trail.emitting=false;trail.Clear();}
     }
     private void OnDisable()
     {
         if (attack != null) attack.HitConfirmed -= Impact;
-        if (bladeTrail != null) { bladeTrail.emitting = false; bladeTrail.Clear(); }
+        ClearTrails();
         if(bladePeel != null)bladePeel.Stop(false,ParticleSystemStopBehavior.StopEmittingAndClear);
         if(bladeLight != null && settings != null)bladeLight.intensity=settings.idleLight;
-        lightPeakUntil=0f;ClearCut();
+        lightPeakUntil=0f;
         StopHaptic();
     }
-    private void OnDestroy(){if(cutInstance!=null)Destroy(cutInstance);}
 }

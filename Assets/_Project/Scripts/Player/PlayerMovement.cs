@@ -164,7 +164,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         float y = body.linearVelocity.y;
         float gravity = y < -0.4f ? settings.fallingGravity : Mathf.Abs(y) < settings.apexSpeed ? settings.apexGravity : settings.risingGravity;
-        if (settings.variableJump && y > 0f && !inputs.JumpHeld) gravity = settings.jumpCutGravity;
+        if (settings.variableJump && y > 0f && !inputs.JumpHeld && (health == null || !health.IsStunned)) gravity = settings.jumpCutGravity;
         body.linearVelocity = new Vector3(body.linearVelocity.x, Mathf.Max(y - gravity * Time.fixedDeltaTime, -settings.terminalVelocity), 0f);
     }
     private void CheckGround()
@@ -397,6 +397,10 @@ public class PlayerMovement : NetworkBehaviour
     {
         localFacing = direction >= 0 ? 1 : -1;
         if (!HasControl) return;
-        transform.rotation = Quaternion.Euler(0f, 90f * Facing, 0f);
+        var rotation = Quaternion.Euler(0f, 90f * Facing, 0f);
+        // Attacks can turn in Update. Keep the native interpolated body in the
+        // same orientation so the next physics step cannot restore the old facing.
+        if (body != null) body.rotation = rotation;
+        transform.rotation = rotation;
     }
 }

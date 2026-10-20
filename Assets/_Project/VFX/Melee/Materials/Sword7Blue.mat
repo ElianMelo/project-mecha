@@ -404,7 +404,7 @@ Material:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Emissive_Color: {r: 0, g: 1.5736156, b: 5.780011, a: 1.8}
+    - _Emissive_Color: {r: 0, g: 0.6119616, b: 2.2477822, a: 0.7}
     - _FirstShadeMaskColor: {r: 0, g: 1, b: 1, a: 1}
     - _HighColor: {r: 0.16, g: 0.2, b: 0.24, a: 1}
     - _HighlightMaskColor: {r: 1, g: 1, b: 0, a: 1}

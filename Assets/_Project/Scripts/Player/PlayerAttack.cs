@@ -14,6 +14,9 @@ public class PlayerAttack : NetworkBehaviour
     private Collider[] hitBuffer = new Collider[64];
     private readonly List<SkillContactWindow> skillWindows = new List<SkillContactWindow>();
     private CombatEmissionOrigin emissionOrigin;
+    private readonly MeleeBladeSweep bladeSweep = new MeleeBladeSweep();
+    private PlayerCombatSettings.ActionData sampledBladeAction;
+    private float sampledBladeElapsed;
     private readonly HashSet<IDamageable> hitTargets = new HashSet<IDamageable>();
     private readonly HashSet<IDamageable> diveTargets = new HashSet<IDamageable>();
     private PlayerInputs inputs;
@@ -82,6 +85,9 @@ public class PlayerAttack : NetworkBehaviour
     public static readonly HashSet<PlayerAttack> ActiveActors = new HashSet<PlayerAttack>();
     public void ResetDamageReadout() { ComboHits = 0; ComboDamage = TotalDamage = LastDamage = PeakComboDamage = 0f; LastHitTime = -10f; }
     public bool IsBusy => localActive;
+    public bool UsesBladeContact => emissionOrigin != null && emissionOrigin.Blade != null && emissionOrigin.Blade.IsReady;
+    public bool MeleeContactActive => ActiveData != null && IsMelee(ActiveData.kind) &&
+        ActionElapsed >= ActiveData.impact && ActionElapsed <= ActiveData.impact + ActiveData.hitActiveTime;
     public bool IsSkillActive => (localActive && IsSkill(localKind)) || (IsServerInitialized && serverActive && IsSkill(serverKind));
     public bool CanAirSteer => false;
     public float Mana => NetworkObject.IsSpawned ? mana.Value : soloMana;
@@ -92,6 +98,7 @@ public class PlayerAttack : NetworkBehaviour
     private bool HasControl => !NetworkObject.IsSpawned || IsOwner;
     public static bool IsSkill(ActionKind kind) => kind >= ActionKind.MegaSlash && kind <= ActionKind.CriticalX;
     public static bool IsHeavy(ActionKind kind) => kind >= ActionKind.Heavy1 && kind <= ActionKind.Heavy3;
+    public static bool IsMelee(ActionKind kind) => !IsSkill(kind) && kind != ActionKind.MagneticPull;
     private float Duration(int piece) => settings.At(piece).duration;
     private int Pulses(int piece) => settings.At(piece).pulses;
     private float ImpactTime(int piece, int pulse) => settings.At(piece).impact + pulse * settings.At(piece).pulseInterval;
@@ -330,6 +337,8 @@ public class PlayerAttack : NetworkBehaviour
         if (NetworkObject.IsSpawned && !IsServerInitialized) return;
         var action = settings.At(piece);
         if (characterSkills != null && characterSkills.ApplyAuthority(action.kind, direction, pulse)) return;
+        // Equipped melee queries the animated blade after Animator evaluation.
+        if (IsMelee(action.kind) && UsesBladeContact) return;
         if (action.hitLength > 0f && emissionOrigin != null)
         {
             skillWindows.Add(new SkillContactWindow { piece = piece, pulse = pulse, facing = direction,
@@ -397,7 +406,7 @@ public class PlayerAttack : NetworkBehaviour
                     window.targets.Add(target);
                     Vector3 incoming = point - start;
                     incoming = incoming.sqrMagnitude > 0.001f ? incoming.normalized : axis;
-                    DealHit(action, window.facing, window.pulse, target, collider);
+                    DealHit(action, window.facing, window.pulse, target, collider, new DamageContact(point, incoming));
                     if (IsSkill(action.kind))
                     {
                         if (NetworkObject.IsSpawned) ShowSkillContact((int)action.kind, point, incoming, normal, window.pulse == action.pulses - 1);
@@ -414,7 +423,25 @@ public class PlayerAttack : NetworkBehaviour
     private void ShowSkillContact(int kind, Vector3 point, Vector3 incoming, Vector3 normal, bool final)
         => vfx?.SkillContact((ActionKind)kind, point, incoming, normal, final);
 
-    private void DealHit(PlayerCombatSettings.ActionData action, int direction, int pulse, IDamageable enemy, Collider contact)
+    private void LateUpdate()
+    {
+        bool authority = !NetworkObject.IsSpawned || IsServerInitialized;
+        bool active = NetworkObject.IsSpawned ? serverActive : localActive;
+        int piece = NetworkObject.IsSpawned ? serverPiece : localPiece;
+        if (!authority || !active || !UsesBladeContact || PvpMatchDirector.BlocksCombat || !IsMelee(settings.At(piece).kind))
+        { bladeSweep.Reset();sampledBladeAction=null;return; }
+        var action=settings.At(piece);
+        float elapsed=NetworkObject.IsSpawned?(Time.time-serverStart)*serverSpeed:ActionElapsed;
+        if(action!=sampledBladeAction || elapsed<sampledBladeElapsed)bladeSweep.Reset();
+        sampledBladeAction=action;sampledBladeElapsed=elapsed;
+        int direction=NetworkObject.IsSpawned?serverDirection:localDirection;
+        var contacts=bladeSweep.Sample(emissionOrigin.Blade,elapsed,action.impact,action.impact+action.hitActiveTime,
+            transform.position.z,CombatTargetRules.TargetLayers(settings.enemyLayers),action.hitObstructions,health);
+        foreach(var contact in contacts)
+            DealHit(action,direction,0,contact.Target,contact.Collider,contact.Surface);
+    }
+
+    private void DealHit(PlayerCombatSettings.ActionData action, int direction, int pulse, IDamageable enemy, Collider contact, DamageContact surface = default)
     {
             var kind = action.kind;
             float damage = (pulse == action.pulses - 1 ? action.finalDamage : action.damage) * settings.damageMultiplier;
@@ -424,7 +451,7 @@ public class PlayerAttack : NetworkBehaviour
             bool airborne = target != null && target.IsJuggling;
             float push = action.pull ? Mathf.Sign(transform.position.x - contact.transform.position.x) * action.pullSpeed : direction * action.push;
             float lift = launcher ? action.lift : airborne ? action.airLift : 0f;
-            enemy.TakeDamage(damage, new Vector3(push, lift, 0f), action.stun, health);
+            enemy.TakeDamage(damage, new Vector3(push, lift, 0f), action.stun, health, surface);
             float dealt = float.IsPositiveInfinity(before) ? damage : Mathf.Max(0f, before - enemy.Health);
             if (dealt <= 0f) return;
             if (NetworkObject.IsSpawned) ConfirmHit(dealt);

@@ -14,43 +14,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimationSettings
   controller: {fileID: 9100000, guid: a047e183d30343a4290154e7d63bb76f, type: 2}
   clips:
-  - state: Idle
-    clip: {fileID: 7400000, guid: 2e0a20e1ce910094683008cc5de54cdd, type: 2}
-  - state: Run
-    clip: {fileID: 7400000, guid: ff68d7bacc4e90444ae26e440b01f5ad, type: 2}
-  - state: Dash
-    clip: {fileID: 7400000, guid: ff68d7bacc4e90444ae26e440b01f5ad, type: 2}
-  - state: Jump
-    clip: {fileID: 7400000, guid: 2e0a20e1ce910094683008cc5de54cdd, type: 2}
-  - state: Fall
-    clip: {fileID: 7400000, guid: 2fce34001c803ae42b73343db90e5c0a, type: 2}
+  - state: Flinch
+    clip: {fileID: -379998487791383941, guid: 542aee31f3000ee4095be9a612acd2a3, type: 3}
+  - state: HitReaction
+    clip: {fileID: -7081366064800193788, guid: fea69a6598fcfea439ea384cbf04c7f1, type: 3}
   - state: Hit
-    clip: {fileID: 7400000, guid: 2fce34001c803ae42b73343db90e5c0a, type: 2}
+    clip: {fileID: -379998487791383941, guid: 542aee31f3000ee4095be9a612acd2a3, type: 3}
+  - state: KnockUp
+    clip: {fileID: -7081366064800193788, guid: 4d3b604d68bf5fb41b8f428c9937f71c, type: 3}
+  - state: AirHit
+    clip: {fileID: -7719531095785811656, guid: 4d3b604d68bf5fb41b8f428c9937f71c, type: 3}
+  - state: Knockdown
+    clip: {fileID: -7719531095785811656, guid: 4d3b604d68bf5fb41b8f428c9937f71c, type: 3}
   - state: Death
-    clip: {fileID: 7400000, guid: 2fce34001c803ae42b73343db90e5c0a, type: 2}
+    clip: {fileID: -7081366064800193788, guid: 4d3b604d68bf5fb41b8f428c9937f71c, type: 3}
+  - state: StandUp
+    clip: {fileID: -5333334828590076025, guid: 4d3b604d68bf5fb41b8f428c9937f71c, type: 3}
+  - state: Idle
+    clip: {fileID: 7804281696320516629, guid: 99ba2dab2137f0445992b3992d994bfe, type: 3}
+  - state: Run
+    clip: {fileID: -6848113619949682186, guid: 77cbe76379436db42afc0e47ff625926, type: 3}
+  - state: Dash
+    clip: {fileID: -6848113619949682186, guid: 77cbe76379436db42afc0e47ff625926, type: 3}
+  - state: Jump
+    clip: {fileID: 7400000, guid: 864149f863d0268478c600e44bcc6aa4, type: 3}
+  - state: Fall
+    clip: {fileID: 7400000, guid: 864149f863d0268478c600e44bcc6aa4, type: 3}
   - state: Attack
-    clip: {fileID: 7400000, guid: 2fce34001c803ae42b73343db90e5c0a, type: 2}
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
+  - state: SpecialAttack
+    clip: {fileID: -5476243507799159532, guid: ac296747f46c9c14c9214a0d6099d6d4, type: 3}
   - state: Slash1
-    clip: {fileID: 7400000, guid: 2fce34001c803ae42b73343db90e5c0a, type: 2}
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
   - state: Slash2
-    clip: {fileID: 7400000, guid: 2fce34001c803ae42b73343db90e5c0a, type: 2}
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
   - state: Slash3
-    clip: {fileID: 7400000, guid: 2fce34001c803ae42b73343db90e5c0a, type: 2}
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
   - state: AirSlash
-    clip: {fileID: 7400000, guid: 2fce34001c803ae42b73343db90e5c0a, type: 2}
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
   - state: DashSlash
-    clip: {fileID: 7400000, guid: 2fce34001c803ae42b73343db90e5c0a, type: 2}
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
   - state: MegaSlash
-    clip: {fileID: 7400000, guid: 2fce34001c803ae42b73343db90e5c0a, type: 2}
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
   - state: SwordFire
-    clip: {fileID: 7400000, guid: 2fce34001c803ae42b73343db90e5c0a, type: 2}
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
   - state: CriticalX
-    clip: {fileID: 7400000, guid: 2fce34001c803ae42b73343db90e5c0a, type: 2}
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
   - state: RisingSlash
-    clip: {fileID: 7400000, guid: 2fce34001c803ae42b73343db90e5c0a, type: 2}
+    clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
   crossFade: 0.035
   movementThreshold: 0.25
   hitPoseTime: 0.2
+  meleeCrossFade: 0.012
   runReferenceSpeed: 3.6
   dashReferenceSpeed: 3.6
   minimumLocomotionPlayback: 0.2

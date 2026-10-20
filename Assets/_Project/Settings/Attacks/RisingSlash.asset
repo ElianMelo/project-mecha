@@ -24,9 +24,9 @@ MonoBehaviour:
   displayName: Rising Slash
   action:
     kind: 8
-    duration: 0.5
-    impact: 0.13333334
-    cancel: 0.31666666
+    duration: 1.02
+    impact: 0.38
+    cancel: 0.86
     pulses: 1
     pulseInterval: 0.13
     damage: 13

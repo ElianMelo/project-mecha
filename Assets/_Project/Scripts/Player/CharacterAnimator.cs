@@ -9,6 +9,7 @@ public class CharacterAnimator : MonoBehaviour
     private NetworkAnimator networkAnimator;
     private PlayerMovement player;
     private PlayerAttack attack;
+    private CombatReaction reactions;
     private EnemyController enemy;
     private Rigidbody body;
     private string current;
@@ -30,6 +31,7 @@ public class CharacterAnimator : MonoBehaviour
         networkAnimator = GetComponent<NetworkAnimator>();
         animator = networkAnimator != null ? networkAnimator.Animator : GetComponentInChildren<Animator>(); player = GetComponent<PlayerMovement>(); enemy = GetComponent<EnemyController>(); body = GetComponent<Rigidbody>();
         attack = GetComponent<PlayerAttack>();
+        reactions = GetComponent<CombatReaction>();
         networkAnimator = GetComponent<NetworkAnimator>();
         if (animator != null && settings != null) { animator.runtimeAnimatorController = settings.controller; animator.applyRootMotion = false; }
         previousPosition = transform.position;
@@ -43,7 +45,7 @@ public class CharacterAnimator : MonoBehaviour
         if (!DrivesAnimator) return;
         if (animator != null)
             animator.speed = 1f;
-        if (animator == null || settings == null || dead || Time.time < lockedUntil) return;
+        if (animator == null || settings == null || dead || Time.time < lockedUntil || reactions != null && reactions.BlocksControl) return;
         bool grounded = player != null ? player.IsGrounded : enemy != null ? enemy.IsGrounded : Mathf.Abs(body.linearVelocity.y) < 0.5f;
         Vector3 velocity = player != null ? player.Velocity : enemy != null && enemy.IsSpawned && !enemy.IsServerInitialized ? motion : body != null ? body.linearVelocity : motion;
         float horizontal = Mathf.Abs(velocity.x);
@@ -82,7 +84,17 @@ public class CharacterAnimator : MonoBehaviour
         lockedUntil = Time.time + duration; Play(kind.ToString(), duration, fade: melee ? settings.meleeCrossFade : settings.crossFade); }
     public void ReleaseAction() { lockedUntil = 0f; current = null; }
     public void Reaction(float stun) { lockedUntil = Time.time + stun; Play("Hit", stun, settings.hitPoseTime); }
-    public void Telegraph(float duration) { lockedUntil = Time.time + duration; Play("Attack", duration); }
+    public void ReactionState(string state, float duration)
+    {
+        if (dead) return;
+        lockedUntil = Time.time + duration;
+        Play(state, duration);
+    }
+    public void Telegraph(float duration, bool special = false)
+    {
+        float total = duration + (enemy != null ? enemy.AttackRecovery(special) : 0f);
+        lockedUntil = Time.time + total; Play(special ? "SpecialAttack" : "Attack", total);
+    }
     public void Death(float duration) { dead = true; Play("Death", duration); }
     public void ResetPresentation() { dead=false; lockedUntil=0f; current=null; }
 }

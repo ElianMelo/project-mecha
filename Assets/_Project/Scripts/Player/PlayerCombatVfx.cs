@@ -91,5 +91,5 @@ public class PlayerCombatVfx : MonoBehaviour
         ParticleBurstEmitter.Emit(settings.dashStreaks,transform.position+settings.strikeOffset.y*Vector3.up,new Vector3(-facing,0.05f,0f));
         if (beginning) ParticleBurstEmitter.Emit(settings.dashDebris,transform.position+settings.dashOffset,new Vector3(-facing,0.65f,0f));
     }
-    public void Hit(Vector3 direction) => feedback?.Hit(0f,direction);
+    public void Hit(Vector3 direction, DamageContact contact = default) => feedback?.Hit(0f,direction,contact);
 }

@@ -123,12 +123,10 @@ public class GameManager : MonoBehaviour
         if (join >= 0 && join + 1 < args.Length)
         {
             var service = FindFirstObjectByType<MechaLobbyService>(); ShowLobby();
-            CharacterSelectionMenu.Instance.ConfirmLaunchArgument();
-            if (!await CharacterSelectionMenu.Instance.EnsureConfirmedAsync()) return;
             await service.JoinAsync(args[join + 1], "Remote Pilot", true);
             if (service.Session != null && System.Array.IndexOf(args, "--mecha-ready") >= 0) await service.ToggleReadyAsync();
         }
-        else if (System.Array.IndexOf(args, "--mecha-local-client") >= 0) { StartClient(); CharacterSelectionMenu.Instance.ConfirmLaunchArgument(); }
+        else if (System.Array.IndexOf(args, "--mecha-local-client") >= 0) StartClient();
     }
     private void OnDisable() => systemActions?.Disable();
     private void OnDestroy() { GameControlBindings.Unregister(interfaceActions); if (interfaceActions != null) Destroy(interfaceActions); if (Instance == this) Instance = null; }
@@ -143,7 +141,7 @@ public class GameManager : MonoBehaviour
         if (MenuOpen && CharacterSelectionMenu.Instance != null && CharacterSelectionMenu.Instance.IsVisible) return;
         if (_networkManager.ServerManager.Started || _networkManager.ClientManager.Started || FindFirstObjectByType<MechaLobbyService>()?.Session != null) return;
         optionsMenu.Close();
-        CharacterSelectionMenu.Instance.Open(() => StartHostSelected(skipOpeningChoice));
+        StartHostSelected(skipOpeningChoice);
     }
     private void StartHostSelected(bool skipOpeningChoice)
     {
@@ -158,9 +156,10 @@ public class GameManager : MonoBehaviour
     public void StartServer() => _networkManager.ServerManager.StartConnection();
     public void StartClient()
     {
+        if (CharacterSelectionMenu.Instance != null && CharacterSelectionMenu.Instance.IsVisible) return;
         if (_networkManager.ClientManager.Started || _networkManager.ServerManager.Started || FindFirstObjectByType<MechaLobbyService>()?.Session != null) return;
         optionsMenu.Close();
-        CharacterSelectionMenu.Instance.Open(StartClientSelected);
+        StartClientSelected();
     }
     private void StartClientSelected()
     {

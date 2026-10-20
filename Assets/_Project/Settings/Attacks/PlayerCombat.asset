@@ -394,11 +394,11 @@ MonoBehaviour:
   maxMana: 100
   manaRegen: 7
   hitMana: 4
-  attackBuffer: 0.35
+  attackBuffer: 0.95
   skillBuffer: 0.3
   networkRecoveryGrace: 0.04
   comboWindow: 0.9
   enemyLayers:
     serializedVersion: 2
     m_Bits: 1536
-  comboDisplayWindow: 1.65
+  comboDisplayWindow: 2

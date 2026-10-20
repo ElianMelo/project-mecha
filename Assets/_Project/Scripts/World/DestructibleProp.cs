@@ -42,21 +42,21 @@ public class DestructibleProp : NetworkBehaviour, ICombatTarget, ITargetable
     }
     public void TakeHit(float damage, Vector3 knockback, float stun)
         => TakeHitFrom(null, damage, knockback, stun);
-    public void TakeDamage(float damage, Vector3 knockback, float stun, PlayerHealth attacker)
-        => TakeHitFrom(attacker, damage, knockback, stun);
-    public void TakeHitFrom(PlayerHealth attacker, float damage, Vector3 knockback, float stun)
+    public void TakeDamage(float damage, Vector3 knockback, float stun, PlayerHealth attacker, DamageContact contact = default)
+        => TakeHitFrom(attacker, damage, knockback, stun, contact);
+    public void TakeHitFrom(PlayerHealth attacker, float damage, Vector3 knockback, float stun, DamageContact contact = default)
     {
         if (IsDead || Networked && !IsServerInitialized || damage <= 0f) return;
         if (Networked) health.Value = Mathf.Max(0f, health.Value - damage);
         else { soloHealth = Mathf.Max(0f, soloHealth - damage); SetVisible(!IsDead); }
         if (IsDead) attacker?.Heal(settings.healOnBreak);
-        if (Networked) ShowHit(knockback, IsDead); else ApplyHit(knockback, IsDead);
+        if (Networked) ShowHit(knockback, IsDead, contact); else ApplyHit(knockback, IsDead, contact);
     }
-    [ObserversRpc(RunLocally = true)] private void ShowHit(Vector3 direction, bool broken) => ApplyHit(direction, broken);
-    private void ApplyHit(Vector3 direction, bool broken)
+    [ObserversRpc(RunLocally = true)] private void ShowHit(Vector3 direction, bool broken, DamageContact contact) => ApplyHit(direction, broken, contact);
+    private void ApplyHit(Vector3 direction, bool broken, DamageContact contact)
     {
         GameAudio.Play(broken ? GameAudioCue.CrateBreak : GameAudioCue.CrateHit, transform.position);
-        feedback?.Hit(0f, direction);
+        feedback?.Hit(0f, direction, contact);
         if (broken)
         {
             ParticleBurstEmitter.Emit(settings.debris, transform.position, direction + Vector3.up);

@@ -18,7 +18,9 @@ MonoBehaviour:
   respawnInvincibility: 2
   fallLimit: -12
   defeatDuration: 1.1
+  enemyHitProtection: 0.35
   escapeCapacity: 3
   escapeRefillSeconds: 5
   escapeInvincibility: 0.25
   staggerDrag: 24
+  airStaggerDrag: 3

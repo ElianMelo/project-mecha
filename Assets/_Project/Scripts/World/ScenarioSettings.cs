@@ -5,6 +5,10 @@ public class ScenarioSettings : ScriptableObject
 {
     public Texture2D platformAtlas;
     public Sprite floorSprite, floatingSprite;
+    public Material platformMaterial;
+    public GameObject floorBlockPrefab, floatingBlockPrefab;
+    [Min(.01f)] public float platformVisualDepth = .6f;
+    public float platformFrontDepth = .10f;
     public float floorFaceHeight = 1.5f, floorTileWidth = 6f, floatingFaceHeight = 0.55f;
     public float propDepth = 0.6f;
     public Vector3 boxSize = new Vector3(1f, 1f, 0.7f);

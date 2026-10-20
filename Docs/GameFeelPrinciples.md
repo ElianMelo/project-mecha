@@ -38,6 +38,7 @@ The larger goal is learned control that supports improvisation and personal expr
 - **Technical anime direction:** preserve the project's dark 1980s mecha/toon style and mechanical explanation for motion and energy. A book example's cartoon exaggeration is not a request to copy its visual treatment.
 - **Existing ownership:** keep input, physics/movement, combat authority, animation, effects and camera responsibilities separate. Native Unity systems remain the first choice. ScriptableObjects own tuning; runtime feedback must not mutate shared assets.
 - **Real-time clocks:** current project policy keeps combat clocks in real time. The book's slowdown/frame-pause examples do not authorize adding hit stop or time dilation. Optional motion must remain optional, and readability must survive its removal.
+- **Editor inspection exception (user request, 2026-10-19):** while playing with the Game view focused, O halves and P doubles `Time.timeScale`, bounded to 0.125x–4x. These debug shortcuts live entirely in the Editor assembly, ignore active text entry and restore the pre-play scale on exit. They do not change authored combat timing, physics timestep settings or player builds. This deliberate inspection control does not authorize gameplay hit stop or time dilation.
 
 ## Review process for each update
 

@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3860766b89b3f74ca387bff7af2affd, type: 3}
   m_Name: EnemyBehavior
   m_EditorClassIdentifier: Assembly-CSharp::EnemySettings
+  engagement: {fileID: 11400000, guid: 06fffe53cab18f341bddfa50b74f2dd0, type: 2}
   maxHealth: 90
   moveSpeed: 3.6
   attackDamage: 12
-  windup: 0.34
-  attackCooldown: 0.65
-  deathDuration: 0.65
+  windup: 0.38
+  attackCooldown: 1.15
+  deathDuration: 1.25
   attackRange: 1.05
   impactRange: 1.35
   heightTolerance: 0.9
@@ -28,3 +29,11 @@ MonoBehaviour:
   facingSpeedThreshold: 0.15
   juggleGravityScale: 0.55
   attackKnockback: {x: 5, y: 4, z: 0}
+  specialEveryAttacks: 3
+  specialWindup: 0.8
+  specialCooldown: 5
+  specialStun: 0.55
+  attackRecovery: 0.42
+  specialRecovery: 0.8
+  specialDamageMultiplier: 1.5
+  specialKnockback: {x: 7, y: 8}

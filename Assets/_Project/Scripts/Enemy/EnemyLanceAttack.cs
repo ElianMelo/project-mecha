@@ -12,6 +12,9 @@ public sealed class EnemyLanceAttack : NetworkBehaviour
     private EnemyStateMachine brain;
     private PlayerAwareness target;
     private float fireAt, nextShot;
+    private EnemyLanceProjectile inFlight;
+    public bool HasProjectileInFlight => inFlight != null && !inFlight.IsEmbedded;
+    public bool ReadyToEngage => IsCharging || HasProjectileInFlight || Time.time >= nextShot;
     public bool IsCharging { get; private set; }
     public bool HasLance => holdingLance.Value;
     public Transform HeldLance => heldLance;
@@ -30,21 +33,25 @@ public sealed class EnemyLanceAttack : NetworkBehaviour
     {
         if (settings == null) return false;
         if (target == null || !target.IsAlive || !IsCharging) target = brain.Target;
-        if (target == null || !target.IsAlive) { IsCharging = false; return false; }
+        if (target == null || !target.IsAlive) { Cancel(); return false; }
         float distance = Vector3.Distance(target.transform.position, transform.position);
         actor.Face(target.transform.position.x - transform.position.x);
-        if (distance > settings.detectionRange) { IsCharging = false; return false; }
+        if (distance > settings.detectionRange) { Cancel(); actor.YieldEngagement(); return false; }
         if (IsCharging)
         {
             brain.Motor.Move(0f);
+            if (target.Health.IsStunned) { Cancel(); actor.YieldEngagement(); return true; }
             if (Time.time >= fireAt) { Fire(); IsCharging = false; nextShot = Time.time + settings.cooldown; }
             return true;
         }
+        if (HasProjectileInFlight) { brain.Motor.Move(0f); return true; }
+        if (Time.time < nextShot) { actor.YieldEngagement(); brain.Motor.Move(0f); return true; }
         if (!brain.Motor.IsGrounded) { brain.Navigation.Pursue(target.Movement, actor.ChaseSpeed, settings.preferredRange); return true; }
         if (distance < settings.retreatRange)
         {
             var support = brain.Motor.Support;
             float direction = Mathf.Sign(transform.position.x - target.transform.position.x);
+            if (support == null) return true;
             float x = Mathf.Clamp(transform.position.x + direction * 2f, support.bounds.min.x + 0.5f, support.bounds.max.x - 0.5f);
             brain.Navigation.MoveTo(new Vector3(x, support.bounds.max.y, 0f), support, actor.ChaseSpeed, 0.2f);
             if (Mathf.Abs(x - transform.position.x) > 0.3f) return true;
@@ -52,7 +59,7 @@ public sealed class EnemyLanceAttack : NetworkBehaviour
         if (distance > settings.preferredRange + 2f)
         { brain.Navigation.Pursue(target.Movement, actor.ChaseSpeed, settings.preferredRange); return true; }
         brain.Motor.Move(0f);
-        if (Time.time >= nextShot)
+        if (Time.time >= nextShot && !target.Health.IsStunned && actor.TryCommitAttack())
         {
             holdingLance.Value = true;
             IsCharging = true; fireAt = Time.time + Mathf.Max(0.18f, settings.windup);
@@ -68,10 +75,12 @@ public sealed class EnemyLanceAttack : NetworkBehaviour
         end.x += Mathf.Clamp(target.Movement.Velocity.x * settings.leadTime, -settings.maximumLead, settings.maximumLead);
         Vector3 direction = end - origin;
         var projectile = Instantiate(settings.projectile, origin, Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
-        projectile.GetComponent<EnemyLanceProjectile>().Launch(settings, end, target.Movement.Support);
+        inFlight = projectile.GetComponent<EnemyLanceProjectile>();
+        inFlight.Launch(settings, end, target.Movement.Support);
+        EnemyAttackTokens.TrackProjectile(actor, inFlight);
         holdingLance.Value = false;
-        actor.ServerManager.Spawn(projectile);
-        ThrowAudio(origin);
+        if (actor.IsServerInitialized) { actor.ServerManager.Spawn(projectile); ThrowAudio(origin); }
+        else GameAudio.Play(GameAudioCue.Throw, origin);
     }
     [ObserversRpc(RunLocally = true)] private void ThrowAudio(Vector3 position) => GameAudio.Play(GameAudioCue.Throw, position);
 }

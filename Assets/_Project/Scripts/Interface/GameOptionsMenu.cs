@@ -15,6 +15,7 @@ public sealed class GameOptionsMenu : MonoBehaviour
     [SerializeField] private VideoConfigurationMenu videoSettings;
     [SerializeField] private ControlsConfigurationMenu controls;
     [SerializeField] private UnityEngine.UI.Button controlsButton;
+    [SerializeField] private UnityEngine.UI.Button swapMecha;
     [SerializeField] private UnityEngine.UI.Button resume, lobby, audioButton, videoButton, videoBack, generalButton, generalBack;
     private GameObject previousSelection;
     private UnityEngine.UI.Selectable returnSelection;
@@ -32,6 +33,26 @@ public sealed class GameOptionsMenu : MonoBehaviour
         generalButton.onClick.AddListener(() => { returnSelection = generalButton; home.SetActive(false); general.SetActive(true); generalSettings.Refresh(); });
         generalBack.onClick.AddListener(Back);
         controlsButton.onClick.AddListener(() => { returnSelection = controlsButton; home.SetActive(false); controls.Show(); });
+        if (swapMecha != null) swapMecha.onClick.AddListener(OpenMechaSelection);
+    }
+    private bool CanSwapMecha()
+    {
+        var network = GameManager.Instance.Network;
+        var service = FindFirstObjectByType<MechaLobbyService>();
+        return !network.ClientManager.Started && !network.ServerManager.Started && service?.Session == null && service?.Busy != true;
+    }
+    private void Update()
+    {
+        if (!home.activeSelf || swapMecha == null) return;
+        swapMecha.interactable = CanSwapMecha();
+        if (!swapMecha.interactable && EventSystem.current?.currentSelectedGameObject == swapMecha.gameObject)
+            EventSystem.current.SetSelectedGameObject(resume.gameObject);
+    }
+    public void OpenMechaSelection()
+    {
+        if (!CanSwapMecha() || CharacterSelectionMenu.Instance == null || CharacterSelectionMenu.Instance.IsVisible) return;
+        returnSelection = swapMecha; Close();
+        CharacterSelectionMenu.Instance.Open(ShowHome);
     }
     public void Open()
     {
@@ -44,7 +65,8 @@ public sealed class GameOptionsMenu : MonoBehaviour
     {
         pvpPanel?.Hide();
         controls.Hide(); audio.Hide(); video.SetActive(false); general.SetActive(false); lobbyPanel.Hide(); home.SetActive(true);
-        EventSystem.current?.SetSelectedGameObject((returnSelection != null ? returnSelection : resume).gameObject);
+        if (swapMecha != null) swapMecha.interactable = CanSwapMecha();
+        EventSystem.current?.SetSelectedGameObject((returnSelection != null && returnSelection.IsInteractable() ? returnSelection : resume).gameObject);
     }
     public void Back()
     {
@@ -69,10 +91,6 @@ public sealed class GameOptionsMenu : MonoBehaviour
     public void OpenLobby()
     {
         if (FindFirstObjectByType<MechaLobbyService>()?.PvpLobby == true && (FindFirstObjectByType<MechaLobbyService>()?.Session != null || GameManager.Instance.Network.ClientManager.Started)) { OpenPvpLobby(); return; }
-        if (CharacterSelectionMenu.Instance != null && !GameManager.Instance.Network.ClientManager.Started && FindFirstObjectByType<MechaLobbyService>()?.Session == null)
-        {
-            Close(); CharacterSelectionMenu.Instance.Open(OpenLobbySelected); return;
-        }
         OpenLobbySelected();
     }
     private void OpenLobbySelected()
@@ -87,8 +105,6 @@ public sealed class GameOptionsMenu : MonoBehaviour
     {
         var service = FindFirstObjectByType<MechaLobbyService>();
         if (service != null && !service.PvpLobby && (service.Session != null || GameManager.Instance.Network.ClientManager.Started)) { OpenLobbySelected(); return; }
-        if (CharacterSelectionMenu.Instance != null && !GameManager.Instance.Network.ClientManager.Started && service?.Session == null)
-        { Close(); CharacterSelectionMenu.Instance.Open(OpenPvpSelected); return; }
         OpenPvpSelected();
     }
     private void OpenPvpSelected()

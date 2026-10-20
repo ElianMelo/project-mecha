@@ -5,4 +5,5 @@ public sealed class CharacterRigBinding : MonoBehaviour
 {
     public Animator animator;
     public Transform skillHand, leftArm, gun;
+    public MeleeBlade blade;
 }

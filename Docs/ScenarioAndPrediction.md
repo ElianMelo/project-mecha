@@ -12,6 +12,8 @@ The existing uGUI HUD retains its health/mana and live cooldown references. Game
 
 ## Scenery and destructibles
 
+The 2026-10-19 platform-lighting revision uses native shallow block prefabs for authored scenery and procedural rooms. Their URP Lit fronts retain the original sprite atlas and use a native derived normal map; the actual sword lights illuminate their surfaces. `ScenarioSettings` owns prefab/depth references and retains `platformMaterial` for sprite fallback. Existing colliders and jump-through behavior remain independent. See [the sample adaptation and observed light comparison](PlatformLighting.md).
+
 Generated two original textures using the built-in image-generation tool: a cyberpunk city panorama and an industrial platform atlas. See [complete prompts and asset manifest](ScenarioArtPrompts.md). Native Sprite assets select separate floor and floating-platform regions; source PNGs were not cropped or repainted by scripts. Texture imports use bilinear filtering, uncompressed alpha and no mipmaps. Floor faces repeat in six-unit sections; floating faces fit existing collider widths. Colliders and jump-through behavior remain independent from the art, and platform visuals cast no shadows.
 
 The far city is a 36×24 world-unit backdrop. CityParallax uses movement factors (0.12,0.06), while IndustrialParallax uses (0.42,0.18). ParallaxLayer updates after Cinemachine; nearer industrial silhouettes move at a different rate. ScenarioSettings owns art references, dimensions, colors, placements and scenery geometry parameters. Native primitives are used for simple industrial silhouettes and supply-crate construction.

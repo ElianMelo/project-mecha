@@ -24,9 +24,9 @@ MonoBehaviour:
   displayName: 
   action:
     kind: 14
-    duration: 0.96
-    impact: 0.42
-    cancel: 0.85999995
+    duration: 1.44
+    impact: 0.57
+    cancel: 1.18
     pulses: 1
     pulseInterval: 0.13
     damage: 24

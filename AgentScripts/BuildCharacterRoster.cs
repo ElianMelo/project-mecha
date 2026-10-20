@@ -156,7 +156,7 @@ public static class BuildCharacterRoster
     {var s=ps.textureSheetAnimation;s.enabled=true;s.numTilesX=x;s.numTilesY=y;s.frameOverTime=new ParticleSystem.MinMaxCurve(1,AnimationCurve.Linear(0,0,1,1));s.startFrame=new ParticleSystem.MinMaxCurve(0f,.2f);}
     static WaterEffect Effect(string name,Action<GameObject> build)
     {
-        Folder(Vfx+"/Prefabs");var go=new GameObject(name);try{go.AddComponent<WaterEffect>();build(go);MechaRenderSetup.ConfigureSurfaceDepth(go);return PrefabUtility.SaveAsPrefabAsset(go,Vfx+"/Prefabs/"+name+".prefab").GetComponent<WaterEffect>();}finally{UnityEngine.Object.DestroyImmediate(go);}
+        Folder(Vfx+"/Prefabs");var go=new GameObject(name);try{go.AddComponent<WaterEffect>();build(go);MechaRenderSetup.ConfigureSurfaceDepth(go);WaterLightingAuthoring.Apply(go);return PrefabUtility.SaveAsPrefabAsset(go,Vfx+"/Prefabs/"+name+".prefab").GetComponent<WaterEffect>();}finally{UnityEngine.Object.DestroyImmediate(go);}
     }
     static void BuildEffects(WaterBubbleSkill bubble,WaterFountainSkill fountain,WaterModeSkill mode)
     {

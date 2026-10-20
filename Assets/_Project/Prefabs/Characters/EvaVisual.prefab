@@ -236,6 +236,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EvaVisual
       objectReference: {fileID: 0}
+    - target: {fileID: 8169382868667117632, guid: 0be05aef17b76e4408ca66084314d39c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.14637749
+      objectReference: {fileID: 0}
+    - target: {fileID: 8169382868667117632, guid: 0be05aef17b76e4408ca66084314d39c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.093736745
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -266,8 +274,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6164564974135863838}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 40dbbc9ccd167d84abb5de49bcf476ee, type: 2}
+  m_Avatar: {fileID: 9000000, guid: 9630ab800a32e0e41b053196402c7a19, type: 2}
+  m_Controller: {fileID: 9100000, guid: a047e183d30343a4290154e7d63bb76f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

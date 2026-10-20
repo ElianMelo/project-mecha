@@ -10,7 +10,7 @@ public sealed class ComboTrainingTarget : MonoBehaviour, ICombatTarget
     {
         TotalDamage += damage; Hits++;
     }
-    public void TakeDamage(float damage, Vector3 knockback, float stun, PlayerHealth attacker)
+    public void TakeDamage(float damage, Vector3 knockback, float stun, PlayerHealth attacker, DamageContact contact = default)
         => TakeHit(damage, knockback, stun);
     public void ResetTarget() { TotalDamage = 0f; Hits = 0; }
 }

@@ -24,9 +24,9 @@ MonoBehaviour:
   displayName: Slash 2
   action:
     kind: 1
-    duration: 0.46
-    impact: 0.15
-    cancel: 0.38
+    duration: 0.64
+    impact: 0.2
+    cancel: 0.46
     pulses: 1
     pulseInterval: 0.13
     damage: 8

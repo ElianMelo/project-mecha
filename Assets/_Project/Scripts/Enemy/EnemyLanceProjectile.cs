@@ -81,8 +81,8 @@ public sealed class EnemyLanceProjectile : NetworkBehaviour
     }
     private void FixedUpdate()
     {
-        if (!IsServerInitialized || settings == null) return;
-        if (Time.time >= expires) { Despawn(); return; }
+        if (NetworkObject.IsSpawned && !IsServerInitialized || settings == null) return;
+        if (Time.time >= expires) { if (NetworkObject.IsSpawned) Despawn(); else Destroy(gameObject); return; }
         if (embedded) return;
         bool planned = landingSurface != null && landingSurface.enabled && landingSurface.gameObject.activeInHierarchy;
         if (!planned) landingSurface = null;
@@ -129,17 +129,22 @@ public sealed class EnemyLanceProjectile : NetworkBehaviour
     private void StopAtImpact(Vector3 point, Vector3 normal, Vector3 direction, float lifetime)
     {
         velocity = Vector3.zero; expires = Time.time + lifetime;
-        Pin(point - direction * (settings.tipOffset - settings.embedDepth), Facing(direction));
-        Impact(point, normal);
+        Vector3 position = point - direction * (settings.tipOffset - settings.embedDepth);
+        if (NetworkObject.IsSpawned) { Pin(position, Facing(direction)); Impact(point, normal); }
+        else { ApplyPin(position, Facing(direction)); ApplyImpact(point, normal); }
     }
     [ObserversRpc(RunLocally = true)]
     private void Impact(Vector3 position, Vector3 normal)
+        => ApplyImpact(position, normal);
+    private void ApplyImpact(Vector3 position, Vector3 normal)
     {
         GameAudio.Play(GameAudioCue.LanceImpact, position);
         if (settings != null) ParticleBurstEmitter.Emit(settings.impactParticles, position, normal);
     }
     [ObserversRpc(BufferLast = true, RunLocally = true)]
     private void Pin(Vector3 position, Quaternion rotation)
+        => ApplyPin(position, rotation);
+    private void ApplyPin(Vector3 position, Quaternion rotation)
     {
         embedded = true;
         // Stop interpolation too: otherwise observers can visibly creep toward the

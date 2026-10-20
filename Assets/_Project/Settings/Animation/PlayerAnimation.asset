@@ -15,19 +15,15 @@ MonoBehaviour:
   controller: {fileID: 9100000, guid: bcd7cc7f41aeb584c89fa86db759e094, type: 2}
   clips:
   - state: Idle
-    clip: {fileID: 7804281696320516629, guid: 99ba2dab2137f0445992b3992d994bfe, type: 3}
+    clip: {fileID: 1827226128182048838, guid: fa3d4da40559a6741918d42669831df7, type: 3}
   - state: Run
-    clip: {fileID: -6848113619949682186, guid: 77cbe76379436db42afc0e47ff625926, type: 3}
+    clip: {fileID: 1827226128182048838, guid: c7f8e4aefd00bfe40b084c9db4108a2b, type: 3}
   - state: Dash
-    clip: {fileID: -6848113619949682186, guid: 77cbe76379436db42afc0e47ff625926, type: 3}
+    clip: {fileID: 1827226128182048838, guid: 87eb3c8f629f4dd469c910eb109e5230, type: 3}
   - state: Jump
     clip: {fileID: 7400002, guid: b337fd7e329bb3e49b021db435f45693, type: 3}
   - state: Fall
     clip: {fileID: 7400000, guid: 864149f863d0268478c600e44bcc6aa4, type: 3}
-  - state: Hit
-    clip: {fileID: -7081366064800193788, guid: fea69a6598fcfea439ea384cbf04c7f1, type: 3}
-  - state: Death
-    clip: {fileID: 7400000, guid: 0c3a4a0326bf16144bbc0ce2a72d286c, type: 2}
   - state: Attack
     clip: {fileID: 2325089928583051239, guid: be4606ee5d454f446b1c3fd6a27e75b5, type: 3}
   - state: MegaSlash
@@ -58,6 +54,22 @@ MonoBehaviour:
     clip: {fileID: -5239087387508573575, guid: 198601327e5c05d43975fcd875a0d9c7, type: 3}
   - state: CriticalStrike
     clip: {fileID: 7245417250056673891, guid: 6128f1872f8e4044f8b5e057ab1e0289, type: 3}
+  - state: Flinch
+    clip: {fileID: -379998487791383941, guid: 542aee31f3000ee4095be9a612acd2a3, type: 3}
+  - state: HitReaction
+    clip: {fileID: -7081366064800193788, guid: fea69a6598fcfea439ea384cbf04c7f1, type: 3}
+  - state: Hit
+    clip: {fileID: -379998487791383941, guid: 542aee31f3000ee4095be9a612acd2a3, type: 3}
+  - state: KnockUp
+    clip: {fileID: -7081366064800193788, guid: 4d3b604d68bf5fb41b8f428c9937f71c, type: 3}
+  - state: AirHit
+    clip: {fileID: -7719531095785811656, guid: 4d3b604d68bf5fb41b8f428c9937f71c, type: 3}
+  - state: Knockdown
+    clip: {fileID: -7719531095785811656, guid: 4d3b604d68bf5fb41b8f428c9937f71c, type: 3}
+  - state: Death
+    clip: {fileID: -7081366064800193788, guid: 4d3b604d68bf5fb41b8f428c9937f71c, type: 3}
+  - state: StandUp
+    clip: {fileID: -5333334828590076025, guid: 4d3b604d68bf5fb41b8f428c9937f71c, type: 3}
   crossFade: 0.035
   movementThreshold: 0.25
   hitPoseTime: 0.2

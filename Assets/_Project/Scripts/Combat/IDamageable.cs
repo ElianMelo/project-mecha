@@ -5,5 +5,5 @@ public interface IDamageable
 {
     bool IsDead { get; }
     float Health { get; }
-    void TakeDamage(float damage, Vector3 knockback, float stun, PlayerHealth attacker);
+    void TakeDamage(float damage, Vector3 knockback, float stun, PlayerHealth attacker, DamageContact contact = default);
 }

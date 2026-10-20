@@ -57,10 +57,24 @@ public sealed class ProceduralRoomBuilder : MonoBehaviour
         for (float left = -size.x * 0.5f; left < size.x * 0.5f - 0.01f; left += tileWidth)
         {
             float width = Mathf.Min(tileWidth, size.x * 0.5f - left);
+            var blockPrefab = oneWay ? settings.scenario.floatingBlockPrefab : settings.scenario.floorBlockPrefab;
+            if (blockPrefab != null)
+            {
+                var block = Instantiate(blockPrefab, go.transform, false);
+                block.name = "Platform Block";
+                block.transform.localPosition = new Vector3(left + width * .5f, size.y * .5f - faceHeight * .5f,
+                    settings.scenario.platformFrontDepth + settings.scenario.platformVisualDepth * .5f);
+                block.transform.localScale = new Vector3(width, faceHeight, settings.scenario.platformVisualDepth);
+                continue;
+            }
             var face = new GameObject("Platform Face"); face.transform.SetParent(go.transform, false);
             face.transform.localPosition = new Vector3(left + width * 0.5f, size.y * 0.5f - sprite.bounds.max.y * faceHeight / sprite.bounds.size.y, -0.02f);
             face.transform.localScale = new Vector3(width / sprite.bounds.size.x, faceHeight / sprite.bounds.size.y, 1f);
-            face.AddComponent<SpriteRenderer>().sprite = sprite;
+            var renderer = face.AddComponent<SpriteRenderer>();
+            renderer.sprite = sprite;
+            if (settings.scenario.platformMaterial != null) renderer.sharedMaterial = settings.scenario.platformMaterial;
+            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
         }
         go.SetActive(true);
     }

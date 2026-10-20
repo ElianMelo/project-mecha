@@ -12,22 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c28c273e286c99a4aa4a154c978ead98, type: 3}
   m_Name: SwordSwing
   m_EditorClassIdentifier: Assembly-CSharp::SwordSwingSettings
-  leadIn: 0.07
-  lightWidth: 0.18
-  heavyWidth: 0.3
-  lightTail: 0.1
-  heavyTail: 0.16
+  lightWidth: 0.11
+  heavyWidth: 0.19
+  lightTail: 0.065
+  heavyTail: 0.1
+  bodyTrailWidth: 0.65
   lightRumble: 0.12
   heavyRumble: 0.3
   rumbleSeconds: 0.07
   lightImpulse: 0.035
   heavyImpulse: 0.085
-  idleLight: 2.8
-  lightStrikeLight: 6
-  heavyStrikeLight: 8
-  lightDecay: 0.18
-  lightRadius: 1.3
-  heavyRadius: 1.75
-  cutOrigin: {x: 0.12, y: 0.95}
-  cutLead: 0.025
+  idleLight: 0.65
+  lightStrikeLight: 2.5
+  heavyStrikeLight: 3.5
+  lightDecay: 0.13
   optionalMotion: {fileID: 11400000, guid: 9da1de78216e3d4479286dbd613223fb, type: 2}

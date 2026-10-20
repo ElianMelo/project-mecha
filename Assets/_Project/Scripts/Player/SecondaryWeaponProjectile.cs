@@ -46,9 +46,9 @@ public sealed class SecondaryWeaponProjectile : NetworkBehaviour
         Vector3 incoming = transform.position-origin;
         if(incoming.sqrMagnitude < .0001f) incoming = launchDirection;
         Vector3 force = incoming.normalized * 0.5f;
-        if (CombatTargetRules.CanHit(shooter, target))
-            target.TakeDamage(settings.damage, force, 0.04f, shooter);
         Vector3 position = collision.contactCount > 0 ? collision.GetContact(0).point : transform.position;
+        if (CombatTargetRules.CanHit(shooter, target))
+            target.TakeDamage(settings.damage, force, 0.04f, shooter, new DamageContact(position, incoming));
         if (IsSpawned) ImpactAudio(position); else GameAudio.Play(GameAudioCue.BulletImpact, position);
         Finish();
     }

@@ -17,3 +17,5 @@ Manual validation on 2026-10-18 confirmed import of the existing audio/video val
 `GameSave`, `GameSaveKeys`, and `LegacySettingsMigration` are provisional Code. Documentation and manual inspection tooling are Others. The JSON files are device-local runtime output outside the repository; they are not authored configuration assets or version-controlled content.
 
 General highlight preferences use Mecha.General.SelfHighlight (false by default) and Mecha.General.PlayersHighlight (true). A choice persists immediately through GameSave; runtime presentation caches the loaded choices until changed. Each controls name and ground ring together. English locale selection remains with Unity Localization.
+
+Mecha selection uses `Mecha.Character.Selected`. Startup loads the saved stable catalog ID, with Dasher as the current roster fallback. Host, client and lobby entry reuse it without opening selection. Configuration > Swap Mecha saves only on confirmation; browsing or canceling does not change the preference. Development `--mecha-character` overrides apply to the current run without saving.

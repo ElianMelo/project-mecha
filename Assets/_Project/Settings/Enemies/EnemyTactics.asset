@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30714b43d20879439d3352173317e78, type: 3}
   m_Name: EnemyTactics
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTacticsSettings
-  simultaneousHunters: 2
   guardEngageRadius: 3.8
   guardLeash: 4.5
   homeArrival: 0.45

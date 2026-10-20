@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 1006513086408878503}
   - component: {fileID: 5948723812522526243}
   - component: {fileID: 260352525619481979}
+  - component: {fileID: 1938410804933737628}
   m_Layer: 9
   m_Name: LanceEnemy
   m_TagString: Untagged
@@ -522,6 +523,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02de9612a5942644cb59992861bdd319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActorFootstepAudio
+--- !u!114 &1938410804933737628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5411630197792669422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84681737851a05e4e83b3025fe4a244c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatReaction
+  settings: {fileID: 11400000, guid: 3284960a4c9edb849a4013fd15e4d826, type: 2}
 --- !u!1 &6274423817154971679
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,6 +827,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: a047e183d30343a4290154e7d63bb76f, type: 2}
+    - target: {fileID: 4606889145138526476, guid: 4fa6beb3bd6e26643ac058bd969e55cd, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4653583795927684384, guid: 4fa6beb3bd6e26643ac058bd969e55cd, type: 3}
       propertyPath: m_Layer
       value: 9

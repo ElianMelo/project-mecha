@@ -119,7 +119,6 @@ public sealed class MechaLobbyService : MonoBehaviour
     public Task CreateAsync(string lobbyName, string playerName) => Operation(async () =>
     {
         PilotName = playerName;
-        if (CharacterSelectionMenu.Instance != null && !await CharacterSelectionMenu.Instance.EnsureConfirmedAsync()) return;
         await InitializeAsync();
         if (Session != null || InGame) throw new InvalidOperationException(GameText.Get("Lobby", "session.leaveFirst"));
         var options = new SessionOptions {Name = Clean(lobbyName, PvpLobby ? GameText.Get("Lobby", "pvp.defaultName") : GameText.Get(settings.defaultLobbyNameLocalized)), MaxPlayers = settings.maxPlayers,
@@ -135,7 +134,6 @@ public sealed class MechaLobbyService : MonoBehaviour
     public Task JoinAsync(string id, string playerName, bool byCode = false) => Operation(async () =>
     {
         PilotName = playerName;
-        if (CharacterSelectionMenu.Instance != null && !await CharacterSelectionMenu.Instance.EnsureConfirmedAsync()) return;
         await InitializeAsync();
         if (Session != null || InGame) throw new InvalidOperationException(GameText.Get("Lobby", "session.leaveFirst"));
         var options = new JoinSessionOptions {Type = SessionType, PlayerProperties = PlayerData(playerName)};

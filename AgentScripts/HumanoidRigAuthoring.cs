@@ -49,9 +49,67 @@ public static class HumanoidRigAuthoring
         {
             var profile=AssetDatabase.LoadAssetAtPath<CharacterAnimationSettings>("Assets/_Project/Settings/Animation/"+name+"Animation.asset");var controller=(AnimatorController)profile.controller;
             foreach(var state in controller.layers.SelectMany(l=>l.stateMachine.states).Select(s=>s.state))if(replacements.TryGetValue(state.name,out var clip)){if(!clip.humanMotion)throw new InvalidOperationException(state.name+" is not Humanoid");state.motion=clip;}
-            profile.clips=profile.clips.Select(p=>new CharacterAnimationSettings.StateClip{state=p.state,clip=replacements.TryGetValue(p.state,out var clip)?clip:p.clip}).ToArray();Save(profile);Save(controller);
+            profile.clips=profile.clips.Select(p=>new CharacterAnimationSettings.StateClip{state=p.state,clip=replacements.TryGetValue(p.state,out var clip)?clip:p.clip}).ToArray();
+            RestoreLocomotionProfile(profile);
+            Save(profile);Save(controller);
         }
-        return "Movement, reaction and skill states use direct native Humanoid clips; legacy Death retained pending a matching supplied death clip";
+        return "Original supplied Idle/Run/Dash retained; other movement/reaction/skill states use direct native Humanoid clips";
+    }
+    static void RestoreLocomotionProfile(CharacterAnimationSettings profile)
+    {
+        var original=new Dictionary<string,AnimationClip>();
+        foreach(var state in new[]{"Idle","Run","Dash"})
+        {
+            string path="Assets/_Project/Animations/Humanoid/OriginalLocomotion/"+state+".fbx";
+            original[state]=AssetDatabase.LoadAllAssetsAtPath(path).OfType<AnimationClip>().FirstOrDefault(c=>!c.name.StartsWith("__"));
+            if(original[state]==null || !original[state].humanMotion)throw new InvalidOperationException("Missing native original locomotion: "+path);
+        }
+        profile.clips=profile.clips.Select(p=>new CharacterAnimationSettings.StateClip{state=p.state,clip=original.TryGetValue(p.state,out var clip)?clip:p.clip}).ToArray();
+        foreach(var state in ((AnimatorController)profile.controller).layers.SelectMany(l=>l.stateMachine.states).Select(s=>s.state))
+            if(original.TryGetValue(state.name,out var clip))state.motion=clip;
+    }
+    public static string RestoreLocomotion()
+    {
+        if(EditorApplication.isPlaying)throw new InvalidOperationException("Author in Edit Mode");
+        PrepareOriginalLocomotion();
+        foreach(string name in new[]{"Player","WingZero"})
+        {
+            var profile=AssetDatabase.LoadAssetAtPath<CharacterAnimationSettings>("Assets/_Project/Settings/Animation/"+name+"Animation.asset");
+            RestoreLocomotionProfile(profile);
+            Save(profile);Save(profile.controller);
+        }
+        return "Restored only Idle, Run and Dash in both profiles/controllers from the original source motion using Unity's native Humanoid importer.";
+    }
+    public static string PrepareOriginalLocomotion()
+    {
+        if(EditorApplication.isPlaying)throw new InvalidOperationException("Import in Edit Mode");
+        const string folder="Assets/_Project/Animations/Humanoid/OriginalLocomotion";
+        if(!AssetDatabase.IsValidFolder(folder))AssetDatabase.CreateFolder("Assets/_Project/Animations/Humanoid","OriginalLocomotion");
+        string idle=folder+"/Idle.fbx";
+        if(!System.IO.File.Exists(idle) && !AssetDatabase.CopyAsset("Assets/_Project/Models/Player/Mecha.fbx",idle))throw new InvalidOperationException("Cannot copy supplied idle source");
+        using(var zip=System.IO.Compression.ZipFile.OpenRead("SourceArchive/NewPlayerUnused-2026-10-14.zip"))
+        foreach(var pair in new[]{("Run","Mecha@Running.fbx"),("Dash","Mecha@Dash.fbx")})
+        {
+            string path=folder+"/"+pair.Item1+".fbx";
+            if(System.IO.File.Exists(path))continue;
+            var entry=zip.GetEntry(pair.Item2);if(entry==null)throw new InvalidOperationException("Missing supplied source "+pair.Item2);
+            using(var input=entry.Open())using(var output=System.IO.File.Create(path))input.CopyTo(output);
+            AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport);
+        }
+        string report="";
+        foreach(string state in new[]{"Idle","Run","Dash"})
+        {
+            string path=folder+"/"+state+".fbx";
+            var importer=(ModelImporter)AssetImporter.GetAtPath(path);
+            importer.animationType=ModelImporterAnimationType.Human;importer.avatarSetup=ModelImporterAvatarSetup.CreateFromThisModel;
+            importer.importCameras=false;importer.importLights=false;importer.materialImportMode=ModelImporterMaterialImportMode.None;
+            var clips=importer.clipAnimations.Length>0?importer.clipAnimations:importer.defaultClipAnimations;
+            foreach(var clip in clips){clip.loopTime=true;clip.loopPose=true;clip.lockRootRotation=true;clip.lockRootPositionXZ=true;clip.lockRootHeightY=true;clip.heightFromFeet=true;}
+            importer.clipAnimations=clips;importer.SaveAndReimport();
+            var avatar=AssetDatabase.LoadAllAssetsAtPath(path).OfType<Avatar>().FirstOrDefault();
+            report+=state+" nativeAvatar="+(avatar!=null&&avatar.isHuman&&avatar.isValid)+"\n";
+        }
+        return report;
     }
     static void Save(UnityEngine.Object asset){EditorUtility.SetDirty(asset);AssetDatabase.SaveAssetIfDirty(asset);}
     static void ApplyRig(GameObject go,Avatar avatar,GameObject reference)

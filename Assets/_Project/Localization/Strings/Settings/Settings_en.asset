@@ -294,6 +294,10 @@ MonoBehaviour:
     m_Localized: Show players highlight
     m_Metadata:
       m_Items: []
+  - m_Id: 751824997031936
+    m_Localized: SWAP MECHA
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

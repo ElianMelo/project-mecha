@@ -1,5 +1,7 @@
 # Combat and usability follow-up — 2026-10-19
 
+**Locomotion update, 2026-10-19:** the user subsequently requested restoration of the earlier dash/idle/walk motion. Idle, Run and Dash now use the original supplied Tallgeese motion imported through Unity's native Humanoid pipeline under `Animations/Humanoid/OriginalLocomotion`, shared by both current Humanoid rigs. The old extracted Generic clips freeze on these rigs and were not left assigned. Both characters' three states were previewed with advancing frames and moving bones; the distinct original dash replaces the reused Run clip. Combat/reaction/skill clips, tuning and rig assets are unchanged. This supersedes the locomotion pause/comparison task below, without implying approval of the remaining combat presentation.
+
 ## TEMPORARY HANDOFF — REJECTED; revisit next session
 
 The user rejects the current solution as terrible and worse than before. Idle and dash previously had good poses and are now completely broken. The current animation/Humanoid implementation is unfinished and is **not an accepted baseline**. The implementation notes and technical validation below do not constitute visual or gameplay approval.

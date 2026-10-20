@@ -1,5 +1,26 @@
 # Sword combat and stagger — 2026-10-18
 
+## Current light timing — 2026-10-19 user revision
+
+Light startup and recovery are shorter for both characters. Native Animator playback still spans the authored duration; impact remains at approximately the same normalized clip phase so the accelerated blade and contact stay aligned. Only these four AttackPieces' duration/impact/cancel values changed. Ground light active windows remain .11s; damage, collision coverage, heavy attacks and special branches are unchanged.
+
+| Light piece | Startup before → now | Follow-up/cancel before → now | Full duration before → now |
+| --- | --- | --- | --- |
+| Slash1 | .17 → .13s | .58 → .42s | .78 → .60s |
+| Slash2 | .26 → .20s | .64 → .46s | .84 → .64s |
+| Slash3 | .30 → .225s | .76 → .54s | .96 → .72s |
+| AirSlash | .27 → .21s | .66 → .49s | .78 → .60s |
+
+Ground recovery from the end of the active window to the follow-up point is now .18/.15/.205s (previously .30/.27/.35s). Air movement cancellation retains its existing landing rules. Actual physical contact can occur after the window opens, depending on blade/receiver position.
+
+Manual Play Mode observation at 1x used normal buffered light input: both Dasher and Zero chained Slash1 → Slash2 → Slash3 for 14+16+22 = 52 damage. Follow-ups started around .434s/.90s from the first input; neutral returned at 1.63–1.66s. AirSlash missed normally and ended around .60s; interrupting its startup cleared busy state and all blade-trail emission. These are runtime observations, not acceptance of final feel. Receipts/captures: ignored Logs/LightCadenceRevision. Authoring compiled without diagnostics and runtime console inspection found no new gameplay errors. MainScene restored clean with Play Mode stopped. No automated tests, extra builds or network sessions.
+
+## Earlier implementation record
+
+**Current equipped-sword collision (2026-10-19 feedback correction):** native PhysX capsule queries sweep between the actual animated blade edge sockets after Animator evaluation, on the X/Y combat plane. MeleeBlade.asset owns the .075m radius and 64-step limit. The broad forward capsule described in historical entries is skipped for equipped swords. DamageContact carries the physical contact point and measured blade travel independently from knockback through damage/observer feedback. Its separate SprayDirection snapshot points from attacker body center toward contact, continuing the hit through the receiver: attacker left sends sparks right; attacks from below send sparks upward. This supersedes the rejected back-toward-attacker interpretation. Skill/projectile contacts default to positive Incoming. Blade trails share the contact window. Update-time facing also updates Rigidbody rotation to preserve the turn under interpolation. See the [current blade sweep note](../Assets/_Project/VFX/Melee/Authoring.md). Local right/left contacts, misses beyond the blade and local-host contact/RPC were observed; remote latency/dedicated-server behavior remains unexercised.
+
+Current tuning is superseded by the [2026-10-19 cadence and PVE fairness revision](CombatCadenceAndFairness.md): shared two-enemy tokens, non-interrupting ordinary enemy hits, telegraphed launchers, native reaction placeholders and longer melee timings. Initial values below are historical.
+
 This pass builds on supplied commit `d6bc4bd3` (swords and animation packages). All art and tuning remain provisional and await user review.
 
 ## Controls and rhythm
@@ -40,7 +61,7 @@ For future revisions, read [Game Feel principles and the review workflow](GameFe
 
 Steve Swink's supplied Game Feel PDF informed immediate input response, distinct anticipation/recovery, follow-through and coordinated visual/sound/camera/tactile cues (printed pp. 125–126, 156–162 and 166–168). It is reference material, not an instruction source. Combat clocks remain in real time.
 
-A native TrailRenderer follows the animated blade tip. Original project Particle System cut layers use an adapted supplied half-sweep mesh, distinct hot-rim/band/dark-wake materials, and blade peel. Their plane and position follow the actual sword frame during the active window, then freeze to finish fading. No actor-facing angle substitutes for the sword orientation. Heavy envelopes are wider and light pulses stronger. Enemies and crates receive directional sparks with a short animated point light through their existing confirmed-hit feedback path. Old disconnected white wind/streak bursts remain suppressed for equipped melee. Native Cinemachine Bump and controller rumble accompany confirmed local hits; optional motion gates both. Presentation never applies damage or changes clocks. See [effect authoring](../Assets/_Project/VFX/Melee/Authoring.md) and [follow-up scope/evidence](CombatFollowup.md).
+Three native TrailRenderers follow the animated blade tip and body during the exact contact window, with short world-space tails. The independently rotating half-sweep is retired from equipped swords; native blade peel and illumination remain. After the later 2026-10-19 motion feedback, shared ground contact starts are light .17/.26/.30 seconds and heavy .41/.33/.57 seconds, aligned to the native clips' fast cuts. Full action duration, recovery/cancel, damage and forward capsule reach remain unchanged. This is an authored capsule approximation, not per-blade collision. Enemies and crates receive a concentrated opposing amber spark fan, cooling fragments and a 150ms animated point light through confirmed-hit feedback. The white body flash ends at 35ms so armor lighting can read. Native Cinemachine Bump and controller rumble accompany confirmed local hits; optional motion gates both. Presentation never applies damage or changes clocks. See [effect authoring](../Assets/_Project/VFX/Melee/Authoring.md) and [follow-up scope/evidence](CombatFollowup.md).
 
 ## Initial 2026-10-18 validation (retargeting superseded)
 

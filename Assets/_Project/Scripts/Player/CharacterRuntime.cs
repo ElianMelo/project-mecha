@@ -44,6 +44,7 @@ public sealed class CharacterRuntime : NetworkBehaviour
         GetComponent<PlayerAttack>().Configure(definition.combat);
         GetComponent<CharacterAnimator>().Configure(definition.animation, rig.animator);
         GetComponent<CombatEmissionOrigin>().Bind(rig.skillHand);
+        GetComponent<CombatEmissionOrigin>().BindBlade(rig.blade);
         GetComponent<MechaAutoAim>().Bind(rig.leftArm);
         GetComponent<SecondaryWeaponPresentation>().Bind(rig.leftArm, rig.gun);
         GetComponent<PlayerCombatVfx>().Configure(definition.combat);

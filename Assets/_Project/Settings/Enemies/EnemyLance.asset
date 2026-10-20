@@ -17,13 +17,13 @@ MonoBehaviour:
   preferredRange: 7
   retreatRange: 4
   detectionRange: 15
-  windup: 0.65
-  cooldown: 2.4
+  windup: 0.85
+  cooldown: 2.8
   launchHeight: 1.25
   gravity: 17
   arcHeight: 0.35
-  leadTime: 0.25
-  maximumLead: 1.8
+  leadTime: 0.12
+  maximumLead: 0.75
   embeddedLifetime: 1.5
   playerImpactLifetime: 0.8
   tipOffset: 1.0430819

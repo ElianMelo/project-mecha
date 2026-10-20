@@ -416,6 +416,7 @@ GameObject:
   - component: {fileID: 2831742400612131094}
   - component: {fileID: 1587934413242740093}
   - component: {fileID: 5084548863743117014}
+  - component: {fileID: 3170434556049555481}
   m_Layer: 8
   m_Name: MechaPlayer
   m_TagString: Untagged
@@ -960,6 +961,19 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 6879919603248285336}
   _networkObjectCache: {fileID: 0}
+--- !u!114 &3170434556049555481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554257071974495511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84681737851a05e4e83b3025fe4a244c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatReaction
+  settings: {fileID: 11400000, guid: 3284960a4c9edb849a4013fd15e4d826, type: 2}
 --- !u!1 &1885827494726923718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,13 +1325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5333593481110266124, guid: 7b047e0aa1ae38849b5c2a34915ddd8c, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Bip001 L UpperArm'\n\tTransform 'Bip001
-        Spine1'\n\tTransform 'Bip001 R UpperArm'\n\tTransform 'Bip001 R Foot'\n\tTransform
-        'Bip001 Spine3'\n\tTransform 'Bip001 R Calf'\n\tTransform 'Bip001 L Finger0'\n\tTransform
-        'Bip001 R Hand'\n\tTransform 'Bip001 Spine'\n\tTransform 'Bip001 Head'\n\tand
-        more ...\n\tFrom animation clip 'Death'"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7058495300979533696, guid: 7b047e0aa1ae38849b5c2a34915ddd8c, type: 3}
       propertyPath: m_Layer
@@ -1389,6 +1397,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1337008099936007866, guid: 7b047e0aa1ae38849b5c2a34915ddd8c, type: 3}
   m_PrefabInstance: {fileID: 1666565228086840657}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2482406463330629607 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3842577325926841014, guid: 7b047e0aa1ae38849b5c2a34915ddd8c, type: 3}
+  m_PrefabInstance: {fileID: 1666565228086840657}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9694337918719fb41805dc92be6deb1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeBlade
 --- !u!4 &3258591892911681344 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4186109260042969617, guid: 7b047e0aa1ae38849b5c2a34915ddd8c, type: 3}
@@ -1425,6 +1444,7 @@ MonoBehaviour:
   skillHand: {fileID: 3258591892911681344}
   leftArm: {fileID: 234481186188259516}
   gun: {fileID: 409499871991774187}
+  blade: {fileID: 2482406463330629607}
 --- !u!4 &8931329882745648531 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7841506973978785986, guid: 7b047e0aa1ae38849b5c2a34915ddd8c, type: 3}
@@ -1654,6 +1674,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2935315981413397190, guid: 57d50f0032f8e0d45863c13ffa4f44c4, type: 3}
   m_PrefabInstance: {fileID: 3235357195729506508}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &820693630577319748 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2847960208381742984, guid: 57d50f0032f8e0d45863c13ffa4f44c4, type: 3}
+  m_PrefabInstance: {fileID: 3235357195729506508}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9694337918719fb41805dc92be6deb1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeBlade
 --- !u!4 &1226146837292026163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4459243365568125439, guid: 57d50f0032f8e0d45863c13ffa4f44c4, type: 3}
@@ -1690,6 +1721,7 @@ MonoBehaviour:
   skillHand: {fileID: 7787919778876810105}
   leftArm: {fileID: 2740470915313214221}
   gun: {fileID: 1226146837292026163}
+  blade: {fileID: 820693630577319748}
 --- !u!95 &7076335034891985524 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5679739530674270904, guid: 57d50f0032f8e0d45863c13ffa4f44c4, type: 3}

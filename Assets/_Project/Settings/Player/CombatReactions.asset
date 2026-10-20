@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f596209cc8534af4d88c174268c9a504, type: 3}
+  m_Name: CombatReactions
+  m_EditorClassIdentifier: Assembly-CSharp::CombatReactionSettings
+  flinchSeconds: 0.22
+  heavyReactionThreshold: 0.4
+  launchThreshold: 3.5
+  launchSeconds: 0.28
+  minimumAirSeconds: 0.12
+  maximumAirSeconds: 3
+  knockdownSeconds: 0.18
+  standUpSeconds: 0.48
+  recoveryProtection: 0.25

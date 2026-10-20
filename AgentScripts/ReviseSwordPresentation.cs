@@ -107,7 +107,7 @@ public static class ReviseSwordPresentation
                 var col=ps.colorOverLifetime;col.enabled=true;var gradient=new Gradient();gradient.SetKeys(new[]{new GradientColorKey(Color.white,0),new GradientColorKey(new Color(.2f,.3f,.45f),1)},new[]{new GradientAlphaKey(.85f,0),new GradientAlphaKey(.65f,.3f),new GradientAlphaKey(0,1)});col.color=gradient;
                 var noise=ps.noise;noise.enabled=true;noise.strength=.13f;noise.frequency=2.2f;noise.scrollSpeed=.5f;noise.quality=ParticleSystemNoiseQuality.Low;
                 var render=ps.GetComponent<ParticleSystemRenderer>();render.sharedMaterial=peel;render.renderMode=ParticleSystemRenderMode.Billboard;render.shadowCastingMode=ShadowCastingMode.Off;render.receiveShadows=false;t.gameObject.layer=CombatVfxRendering.Layer;
-                var presentation=go.GetComponent<SwordSwingPresentation>();var so=new SerializedObject(presentation);so.FindProperty("bladeLight").objectReferenceValue=go.transform.Find("Blade Light").GetComponent<Light>();so.FindProperty("bladePeel").objectReferenceValue=ps;so.FindProperty("cutPrefab").objectReferenceValue=AssetDatabase.LoadAssetAtPath<GameObject>(fxPath);so.ApplyModifiedPropertiesWithoutUndo();
+                var presentation=go.GetComponent<SwordSwingPresentation>();var so=new SerializedObject(presentation);so.FindProperty("bladeLight").objectReferenceValue=go.transform.Find("Blade Light").GetComponent<Light>();so.FindProperty("bladePeel").objectReferenceValue=ps;so.ApplyModifiedPropertiesWithoutUndo();
                 PrefabUtility.SaveAsPrefabAsset(go,path);
             }
             finally{PrefabUtility.UnloadPrefabContents(go);}

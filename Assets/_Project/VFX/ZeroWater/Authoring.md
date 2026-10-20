@@ -1,6 +1,24 @@
 # Zero hydraulic water skills
 
-Current rendering policy: the later user clarification supersedes the foreground overlay note below. Water uses normal scene depth. Optional VfxSurfaceDepth moves cosmetic emitter branches just ahead of a nearby platform, within an authored bound; the effect root and any interaction/light branches keep their world positions. No new water light, collision module, material or source art was added. See [depth/interaction verification](../Rendering/Authoring.md).
+Current rendering policy: the later user clarification supersedes the foreground overlay note below. Water uses normal scene depth. Optional VfxSurfaceDepth moves cosmetic emitter branches just ahead of a nearby platform, within an authored bound; the effect root and any interaction/light branches keep their world positions. The 2026-10-19 lighting revision below adds real lights; particle modules, materials and source art remain unchanged. See [depth/interaction verification](../Rendering/Authoring.md).
+
+## Real light emission — 2026-10-19
+
+The user requested light emission from Zero's water effects. All five prefabs previously contained zero lights. Native blue point lights now illuminate nearby armor and normal-mapped platforms; native Animator clips own their intensity envelopes. These are receiver lights, separate from the existing particle shader/bloom. No new shader, package, source art, gameplay timing, damage, modifier or networking change.
+
+| Effect | Native light setup | Envelope |
+| --- | --- | --- |
+| BubblePreparation | 1 point, range 2.3 | Builds to 1.6, zero at .32 s |
+| BubbleDetonation | 1 point, range 3.8 | Peak 6 at .025 s, cooling to zero at 1.1 s |
+| FountainPreparation | 4 nozzle points, range 1.45 | Peak .65 at .08 s, zero at .3 s |
+| RisingFountain | 4 nozzle points, range 2.3 | Four peaks of 2.4 aligned to .22 s particle bursts, zero at 1.35 s |
+| WaterModeAura | 1 point, range 2.5 | 1.1–1.3 sustained loop; release fades to zero over .35 s |
+
+Color is (.075,.48,1). Lights have no shadows or indirect bounce and remain at their source positions, Z=-.45; fountains align with their four existing nozzle X positions. They are siblings of cosmetic particle branches, so platform-depth bias cannot move them. Aura light follows the existing WaterEffect attachment; its lifetime component signals only the native Animator Release trigger when mode/lifetime ends. The release clip then holds zero through particle drain/cleanup. AlwaysAnimate keeps the envelope advancing when offscreen. Native prefab/clip assets own tuning; runtime never edits shared configuration.
+
+`Editor/WaterLightingAuthoring.cs` authors/reapplies native assets explicitly through Unity APIs. `BuildCharacterRoster` calls the same helper when rebuilding effects. New assets are provisional Replace with native category labels; existing source provenance is preserved. The project already uses native Animator-driven fire lights; this revision reuses that built-in approach and adds no custom lighting controller.
+
+Manual inspection invoked the existing Bubble/Fountain skill Begin/PresentPulse and Water Mode modifier presentation on a local unspawned Zero in the actual generated room. Frames advanced 605→965 and time 11.128→18.016. Same-frame owned-light on/off floor comparisons (86,940 pixels) changed 3,032 pixels for bubble preparation; 26,241 detonation; 11,365 fountain preparation; 60,744 fountain; 10,683 aura. Maximum channel differences were 29/111/37/111/36. Nearby armor response and source-local platform light were visually inspected. Aura light followed a one-unit actor move exactly; clearing mode gave intensity .776 during fade and zero afterward. All water roots/lights drained. Compilation passed and final console ground truth had zero errors/warnings. A first authoring call exposed Unity's missing-component null sentinel; explicit Unity null checks fixed it before prefab saves. No automated tests, extra players/builds or network sessions. MainScene clean and Play Mode stopped. Appearance remains pending user review. Captures: ignored Logs/WaterLighting; operator helper AgentScripts/PreviewWaterLighting.cs.
 
 Original native Particle System assemblies for Zero. Interpret water as pressurized coolant/recirculation hardware, using deep navy liquid, cyan midtones and restrained pale foam. Preserve dark technical-anime/mecha silhouettes and negative space.
 

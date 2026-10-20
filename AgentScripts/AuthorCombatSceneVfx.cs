@@ -82,6 +82,8 @@ public static class AuthorCombatSceneVfx
         material.SetFloat("_Smoothness",0);if(material.HasProperty("_SpecColor"))material.SetColor("_SpecColor",Color.black);
         material.SetFloat("_ReceiveShadows",0);material.EnableKeyword("_RECEIVE_SHADOWS_OFF");material.renderQueue=2450;
         EditorUtility.SetDirty(material);AssetDatabase.SaveAssetIfDirty(material);
+        var scenario=AssetDatabase.LoadAssetAtPath<ScenarioSettings>("Assets/_Project/Settings/World/Scenario.asset");
+        scenario.platformMaterial=material;EditorUtility.SetDirty(scenario);AssetDatabase.SaveAssetIfDirty(scenario);
         const string platformsPath="Assets/_Project/Prefabs/Assemblies/ArenaPlatforms.prefab";
         var platforms=PrefabUtility.LoadPrefabContents(platformsPath);
         int authored=0;

@@ -15,6 +15,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable, ITargetable
     private Rigidbody body;
     private PlayerMovement movement;
     private CapsuleCollider capsule;
+    private CombatReaction reactions;
     public bool IsDead => defeated || Health <= 0f;
     public bool CanTarget => PvpMatchDirector.Active && !IsDead;
     public int TargetPriority => 2;
@@ -26,13 +27,13 @@ public class PlayerHealth : NetworkBehaviour, IDamageable, ITargetable
     private bool defeated;
     private float respawnAt;
     public float Health => NetworkObject.IsSpawned ? health.Value : soloHealth;
-    public bool IsStunned => defeated || Time.time < stunnedUntil;
+    public bool IsStunned => defeated || Time.time < stunnedUntil || reactions != null && reactions.BlocksControl;
     public int EscapeCharges => NetworkObject.IsSpawned ? escapeCharges.Value : soloEscapeCharges;
     public int EscapeCapacity => settings.escapeCapacity;
     public float EscapeRefillRemaining => EscapeCharges < EscapeCapacity ? Mathf.Max(0f, nextEscapeRefill - Time.time) : 0f;
-    public float StaggerDrag => settings.staggerDrag;
+    public float StaggerDrag => movement != null && !movement.IsGrounded ? settings.airStaggerDrag : settings.staggerDrag;
     public float MaxHealth => settings.maxHealth;
-    private void Awake() { body = GetComponent<Rigidbody>(); capsule = GetComponent<CapsuleCollider>(); movement = GetComponent<PlayerMovement>(); spawnPosition = transform.position; soloHealth = settings.maxHealth; soloEscapeCharges = EscapeCapacity; }
+    private void Awake() { body = GetComponent<Rigidbody>(); capsule = GetComponent<CapsuleCollider>(); movement = GetComponent<PlayerMovement>(); reactions = GetComponent<CombatReaction>(); spawnPosition = transform.position; soloHealth = settings.maxHealth; soloEscapeCharges = EscapeCapacity; }
     public override void OnStartServer() { base.OnStartServer(); health.Value = settings.maxHealth; ResetEscapeResources(); spawnPosition = transform.position; }
     public override void OnStartClient() { base.OnStartClient(); spawnPosition = transform.position; if (Health <= 0f) ApplyDefeat(); }
     private void Update()
@@ -58,21 +59,23 @@ public class PlayerHealth : NetworkBehaviour, IDamageable, ITargetable
         }
     }
     public void TakeHit(float damage, Vector3 knockback)
-        => ReceiveHit(damage, knockback, settings.hitStun, null);
-    public void TakeDamage(float damage, Vector3 knockback, float stun, PlayerHealth attacker)
+        => ReceiveHit(damage, knockback, 0f, null, false);
+    public void TakeSpecialHit(float damage, Vector3 knockback, float stun)
+        => ReceiveHit(damage, knockback, stun, null, true);
+    public void TakeDamage(float damage, Vector3 knockback, float stun, PlayerHealth attacker, DamageContact contact = default)
     {
         if (!CombatTargetRules.CanHit(attacker, this)) return;
-        ReceiveHit(damage, knockback, stun, attacker);
+        ReceiveHit(damage, knockback, stun, attacker, contact: contact);
     }
-    private void ReceiveHit(float damage, Vector3 knockback, float stun, PlayerHealth attacker)
+    private void ReceiveHit(float damage, Vector3 knockback, float stun, PlayerHealth attacker, bool enemySpecial = false, DamageContact contact = default)
     {
         if (!float.IsFinite(damage) || damage <= 0f || !float.IsFinite(knockback.x) || !float.IsFinite(knockback.y) || !float.IsFinite(knockback.z) ||
-            defeated || (NetworkObject.IsSpawned && !IsServerInitialized) || Time.time < invincibleUntil || movement != null && movement.IsDashing ||
+            defeated || (NetworkObject.IsSpawned && !IsServerInitialized) || Time.time < invincibleUntil || reactions != null && reactions.ProtectsRecovery || movement != null && movement.IsDashing ||
             PvpMatchDirector.Active && (attacker == null || !CombatTargetRules.CanHit(attacker, this))) return;
         float removed = Mathf.Min(Health, damage);
         if (NetworkObject.IsSpawned) health.Value = Mathf.Max(0f, health.Value - damage);
         else soloHealth = Mathf.Max(0f, soloHealth - damage);
-        invincibleUntil = Time.time + settings.invincibility;
+        invincibleUntil = Time.time + (attacker == null ? settings.enemyHitProtection : settings.invincibility);
         if (PvpMatchDirector.Active) PvpMatchDirector.Instance.RecordDamage(this, attacker, removed);
         if (Health <= 0f)
         {
@@ -80,8 +83,9 @@ public class PlayerHealth : NetworkBehaviour, IDamageable, ITargetable
             if (NetworkObject.IsSpawned) Defeat(); else ApplyDefeat();
             return;
         }
-        float duration = float.IsFinite(stun) ? Mathf.Max(settings.hitStun, stun) : settings.hitStun;
-        if (NetworkObject.IsSpawned) React(knockback, duration); else ApplyReaction(knockback, duration);
+        bool interrupts = enemySpecial || attacker != null && PvpMatchDirector.Active;
+        float duration = interrupts ? (float.IsFinite(stun) ? Mathf.Max(settings.hitStun, stun) : settings.hitStun) : 0f;
+        if (NetworkObject.IsSpawned) React(knockback, duration, interrupts, contact); else ApplyReaction(knockback, duration, interrupts, contact);
     }
     public void Heal(float amount)
     {
@@ -100,17 +104,18 @@ public class PlayerHealth : NetworkBehaviour, IDamageable, ITargetable
         defeated=true;respawnAt=Time.time+DefeatDuration;
         GetComponent<CharacterSkills>()?.ClearModifier();
         GetComponent<PlayerAttack>().Interrupt();GetComponent<PlayerMovement>().StopDash();
-        GetComponent<CharacterAnimator>()?.Death(DefeatDuration);
+        if (reactions != null) reactions.Die(DefeatDuration); else GetComponent<CharacterAnimator>()?.Death(DefeatDuration);
         if(!NetworkObject.IsSpawned || IsOwner)body.linearVelocity=Vector3.zero;
     }
     [ObserversRpc(RunLocally = true)]
-    private void React(Vector3 knockback, float stun) => ApplyReaction(knockback, stun);
-    private void ApplyReaction(Vector3 knockback, float stun)
+    private void React(Vector3 knockback, float stun, bool interrupts, DamageContact contact) => ApplyReaction(knockback, stun, interrupts, contact);
+    private void ApplyReaction(Vector3 knockback, float stun, bool interrupts, DamageContact contact)
     {
-        GetComponent<PlayerCombatVfx>()?.Hit(knockback);
+        GetComponent<PlayerCombatVfx>()?.Hit(knockback, contact);
+        if (!interrupts) { reactions?.Hit(knockback, stun, false); return; }
         stunnedUntil = Mathf.Max(stunnedUntil, Time.time + stun);
         GetComponent<PlayerAttack>().Interrupt(); GetComponent<PlayerMovement>().StopDash();
-        GetComponent<CharacterAnimator>()?.Reaction(stun);
+        if (reactions != null) reactions.Hit(knockback, stun); else GetComponent<CharacterAnimator>()?.Reaction(stun);
         if (!NetworkObject.IsSpawned || IsOwner) body.linearVelocity = knockback;
     }
     private void Respawn()
@@ -140,9 +145,12 @@ public class PlayerHealth : NetworkBehaviour, IDamageable, ITargetable
     public void ReleaseStaggerForEscape()
     {
         stunnedUntil = 0f;
+        reactions?.Clear();
         invincibleUntil = Mathf.Max(invincibleUntil, Time.time + settings.escapeInvincibility);
         GetComponent<CharacterAnimator>()?.ReleaseAction();
     }
+    public void ProtectAfterRecovery(float duration)
+        => invincibleUntil = Mathf.Max(invincibleUntil, Time.time + duration);
     public void CorrectPvpPosition(Vector3 position)
     {
         if (!IsServerInitialized) return;
@@ -168,6 +176,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable, ITargetable
     {
         if (defeated) GameAudio.Play(GameAudioCue.Revive, position);
         defeated = false; stunnedUntil = 0f; spawnPosition = position;
+        reactions?.Clear();
         invincibleUntil = Time.time + settings.respawnInvincibility;
         body.position = position; transform.position = position;
         GetComponent<FishNet.Component.Transforming.NetworkTransform>()?.Teleport();

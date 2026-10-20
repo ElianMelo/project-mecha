@@ -23,7 +23,7 @@ MonoBehaviour:
     m_LocalVariables: []
   displayName: Air Original
   domain: 1
-  inputWindow: 1.5
+  inputWindow: 1.8
   loop: 1
   attacks:
   - {fileID: 11400000, guid: 2ef7c3de22225e84694ebbe49c6306ba, type: 2}

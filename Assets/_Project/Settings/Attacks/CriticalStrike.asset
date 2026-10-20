@@ -24,9 +24,9 @@ MonoBehaviour:
   displayName: Critical Cross-through
   action:
     kind: 10
-    duration: 0.45
-    impact: 0.09
-    cancel: 0.31
+    duration: 1.02
+    impact: 0.4
+    cancel: 0.84
     pulses: 1
     pulseInterval: 0.13
     damage: 18

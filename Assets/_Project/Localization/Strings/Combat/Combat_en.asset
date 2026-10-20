@@ -412,12 +412,12 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 250020584595456
-    m_Localized: Choose a frame, then confirm deployment.  /  Back returns to the
-      menu.
+    m_Localized: Choose a frame, then confirm your selection.  /  Back keeps your
+      current mecha.
     m_Metadata:
       m_Items: []
   - m_Id: 250020618149888
-    m_Localized: DEPLOY SELECTED MECHA
+    m_Localized: CONFIRM MECHA
     m_Metadata:
       m_Items: []
   - m_Id: 250020622344192

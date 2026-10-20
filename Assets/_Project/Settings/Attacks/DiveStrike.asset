@@ -24,9 +24,9 @@ MonoBehaviour:
   displayName: Dive Strike
   action:
     kind: 9
-    duration: 2
-    impact: 0.08
-    cancel: 2
+    duration: 0.92
+    impact: 0.35
+    cancel: 0.78
     pulses: 24
     pulseInterval: 0.08
     damage: 15

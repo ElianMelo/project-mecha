@@ -50,4 +50,4 @@ The larger goal is learned control that supports improvisation and personal expr
 
 Use compilation, static/code review and proportional manual runtime inspection. Do not create or run automated tests without an explicit user request. Extra network players, builds or Relay sessions are unnecessary for ordinary presentation/tuning work; use targeted network inspection when authority, replication, spawning or remote-only behavior changes.
 
-Current implementation details are in [CombatCombos.md](CombatCombos.md). Effect-specific art and iteration requirements remain in the [VFX refinery skill](../.agents/skills/unity-vfx-refinery/SKILL.md) and [VfxIterationNotes.md](VfxIterationNotes.md).
+Current implementation details are in [CombatCombos.md](CombatCombos.md). Effect-specific art and iteration requirements remain in [AGENTS.md](../AGENTS.md) and [VfxIterationNotes.md](VfxIterationNotes.md).

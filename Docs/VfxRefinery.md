@@ -1,6 +1,6 @@
 # VFX Refinery
 
-Established 2026-10-17 from the user's VFX authoring brief. The entry point is [.agents/skills/unity-vfx-refinery/SKILL.md](../.agents/skills/unity-vfx-refinery/SKILL.md). `AGENTS.md` requires it for every VFX creation, revision or diagnosis; automatic invocation is enabled, and the previous Graph skill routes through it.
+Established 2026-10-17 from the user's VFX authoring brief. The project VFX skills were removed at the user's request on 2026-10-24. This document preserves the library scan and workflow history; current project rules are in [AGENTS.md](../AGENTS.md). Historical references to skill behavior below describe the removed installation.
 
 The visual direction is dark 1980s anime mecha with toon shading, Grand Chase combat readability and Armored Core mechanical language. Particle System handles ordinary and multi-phase effects. Native materials precede focused ShaderLab/HLSL for demonstrated special-material needs; Shader Graph is a fallback and VFX Graph is supplemental. Cryogenic, radiation, plasma, pressure, armor and machinery replace fantasy elemental presentation. New effects and their assets/profiles/scripts live under `Assets/_Project/VFX/<Effect>/`.
 
@@ -41,7 +41,7 @@ Source artwork remains Placeholder; vendor reference/support content remains Oth
 
 Read **six PDFs / 43 pages** covering general setup, weapons, ground slashes, level-up/mesh binding, stylized beams and creature demos. General/WeaponFX are image-based and were rendered for reading; copies in both large archives are byte-identical to these outside guides. Read all six PixPlays README files, both Hovl Readmes and the JMO HTML/editor guide; inspected native prefabs/material dependencies and key interaction scripts.
 
-The skill's [source-library reference](../.agents/skills/unity-vfx-refinery/references/source-library.md) records custom vertex streams/packed channels, light costs, Built-in GrabPass incompatibility, pipeline-specific archives, beam endpoint/duration coordination, mesh-mask fitting, source/target snapshots, retained tails, pool reset and demo-script limitations. Package instructions to import everything or replace global rendering settings are not adopted.
+The former skill's source-library reference recorded custom vertex streams/packed channels, light costs, Built-in GrabPass incompatibility, pipeline-specific archives, beam endpoint/duration coordination, mesh-mask fitting, source/target snapshots, retained tails, pool reset and demo-script limitations. Package instructions to import everything or replace global rendering settings are not adopted.
 
 ## Authoring and learning
 

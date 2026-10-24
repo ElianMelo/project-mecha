@@ -1,6 +1,0 @@
-interface:
-  display_name: "VFX Refinery"
-  short_description: "Particle System VFX for technical anime mecha combat"
-  default_prompt: "Use $unity-vfx-refinery to create or refine this project's VFX, consult supplied sources, and iterate on the rendered result."
-policy:
-  allow_implicit_invocation: true

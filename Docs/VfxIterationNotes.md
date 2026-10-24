@@ -54,7 +54,7 @@
 - **Outcome:** technical corrections visually inspected; user art acceptance remains pending. The rig remains rigid placeholder art with possible extreme-pose wing/rifle overlap. The new native render pass has not been performance-benchmarked.
 - **Skill improvement:** particle-authoring.md now records the explicit foreground default, native URP implementation and the requirement to preserve collider layers. Retarget findings are retained in model/character documentation; they do not justify changing particle art guidance. No new art-origin claim or finished vendor dependency was introduced.
 
-Read relevant entries before each VFX creation or revision. Follow `.agents/skills/unity-vfx-refinery/references/review-and-learning.md`. Distinguish explicit preferences, observed defects, hypotheses, local tuning and transferable skill improvements. Never infer visual approval from compilation or the absence of feedback.
+Read relevant entries before each VFX creation or revision. The project VFX skills were removed at the user's request on 2026-10-24; earlier skill assessments below remain historical records. Distinguish explicit preferences, observed defects, hypotheses and local tuning. Never infer visual approval from compilation or the absence of feedback.
 
 ## Accepted initial baseline — 2026-10-17
 

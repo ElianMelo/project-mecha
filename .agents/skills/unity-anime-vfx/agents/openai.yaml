@@ -1,0 +1,6 @@
+interface:
+  display_name: "80s anime VFX"
+  short_description: "Create dark 80s anime mecha effects in Unity"
+  default_prompt: "Use $unity-anime-vfx to create or visually refine this effect in the project's dark 80s anime mecha style."
+policy:
+  allow_implicit_invocation: true

@@ -1,6 +1,6 @@
 # A / S / D fire — accepted initial baseline (revision 7)
 
-The latest review corrects preparation to the actual VFX source, asks for a longer D fire fade, and supplies an anime mecha reference for a blend between the earlier graphic treatment and revision 6 texture depth. This pass keeps the existing topology, coverage, cost and damage. The user accepted this as the initial VFX skill baseline; content remains provisional rather than final production art.
+The latest review corrects preparation to the actual VFX source, asks for a longer D fire fade, and supplies an anime mecha reference for a blend between the earlier graphic treatment and revision 6 texture depth. This pass keeps the existing topology, coverage, cost and damage. The user accepted fire revision 7 as a starting point; content remains provisional rather than final production art.
 
 ## Phase and layer breakdown
 
@@ -35,4 +35,4 @@ One manual preview per skill sampled .12/.24/.42/.70/1.05/1.40/1.80/2.40/3.60 se
 
 No additional art tuning followed the preview. Shader/native authoring and static checks pass. Changed warmup attachment is observed in the manual frame sequence; opposite-facing, airborne and cover cases were source-reviewed only. No automated tests, extra builds/clients or network sessions were used. The temporary preview was removed by leaving Play Mode; MainScene remains clean. Play Mode is restored to its initial state after authoring.
 
-Generated capture images/review sheets were removed after initial-baseline acceptance at the user's request. Runtime JSON reports remain under ignored Logs/FireSkills; the full written history and reusable lessons remain in Docs/VfxIterationNotes.md. User art reference: Docs/References/FireSkills/Feedback07-user-art-direction.png. Historical image paths in the iteration log are intentionally retired.
+Generated capture images/review sheets were removed after initial-baseline acceptance at the user's request. Runtime JSON reports remain under ignored Logs/FireSkills. User art reference: Docs/References/FireSkills/Feedback07-user-art-direction.png. Historical image paths are intentionally retired.

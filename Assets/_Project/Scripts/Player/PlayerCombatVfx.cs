@@ -13,7 +13,7 @@ public class PlayerCombatVfx : MonoBehaviour
     private bool wasGrounded;
     private float previousVerticalSpeed;
     private void Awake() { movement=GetComponent<PlayerMovement>(); feedback=GetComponent<CharacterHitFeedback>(); fireSkills=GetComponent<FireSkillPresentation>(); characterSkills=GetComponent<CharacterSkills>(); }
-    public void EndAction() => fireSkills?.StopFeeding();
+    public void EndAction() { characterSkills?.EndPresentation(); fireSkills?.StopFeeding(); }
     public void SkillContact(PlayerAttack.ActionKind kind, Vector3 point, Vector3 incoming, Vector3 normal, bool final)
         => fireSkills?.Contact(kind, point, incoming, normal, final);
     private void Update()

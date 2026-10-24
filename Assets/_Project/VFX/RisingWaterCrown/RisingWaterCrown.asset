@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c2a997f4f31672448dded08fa7d068f, type: 3}
+  m_Name: RisingWaterCrown
+  m_EditorClassIdentifier: Assembly-CSharp::RisingWaterCrownSettings
+  prefab: {fileID: 4417138669259457727, guid: 5fc997274c13e0f4b9f5f2bbded65041, type: 3}
+  radius: {x: 1.65, y: 0.64}
+  crestHeight: 2.9
+  bodyColor: {r: 0.006, g: 0.07, b: 0.24, a: 1}
+  flowColor: {r: 0.025, g: 1.05, b: 1.65, a: 1}
+  foamColor: {r: 1.35, g: 2.25, b: 2.6, a: 1}
+  lightColor: {r: 0.08, g: 0.65, b: 1, a: 1}
+  lightIntensity: 5
+  lightRange: 4.5
+  lifetime: 1.6
+  interruptedTail: 0.22
+  dropletsPerPulse: 5
+  surfaceProbeDistance: 0.2
+  surfaceLayers:
+    serializedVersion: 2
+    m_Bits: 192

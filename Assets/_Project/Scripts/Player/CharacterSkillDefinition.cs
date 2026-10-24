@@ -6,6 +6,7 @@ public abstract class CharacterSkillDefinition : ScriptableObject
 {
     public LocalizedString displayName;
     public AttackPiece action;
+    public CharacterSkillPresentation presentationOverride;
     public virtual void Begin(CharacterSkills actor, int facing) { }
     public virtual void PresentPulse(CharacterSkills actor, int facing, int pulse) { }
     public virtual void PresentModifier(CharacterSkills actor, float remaining) { }

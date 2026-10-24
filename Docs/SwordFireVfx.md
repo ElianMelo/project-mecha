@@ -1,6 +1,6 @@
 # Sword Fire VFX
 
-The supplied `unity-vfx-graph` skill was used during implementation and removed from the project's skill installation at the user's request on 2026-10-24. Its original source under `Assets/_Project/NewSkills` was kept. The official Visual Effect Graph package **17.3.0** matches the existing URP **17.3.0**.
+The official Visual Effect Graph package **17.3.0** matches the existing URP **17.3.0**.
 
 **S / Sword Fire** now emits a GPU-simulated flame wave with orange/red fading tongues, a bright yellow core, upward turbulence and trailing embers. Each of its three existing hit pulses emits one visual burst at that pulse's authored reach. Left-facing casts mirror the local simulation while retaining upward motion. Damage, attack timing, mana and cooldown are unchanged.
 

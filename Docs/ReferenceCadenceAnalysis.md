@@ -25,15 +25,15 @@ The first recording contains both traversal and a skill demonstration. The secon
 | 43–95 / 0.72–1.58 s | Departure to the lower lane followed by comparatively restrained horizontal travel. | Holding a direction is deliberately slow. A dash must not silently become permanent maximum speed. |
 | 96–113 / 1.60–1.88 s | Upright/turning poses separate the travel phases. | Preserve short transitions and commitment; do not make all actions instantly reversible. |
 | 114–170 / 1.90–2.83 s | Ground streaks, short forward bursts, a small rise and return to the floor. | Launch velocity followed by decay, with a separate jump/dash route. |
-| 171–236 / 2.85–3.93 s | Another diagonal movement phase followed by sustained lower-lane travel. Dust persists behind the moving actor. | Distinguish the launch, airborne momentum and ordinary run; reuse native smoke/streak effects. |
+| 171–236 / 2.85–3.93 s | Another diagonal movement phase followed by sustained lower-lane travel. Dust persists behind the moving actor. | Distinguish the launch, airborne momentum and ordinary run. |
 | 237–299 / 3.95–4.98 s | Repeated changes in height and forward travel, with compressed downward returns and short slides. | Rocket followed by Down converts vertical launch into a longer horizontal slide. |
 | 300–421 / 5.00–7.02 s | Air movement/attack poses interrupt travel; actions occupy visible time. | Air attacks commit; arbitrary steering/down input cannot erase them. |
 | 422–467 / 7.03–7.78 s | Low/held poses followed by a return to upright movement. | Do not erase every pause when tuning for responsiveness. |
 | 468–606 / 7.80–10.10 s | A localized series of sword poses, short strokes and a visible critical cue around frame 516. | Combo branches remain distinct attacks, with startup and recovery. |
 | 607–642 / 10.12–10.70 s | Abrupt dark/red backdrop; luminous charge detail; a long held emphasis pose. | Skill startup locks movement and attacks while the environment darkens. |
-| 643–676 / 10.72–11.27 s | Large floor-oriented white/pink burst, then settling. | Separate charge, impact and recovery; keep the large effect at impact. |
+| 643–676 / 10.72–11.27 s | Large floor-oriented white/pink burst, then settling. | Separate charge, impact and recovery in the action timeline. |
 | 677–715 / 11.28–11.92 s | A second luminous held charge/pose. | The anticipation is a substantial part of the skill's weight. |
-| 716–738 / 11.93–12.30 s | Broad horizontal arc/ring and bright core. | Retain the existing native flame/ember skill effects; avoid filling every startup frame with the final impact. |
+| 716–738 / 11.93–12.30 s | Broad horizontal arc/ring and bright core. | Reference appearance only. |
 | 739–774 / 12.32–12.90 s | Recovery and return of the normal environment. | Fade the focus treatment out instead of snapping all presentation off at impact. |
 | 775–942 / 12.92–15.70 s | Repeated short launches, descending returns and long low slides; dust follows the trajectory. | Fast travel comes from repeated commands, not held input. |
 | 943–1079 / 15.72–17.98 s | Rightward scrolling followed by reversal/return. Camera motion makes absolute speed harder to measure. | Tune ratios and cadence; do not mistake screen displacement for world displacement. |
@@ -50,7 +50,7 @@ The essential motion envelope is a steep acceleration at the command, followed b
 |---|---|---|
 | 0–130 / 0–2.17 s | Initial entry/approach and enemy movement; little sustained attack output. | Keep setup/neutral separate from attack startup. |
 | 131–177 / 2.18–2.95 s | First short strikes: actor poses commit, small flashes appear, targets react and shift. | Movement input does not drive a grounded combo; each hit supplies an authored step and an opposing target impulse. |
-| 178–250 / 2.97–4.17 s | Repeated hits, bright contact flashes, damage numbers and brief reaction poses. | Every confirmed hit triggers flinch, directional sparks/core/smoke/debris and readable damage feedback. |
+| 178–250 / 2.97–4.17 s | Repeated hits, bright contact flashes, damage numbers and brief reaction poses. | Damage feedback follows confirmed hits. |
 | 251–374 / 4.18–6.23 s | Faster follow-ups and movement through the group; targets are displaced while the attacker follows. | Match attack step distance with target push. A deliberate critical branch can cross through a target. |
 | 375–510 / 6.25–8.50 s | Airborne targets receive further strikes; arcs/streaks and fresh numbers mark discrete pulses. | Airborne hits re-lift instead of merely adding horizontal damage. Hit stop is short and per actor. |
 | 511–547 / 8.52–9.12 s | Environment darkens sharply, a red/blue ring develops and poses are held. | A skill has an unmistakable locked charge phase; nearby enemies slow locally. |
@@ -58,12 +58,12 @@ The essential motion envelope is a steep acceleration at the command, followed b
 | 563–623 / 9.38–10.38 s | Very bright contact, large circular sweep, then a broad floor burst. | Multi-hit skills have separate pulses, with a larger final accent. |
 | 624–749 / 10.40–12.48 s | Return to a normal-brightness environment and continued attacks, including airborne feedback. | Resume ordinary cadence after the skill; do not leave a global slow-motion state behind. |
 | 750–1009 / 12.50–16.82 s | Vertical pursuit and repeated juggle contacts; numbers and hit flashes overlap but attacks remain discrete. | A hit renews airborne lift and stun; landing cancels an air attack immediately. |
-| 1010–1057 / 16.83–17.62 s | Concentrated spinning/radial activity; debris/ground fragments become prominent. | Retain separate anticipation/contact/recovery and native effect layers. |
+| 1010–1057 / 16.83–17.62 s | Concentrated spinning/radial activity; debris/ground fragments become prominent. | Retain separate anticipation/contact/recovery in the action timeline. |
 | 1058–1090 / 17.63–18.17 s | Another abrupt dark focus phase, circular emphasis and large ground-oriented effect. | Reapply focus from the current skill state, without accumulating camera zoom offsets. |
 | 1091–1138 / 18.18–18.97 s | Large damage cue and displaced airborne enemies as the main sweep fades. | Damage, flinch, lift and presentation should describe the same accepted pulse. |
 | 1139–1258 / 18.98–20.97 s | Repositioning and more ordinary contacts between special effects. | Movement and ordinary attacks regain control after recovery. |
 | 1259–1304 / 20.98–21.73 s | Renewed darkening and held charge poses. | Skills remain committed; another attack/dash/tech command cannot cancel them. |
-| 1305–1338 / 21.75–22.30 s | White geometric/radial glyph effect and contact flashes. | Use the project's existing skill effects and native particles; original source artwork is not available. |
+| 1305–1338 / 21.75–22.30 s | White geometric/radial glyph effect and contact flashes. | Reference appearance only; original source artwork is not available. |
 | 1339–1412 / 22.32–23.53 s | Blue electrical ring, repeated pulses, fresh numbers and re-lifts. | Multi-hit effects and gameplay pulses share their authored timeline. |
 | 1413–1475 / 23.55–24.58 s | Another cast/impact overlaps the fading ring before the clip ends. | The recording does not expose the full final recovery. Do not invent a measured endpoint. |
 

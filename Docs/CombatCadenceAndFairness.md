@@ -18,9 +18,9 @@ Ordinary enemy melee/lance hits damage and show feedback, but do not overwrite p
 
 Both characters retain shared AttackPieces, mixed light/heavy ordinals, damage and contact geometry. Preparation, contact, follow-through and cancel windows remain synchronized to native animation in real time.
 
-The later 2026-10-19 blade/VFX feedback revised **contact starts only** after native clip inspection: light .17/.26/.30s and heavy .41/.33/.57s. The contact column below records the earlier cadence pass; durations/cancels remain current. Three blade-bound trails now emit during the same contact interval, replacing the fixed rotating half-sweep. See the [current melee authoring note](../Assets/_Project/VFX/Melee/Authoring.md).
+The later 2026-10-19 blade feedback revised **contact starts only** after native clip inspection: light .17/.26/.30s and heavy .41/.33/.57s. The contact column below records the earlier cadence pass; durations/cancels remain current. Blade trails share the contact interval.
 
-The user's subsequent collision rejection supersedes the retained-forward-capsule assumption: equipped swords now query native swept capsules along their animated edge after Animator evaluation, with a .075m blade radius. Damage and temporal tuning remain as above; spatial reach now follows the visible blade. Physical contact travel is separate from knockback for hit-spark feedback. See the current blade sweep correction in the same authoring note.
+The user's subsequent collision rejection supersedes the retained-forward-capsule assumption: equipped swords now query native swept capsules along their animated edge after Animator evaluation, with a .075m blade radius. Damage and temporal tuning remain as above; spatial reach now follows the visible blade. Physical contact travel is separate from knockback for hit feedback. See the current equipped-sword collision record in [CombatCombos.md](CombatCombos.md).
 
 | Step | Light duration / contact / cancel | Heavy duration / contact / cancel |
 | --- | --- | --- |

@@ -60,13 +60,13 @@ The former player's rig, materials, weapon and Idle/Run/Attack clips are reused 
 
 Unused temporary FBXs, Blender files/backups and the unused cyan texture were removed from the Unity asset tree after a recoverable ZIP was written to `SourceArchive/NewPlayerUnused-2026-10-14.zip`. The archive includes original metadata. The selected base model and texture were moved through AssetDatabase to preserve GUIDs. The TEMP_NewPlayer folder is gone.
 
-## Shading and effects
+## Character shading
 
 Player, enemy and weapon materials use **Toon/Toon** from Unity Toon Shader 0.15.1-preview. Existing texture colors remain. Two cool shade bands use thresholds 0.58/0.27 with 0.001 feathering, dark outlines and restrained flat highlights. Outline extrusion compensates for each imported model's transform scale. The key light casts hard shadows; ambient fill is reduced. Motion blur is disabled and bloom restrained to keep silhouettes and bands crisp. Platform renderers have shadow casting disabled, so platforms above an actor cannot cast a shadow onto it.
 
 The reference images informed contrast, cel bands, dark recesses and thin ink edges. Baked texture shading and the supplied meshes limit how closely material changes alone can reproduce the references. No reference imagery was used as a texture.
 
-All combat effects use Unity **Particle Systems**, with the supplied wind texture and Unity's built-in particle texture. The circular LineRenderer effects were removed. Dash smoke emits at the feet and moves opposite the dash; attacks produce short directional wind; impacts produce smoke and elongated sparks traveling away from the attacker. MaterialPropertyBlock provides a brief white flash without duplicating character materials. IHitFeedback is shared presentation behavior; ICombatTarget keeps attack detection independent of EnemyController's concrete type.
+IHitFeedback is shared presentation behavior; ICombatTarget keeps attack detection independent of EnemyController's concrete type.
 
 ## Validation process
 
@@ -74,8 +74,6 @@ No automated tests were created or run. Validation uses Unity compilation, sourc
 
 Observed in Play Mode:
 
-- Rightward dash emitted two smoke bursts with negative mean X velocity (approximately -2.24 and -2.32), while the Dash clip played.
-- The first hit flashed the enemy white. Hit sparks and smoke traveled right, away from the attacker; observed mean X velocities were approximately +4.90 and +1.59.
 - Combo actions selected Attack_A, Attack_B and Attack_C. Client and server reached Slash3; enemy health changed 90 → 81 → 70 → 55. The finisher raised the enemy from the floor to y=-3.16 in the inspected frame.
 - A jump with JumpHeld=false rose approximately **2.01 units** and returned to the floor. Camera Y remained **-1.50** for the entire observed jump.
 - At the right wall, the player stopped at x=11.73 with zero velocity. Camera X stopped at 5.21 and its right view edge stayed at 12.50; the player remained visible at viewport x=0.95.

@@ -34,7 +34,7 @@ Authored and generated crates use combat depth zero. Previously their front coll
 
 Projectile direction comes from actual flight displacement, with launch direction for an immediate overlapping contact. Resolved velocity may already be zero; collision-relative velocity has callback-relative sign. Direction flows through existing receiver feedback RPCs. DestructibleProp safely reads local health before FishNet initializes its cached NetworkObject.
 
-DamageSparks uses native Particle Systems, collision/trails and an Animator point-light pulse. Sparks rebound away from the incoming impulse, preserving diagonal direction. Cosmetic contact projects onto the visible collider face using existing hit-depth tuning; physics and damage depth stay unchanged. Lethal crate hits also spark before break debris/smoke. No finished vendor effect, damage query, runtime light engine or camera overlay is introduced.
+Damage presentation consumes the captured contact through the existing feedback path. Physics and damage depth remain separate from cosmetic placement, and lethal crate hits can still deliver feedback before destruction.
 
 ## Labels and validation
 

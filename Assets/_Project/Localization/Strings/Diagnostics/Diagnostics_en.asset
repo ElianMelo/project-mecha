@@ -175,6 +175,68 @@ MonoBehaviour:
     m_Localized: HOLD AI
     m_Metadata:
       m_Items: []
+  - m_Id: 2903790366068736
+    m_Localized: '{0} registered effects'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903790462537728
+    m_Localized: Your next effect starts here
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903790462537729
+    m_Localized: 'Create an effect with VFX Creator to add it to this browser.
+
+      Choose
+      it from the list, then press Space to replay.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903790462537730
+    m_Localized: Waiting for the first effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903790462537731
+    m_Localized: Playing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903790462537732
+    m_Localized: Ready to replay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795374067712
+    m_Localized: VFX testing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795399233536
+    m_Localized: Effects created with VFX Creator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795424399360
+    m_Localized: Refresh list
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795567005696
+    m_Localized: No effects registered yet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795575394304
+    m_Localized: Replay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795587977216
+    m_Localized: Stop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795613143040
+    m_Localized: Select an effect, then replay it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795625725952
+    m_Localized: 'Arrows / D-pad: browse | Enter / confirm: play
+
+      Space: replay
+      | Esc / back: stop'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

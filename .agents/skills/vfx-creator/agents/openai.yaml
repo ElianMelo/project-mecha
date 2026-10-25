@@ -1,0 +1,6 @@
+interface:
+  display_name: "VFX Creator"
+  short_description: "Create anime VFX from images and installed packs"
+  default_prompt: "Use $vfx-creator to create or refine this effect using my image references and the project's installed VFX packs."
+policy:
+  allow_implicit_invocation: true

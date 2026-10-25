@@ -167,6 +167,62 @@ MonoBehaviour:
     m_Key: button.holdAI.scene
     m_Metadata:
       m_Items: []
+  - m_Id: 2903790366068736
+    m_Key: vfx.count
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903790462537728
+    m_Key: vfx.none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903790462537729
+    m_Key: vfx.empty.detail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903790462537730
+    m_Key: vfx.empty.status
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903790462537731
+    m_Key: vfx.playing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903790462537732
+    m_Key: vfx.ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795374067712
+    m_Key: vfx.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795399233536
+    m_Key: vfx.subtitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795424399360
+    m_Key: vfx.refresh
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795567005696
+    m_Key: vfx.empty.list
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795575394304
+    m_Key: vfx.replay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795587977216
+    m_Key: vfx.stop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795613143040
+    m_Key: vfx.browser.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2903795625725952
+    m_Key: vfx.controls
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

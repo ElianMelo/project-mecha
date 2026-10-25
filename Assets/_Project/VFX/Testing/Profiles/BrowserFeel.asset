@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 657a3190c1bb17f43ac41c8e9c345da8, type: 3}
+  m_Name: BrowserFeel
+  m_EditorClassIdentifier: Assembly-CSharp::UiFeelSettings
+  motionEnabled: 1
+  buttonController: {fileID: 9100000, guid: d7b0e14caae811542ae7e9e22bcb67ec, type: 2}
+  readoutController: {fileID: 9100000, guid: e6877b8e0dc91e547ada15c1ec08d064, type: 2}
+  comboController: {fileID: 9100000, guid: 95a684caa8f2d9442b476b8c49050145, type: 2}
+  panelController: {fileID: 9100000, guid: 63f49bd88ae6b0e4aa3b367f4c1ae63d, type: 2}
+  keyboardController: {fileID: 9100000, guid: 5973e7d95dc802044bd69816038866ed, type: 2}
+  frameSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  focusColor: {r: 0.43, g: 0.94, b: 0.61, a: 1}
+  damageTrailColor: {r: 1, g: 0.58, b: 0.25, a: 0.9}
+  energyTrailColor: {r: 0.3, g: 0.65, b: 0.85, a: 0.65}
+  criticalColor: {r: 1, g: 0.48, b: 0.28, a: 1}
+  resourceResponse: 0.1
+  damageTrailDelay: 0.32
+  damageTrailSpeed: 0.8
+  criticalHealth: 0.25

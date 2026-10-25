@@ -15,7 +15,7 @@ Unity asset labels are the classification record. Select an asset in the Project
 
 All current game content remains provisional. Origin is separate: preserve confirmed AI Generated labels alongside Placeholder/Replace; unknown authorship remains unknown. Never infer AI or human origin from file format or appearance.
 
-VFX libraries also retain independent Reference and VFXSource labels. Finished Reference effects remain study-only; reusable VFXSource parts require compatibility/style review. Source lineage remains in VfxEffectOrigins.csv and the VFX source catalog; these are not readiness inventories.
+VFX libraries retain independent Reference and VFXSource labels describing their source roles. These labels do not prohibit adapting complete effects into project-owned copies or variants. Source lineage remains in VfxEffectOrigins.csv and the VFX source catalog; these are not readiness inventories. Their historical use descriptions and evidence paths, including retired authoring documents, record earlier work rather than current reuse restrictions or documentation links. VFX authoring guidance lives in [VFX Creator](../.agents/skills/vfx-creator/SKILL.md).
 
 Use **Tools → Mecha → Content → Refresh Project Labels** for newly authored project assets. The native editor utility preserves existing categories, provenance, library roles and explicit Keep/Replace decisions. It adds a default only when neither decision is present: Placeholder → Replace, other categories → Keep. Humans can change the decision directly in Unity. There is no import callback, runtime classifier, file relocation or GUID rewrite.
 

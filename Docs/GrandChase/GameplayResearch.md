@@ -101,11 +101,11 @@ All gravity is applied by the actor components; Rigidbody built-in gravity is di
 
 ## The three skills
 
-| Shortcut | Action | Pulses / damage | MP / cooldown | Presentation and use |
+| Shortcut | Action | Pulses / damage | MP / cooldown | Gameplay use |
 | --- | --- | --- | --- | --- |
-| A | Mega Slash | 8 + 8 + 8 + 18 = 42 | 25 / 3 seconds | Ruby arcs and sparks; close-range sequence with a launching finisher |
-| S | Sword Fire | 14 × 3 = 42 | 40 / 5 seconds | Amber wave pulses advancing forward; wider horizontal reach |
-| D | Critical X | 28 × 2 = 56 | 60 / 7 seconds | Violet and white opposing arcs; taller coverage and launch |
+| A | Mega Slash | 8 + 8 + 8 + 18 = 42 | 25 / 3 seconds | Close-range sequence with a launching finisher |
+| S | Sword Fire | 14 × 3 = 42 | 40 / 5 seconds | Advancing pulses with wider horizontal reach |
+| D | Critical X | 28 × 2 = 56 | 60 / 7 seconds | Taller coverage and launch |
 
 The damage total assumes the enemy remains inside every pulse. Knockback, height, target movement and spacing can cause later pulses to miss. Skills grant protection from hit interruption, while damage still reduces health. They do not provide global invulnerability or freeze other players. Existing attack animation is retimed for each action; effects and hit pulses provide the different skill identities. Bespoke Elesis animations and audio were not imported.
 

@@ -14,7 +14,6 @@ Implemented from the supplied gameplay screenshot and the user's adjustment list
 | NPC animation | Existing idle/run clips explicitly loop; movement, airborne and attack presentation remain separate. Grounded state is replicated for remote presentation. | EnemyAnimation |
 | Arena | Floor expanded from 24 to 72 units, with 20 staggered platforms and separate physical walls/camera limits. Player starts toward the left side. | ArenaLayout, RoomCamera |
 | Spawning | 16 markers span the room and its elevations. Initial population 6, cap 16, interval 1.5 seconds; avoid spawning within 3.5 units of a player and prefer space away from existing enemies. | EnemySpawning, ArenaLayout |
-| Effects | Layered dash smoke, speed streaks and debris; thin slash edges; hit core, sparks, trailing fragments and smoke; landing dust. Uses existing textures and Unity Particle Systems, with no circular mesh effects. | CombatVfx and individual particle profiles |
 
 Skills cancelled by a dash keep their spent mana and cooldown. Previously emitted particles finish visually, while future damage pulses are cancelled. Protection is tied to an accepted dash window on the server, rather than a separate configurable grace period after the dash.
 

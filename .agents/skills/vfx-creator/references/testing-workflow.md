@@ -10,7 +10,7 @@ Open `Assets/Scenes/VfxTesting.unity`, or use **Tools > Mecha > VFX > Open testi
 
 ## Register an effect
 
-The canonical `VfxPreviewCatalog` asset is `Assets/_Project/VFX/Testing/Profiles/VfxCreatorCatalog.asset`. It starts empty. Register only effects newly created or adapted through VFX Creator. Existing project effects and vendor packs remain available as references without automatically appearing in this browser.
+The canonical `VfxPreviewCatalog` asset is `Assets/_Project/VFX/Testing/Profiles/VfxCreatorCatalog.asset`. It was created empty and now holds requested skill-authored effects. Register only effects newly created or adapted through VFX Creator. Existing project effects and vendor packs remain available as references without automatically appearing in this browser.
 
 Create a standalone project-owned prefab under `Assets/_Project/VFX/<Effect>/`. It must preview without a player, lobby, damage authority, or network manager. Native Particle Systems, VFX Graphs, and prefab animation are supported. For a gameplay-dependent effect, author a focused preview wrapper that supplies its visual initialization/attachment in OnEnable and cleans up on disable; reference existing assets rather than duplicating gameplay logic.
 
@@ -30,6 +30,8 @@ This is an example interface, not an existing effect or a fixed timing recommend
 
 Each definition configures its prefab, localized name/description, play time, tail cleanup time, position, rotation, and scale. Edit these through Unity APIs or the Inspector. During preview, emission stops after play time and the entire instance is removed after the configured tail. Custom prefab animation/scripts must cooperate with this lifetime. Tune the offset/orientation and tail duration in the definition rather than changing the shared preview stage to accommodate one effect.
 
+Set `prefabControlsPlayback` to true for a wrapper that schedules its own startup/pulses. This prevents the browser from immediately playing every independent Particle System or reinitializing graphs inside that sequence. The browser still owns replay replacement, stop, and final cleanup. Leave the flag false for ordinary native play-on-start prefabs. A timed preview must read the action's real data and invoke the same presentation callbacks without applying damage or recreating combat authority.
+
 The helper preserves existing native labels and adds VFXCreator to the project prefab and definition. Membership is explicit registration, not a scan of this label. Never register the browser's own UI prefab or mislabel an untouched legacy/vendor effect as newly authored. Do not populate sample effects unless the user requests them.
 
 ## Review and iterate
@@ -39,3 +41,9 @@ Inspect the effect through the actual browser controls, including replay, interr
 When a real result exposes a browser or skill limitation, fix the necessary workflow and update the skill's relevant instructions and learning notes. Keep technical observations and user artistic approval distinct. Follow the project's no-unrequested-automated-tests rule; use compilation, source review, static checks, and manual runtime inspection.
 
 During UI inspection, allow synthetic input to pass through a normal Input System frame. The installed Pipeline `simulate_key` command explicitly flushes an extra input update, which can make native UI Submit checks miss an otherwise valid press. Queue a native key state for the next frame when diagnosing that case rather than replacing working UI input behavior.
+
+When a freshly compiled inspection command starts a timed preview, wait for a new advancing frame before starting the cast. Synchronous command compilation can inflate the current frame's delta and make the first observed pulse appear late. Record the actual callback times and separate this inspection artifact from the action's authored timing.
+
+For timed animated presentations, compare the animation pose against the pulse clock at startup as well as the main phase. If native Animator delta advances a creation frame ahead of the action, use an authored motion-time parameter driven by the presentation clock. When authoring transform curves programmatically, explicitly retain the other position/scale axes; inspect actual runtime offsets rather than assuming prefab values survived binding. A pulse-only particle system should simulate with zero automatic emission before manual Emit calls so particles travel and age.
+
+When authoring native velocity curves, keep the X/Y/Z modes compatible, including axes whose values are zero. Inspect the current runtime console after playing the full family; repeated native module errors can coexist with an apparently animated render. For imported open water sheets, check culling from both sides, UV orientation and particle custom-data/vertex-stream contracts before changing textures to compensate for a rendering mismatch.

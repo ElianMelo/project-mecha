@@ -29,6 +29,15 @@ public sealed class VfxPreviewPlayer : MonoBehaviour
         effect.SetActive(true);
         instance.SetActive(true);
 
+        if (!definition.prefabControlsPlayback) PlayNativeSystems();
+
+        PlaybackCount++;
+        lifetime = StartCoroutine(Finish(definition.playSeconds, definition.tailSeconds));
+        Changed?.Invoke();
+    }
+
+    private void PlayNativeSystems()
+    {
         var particles = instance.GetComponentsInChildren<ParticleSystem>();
         var subemitters = new HashSet<ParticleSystem>();
         foreach (var particle in particles)
@@ -45,9 +54,6 @@ public sealed class VfxPreviewPlayer : MonoBehaviour
             graph.Reinit();
         }
 
-        PlaybackCount++;
-        lifetime = StartCoroutine(Finish(definition.playSeconds, definition.tailSeconds));
-        Changed?.Invoke();
     }
 
     private IEnumerator Finish(float playSeconds, float tailSeconds)

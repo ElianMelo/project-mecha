@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc3d596c01fe714c9af37a5f0fac714, type: 3}
   m_Name: VfxCreatorCatalog
   m_EditorClassIdentifier: Assembly-CSharp::VfxPreviewCatalog
-  effects: []
+  effects:
+  - {fileID: 11400000, guid: 6e5d836cba0c27f4f9f40b3f1c5f9b3b, type: 2}
+  - {fileID: 11400000, guid: 8eefdcbe560f97e4baa96b7d41d178d2, type: 2}
+  - {fileID: 11400000, guid: ed14479161a9a7b47a72c8b5a9e0038d, type: 2}
+  - {fileID: 11400000, guid: 83cb6002a2efbdd46bd61c31bebe6f3b, type: 2}
+  - {fileID: 11400000, guid: 1a4b1829af2a36044afbf80add32262c, type: 2}
+  - {fileID: 11400000, guid: fc9b12eaec4f0214fb913f8406d0f984, type: 2}
+  - {fileID: 11400000, guid: fe77393737212bc4eb84fdb9d00c5384, type: 2}
+  - {fileID: 11400000, guid: 44198e48aa9b5e84f9b3ba1dffb84abe, type: 2}
+  - {fileID: 11400000, guid: 4c341ffa42727564cabc56e666b4b9f9, type: 2}
+  - {fileID: 11400000, guid: 864e7b7260343d74bbf82c645672c5e8, type: 2}

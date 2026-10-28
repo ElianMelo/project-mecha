@@ -37,3 +37,17 @@ The final runtime console review exposed repeated native velocity-mode errors: a
 ## 2026-10-26 — user accepts the native direction for continued iteration
 
 The user stated that the native rebuild follows a good direction. Retain its real mesh/material/particle construction for the next feedback pass. No individual candidate has been selected and Zero's live S remains unchanged. The user requested removal of transient screenshots and previews before continuing; captures, animated comparison exports and temporary inspection helpers are cleaned while the ten playable browser entries and their required wrappers remain.
+
+## 2026-10-28 — third pass: phases, cel shader and review loop
+
+The user asked for better shape, motion, warmup, action, recovery, opacity and shape change, and layering, with *The Unity Shaders Bible* and seven more references. The skill now plans an explicit phase timeline and layer roles before artwork ([technique guide](technique-guide.md)) and reviews fixed phases side by side from an elevated camera.
+
+Observed during authoring (agent observations, not user approval):
+
+- The first cel render was mostly white: foam lines covered about half the body and HDR foam bloomed. Restricting foam lines to the light band, biasing tone toward the body band and lowering foam HDR fixed it. Too much white is the first thing to check.
+- Flat tube openings repeated the earlier "flat top" criticism. A tear threshold on `1 - uv.y` with its own sample fixed it; round cells gave egg-shaped lobes, vertically stretched cells gave pointed tongues closer to the eruption references.
+- `Voronoi01` holds about 15 cells per tile, so tiling near 1 eroded into speckle. Tiling about 0.3 opened a few large foam-edged holes. Check a mask's feature count before choosing tiling.
+- Build reliability: eval timeouts re-issued a build that deleted generated folders, leaving prefabs with broken references; a stale in-memory prefab then rendered grey quads. Builds now update assets in place and force-reimport prefabs.
+- `capture_game_view` writes under `Assets/`; an existing tracked empty `Assets/Logs` folder was deleted during cleanup and restored from git with its original GUID. Check tracked status before deleting.
+
+Remaining uncertainty: user evaluation of the ten; whether the pool's dark recovery patches read well on real gameplay floors; ribbon trails are the busiest silhouette in recovery.

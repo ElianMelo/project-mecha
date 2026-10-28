@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RisingWaterVariantSettings
   prefab: {fileID: 1136299168188347645, guid: aa8bc5129448eb143931a07b2db064d3, type: 3}
   previewAction: {fileID: 11400000, guid: a739d5ccee7e47a41bc0f43b92210b6d, type: 2}
-  tailSeconds: 0.35
-  interruptedTail: 0.22
-  dropletsPerPulse: 5
+  tailSeconds: 0.35000002
+  interruptedTail: 0.24

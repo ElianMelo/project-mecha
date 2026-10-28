@@ -7,6 +7,18 @@ Use these references for the rising-water family. New references and feedback st
 - [Foam openings](../assets/water-references/03-foam-openings.png): large transparent hollows interrupt broad foam regions; fine noise does not replace those openings.
 - [Water shapes](../assets/water-references/04-water-shapes.png): sculptural curled lobes, thin white rims, thick shadow folds, hue changes through blue, cyan and turquoise/mint, and disconnected fragments.
 
+Added 2026-10-28 (third pass):
+
+- [Cel column with crack ring](../assets/water-references/05-cel-column-crack-ring.png): luminous cyan column with a streaked interior, bright contact flare and a broken ring of white crack-foam spikes on the floor.
+- [Jellyfish canopy](../assets/water-references/06-jellyfish-canopy.png): dome canopy with a torn lower edge over long tapering tendril streaks; layered cyan/blue values on dark.
+- [Cel surface flow](../assets/water-references/07-cel-surface-flow.png): flat-shaded blue regions, cyan highlights and thin white caustic lines; the target for interior flow textures.
+- [Splash eruption](../assets/water-references/08-splash-eruption.png): crown of pointed tongues, detached round droplets and a foam pool; pointed rather than rounded tops.
+- [Twisting vortex](../assets/water-references/09-twisting-vortex.png): twisted rising column with flung spray and expanding ripple rings.
+- [Flat cel column and pool](../assets/water-references/10-flat-cel-column-pool.webp): flat-color column with dark elliptical blobs, a churning pale foam collar and a white foam network across the pool.
+- [Pale column and ripples](../assets/water-references/11-pale-column-ripples.webp): translucent pale column with a spiky foam collar, concentric white ripple bands and cyan crack foam on a saturated blue pool.
+
+Shared qualities: hard cel value regions (no gradients inside a region), white foam limited to rims, collars, cracks and ripple bands, a pool that belongs to the effect, and pointed or torn edges.
+
 ## User assessment of the first set
 
 No candidate was selected or approved. The user liked motion in 01 and 03, spacing in 02, and the proposition of 08. Those positive observations do not approve their other qualities.
@@ -45,3 +57,16 @@ Prove the motion at a steady main-action scale: water texture/contour flow, chan
 ## Current assessment — 2026-10-26
 
 The user said the native result follows a good direction. Continue refining these actual mesh/material/particle effects from future feedback. This is approval of the direction, not a winner selection or final artistic acceptance. Transient review captures/previews were removed at the user's request; retain the playable family and permanent visual references.
+
+## Third pass — 2026-10-28
+
+The user kept the native direction and anime style but asked for better shape, motion, warmup, action, recovery, opacity and shape change, and layering, noting misplaced pieces and timing problems. They supplied seven more references (above) and *The Unity Shaders Bible* for technique.
+
+All ten were rebuilt as new approaches to "water rising around the player". Construction changes:
+
+- A project cel-water shader (`RisingWaterVariants/Shaders/AnimeWater.shader`) replaces the PixPlays two-color lerp: three tone bands, foam on erosion edges, torn tops, back-face shading, a Fresnel rim, flowing caustic/foam textures and vertex wobble. The gap is documented in the shader header.
+- One shared timeline drives every piece: warmup (gathering pool, inward rings and streaks, pre-bulge), action (overshoot snap onto impact, beats on later pulses, pulse-masked crests, spray and ripples), recovery (erosion from the top, sinking and widening, drips, splash-down, final ripple) and interruption through the Animator.
+- Layer roles: pool, deep shell, body, foam/spray, ordered with sort fudges.
+- Spray originates at the crest or rim that creates it.
+
+Agent observations, not user approval: the ten read as distinct constructions across phases; torn tops read as pointed tongues after vertically stretched tear sampling; recovery opens large foam-edged holes. The pool's deep patches look dark against the grey test floor during recovery. No candidate is selected; awaiting user evaluation.

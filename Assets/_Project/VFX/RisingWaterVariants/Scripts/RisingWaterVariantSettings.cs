@@ -7,7 +7,6 @@ public sealed class RisingWaterVariantSettings : CharacterSkillPresentation
     public AttackPiece previewAction;
     [Min(0f)] public float tailSeconds = 0.35f;
     [Min(0f)] public float interruptedTail = 0.22f;
-    [Min(0)] public int dropletsPerPulse = 6;
 
     public override CharacterSkillPresentationInstance Begin(CharacterSkills actor,
         PlayerCombatSettings.ActionData action, int facing)

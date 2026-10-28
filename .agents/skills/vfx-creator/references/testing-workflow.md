@@ -46,4 +46,14 @@ When a freshly compiled inspection command starts a timed preview, wait for a ne
 
 For timed animated presentations, compare the animation pose against the pulse clock at startup as well as the main phase. If native Animator delta advances a creation frame ahead of the action, use an authored motion-time parameter driven by the presentation clock. When authoring transform curves programmatically, explicitly retain the other position/scale axes; inspect actual runtime offsets rather than assuming prefab values survived binding. A pulse-only particle system should simulate with zero automatic emission before manual Emit calls so particles travel and age.
 
+### Phase captures
+
+Pipeline `capture_game_view` writes only under `Assets/`; move each PNG to the ignored root `Logs/` immediately and remove any temporary asset folder through `AssetDatabase` afterwards. Check `git ls-files` before deleting a folder under `Assets/`: an empty tracked folder must be restored with its original `.meta`.
+
+The browser removes previews on a real-time timer, so for slowed captures instantiate the preview wrapper directly under `Effect origin`. Set `Time.timeScale` to about 0.03, poll the effect's `Elapsed`, freeze with `timeScale = 0` at each target phase, capture, then resume. CLI round-trips take about a second, which is too slow for real-time checks of interruption or pulse timing; use a slowed clock for those as well. In Play Mode, temporarily move the preview camera to an elevated 3/4 view; Play Mode changes are discarded. Stitch crops into contact sheets (Texture2D in an eval) to compare phases and candidates side by side.
+
+### Authoring builds
+
+Long authoring builds exceed the eval main-thread limit (about 5 s). The pipeline may then re-issue the request, so builds must be idempotent: update generated materials and meshes in place instead of deleting folders, and remove only stale leftovers at the end. Force-reimport saved prefabs at the end of the build; otherwise Play Mode can be served a stale in-memory prefab with null materials and meshes. Run builds only after compilation and shader import settle, then verify material texture bindings before capturing.
+
 When authoring native velocity curves, keep the X/Y/Z modes compatible, including axes whose values are zero. Inspect the current runtime console after playing the full family; repeated native module errors can coexist with an apparently animated render. For imported open water sheets, check culling from both sides, UV orientation and particle custom-data/vertex-stream contracts before changing textures to compensate for a rendering mismatch.

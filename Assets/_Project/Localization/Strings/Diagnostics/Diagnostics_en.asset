@@ -238,84 +238,92 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2914088892338176
-    m_Localized: 01 - Flowing sheets
+    m_Localized: 01 - Geyser pillar
     m_Metadata:
       m_Items: []
   - m_Id: 2914088963641344
-    m_Localized: Separated hollow sheets, recessed blue folds and detached crest
-      foam.
+    m_Localized: A layered geyser erupts from a gathering pool, wearing a foam skirt
+      and bursting crests.
     m_Metadata:
       m_Items: []
   - m_Id: 2914099914969088
-    m_Localized: 02 - Clustered geysers
+    m_Localized: 02 - Pillar ring
     m_Metadata:
       m_Items: []
   - m_Id: 2914099914969089
-    m_Localized: Unequal curved geysers with staggered caps and open channels.
+    m_Localized: Four pillars erupt around the player, one on each pulse, and collapse
+      together.
     m_Metadata:
       m_Items: []
   - m_Id: 2914110971154432
-    m_Localized: 03 - Tidal crests
+    m_Localized: 03 - Twin waves
     m_Metadata:
       m_Items: []
   - m_Id: 2914110971154433
-    m_Localized: Opposed curling waves rise around a clear central opening.
+    m_Localized: Two curling waves rise on either side and tip over the player before
+      breaking apart.
     m_Metadata:
       m_Items: []
   - m_Id: 2914122006368256
-    m_Localized: 04 - Split fountains
+    m_Localized: 04 - Vortex spiral
     m_Metadata:
       m_Items: []
   - m_Id: 2914122006368257
-    m_Localized: Five rising jets with diverging streams and detached foam.
+    m_Localized: Twisted water sheets spin upward around the player and fling tangential
+      spray.
     m_Metadata:
       m_Items: []
   - m_Id: 2914132294995968
-    m_Localized: 05 - Braided currents
+    m_Localized: 05 - Spiral ribbons
     m_Metadata:
       m_Items: []
   - m_Id: 2914132294995969
-    m_Localized: Sinuous currents weave upward between separated front and rear crests.
+    m_Localized: Foam-headed ribbons spiral upward around a thin core; each pulse
+      launches a new set.
     m_Metadata:
       m_Items: []
   - m_Id: 2914141807677440
-    m_Localized: 06 - Surging fans
+    m_Localized: 06 - Splash crown
     m_Metadata:
       m_Items: []
   - m_Id: 2914141807677441
-    m_Localized: Asymmetric fans unfold through hollow scalloped water sheets.
+    m_Localized: A jagged splash crown erupts and re-bursts on each pulse with a
+      droplet fountain.
     m_Metadata:
       m_Items: []
   - m_Id: 2914152482181120
-    m_Localized: 07 - Broken curtains
+    m_Localized: 07 - Ring wall
     m_Metadata:
       m_Items: []
   - m_Id: 2914152482181121
-    m_Localized: Torn flowing curtains split into distinct suspended folds.
+    m_Localized: A hollow water wall rises around the player; foam bands climb it
+      on each pulse.
     m_Metadata:
       m_Items: []
   - m_Id: 2914162481401856
-    m_Localized: 08 - Ascending streams
+    m_Localized: 08 - Tiered fountain
     m_Metadata:
       m_Items: []
   - m_Id: 2914162481401857
-    m_Localized: Three water streams carry successive broken foam bands upward.
+    m_Localized: A central jet stacks a new overflowing tier on each pulse, dripping
+      into the pool.
     m_Metadata:
       m_Items: []
   - m_Id: 2914174762323968
-    m_Localized: 09 - Branching torrents
+    m_Localized: 09 - Jellyfish dome
     m_Metadata:
       m_Items: []
   - m_Id: 2914174762323969
-    m_Localized: Flared water surges rise with branching streams and detached foam.
+    m_Localized: A jet mushrooms into a pulsing dome that trails dripping tendrils.
     m_Metadata:
       m_Items: []
   - m_Id: 2914184023347200
-    m_Localized: 10 - Splash crown
+    m_Localized: 10 - Lotus bloom
     m_Metadata:
       m_Items: []
   - m_Id: 2914184023347201
-    m_Localized: Broad curled petals rise around a hollow water crown.
+    m_Localized: Six curled petals rise and open around the player, with a foam heart
+      on each pulse.
     m_Metadata:
       m_Items: []
   references:

@@ -1,12 +1,20 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 // One presentation lifecycle for all ten candidates; gameplay supplies pulse callbacks.
 public sealed class RisingWaterVariantEffect : CharacterSkillPresentationInstance
 {
+    [Serializable]
+    public struct PulseEmitter
+    {
+        public ParticleSystem system;
+        [Min(1)] public int count;
+        [Tooltip("Bit n set: emit on pulse n.")] public int pulseMask;
+    }
+
     [SerializeField] private ParticleSystem[] startupSystems;
-    [SerializeField] private ParticleSystem[] pulseSystems;
-    [SerializeField] private ParticleSystem[] pulseMeshSystems;
+    [SerializeField] private PulseEmitter[] pulseEmitters;
     private ParticleSystem[] systems;
     private Animator view;
     private RisingWaterVariantSettings settings;
@@ -35,20 +43,18 @@ public sealed class RisingWaterVariantEffect : CharacterSkillPresentationInstanc
         view.SetFloat("Phase", 0f);
         view.Play("Rise", 0, 0f); view.Update(0f);
         foreach (var system in startupSystems) if (system != null) system.Play(false);
-        // These systems have zero automatic emission, but their simulation must run
-        // so emitted droplets travel and fade rather than remaining frozen at birth.
-        foreach (var system in pulseSystems) if (system != null) system.Play(false);
-        foreach (var system in pulseMeshSystems) if (system != null) system.Play(false);
+        // Pulse systems have zero automatic emission, but their simulation must run
+        // so emitted pieces grow, travel and erode rather than freezing at birth.
+        foreach (var emitter in pulseEmitters) if (emitter.system != null) emitter.system.Play(false);
     }
 
     public override void Pulse(int pulse)
     {
         if (settings == null || ending || pulse <= lastPulse) return;
         lastPulse = pulse; PulseCount++; PulseTimes.Add(Elapsed);
-        foreach (var system in pulseMeshSystems)
-            if (system != null) system.Emit(1);
-        foreach (var system in pulseSystems)
-            if (system != null) system.Emit(settings.dropletsPerPulse);
+        foreach (var emitter in pulseEmitters)
+            if (emitter.system != null && (emitter.pulseMask & (1 << pulse)) != 0)
+                emitter.system.Emit(Mathf.Max(1, emitter.count));
     }
 
     public override void End()
@@ -58,6 +64,7 @@ public sealed class RisingWaterVariantEffect : CharacterSkillPresentationInstanc
         foreach (var system in systems) if (system != null) system.Stop(false, ParticleSystemStopBehavior.StopEmitting);
         if (Elapsed < duration - 0.06f)
         {
+            // Interrupted: native Animator erodes every surface through the recovery property.
             view.SetTrigger("Drain");
             expires = Mathf.Min(expires, Time.time + settings.interruptedTail);
         }
@@ -66,8 +73,6 @@ public sealed class RisingWaterVariantEffect : CharacterSkillPresentationInstanc
     private void Update()
     {
         if (settings == null) return;
-        // Native Animator evaluates an authored clip against the same clock as the pulses.
-        // A long instantiate/editor frame must not move the animation ahead of that clock.
         view.SetFloat("Phase", Mathf.Clamp01(Elapsed / Mathf.Max(.01f, duration + settings.tailSeconds)));
         if (Time.time >= expires) Destroy(gameObject);
     }

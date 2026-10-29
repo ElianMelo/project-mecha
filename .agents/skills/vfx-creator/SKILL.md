@@ -36,6 +36,8 @@ This is a starting list, not an exclusive supplier list. Inspect actual local as
 
 ## Plan phases and construction
 
+The user confirmed this approach as the direction for anime water on 2026-10-28; treat it as the baseline and iterate from it.
+
 Before building, read the [technique guide](references/technique-guide.md) and write the effect's timeline as data: warmup/anticipation ending on the impact frame, action with an overshoot snap and a reaction on every pulse, recovery that breaks the form apart, and a shorter interruption path. Derive every size, rotation and erosion curve from that timeline and the gameplay action's real timings. Change shape in every phase (height, width, tilt, spin, tear depth, erosion holes); fading opacity alone is not motion.
 
 Assign layer roles front to back (ground/pool, deep shell, body, foam/crest/spray) with explicit sort order. Use cel tone bands (step/smoothstep thresholds), foam bands on erosion edges, torn tops instead of flat rims, back-face shading and flowing UVs. Check texture feature frequency before choosing tiling.

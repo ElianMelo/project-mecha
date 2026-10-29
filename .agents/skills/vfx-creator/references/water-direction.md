@@ -70,3 +70,5 @@ All ten were rebuilt as new approaches to "water rising around the player". Cons
 - Spray originates at the crest or rim that creates it.
 
 Agent observations, not user approval: the ten read as distinct constructions across phases; torn tops read as pointed tongues after vertically stretched tear sampling; recovery opens large foam-edged holes. The pool's deep patches look dark against the grey test floor during recovery. No candidate is selected; awaiting user evaluation.
+
+**User evaluation (2026-10-28):** the user called the third pass a good direction. Keep its approach as the baseline for this family: cel tone bands, foam only on rims, edges and lines, torn pointed tops, explicit warmup/action/recovery phases timed to the action, and ordered layer roles. The user will give detailed feedback later; until then no single candidate is selected and nothing is final.

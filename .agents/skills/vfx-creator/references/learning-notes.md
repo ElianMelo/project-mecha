@@ -51,3 +51,5 @@ Observed during authoring (agent observations, not user approval):
 - `capture_game_view` writes under `Assets/`; an existing tracked empty `Assets/Logs` folder was deleted during cleanup and restored from git with its original GUID. Check tracked status before deleting.
 
 Remaining uncertainty: user evaluation of the ten; whether the pool's dark recovery patches read well on real gameplay floors; ribbon trails are the busiest silhouette in recovery.
+
+User follow-up (2026-10-28): the user called the third pass "a good direction". Treat the phase-timeline, layer-role and cel-shading approach in the [technique guide](technique-guide.md) as the confirmed baseline for anime water. Build later iterations on it rather than starting over, and wait for the user's detailed feedback before changing direction.
